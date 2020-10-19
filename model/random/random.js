@@ -1,9 +1,4 @@
 
-function rand(end)
-{
-	return Math.floor(end * Math.random());
-}
-
 function delta()
 {
 	return rand(3) - 1;
@@ -12,11 +7,11 @@ function delta()
 
 function setState(config)
 {
-	var state = {};
+	let state = {};
 	state.size = config.size;
 
-	var width = state.size.width;
-	var height = state.size.height;
+	let width = state.size.width;
+	let height = state.size.height;
 
 	state.persons = [];
 
@@ -28,7 +23,7 @@ function setState(config)
 	return state;
 }
 
-function step(state, tDelta) 
+function step(state, deltaT) 
 {
 	for (var i = state.persons.length - 1; i >= 0; i--) 
 	{
@@ -39,12 +34,8 @@ function step(state, tDelta)
 	return state;
 }
 
-function draw(state)
+function draw(context, state)
 {
-	var canvas = document.getElementById('canvas');
-
-	const context = canvas.getContext('2d');
-
 	context.fillStyle = 'LightBlue';
 	context.fillRect(0, 0, width, height);
 
@@ -57,14 +48,6 @@ function draw(state)
 
 }
 
-function animate(timestamp)
-{
-	draw(state);
-
-	state = step(state, 0);
-
-	window.requestAnimationFrame(animate);
-}
 
 var state = setState(config);
 
