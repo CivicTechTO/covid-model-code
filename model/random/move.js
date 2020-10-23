@@ -19,11 +19,11 @@ function setState(config)
 	let width = state.size.width;
 	let height = state.size.height;
 
-	state.persons = [];
+	state.personList = [];
 
 	for (var i = 0; i < config.count; i++) 
 	{
-		state.persons[i] = new Person(target(width, height), target(width, height));
+		state.personList[i] = new Person(target(width, height), target(width, height));
 	}
 
 	return state;
@@ -36,35 +36,35 @@ function step(state, deltaT)
 
 	let stepDelta = state.speed * Math.round(deltaT / FRAME);
 
-	for (var i = state.persons.length - 1; i >= 0; i--) 
+	for (var i = state.personList.length - 1; i >= 0; i--) 
 	{
-		let current = state.persons[i].current;
-		let dest = state.persons[i].dest;
+		let current = state.personList[i].current;
+		let dest = state.personList[i].dest;
 
 		if (current.x === dest.x)
 		{
 			if (current.y === dest.y)
 			{
-				state.persons[i].dest = target(width, height);
+				state.personList[i].dest = target(width, height);
 			}
 			if (current.y < dest.y)
 			{
-				state.persons[i].current.y = Math.min(dest.y, current.y + stepDelta);
+				state.personList[i].current.y = Math.min(dest.y, current.y + stepDelta);
 			}
 			else
 			{
-				state.persons[i].current.y = Math.max(dest.y, current.y - stepDelta);
+				state.personList[i].current.y = Math.max(dest.y, current.y - stepDelta);
 			}
 		}
 		else
 		{
 			if (current.x < dest.x)
 			{
-				state.persons[i].current.x = Math.min(dest.x, current.x + stepDelta);
+				state.personList[i].current.x = Math.min(dest.x, current.x + stepDelta);
 			}
 			else
 			{
-				state.persons[i].current.x = Math.max(dest.x, current.x - stepDelta);
+				state.personList[i].current.x = Math.max(dest.x, current.x - stepDelta);
 			}
 		}
 	}
@@ -79,9 +79,9 @@ function draw(context, state)
 
 	context.strokeStyle = 'black';
 
-	for (var i = state.persons.length - 1; i >= 0; i--) 
+	for (var i = state.personList.length - 1; i >= 0; i--) 
 	{
-		context.strokeRect(state.persons[i].current.x, state.persons[i].current.y, 1, 1);	
+		context.strokeRect(state.personList[i].current.x, state.personList[i].current.y, factorX, factorY);	
 	}
 }
 
@@ -91,9 +91,12 @@ var state = setState(config);
 var width = state.size.width;
 var height = state.size.height;
 
-var canvas = document.getElementById('canvas');
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
 
-canvas.width = width;
-canvas.height = height;
+var factorX = width / canvas.width;
+var factorY = height / canvas.height;
+
+context.setTransform(1 / factorX, 0, 0, 1 / factorY, 0, 0);
 
 window.requestAnimationFrame(animate);
