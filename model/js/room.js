@@ -20,10 +20,10 @@ class Room
 	{
 		this.personSet.add(person);
 
-		let columnCount = this.width - 8;
+		let columnCount = Math.floor((this.width - 8) / 4);
 		let count = this.personSet.size;
-		let x = this.x + 4 + count % columnCount;
-		let y = this.y + 4 + Math.floor(count / columnCount);
+		let x = this.x + 4 + 4 * (count % columnCount);
+		let y = this.y + 4 + 4 * Math.floor(count / columnCount);
 
 		return new Point(x,y);
 	}
