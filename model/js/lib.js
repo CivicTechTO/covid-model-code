@@ -33,8 +33,24 @@ function animate(timestamp)
 	state = step(state, deltaT);
 }
 
-function Point(x, y)
+class Point
 {
-	this.x = x;
-	this.y = y;
+	constructor(x, y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+
+	equals(other)
+	{
+		return this.x === other.x && this.y === other.y;
+	}
 }
+
+function findFeeder(width, feederSpace, x)
+{
+	let last = width - feederSpace;
+	return Math.min(last, Math.max(feederSpace, feederSpace * Math.round(x / feederSpace)));
+}
+
+
