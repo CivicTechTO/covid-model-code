@@ -11,26 +11,18 @@ function animate(timestamp)
 {
 	window.requestAnimationFrame(animate);
 
-	if (past)
-	{
-		deltaT = timestamp - past;
-	}
-	else
-	{
-		deltaT = FRAME;
-	}
-
+	let deltaT = (past ? timestamp - past : FRAME);
 	past = timestamp;
 
 	const context = document.getElementById('canvas').getContext('2d');
 
 	context.save();
 
-	draw(context, state);
+	state.draw(context);
 
 	context.restore();
 
-	state = step(state, deltaT);
+	state.step(deltaT);
 }
 
 class Point
@@ -47,10 +39,8 @@ class Point
 	}
 }
 
-function findFeeder(width, feederSpace, x)
+function transfer(fromSet, toSet, member) 
 {
-	let last = width - feederSpace;
-	return Math.min(last, Math.max(feederSpace, feederSpace * Math.round(x / feederSpace)));
+	toSet.add(member);
+	fromSet.delete(member);
 }
-
-

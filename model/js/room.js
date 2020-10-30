@@ -1,5 +1,5 @@
 
-class Room
+class Place
 {
 	constructor(x, y, width, height)
 	{
@@ -13,19 +13,57 @@ class Room
 
 	insert(person)
 	{
-		person.setCurrent(this.place(person));
+		person.setCurrent(this.place(person, this.personSet.size));
+		this.personSet.add(person);
 	}
 
-	place(person)
+	arrive(person)
 	{
-		this.personSet.add(person);
+		person.moveTo(this.place(person, this.personSet.size));
+		transfer(state.travelers, this.personSet, person);
+	}
+	
+	beSeated()
+	{
+		let i = 0;
+		for (const person of this.personSet)
+		{
+			person.moveTo(this.place(person, i++));
+		}
+	}
 
-		let columnCount = Math.floor((this.width - 8) / 4);
-		let count = this.personSet.size;
-		let x = this.x + 4 + 4 * (count % columnCount);
-		let y = this.y + 4 + 4 * Math.floor(count / columnCount);
+	place(person, which)
+	{
+		let columnCount = Math.floor((this.width - 4) / 4);
+		let x = this.x + 4 + 4 * (which % columnCount);
+		let y = this.y + 4 + 4 * Math.floor(which / columnCount);
 
 		return new Point(x,y);
+	}
+
+	door()
+	{
+		let midX = this.x + Math.floor(this.width / 2);
+		let midY = this.y + Math.floor(this.height / 2);
+		let nearest = state.findFeeder(midX);
+		let side = (nearest < midX ? this.x : this.x + this.width);
+		return new Point(side, midY);
+	}
+
+	step(deltaT)
+	{
+		for (const person of this.personSet)
+		{
+			person.step(deltaT);
+		}
+	}
+}
+
+class Room extends Place
+{
+	constructor(x, y, width, height)
+	{
+		super(x, y, width, height);
 	}
 
 	draw(context)

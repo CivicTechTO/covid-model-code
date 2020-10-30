@@ -2,33 +2,97 @@ class Person
 {
 	constructor()
 	{
+		this.toRoom = null;
+		this.current = null;
+		this.dest = null;
 	}
 
 // newCurrent : Point
 
 	setCurrent(newCurrent)
 	{
-		this.current = { ...newCurrent};
+		this.current = new Point(newCurrent.x, newCurrent.y);
 	}
 
-	moveTo(dest, speed)
+	moveTo(dest)
 	{
-		this.speed = speed;
 		this.dest = dest;
+		this.to = null;
+		this.speed = state.moveSpeed;
 	}
 
 
-// final : Room
-
-	travelTo(final, speed)
+	setItinerary(fromRoom, toRoom)
 	{
-		this.speed = speed;
-		this.final = final;
+		this.toRoom = toRoom;
+		this.speed = state.moveSpeed;
+
+		this.itinerary = [];
+
+		let dest = fromRoom.door();
+		this.dest = dest;
+
+		let fromFeeder = state.findFeeder(dest.x);
+		this.itinerary.push(new Point(fromFeeder, dest.y));
+
+		let toDoor = toRoom.door();
+		let toFeeder = state.findFeeder(toDoor.x);
+		if (toFeeder !== fromFeeder)
+		{
+			this.itinerary.push(new Point(fromFeeder, state.main));
+			this.itinerary.push(new Point(toFeeder, state.main));
+		}
+
+		this.itinerary.push(new Point(toFeeder, toDoor.y))
+		this.itinerary.push(new Point(toDoor.x, toDoor.y))
+
+		this.index = 0;
 	}
 
-	step(DeltaT)
+	step()
+	{
+		this.moveStep();
+		this.decisionStep();
+	}
+
+	travel()
+	{
+		this.moveStep();
+	}
+
+	decisionStep()
 	{
 
+	}
+	
+	moveStep()
+	{
+		if (this.current && this.dest)
+		{
+			if (!this.current.equals(this.dest))
+			{
+				let delta = Math.round(state.timeFactor * this.speed);
+				this.current.x = closer(this.dest.x, this.current.x, delta);
+				this.current.y = closer(this.dest.y, this.current.y, delta);
+			}
+			else
+			{
+				if (this.toRoom)		// We are travelling and we are at an intermediate dest
+				{
+					this.speed = state.travelSpeed;		// We are not in a room now
+
+					if (this.index >= this.itinerary.length)
+					{
+						this.toRoom.arrive(this);
+						this.toRoom = null;
+					}
+					else
+					{
+						this.dest = this.itinerary[this.index++];
+					}
+				}
+			}
+		}
 	}
 
 	draw(context)
@@ -38,9 +102,16 @@ class Person
 	}
 }
 
-function badPoint() 
+function closer(dest, current, delta)
 {
-	return new Point(-1, -1);
+	if (current < dest)
+	{
+		return Math.min(dest, current + delta);
+	}
+	else
+	{
+		return Math.max(dest, current - delta);
+	}
 }
 
 function newFinal(person, state)
@@ -61,81 +132,3 @@ function target(state)
 	return new Point(x, y);
 }
 
-function nextDest(person, state)
-{
-	let main = state.main;
-	let feederSpace = state.feederSpace;
-	let width = state.size.width;
-	let height = state.size.height;
-
-	if (person.current.x == person.final.x && person.current.y == person.final.y)
-	{
-		if (newFinal(person, state))
-		{
-			person.outbound = true;
-			person.dest = new Point(findFeeder(width, feederSpace, person.current.x), person.current.y)
-		}
-	}
-	else
-	{
-		if (person.outbound)
-		{
-			if (person.current.y == main)
-			{
-				person.outbound = false;
-				person.dest.x = findFeeder(width, feederSpace, person.final.x);
-			}
-			else
-			{
-				person.dest.y = main;
-			}
-		}
-		else
-		{
-			if (person.current.y == main)
-			{
-				person.dest.y = person.final.y;
-			}
-			else
-			{
-				if (person.current.x !== person.final.x)
-				{
-					person.dest.x = person.final.x;				
-				}
-			}
-		}
-	}
-}
-
-function move(person, stepDelta)
-{
-	let current = person.current;
-	let dest = person.dest;
-
-	if (current.x == dest.x)
-	{
-		if (current.y == dest.y)
-		{
-			nextDest(person, state);
-		}
-		if (current.y < dest.y)
-		{
-			current.y = Math.min(dest.y, current.y + stepDelta);
-		}
-		else
-		{
-			current.y = Math.max(dest.y, current.y - stepDelta);
-		}
-	}
-	else
-	{
-		if (current.x < dest.x)
-		{
-			current.x = Math.min(dest.x, current.x + stepDelta);
-		}
-		else
-		{
-			current.x = Math.max(dest.x, current.x - stepDelta);
-		}
-	}
-}
