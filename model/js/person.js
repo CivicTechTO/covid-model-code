@@ -18,7 +18,7 @@ class Person
 	{
 		this.dest = dest;
 		this.to = null;
-		this.speed = state.moveSpeed;
+		this.speed = state.moveSpeed + rand(state.moveVariation);
 	}
 
 
@@ -79,7 +79,18 @@ class Person
 			{
 				if (this.toRoom)		// We are travelling and we are at an intermediate dest
 				{
-					this.speed = state.travelSpeed;		// We are not in a room now
+					if (0 === this.index)		//  Leaving door
+					{
+						this.speed = 1 +rand(state.travelSpeed + state.travelVariation);
+					}
+					else
+					{
+						if (1 === this.index)
+						{
+							this.speed = state.travelSpeed + rand(state.travelVariation);
+						}
+					}
+
 
 					if (this.index >= this.itinerary.length)
 					{

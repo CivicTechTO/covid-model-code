@@ -4,7 +4,9 @@ class State
 	{
 		this.size = config.size;
 		this.moveSpeed = config.moveSpeed;
+		this.moveVariation = config.moveVariation;
 		this.travelSpeed = config.travelSpeed;
+		this.travelVariation = config.travelVariation;
 
 		this.main = config.main;
 		this.feederSpace = config.feederSpace;
