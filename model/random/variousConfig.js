@@ -1,0 +1,28 @@
+const config = {
+	  "size": {"height": 500, "width":1000}
+	, "offset": 4
+	, "personSize": 1
+	, "moveSpeed": 1
+	, "moveVariation": 2
+	, "travelSpeed": 7
+	, "travelVariation": 2
+	, "count": 1000
+	, "main": 250
+	, "feederSpace": 100 
+	, "when": 300
+	, "spacing": 4
+	, "roomSize": 80
+ 	, "roomSpec": 
+ 		[
+ 			  {type: 1, x: 1, y: 1}
+ 			, {type: 1, x: 1, y: 100}
+ 			, {type: 1, x: 105, y: 100}
+ 			, {type: 1, x: 210, y: 100}
+ 			, {type: 1, x: 305, y: 10}
+ 			, {type: 1, x: 1, y: 418}
+ 			, {type: 1, x: 918, y: 1}
+ 			, {type: 1, x: 918, y: 418}
+ 		]
+}
+
+

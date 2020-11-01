@@ -1,3 +1,73 @@
+// Base and default rules class
+
+class Rules
+{
+	constructor(place)
+	{
+		this.place = place;
+	}
+
+	insert(person)
+	{
+		person.setCurrent(seat(this.place, person, this.place.personSet.size));
+		this.place.personSet.add(person);
+	}
+
+	arrive(person)
+	{
+		person.moveTo(seat(this.place, person, this.place.personSet.size));
+		transfer(state.travelers, this.place.personSet, person);
+	}
+
+	transition()
+	{
+		let i = 0;
+		for (const person of this.personSet)
+		{
+			person.moveTo(seat(this.place, person, i++));
+		}
+	}
+
+	step(deltaT)
+	{
+
+	}
+
+}
+
+function seat(room, person, which)
+{
+	let spacing = state.spacing
+	let columnCount = Math.floor((room.width - spacing) / spacing);
+	let x = room.x + spacing + spacing * (which % columnCount);
+	let y = room.y + spacing + spacing * Math.floor(which / columnCount);
+
+	return new Point(x,y);
+}
+
+class Random extends Rules
+{
+	constructor(place, box)
+	{
+		super(place);
+		this.box = box;
+	}
+
+	insert(person)
+	{
+
+	}
+
+	arrive(person)
+	{
+
+	}
+
+	transition()
+	{
+
+	}
+}
 
 class Place
 {
@@ -9,38 +79,19 @@ class Place
 		this.height = height;
 
 		this.personSet = new Set();
+		this.rules = new Rules(this);
 	}
 
 	insert(person)
 	{
-		person.setCurrent(this.place(person, this.personSet.size));
-		this.personSet.add(person);
+		this.rules.insert(person);
 	}
 
 	arrive(person)
 	{
-		person.moveTo(this.place(person, this.personSet.size));
-		transfer(state.travelers, this.personSet, person);
+		this.rules.arrive(person);
 	}
 	
-	beSeated()
-	{
-		let i = 0;
-		for (const person of this.personSet)
-		{
-			person.moveTo(this.place(person, i++));
-		}
-	}
-
-	place(person, which)
-	{
-		let columnCount = Math.floor((this.width - 4) / 4);
-		let x = this.x + 4 + 4 * (which % columnCount);
-		let y = this.y + 4 + 4 * Math.floor(which / columnCount);
-
-		return new Point(x,y);
-	}
-
 	door()
 	{
 		let midX = this.x + Math.floor(this.width / 2);
@@ -52,6 +103,8 @@ class Place
 
 	step(deltaT)
 	{
+		this.rules.step(deltaT);
+
 		for (const person of this.personSet)
 		{
 			person.step(deltaT);

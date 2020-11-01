@@ -81,7 +81,7 @@ class Person
 				{
 					if (0 === this.index)		//  Leaving door
 					{
-						this.speed = 1 +rand(state.travelSpeed + state.travelVariation);
+						this.speed = 1 + rand(state.travelSpeed + state.travelVariation);
 					}
 					else
 					{

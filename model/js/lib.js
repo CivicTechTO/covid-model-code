@@ -3,6 +3,11 @@ function rand(end)
 	return Math.floor(end * Math.random());
 }
 
+function clamp(lower, upper, value) 
+{
+	return (lower > value ? lower : (upper < value ? upper : value));
+}
+
 const FRAME = 1000 / 60;
 
 var past = null;

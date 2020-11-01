@@ -14,25 +14,16 @@
  *		Go E/W to the dest
  */
 
-class CircleRoom extends Room
+function roomChoice(type, x, y, config) 
 {
-	constructor(x, y, width, height)
+	switch (type)
 	{
-		super(x, y, width, height);
-	}
-
-	leaveFor(to)
-	{
-		for (const person of this.personSet)
-		{
-			transfer(this.personSet, state.travelers, person);
-			person.setItinerary(this, to);
-		}
-
+	case 1:
+		return new Room(x, y, config.roomSize, config.roomSize)
 	}
 }
 
-class CircleState extends State
+class VariousState extends State
 {
 	constructor(config, width, height)
 	{
@@ -41,23 +32,23 @@ class CircleState extends State
 		this.tick = 0;
 		this.which = 0;
 		this.when = config.when;
-
 	}
 
 	fill(config)
 	{
-		for (var i = 0; i < config.roomLocation.length; i++) 
+		for (var i = 0; i < config.roomSpec.length; i++) 
 		{
-			let x = config.roomLocation[i].x;
-			let y = config.roomLocation[i].y;
-			this.roomList[i] = new CircleRoom(x, y, config.roomSize, config.roomSize)
+			let type = config.roomSpec[i].type;
+			let x = config.roomSpec[i].x;
+			let y = config.roomSpec[i].y;
+			this.roomList[i] = roomChoice(type, x, y, config);
 		}
 
 		for (var i = 0; i < config.count; i++) 
 		{
 			let person = new Person();
 			this.personList[i] = person;
-			this.roomList[0].insert(person);
+			this.roomList[i % this.roomList.length].insert(person);
 		}
 	}
 
@@ -88,7 +79,7 @@ class CircleState extends State
 
 const canvas = document.getElementById('canvas');
 
-var state = new CircleState(config, canvas.width, canvas.height);
+var state = new VariousState(config, canvas.width, canvas.height);
 state.fill(config);
 
 window.requestAnimationFrame(animate);

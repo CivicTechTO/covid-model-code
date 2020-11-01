@@ -4,12 +4,12 @@ const config = {
 	, "moveVariation": 2
 	, "travelSpeed": 7
 	, "travelVariation": 2
-	, "count": 150
+	, "count": 50
 	, "main": 250
 	, "feederSpace": 100 
 	, "when": 300
 	, "roomSize": 80
-	, "spacing": 4
+	, "spacing": 8
  	, "roomLocation": 
  		[
  			  {x: 1, y: 1}

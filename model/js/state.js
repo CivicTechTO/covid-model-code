@@ -11,6 +11,8 @@ class State
 		this.main = config.main;
 		this.feederSpace = config.feederSpace;
 
+		this.spacing = config.spacing;
+
 		this.roomList = [];
 		
 		this.personList = [];
