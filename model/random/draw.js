@@ -14,24 +14,6 @@
  *		Go E/W to the dest
  */
 
-class DrawRoom extends Room
-{
-	constructor(x, y, width, height)
-	{
-		super(x, y, width, height);
-	}
-
-	leaveFor(to)
-	{
-		for (const person of this.personSet)
-		{
-			transfer(this.personSet, state.travelers, person);
-			person.setItinerary(this, to);
-		}
-
-	}
-}
-
 class DrawPerson extends Person
 {
 	constructor(type)
@@ -166,7 +148,7 @@ class DrawState extends State
 		{
 			let x = config.roomLocation[i].x;
 			let y = config.roomLocation[i].y;
-			this.roomList[i] = new DrawRoom(x, y, config.roomSize, config.roomSize)
+			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize)
 		}
 
 		for (var i = 0; i < config.count; i++) 

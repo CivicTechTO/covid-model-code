@@ -14,12 +14,17 @@
  *		Go E/W to the dest
  */
 
-function roomChoice(type, x, y, config) 
+function roomChoice(type, args, x, y, config) 
 {
 	switch (type)
 	{
 	case 1:
-		return new Room(x, y, config.roomSize, config.roomSize)
+		return new Room(x, y, config.roomSize, config.roomSize);
+		break;
+
+	case 2:
+		return new RandomRoom(x, y, config.roomSize, config.roomSize, args.halfEdge);
+		break;
 	}
 }
 
@@ -30,7 +35,6 @@ class VariousState extends State
 		super(config, width, height);
 
 		this.tick = 0;
-		this.which = 0;
 		this.when = config.when;
 	}
 
@@ -39,9 +43,10 @@ class VariousState extends State
 		for (var i = 0; i < config.roomSpec.length; i++) 
 		{
 			let type = config.roomSpec[i].type;
+			let args = config.roomSpec[i].args;
 			let x = config.roomSpec[i].x;
 			let y = config.roomSpec[i].y;
-			this.roomList[i] = roomChoice(type, x, y, config);
+			this.roomList[i] = roomChoice(type, args, x, y, config);
 		}
 
 		for (var i = 0; i < config.count; i++) 
@@ -58,11 +63,11 @@ class VariousState extends State
 
 		if (0 === this.tick % this.when)
 		{
-			this.which = (this.which + 1) % this.roomList.length;
+			let which = 1;
 	
 			for (const room of this.roomList)
 			{
-				room.leaveFor(this.roomList[this.which]);
+				room.leaveFor(this.roomList[which++ % this.roomList.length]);
 			}
 		}
 		else

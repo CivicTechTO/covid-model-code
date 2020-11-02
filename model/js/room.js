@@ -22,7 +22,7 @@ class Rules
 	transition()
 	{
 		let i = 0;
-		for (const person of this.personSet)
+		for (const person of this.place.personSet)
 		{
 			person.moveTo(seat(this.place, person, i++));
 		}
@@ -32,7 +32,6 @@ class Rules
 	{
 
 	}
-
 }
 
 function seat(room, person, which)
@@ -45,28 +44,66 @@ function seat(room, person, which)
 	return new Point(x,y);
 }
 
-class Random extends Rules
+class RandomRules extends Rules
 {
-	constructor(place, box)
+	constructor(place, halfEdge)
 	{
 		super(place);
-		this.box = box;
+		this.halfEdge = halfEdge;
 	}
 
 	insert(person)
 	{
-
+		let x = startRandom(this.place.x + 1, this.place.width - 1);
+		let y = startRandom(this.place.y + 1, this.place.height - 1);
+		person.setCurrent(new Point(x, y));
+		this.place.personSet.add(person);
 	}
 
 	arrive(person)
 	{
-
+		person.moveTo(findRandom(this.place, person, this.halfEdge));
+		transfer(state.travelers, this.place.personSet, person);
 	}
 
 	transition()
 	{
-
+		let i = 0;
+		for (const person of this.place.personSet)
+		{
+			person.moveTo(findRandom(this.place, person, this.halfEdge));
+		}
 	}
+
+	step(deltaT)
+	{
+		for (const person of this.place.personSet)
+		{
+			if (person.hasArrived())
+			{
+				person.moveTo(findRandom(this.place, person, this.halfEdge));
+			}
+		}
+	}
+}
+
+function startRandom(lower, limit) 
+{
+	return lower + rand(limit);
+}
+
+function findRandom(place, person, halfEdge) 
+{
+	let x = randomCoord(place.x + 1, place.width - 1, person.current.x, halfEdge);
+	let y = randomCoord(place.y + 1, place.height - 1, person.current.y, halfEdge);
+	return new Point(x, y)
+}
+
+function randomCoord(lower, limit, current, halfEdge) 
+{
+	let mid = clamp(lower + halfEdge, lower + (limit - halfEdge), current);
+	let delta = rand(2 * halfEdge + 1) - halfEdge;
+	return mid + delta;
 }
 
 class Place
@@ -110,6 +147,16 @@ class Place
 			person.step(deltaT);
 		}
 	}
+
+	leaveFor(to)
+	{
+		for (const person of this.personSet)
+		{
+			transfer(this.personSet, state.travelers, person);
+			person.setItinerary(this, to);
+		}
+
+	}
 }
 
 class Room extends Place
@@ -124,5 +171,14 @@ class Room extends Place
 		context.strokeStyle = 'black';
 		context.lineWidth = 1;
 		context.strokeRect(this.x, this.y, this.width, this.height);	
+	}
+}
+
+class RandomRoom extends Room
+{
+	constructor(x, y, width, height, halfEdge)
+	{
+		super(x, y, width, height);
+		this.rules = new RandomRules(this, halfEdge);
 	}
 }

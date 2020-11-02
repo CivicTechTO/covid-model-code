@@ -21,6 +21,11 @@ class Person
 		this.speed = state.moveSpeed + rand(state.moveVariation);
 	}
 
+	hasArrived()
+	{
+		return ((this.current && this.dest) ? this.current.equals(this.dest) : false);
+	}
+
 
 	setItinerary(fromRoom, toRoom)
 	{

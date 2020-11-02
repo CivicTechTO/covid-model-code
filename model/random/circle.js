@@ -14,24 +14,6 @@
  *		Go E/W to the dest
  */
 
-class CircleRoom extends Room
-{
-	constructor(x, y, width, height)
-	{
-		super(x, y, width, height);
-	}
-
-	leaveFor(to)
-	{
-		for (const person of this.personSet)
-		{
-			transfer(this.personSet, state.travelers, person);
-			person.setItinerary(this, to);
-		}
-
-	}
-}
-
 class CircleState extends State
 {
 	constructor(config, width, height)
@@ -50,7 +32,7 @@ class CircleState extends State
 		{
 			let x = config.roomLocation[i].x;
 			let y = config.roomLocation[i].y;
-			this.roomList[i] = new CircleRoom(x, y, config.roomSize, config.roomSize)
+			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize)
 		}
 
 		for (var i = 0; i < config.count; i++) 
