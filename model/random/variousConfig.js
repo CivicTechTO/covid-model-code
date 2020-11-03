@@ -59,11 +59,11 @@ const config = {
  			, {type: 2, args: {halfEdge: 3, pause: 7}, x: 205, y: 401}
  			, {type: 2, args: {halfEdge: 4, pause: 7}, x: 305, y: 401}
  			, {type: 2, args: {halfEdge: 5, pause: 7}, x: 405, y: 401}
- 			, {type: 2, args: {halfEdge: 10, pause: 7}, x: 505, y: 401}
- 			, {type: 2, args: {halfEdge: 15, pause: 7}, x: 605, y: 401}
- 			, {type: 2, args: {halfEdge: 20, pause: 7}, x: 705, y: 401}
- 			, {type: 2, args: {halfEdge: 30, pause: 7}, x: 805, y: 401}
- 			, {type: 2, args: {halfEdge: 39, pause: 7}, x: 905, y: 401}
+ 			, {type: 2, args: {halfEdge: 10, pause: 100}, x: 505, y: 401}
+ 			, {type: 2, args: {halfEdge: 15, pause: 100}, x: 605, y: 401}
+ 			, {type: 2, args: {halfEdge: 20, pause: 100}, x: 705, y: 401}
+ 			, {type: 2, args: {halfEdge: 30, pause: 100}, x: 805, y: 401}
+ 			, {type: 2, args: {halfEdge: 39, pause: 100}, x: 905, y: 401}
  		]
 }
 
