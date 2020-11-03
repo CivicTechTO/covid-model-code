@@ -28,7 +28,7 @@ class Rules
 		}
 	}
 
-	step(deltaT)
+	step()
 	{
 
 	}
@@ -46,10 +46,12 @@ function seat(room, person, which)
 
 class RandomRules extends Rules
 {
-	constructor(place, halfEdge)
+	constructor(place, halfEdge, pause)
 	{
 		super(place);
 		this.halfEdge = halfEdge;
+		this.pause = pause;
+		this.pauseCount = 0;
 	}
 
 	insert(person)
@@ -75,13 +77,17 @@ class RandomRules extends Rules
 		}
 	}
 
-	step(deltaT)
+	step()
 	{
 		for (const person of this.place.personSet)
 		{
 			if (person.hasArrived())
 			{
-				person.moveTo(findRandom(this.place, person, this.halfEdge));
+				if (this.pauseCount++ > this.pause)
+				{
+					this.pauseCount = 0;
+					person.moveTo(findRandom(this.place, person, this.halfEdge));
+				}
 			}
 		}
 	}
@@ -138,13 +144,13 @@ class Place
 		return new Point(side, midY);
 	}
 
-	step(deltaT)
+	step()
 	{
-		this.rules.step(deltaT);
+		this.rules.step();
 
 		for (const person of this.personSet)
 		{
-			person.step(deltaT);
+			person.step();
 		}
 	}
 
@@ -176,9 +182,9 @@ class Room extends Place
 
 class RandomRoom extends Room
 {
-	constructor(x, y, width, height, halfEdge)
+	constructor(x, y, width, height, halfEdge, pause)
 	{
 		super(x, y, width, height);
-		this.rules = new RandomRules(this, halfEdge);
+		this.rules = new RandomRules(this, halfEdge, pause);
 	}
 }

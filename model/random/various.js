@@ -23,7 +23,7 @@ function roomChoice(type, args, x, y, config)
 		break;
 
 	case 2:
-		return new RandomRoom(x, y, config.roomSize, config.roomSize, args.halfEdge);
+		return new RandomRoom(x, y, config.roomSize, config.roomSize, args.halfEdge, args.pause);
 		break;
 	}
 }
@@ -55,6 +55,13 @@ class VariousState extends State
 			this.personList[i] = person;
 			this.roomList[i % this.roomList.length].insert(person);
 		}
+
+
+for (const room of this.roomList)
+{
+	console.log(room.personSet.size);
+}
+
 	}
 
 	step(deltaT) 

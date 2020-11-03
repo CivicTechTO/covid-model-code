@@ -30,7 +30,7 @@ class Person
 	setItinerary(fromRoom, toRoom)
 	{
 		this.toRoom = toRoom;
-		this.speed = state.moveSpeed;
+		this.speed = state.moveSpeed + rand(state.moveVariation);
 
 		this.itinerary = [];
 
@@ -128,23 +128,5 @@ function closer(dest, current, delta)
 	{
 		return Math.max(dest, current - delta);
 	}
-}
-
-function newFinal(person, state)
-{
-	previousX = person.final.x;
-	previousY = person.final.y;
-
-	person.final = target(state);
-
-	return previousX !== person.final.x || previousY !== person.final.y;
-}
-
-function target(state)
-{
-	let x = state.whichX[state.which];
-	let y = state.whichY[state.which];
-
-	return new Point(x, y);
 }
 
