@@ -16,14 +16,16 @@
 
 function roomChoice(type, args, x, y, config) 
 {
+	let roomSize = config.roomSize;
+
 	switch (type)
 	{
 	case 1:
-		return new Room(x, y, config.roomSize, config.roomSize);
+		return new Room(x, y, roomSize, roomSize);
 		break;
 
 	case 2:
-		return new RandomRoom(x, y, config.roomSize, config.roomSize, args.halfEdge, args.pause);
+		return new RandomRoom(x, y, roomSize, roomSize, args.halfEdge, args.start, args.pause);
 		break;
 	}
 }
@@ -55,13 +57,6 @@ class VariousState extends State
 			this.personList[i] = person;
 			this.roomList[i % this.roomList.length].insert(person);
 		}
-
-
-for (const room of this.roomList)
-{
-	console.log(room.personSet.size);
-}
-
 	}
 
 	step(deltaT) 
@@ -79,13 +74,33 @@ for (const room of this.roomList)
 		}
 		else
 		{
-			for (const room of this.roomList)
+			if (config.sit === this.tick % this.when)
 			{
-				room.step(deltaT);
+				let i = 0;
+				for (const room of this.roomList)
+				{
+					room.change(new Rules());
+				}
 			}
+
+			if (config.millabout === this.tick % this.when)
+			{
+				let i = 0;
+				for (const room of this.roomList)
+				{
+					let args = config.roomSpec[i++].args;
+					room.change(new RandomRules(args.halfEdge, args.start, args.pause));
+				}
+			}
+
 		}
 
-		state.tick += 1;
+		for (const room of this.roomList)
+		{
+			room.step(deltaT);
+		}
+
+		this.tick += 1;
 	}
 }
 

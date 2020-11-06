@@ -2,33 +2,32 @@
 
 class Rules
 {
-	constructor(place)
+	constructor()
 	{
-		this.place = place;
 	}
 
-	insert(person)
+	insert(place, person)
 	{
-		person.setCurrent(seat(this.place, person, this.place.personSet.size));
-		this.place.personSet.add(person);
+		person.setCurrent(seat(place, person, place.personSet.size));
+		place.personSet.add(person);
 	}
 
-	arrive(person)
+	arrive(place, person)
 	{
-		person.moveTo(seat(this.place, person, this.place.personSet.size));
-		transfer(state.travelers, this.place.personSet, person);
+		person.moveTo(seat(place, person, place.personSet.size));
+		transfer(state.travelers, place.personSet, person);
 	}
 
-	transition()
+	transition(place)
 	{
 		let i = 0;
-		for (const person of this.place.personSet)
+		for (const person of place.personSet)
 		{
-			person.moveTo(seat(this.place, person, i++));
+			person.moveTo(seat(place, person, i++));
 		}
 	}
 
-	step()
+	step(place)
 	{
 
 	}
@@ -46,50 +45,64 @@ function seat(room, person, which)
 
 class RandomRules extends Rules
 {
-	constructor(place, halfEdge, pause)
+	constructor(halfEdge, start, pause)
 	{
-		super(place);
+		super();
 		this.halfEdge = halfEdge;
 		this.pause = pause;
-		this.pauseCount = 0;
+		this.start = start;
 	}
 
-	insert(person)
+	insert(place, person)
 	{
-		let x = startRandom(this.place.x + 1, this.place.width - 1);
-		let y = startRandom(this.place.y + 1, this.place.height - 1);
+		let x = startRandom(place.x + 1, place.width - 1);
+		let y = startRandom(place.y + 1, place.height - 1);
 		person.setCurrent(new Point(x, y));
-		this.place.personSet.add(person);
+		place.personSet.add(person);
+		person.pause = this.newPause();
 	}
 
-	arrive(person)
+	arrive(place, person)
 	{
-		person.moveTo(findRandom(this.place, person, this.halfEdge));
-		transfer(state.travelers, this.place.personSet, person);
+		person.moveTo(findRandom(place, person, this.halfEdge));
+		transfer(state.travelers, place.personSet, person);
+		person.pause = 0;
 	}
 
-	transition()
+	transition(place)
 	{
 		let i = 0;
-		for (const person of this.place.personSet)
+		for (const person of place.personSet)
 		{
-			person.moveTo(findRandom(this.place, person, this.halfEdge));
+			person.pause = this.newStart();
+			person.moveTo(findRandom(place, person, this.halfEdge));
 		}
 	}
 
-	step()
+	step(place)
 	{
-		for (const person of this.place.personSet)
+		for (const person of place.personSet)
 		{
 			if (person.hasArrived())
 			{
-				if (this.pauseCount++ > this.pause)
+				person.pause--;
+				if (0 >= person.pause)
 				{
-					this.pauseCount = 0;
-					person.moveTo(findRandom(this.place, person, this.halfEdge));
+					person.pause = this.newPause();
+					person.moveTo(findRandom(place, person, this.halfEdge));
 				}
 			}
 		}
+	}
+
+	newPause()
+	{
+		return 1 + rand(this.pause);
+	}
+
+	newStart()
+	{
+		return 1 + rand(this.start);
 	}
 }
 
@@ -122,17 +135,23 @@ class Place
 		this.height = height;
 
 		this.personSet = new Set();
-		this.rules = new Rules(this);
+		this.rules = new Rules();
+	}
+
+	change(rules)
+	{
+		this.rules = rules;
+		this.rules.transition(this);
 	}
 
 	insert(person)
 	{
-		this.rules.insert(person);
+		this.rules.insert(this, person);
 	}
 
 	arrive(person)
 	{
-		this.rules.arrive(person);
+		this.rules.arrive(this, person);
 	}
 	
 	door()
@@ -146,7 +165,7 @@ class Place
 
 	step()
 	{
-		this.rules.step();
+		this.rules.step(this);
 
 		for (const person of this.personSet)
 		{
@@ -182,9 +201,9 @@ class Room extends Place
 
 class RandomRoom extends Room
 {
-	constructor(x, y, width, height, halfEdge, pause)
+	constructor(x, y, width, height, halfEdge, start, pause)
 	{
 		super(x, y, width, height);
-		this.rules = new RandomRules(this, halfEdge, pause);
+		this.rules = new RandomRules(halfEdge, start, pause);
 	}
 }
