@@ -9,9 +9,19 @@ class Person
 
 // newCurrent : Point
 
-	setCurrent(newCurrent)
+	setCurrent(x, y)
 	{
-		this.current = new Point(newCurrent.x, newCurrent.y);
+		this.current = new Point(x, y);
+	}
+
+	setNewCurrent(newCurrent)
+	{
+		this.current = newCurrent;
+	}
+
+	setDest(x, y)
+	{
+		this.dest = new Point(x, y);
 	}
 
 	moveTo(dest)

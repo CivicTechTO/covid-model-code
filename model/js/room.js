@@ -8,7 +8,7 @@ class Rules
 
 	insert(place, person)
 	{
-		person.setCurrent(seat(place, person, place.personSet.size));
+		person.setNewCurrent(seat(place, person, place.personSet.size));
 		place.personSet.add(person);
 	}
 
@@ -57,7 +57,8 @@ class RandomRules extends Rules
 	{
 		let x = startRandom(place.x + 1, place.width - 1);
 		let y = startRandom(place.y + 1, place.height - 1);
-		person.setCurrent(new Point(x, y));
+		person.setCurrent(x, y);
+		person.setDest(x,y);
 		place.personSet.add(person);
 		person.pause = this.newPause();
 	}
