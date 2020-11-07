@@ -76,7 +76,7 @@ class RandomRules extends Rules
 		for (const person of place.personSet)
 		{
 			person.pause = this.newStart();
-			person.moveTo(findRandom(place, person, this.halfEdge));
+//			person.moveTo(findRandom(place, person, this.halfEdge));
 		}
 	}
 
