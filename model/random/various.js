@@ -27,6 +27,10 @@ function roomChoice(type, args, x, y, config)
 	case 2:
 		return new RandomRoom(x, y, roomSize, roomSize, args.halfEdge, args.start, args.pause);
 		break;
+
+	case 3:
+		return new Outside(x, y, roomSize, roomSize);
+		break;
 	}
 }
 

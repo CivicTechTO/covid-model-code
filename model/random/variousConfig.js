@@ -4,10 +4,10 @@ const config = {
 	, "personSize": 1
 	, "moveSpeed": 1
 	, "moveVariation": 1
-	, "travelSpeed": 16
-	, "travelVariation": 8
+	, "travelSpeed": 8
+	, "travelVariation": 1
 	, "count": 10000
-	, "main": 250
+	, "main": 195
 	, "feederSpace": 100 
 	, "when": 600
 	, "sit": 300
@@ -65,7 +65,7 @@ const config = {
  			, {type: 2, args: {halfEdge: 15, start: 1, pause:100}, x: 605, y: 401}
  			, {type: 2, args: {halfEdge: 20, start: 1, pause:100}, x: 705, y: 401}
  			, {type: 2, args: {halfEdge: 30, start: 1, pause:100}, x: 805, y: 401}
- 			, {type: 2, args: {halfEdge: 39, start: 1, pause:100}, x: 905, y: 401}
+ 			, {type: 3, args: {halfEdge: 39, start: 1, pause:100}, x: 905, y: 401}
  		]
 }
 

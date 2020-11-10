@@ -197,6 +197,22 @@ class Room extends Place
 		context.strokeStyle = 'black';
 		context.lineWidth = 1;
 		context.strokeRect(this.x, this.y, this.width, this.height);	
+		context.fillStyle = 'lightGray';
+		context.fillRect(this.x, this.y, this.width, this.height);	
+	}
+}
+
+class Outside extends Room
+{
+	constructor(x, y, width, height)
+	{
+		super(x, y, width, height);
+	}
+
+	draw(context)
+	{
+		context.fillStyle = 'lightGreen';
+		context.fillRect(this.x, this.y, this.width, this.height);	
 	}
 }
 
