@@ -43,9 +43,9 @@ class CircleState extends State
 		}
 	}
 
-	step(deltaT) 
+	step(stepCount) 
 	{
-		super.step(deltaT);
+		super.step(stepCount);
 
 		if (0 === this.tick % this.when)
 		{
@@ -54,13 +54,6 @@ class CircleState extends State
 			for (const room of this.roomList)
 			{
 				room.leaveFor(this.roomList[this.which]);
-			}
-		}
-		else
-		{
-			for (const room of this.roomList)
-			{
-				room.step(deltaT);
 			}
 		}
 

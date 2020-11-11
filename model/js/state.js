@@ -17,21 +17,20 @@ class State
 		
 		this.personList = [];
 
-		this.travelers = new Set();
+		this.week = [night, day];
+		this.shift = 0;
 	}
 
-	step(deltaT)
+	step(stepCount)
 	{
-		this.timeFactor = Math.round(deltaT / FRAME);
-
 		for (const room of this.roomList)
 		{
-			room.step();
+			room.step(stepCount);
 		}
 
-		for (const person of this.travelers)
+		for (const person of this.personList)
 		{
-			person.travel();
+			person.step(stepCount);
 		}
 	}
 
@@ -62,5 +61,33 @@ class State
 		return Math.min(last, Math.max(feederSpace, feederSpace * Math.round(x / feederSpace)));
 	}
 
+	goHome()
+	{
+		for (room of this.roomList)
+		{
+			room.goHome();
+		}
+	}
+
+	goToWork()
+	{
+		for (room of this.roomList)
+		{
+			room.goToWork();
+		}
+	}
 }
+
+
+function night() 
+{
+	state.goHome();
+}
+
+function day() 
+{
+	state.goToWork();
+}
+
+
 

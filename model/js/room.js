@@ -15,7 +15,7 @@ class Rules
 	arrive(place, person)
 	{
 		person.moveTo(seat(place, person, place.personSet.size));
-		transfer(state.travelers, place.personSet, person);
+		place.personSet.add(person);
 	}
 
 	transition(place)
@@ -27,7 +27,7 @@ class Rules
 		}
 	}
 
-	step(place)
+	step(place, stepCount)
 	{
 
 	}
@@ -66,8 +66,8 @@ class RandomRules extends Rules
 	arrive(place, person)
 	{
 		person.moveTo(findRandom(place, person, this.halfEdge));
-		transfer(state.travelers, place.personSet, person);
 		person.pause = 0;
+		place.personSet.add(person);
 	}
 
 	transition(place)
@@ -76,17 +76,16 @@ class RandomRules extends Rules
 		for (const person of place.personSet)
 		{
 			person.pause = this.newStart();
-//			person.moveTo(findRandom(place, person, this.halfEdge));
 		}
 	}
 
-	step(place)
+	step(place, stepCount)
 	{
 		for (const person of place.personSet)
 		{
 			if (person.hasArrived())
 			{
-				person.pause--;
+				person.pause -= stepCount;
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
@@ -164,13 +163,13 @@ class Place
 		return new Point(side, midY);
 	}
 
-	step()
+	step(stepCount)
 	{
-		this.rules.step(this);
+		this.rules.step(this, stepCount);
 
 		for (const person of this.personSet)
 		{
-			person.step();
+			person.step(stepCount);
 		}
 	}
 
@@ -178,7 +177,7 @@ class Place
 	{
 		for (const person of this.personSet)
 		{
-			transfer(this.personSet, state.travelers, person);
+			this.personSet.delete(person);
 			person.setItinerary(this, to);
 		}
 
@@ -199,6 +198,22 @@ class Room extends Place
 		context.strokeRect(this.x, this.y, this.width, this.height);	
 		context.fillStyle = 'lightGray';
 		context.fillRect(this.x, this.y, this.width, this.height);	
+	}
+
+	goHome()
+	{
+		for (person of this.personSet)
+		{
+			person.goHome(this);
+		}
+	}
+
+	goToWork()
+	{
+		for (person of this.personSet)
+		{
+			person.goToWork(this);
+		}
 	}
 }
 

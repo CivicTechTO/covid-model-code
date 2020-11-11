@@ -64,29 +64,13 @@ class Person
 		this.index = 0;
 	}
 
-	step()
-	{
-		this.moveStep();
-		this.decisionStep();
-	}
-
-	travel()
-	{
-		this.moveStep();
-	}
-
-	decisionStep()
-	{
-
-	}
-	
-	moveStep()
+	step(stepCount)
 	{
 		if (this.current && this.dest)
 		{
 			if (!this.current.equals(this.dest))
 			{
-				let delta = Math.round(state.timeFactor * this.speed);
+				let delta = stepCount * this.speed;
 				this.current.x = closer(this.dest.x, this.current.x, delta);
 				this.current.y = closer(this.dest.y, this.current.y, delta);
 			}
@@ -119,6 +103,16 @@ class Person
 				}
 			}
 		}
+	}
+
+	goHome(from)
+	{
+		this.setItinerary(from, this.home);
+	}
+
+	goToWork(from)
+	{
+		this.setItinerary(from, this.work);
 	}
 
 	draw(context)

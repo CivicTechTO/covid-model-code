@@ -37,16 +37,17 @@ class TownState extends State
 	{
 		this.fillBunkHouses(config);
 		this.fillHouses(config);
+		this.fillPersons(config);
 	}
 
 	fillBunkHouses(config)
 	{
-		let count = config.bunkHouseCount;
-		let width = config.bunkHouseWidth;
-		let height = config.bunkHouseHeight;
+		let count = config.bunkHouse.count;
+		let width = config.bunkHouse.width;
+		let height = config.bunkHouse.height;
 
 		let offset = Math.round((config.feederSpace - width) / 2);
-		let x = config.feederSpace + offset;
+		let x = (config.bunkHouse.road * config.feederSpace) + offset;
 		let top = config.size.height - count * height;
 
 		let bunkHouses = stack(count, x, top, width, height);
@@ -56,13 +57,13 @@ class TownState extends State
 
 	fillHouses(config)
 	{
-		let count = config.houseCount;
-		let width = config.houseWidth;
-		let height = config.houseHeight;
+		let count = config.house.count;
+		let width = config.house.width;
+		let height = config.house.height;
 		let offset = Math.round((config.feederSpace - 2 * width) / 2);
 		let top = config.size.height - count * height;
 
-		for (var road = config.houseStartRoad; road <= config.houseEndRoad; road++) 
+		for (var road = config.house.startRoad; road <= config.house.endRoad; road++) 
 		{
 			let x = road * config.feederSpace + offset;
 			let houses = twoStack(count, x, top, width, height);
@@ -85,25 +86,26 @@ class TownState extends State
 
 	fillOther(config)
 	{
-		this.fillTheatre(1 * config.feederSpace, config);
-		this.fillPub(2 * config.feederSpace, config);
-		this.fillClub(3 * config.feederSpace, config);
+		this.fillTheatre(2 * config.feederSpace, config);
+		this.fillPub(4 * config.feederSpace, config);
+		this.fillClub(5 * config.feederSpace, config);
 
-		this.fillTheatre(4 * config.feederSpace, config);
-		this.fillPub(5 * config.feederSpace, config);
-		this.fillClub(6 * config.feederSpace, config);
+		this.fillTheatre(8 * config.feederSpace, config);
+		this.fillPub(10 * config.feederSpace, config);
+		this.fillClub(11 * config.feederSpace, config);
 		
-		this.fillPub(7 * config.feederSpace, config);
-		this.fillClub(8 * config.feederSpace, config);
+		this.fillTheatre(14 * config.feederSpace, config);
+		this.fillPub(16 * config.feederSpace, config);
+		this.fillClub(17 * config.feederSpace, config);
 
 		this.fillOutside(config);
 	}
 
 	fillTheatre(x, config)
 	{
-		let count = config.theatreCount;
-		let width = config.theatreWidth;
-		let height = config.theatreHeight;
+		let count = config.theatre.count;
+		let width = config.theatre.width;
+		let height = config.theatre.height;
 		let theatres = stack(count, x, 1, width, height);
 		Array.prototype.push.apply(this.roomList, theatres);
 		Array.prototype.push.apply(this.otherList, theatres);
@@ -111,9 +113,9 @@ class TownState extends State
 
 	fillClub(x, config)
 	{
-		let count = config.clubCount;
-		let width = config.clubWidth;
-		let height = config.clubHeight;
+		let count = config.club.count;
+		let width = config.club.width;
+		let height = config.club.height;
 		let clubs = stack(count, x, 1, width, height);
 		Array.prototype.push.apply(this.roomList, clubs);
 		Array.prototype.push.apply(this.otherList, clubs);
@@ -121,9 +123,9 @@ class TownState extends State
 
 	fillPub(x, config)
 	{
-		let count = config.pubCount;
-		let width = config.pubWidth;
-		let height = config.pubHeight;
+		let count = config.pub.count;
+		let width = config.pub.width;
+		let height = config.pub.width;
 		let pubs = twoStack(count, x, 1, width, height);
 		Array.prototype.push.apply(this.roomList, pubs);
 		Array.prototype.push.apply(this.otherList, pubs);
@@ -131,11 +133,11 @@ class TownState extends State
 
 	fillOutside(config)
 	{
-		let width = config.outsideWidth;
-		let height = config.outsideHeight;
-		let y = config.outsideY;
+		let width = config.outside.width;
+		let height = config.outside.height;
+		let y = config.outside.y;
 
-		for (var i = 1 ; i < config.outsideCount; i++) 
+		for (var i = config.outside.road ; i < config.outside.count; i++) 
 		{
 			let x = i * config.feederSpace;
 			let outside = new Outside(x, y, width, height);
@@ -149,13 +151,15 @@ class TownState extends State
 
 	}
 
-	// 	for (var i = 0; i < config.count; i++) 
-	// 	{
-	// 		let person = new Person();
-	// 		this.personList[i] = person;
-	// 		this.roomList[i % this.roomList.length].insert(person);
-	// 	}
-	// 
+	fillPersons(config)
+	{
+		for (var i = 0; i < config.count; i++) 
+		{
+			let person = new Person();
+			this.personList[i] = person;
+			this.roomList[i % this.roomList.length].insert(person);
+		}	
+	}
 }
 
 const canvas = document.getElementById('canvas');
