@@ -14,16 +14,33 @@
  *		Go E/W to the dest
  */
 
+class NextRoom extends Shift
+{
+	constructor()
+	{
+		super();
+		this.which = 0;
+	}
+
+	startShift()
+	{
+		this.which = (this.which + 1) % state.roomList.length;
+
+		for (const room of state.roomList)
+		{
+			room.leaveFor(state.roomList[this.which]);
+		}
+
+	}
+}
+
 class CircleState extends State
 {
 	constructor(config, width, height)
 	{
 		super(config, width, height);
-
-		this.tick = 0;
-		this.which = 0;
-		this.when = config.when;
-
+		let shift = new NextRoom();
+		this.week = [shift, shift];
 	}
 
 	fill(config)
@@ -42,23 +59,6 @@ class CircleState extends State
 			this.roomList[0].insert(person);
 		}
 	}
-
-	step(stepCount) 
-	{
-		super.step(stepCount);
-
-		if (0 === this.tick % this.when)
-		{
-			this.which = (this.which + 1) % this.roomList.length;
-	
-			for (const room of this.roomList)
-			{
-				room.leaveFor(this.roomList[this.which]);
-			}
-		}
-
-		state.tick += 1;
-	}
 }
 
 const canvas = document.getElementById('canvas');
@@ -67,3 +67,8 @@ var state = new CircleState(config, canvas.width, canvas.height);
 state.fill(config);
 
 window.requestAnimationFrame(animate);
+
+// for (var i = 0; i < 200; i++)
+// {
+// 	state.step(1);
+// }

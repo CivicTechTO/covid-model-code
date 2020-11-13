@@ -125,6 +125,26 @@ function randomCoord(lower, limit, current, halfEdge)
 	return mid + delta;
 }
 
+class Event
+{
+	constructor(time)
+	{
+		this.clock = 0;
+		this.time = time;
+	}
+
+	step(stepCount)
+	{
+		this.clock += stepCount;
+		return this.clock >= this.time;
+	}
+
+	reset()
+	{
+		this.clock = 0;
+	}
+}
+
 class Place
 {
 	constructor(x, y, width, height)
@@ -136,6 +156,10 @@ class Place
 
 		this.personSet = new Set();
 		this.rules = new Rules();
+
+		this.eventList = [];
+		this.eventIndex = 0;
+		this.currentEvent = null;
 	}
 
 	change(rules)
@@ -163,9 +187,48 @@ class Place
 		return new Point(side, midY);
 	}
 
+	addEvent(event)
+	{
+		if (0 === this.eventList.length)
+		{
+			currentEvent = event;
+			event.reset();
+		}
+
+		this.eventList.push(event);
+	}
+
+	resetEvents()
+	{
+		if (this.eventList.length > 0)
+		{
+			this.eventIndex = 0;
+			this.currentEvent = this.eventList[0];
+			this.currentEvent.reset();
+		}
+	}
+
 	step(stepCount)
 	{
 		this.rules.step(this, stepCount);
+
+		if (this.currentEvent)
+		{
+			if (this.currentEvent.step(stepCount)) 
+			{
+				this.eventIndex++;
+
+				if (this.eventIndex < this.eventList.length)
+				{
+					this.currentEvent = this.eventList[this.eventIndex];
+					this.currentEvent.reset();
+				}
+				else
+				{
+					this.currentEvent = null;
+				}
+			}
+		}
 
 		for (const person of this.personSet)
 		{
@@ -202,7 +265,7 @@ class Room extends Place
 
 	goHome()
 	{
-		for (person of this.personSet)
+		for (const person of this.personSet)
 		{
 			person.goHome(this);
 		}
@@ -210,7 +273,7 @@ class Room extends Place
 
 	goToWork()
 	{
-		for (person of this.personSet)
+		for (const person of this.personSet)
 		{
 			person.goToWork(this);
 		}

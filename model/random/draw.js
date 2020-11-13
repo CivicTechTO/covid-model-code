@@ -14,6 +14,26 @@
  *		Go E/W to the dest
  */
 
+class NextRoom extends Shift
+{
+	constructor()
+	{
+		super();
+		this.which = 0;
+	}
+
+	startShift()
+	{
+		this.which = (this.which + 1) % state.roomList.length;
+
+		for (const room of state.roomList)
+		{
+			room.leaveFor(state.roomList[this.which]);
+		}
+
+	}
+}
+
 class DrawPerson extends Person
 {
 	constructor(type)
@@ -137,9 +157,8 @@ class DrawState extends State
 	{
 		super(config, width, height);
 
-		this.tick = 0;
-		this.which = 0;
-		this.when = config.when;
+		let shift = new NextRoom();
+		this.week = [shift, shift];
 	}
 
 	fill(config)
@@ -157,30 +176,6 @@ class DrawState extends State
 			this.personList[i] = person;
 			this.roomList[0].insert(person);
 		}
-	}
-
-	step(deltaT) 
-	{
-		super.step(deltaT);
-
-		if (0 === this.tick % this.when)
-		{
-			this.which = (this.which + 1) % this.roomList.length;
-	
-			for (const room of this.roomList)
-			{
-				room.leaveFor(this.roomList[this.which]);
-			}
-		}
-		else
-		{
-			for (const room of this.roomList)
-			{
-				room.step(deltaT);
-			}
-		}
-
-		state.tick += 1;
 	}
 }
 

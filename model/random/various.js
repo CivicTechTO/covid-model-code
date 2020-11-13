@@ -39,9 +39,6 @@ class VariousState extends State
 	constructor(config, width, height)
 	{
 		super(config, width, height);
-
-		this.tick = 0;
-		this.when = config.when;
 	}
 
 	fill(config)
@@ -63,9 +60,9 @@ class VariousState extends State
 		}
 	}
 
-	step(deltaT) 
+	step(stepCount) 
 	{
-		super.step(deltaT);
+		super.step(stepCount);
 
 		if (0 === this.tick % this.when)
 		{

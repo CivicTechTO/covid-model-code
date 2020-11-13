@@ -7,7 +7,7 @@ const config = {
 	, "count": 150
 	, "main": 250
 	, "feederSpace": 100 
-	, "when": 300
+	, "shiftLength": 300
 	, "roomSize": 80
 	, "spacing": 4
  	, "roomLocation": 

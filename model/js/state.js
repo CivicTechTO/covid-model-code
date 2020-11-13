@@ -1,3 +1,38 @@
+
+class Shift
+{
+	constructor(){}
+
+	nextShift(){}
+}
+
+class Night extends Shift
+{
+	constructor()
+	{
+		super();
+	}
+
+	startShift()
+	{
+		state.goHome();
+	}
+}
+
+class Day extends Shift
+{
+	constructor()
+	{
+		super();
+	}
+
+	startShift()
+	{
+		state.goToWork();
+	}
+} 
+
+
 class State 
 {
 	constructor(config, width, height)
@@ -17,12 +52,24 @@ class State
 		
 		this.personList = [];
 
-		this.week = [night, day];
+		this.clock = 0;
+
+		this.week = [new Shift()];
+		this.shiftLength = config.shiftLength;
 		this.shift = 0;
 	}
 
 	step(stepCount)
 	{
+		this.clock += stepCount;
+		let nextShift = Math.floor(this.clock / this.shiftLength) % this.week.length;
+
+		if (this.shift !== nextShift)
+		{
+			this.shift = nextShift;
+			this.week[nextShift].startShift();
+		}
+
 		for (const room of this.roomList)
 		{
 			room.step(stepCount);
@@ -53,7 +100,6 @@ class State
 		}
 	}
 
-
 	findFeeder(x)
 	{
 		let feederSpace = this.feederSpace;
@@ -63,7 +109,7 @@ class State
 
 	goHome()
 	{
-		for (room of this.roomList)
+		for (const room of this.roomList)
 		{
 			room.goHome();
 		}
@@ -71,22 +117,11 @@ class State
 
 	goToWork()
 	{
-		for (room of this.roomList)
+		for (const room of this.roomList)
 		{
 			room.goToWork();
 		}
 	}
-}
-
-
-function night() 
-{
-	state.goHome();
-}
-
-function day() 
-{
-	state.goToWork();
 }
 
 

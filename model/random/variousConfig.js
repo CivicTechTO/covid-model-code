@@ -65,7 +65,7 @@ const config = {
  			, {type: 2, args: {halfEdge: 15, start: 1, pause:100}, x: 605, y: 401}
  			, {type: 2, args: {halfEdge: 20, start: 1, pause:100}, x: 705, y: 401}
  			, {type: 2, args: {halfEdge: 30, start: 1, pause:100}, x: 805, y: 401}
- 			, {type: 3, args: {halfEdge: 39, start: 1, pause:100}, x: 905, y: 401}
+ 			, {type: 2, args: {halfEdge: 39, start: 1, pause:100}, x: 905, y: 401}
  		]
 }
 

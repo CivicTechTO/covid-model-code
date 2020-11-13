@@ -45,8 +45,29 @@ class Point
 	}
 }
 
-function transfer(fromSet, toSet, member) 
+// function transfer(fromSet, toSet, member) 
+// {
+// 	toSet.add(member);
+// 	fromSet.delete(member);
+// }
+
+
+function chooseOne(choices) 
 {
-	toSet.add(member);
-	fromSet.delete(member);
+	return choices[rand(choices.length)];
+}
+
+function makeChoices(optionList, weightList) 
+{
+	let result = [];
+
+	for (var i = 0; i < optionList.length; i++) 
+	{
+		for (var j = 0; j < weightList[i]; j++) 
+		{
+			result.push(optionList[i]);
+		}
+	}
+
+	return result;
 }

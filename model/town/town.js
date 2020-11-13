@@ -28,19 +28,26 @@ class TownState extends State
 
 	fill(config)
 	{
-		this.fillHome(config);
+		let dwellings = [];
+		let crowd = [];
+
+		this.fillHome(config, dwellings, crowd);
 		this.fillWork(config);
 		this.fillOther(config);
-	}
 
-	fillHome(config)
-	{
-		this.fillBunkHouses(config);
-		this.fillHouses(config);
 		this.fillPersons(config);
+
+		this.setHomes(config, dwellings, crowd);
+		this.setWork(config);
 	}
 
-	fillBunkHouses(config)
+	fillHome(config, dwellings, crowd)
+	{
+		this.fillBunkHouses(config, dwellings, crowd);
+		this.fillHouses(config, dwellings, crowd);
+	}
+
+	fillBunkHouses(config, dwellings, crowd)
 	{
 		let count = config.bunkHouse.count;
 		let width = config.bunkHouse.width;
@@ -53,9 +60,15 @@ class TownState extends State
 		let bunkHouses = stack(count, x, top, width, height);
 		Array.prototype.push.apply(this.houseList, bunkHouses);
 		Array.prototype.push.apply(this.roomList, bunkHouses);
+		Array.prototype.push.apply(dwellings, bunkHouses);
+		
+		for (var i = 0; i < bunkHouses.length; i++) 
+		{
+			crowd.push(config.bunkHouse.crowd);
+		}
 	}
 
-	fillHouses(config)
+	fillHouses(config, dwellings, crowd)
 	{
 		let count = config.house.count;
 		let width = config.house.width;
@@ -69,8 +82,14 @@ class TownState extends State
 			let houses = twoStack(count, x, top, width, height);
 			Array.prototype.push.apply(this.houseList, houses);
 			Array.prototype.push.apply(this.roomList, houses);
-		}
 
+			Array.prototype.push.apply(dwellings, houses);
+			
+			for (var i = 0; i < houses.length; i++) 
+			{
+				crowd.push(config.house.crowd);
+			}
+		}
 	}
 
 	fillWork(config)
@@ -86,29 +105,29 @@ class TownState extends State
 
 	fillOther(config)
 	{
-		this.fillTheatre(2 * config.feederSpace, config);
+		this.fillChurch(2 * config.feederSpace, config);
 		this.fillPub(4 * config.feederSpace, config);
 		this.fillClub(5 * config.feederSpace, config);
 
-		this.fillTheatre(8 * config.feederSpace, config);
+		this.fillChurch(8 * config.feederSpace, config);
 		this.fillPub(10 * config.feederSpace, config);
 		this.fillClub(11 * config.feederSpace, config);
 		
-		this.fillTheatre(14 * config.feederSpace, config);
+		this.fillChurch(14 * config.feederSpace, config);
 		this.fillPub(16 * config.feederSpace, config);
 		this.fillClub(17 * config.feederSpace, config);
 
 		this.fillOutside(config);
 	}
 
-	fillTheatre(x, config)
+	fillChurch(x, config)
 	{
-		let count = config.theatre.count;
-		let width = config.theatre.width;
-		let height = config.theatre.height;
-		let theatres = stack(count, x, 1, width, height);
-		Array.prototype.push.apply(this.roomList, theatres);
-		Array.prototype.push.apply(this.otherList, theatres);
+		let count = config.church.count;
+		let width = config.church.width;
+		let height = config.church.height;
+		let churchs = stack(count, x, 1, width, height);
+		Array.prototype.push.apply(this.roomList, churchs);
+		Array.prototype.push.apply(this.otherList, churchs);
 	}
 
 	fillClub(x, config)
@@ -157,8 +176,38 @@ class TownState extends State
 		{
 			let person = new Person();
 			this.personList[i] = person;
-			this.roomList[i % this.roomList.length].insert(person);
 		}	
+	}
+
+	setHomes(config, dwellings, crowd)
+	{
+		let choices = makeChoices(dwellings, crowd);
+
+		for (var i = 0; i < this.personList.length; i++) 
+		{
+			let person = this.personList[i];
+
+			if (i < Math.round(config.fillFactor * dwellings.length))
+			{
+				person.home = dwellings[i % dwellings.length];
+			}
+			else
+			{
+				person.home = chooseOne(choices);
+			}
+
+			person.home.insert(person);
+		}
+	}
+
+	setWork(config)
+	{
+		let choices = makeChoices(this.workList, config.workAllocation);
+
+		for (const person of this.personList)
+		{
+			person.work = chooseOne(choices);
+		}
 	}
 }
 
@@ -166,6 +215,10 @@ const canvas = document.getElementById('canvas');
 
 var state = new TownState(config, canvas.width, canvas.height);
 state.fill(config);
+
+// let context = canvas.getContext('2d');
+
+// state.draw(context);
 
 window.requestAnimationFrame(animate);
 
