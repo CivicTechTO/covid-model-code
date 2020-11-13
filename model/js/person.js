@@ -61,8 +61,6 @@ class Person
 		this.itinerary.push(new Point(toRoad, toDoor.y))
 		this.itinerary.push(new Point(toDoor.x, toDoor.y))
 
-console.log(JSON.stringify(this.itinerary));
-
 		this.index = 0;
 
 		fromRoom.personSet.delete(this);

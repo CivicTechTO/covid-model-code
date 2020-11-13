@@ -8,7 +8,7 @@ const config = {
 	, "travelVariation": 1
 	, "count": 10000
 	, "main": 195
-	, "feederSpace": 100 
+	, "road": {"space": 100, "first": 1, "last": 9} 
 	, "shiftLength": 600
 	, "sit": 300
 	, "millabout": 100

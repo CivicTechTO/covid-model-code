@@ -6,7 +6,7 @@ const config = {
 	, "travelVariation": 2
 	, "count": 150
 	, "main": 250
-	, "feederSpace": 100 
+	, "road": {"space": 100, "first": 1, "last": 9} 
 	, "shiftLength": 300
 	, "roomSize": 80
 	, "spacing": 4
