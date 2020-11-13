@@ -30,14 +30,57 @@ function roomChoice(type, args, x, y, config)
 	}
 }
 
+class ResetRoom extends Shift
+{
+	constructor()
+	{
+		super();
+	}
+
+	startShift()
+	{
+		for (const room of state.roomList)
+		{
+			room.resetEvents();
+		}
+	}
+}
+
+class Sit extends Event
+{
+	constructor(room, time)
+	{
+		super(room, time);
+	}
+
+	action()
+	{
+		this.room.change(new Rules());
+	}
+}
+
+class Millabout extends Event
+{
+	constructor(room, time, args)
+	{
+		super(room, time);
+
+		this.args = args;
+	}
+
+	action()
+	{
+		this.room.change(new RandomRules(this.args.halfEdge, this.args.start, this.args.pause));
+	}
+}
+
 class TransitionState extends State
 {
 	constructor(config, width, height)
 	{
 		super(config, width, height);
-
-		this.tick = 0;
-		this.when = config.when;
+		let shift = new ResetRoom();
+		this.week = [shift, shift];
 	}
 
 	fill(config)
@@ -48,7 +91,13 @@ class TransitionState extends State
 			let args = config.roomSpec[i].args;
 			let x = config.roomSpec[i].x;
 			let y = config.roomSpec[i].y;
-			this.roomList[i] = roomChoice(type, args, x, y, config);
+			
+			let room = roomChoice(type, args, x, y, config);
+
+			room.addEvent(new Sit(room, config.sit));		
+			room.addEvent(new Millabout(room, config.millabout, config.roomSpec[i].args));		
+
+			this.roomList[i] = room;
 		}
 
 		for (var i = 0; i < config.count; i++) 
@@ -57,38 +106,6 @@ class TransitionState extends State
 			this.personList[i] = person;
 			this.roomList[i % this.roomList.length].insert(person);
 		}
-	}
-
-	step(deltaT) 
-	{
-		super.step(deltaT);
-
-		if (config.sit === this.tick % this.when)
-		{
-			let i = 0;
-			for (const room of this.roomList)
-			{
-				room.change(new Rules());
-			}
-		}
-
-		if (config.millabout === this.tick % this.when)
-		{
-			let i = 0;
-			for (const room of this.roomList)
-			{
-				let args = config.roomSpec[i++].args;
-				room.change(new RandomRules(args.halfEdge, args.start, args.pause));
-			}
-		}
-
-
-		for (const room of this.roomList)
-		{
-			room.step(deltaT);
-		}
-
-		this.tick += 1;
 	}
 }
 

@@ -9,9 +9,9 @@ const config = {
 	, "count": 10000
 	, "main": 195
 	, "feederSpace": 100 
-	, "when": 600
+	, "shiftLength": 600
 	, "sit": 300
-	, "millabout": 500
+	, "millabout": 100
 	, "spacing": 4
 	, "roomSize": 80
  	, "roomSpec": 

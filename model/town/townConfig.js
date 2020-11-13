@@ -5,10 +5,10 @@ const config = {
 	, "moveSpeed": 1
 	, "moveVariation": 1
 	, "travelSpeed": 10
-	, "travelVariation": 8
+	, "travelVariation": 10
 	, "count": 1500
 	, "main": 200
-	, "feederSpace": 50 
+	, "road" : {"space": 50, "first": 2, "last":18} 
 	, "spacing": 4
 	, "depth": 80
 	, "shiftLength": 480

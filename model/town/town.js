@@ -24,6 +24,8 @@ class TownState extends State
 		this.houseList = [];
 		this.otherList = [];
 		this.outsideList = [];
+
+		this.week = [new Night(), new Day()];
 	}
 
 	fill(config)
@@ -53,8 +55,8 @@ class TownState extends State
 		let width = config.bunkHouse.width;
 		let height = config.bunkHouse.height;
 
-		let offset = Math.round((config.feederSpace - width) / 2);
-		let x = (config.bunkHouse.road * config.feederSpace) + offset;
+		let offset = Math.round((config.road.space - width) / 2);
+		let x = (config.bunkHouse.road * config.road.space) + offset;
 		let top = config.size.height - count * height;
 
 		let bunkHouses = stack(count, x, top, width, height);
@@ -73,12 +75,12 @@ class TownState extends State
 		let count = config.house.count;
 		let width = config.house.width;
 		let height = config.house.height;
-		let offset = Math.round((config.feederSpace - 2 * width) / 2);
+		let offset = Math.round((config.road.space - 2 * width) / 2);
 		let top = config.size.height - count * height;
 
 		for (var road = config.house.startRoad; road <= config.house.endRoad; road++) 
 		{
-			let x = road * config.feederSpace + offset;
+			let x = road * config.road.space + offset;
 			let houses = twoStack(count, x, top, width, height);
 			Array.prototype.push.apply(this.houseList, houses);
 			Array.prototype.push.apply(this.roomList, houses);
@@ -105,17 +107,17 @@ class TownState extends State
 
 	fillOther(config)
 	{
-		this.fillChurch(2 * config.feederSpace, config);
-		this.fillPub(4 * config.feederSpace, config);
-		this.fillClub(5 * config.feederSpace, config);
+		this.fillChurch(2 * config.road.space, config);
+		this.fillPub(4 * config.road.space, config);
+		this.fillClub(5 * config.road.space, config);
 
-		this.fillChurch(8 * config.feederSpace, config);
-		this.fillPub(10 * config.feederSpace, config);
-		this.fillClub(11 * config.feederSpace, config);
+		this.fillChurch(6 * config.road.space, config);
+		this.fillPub(8 * config.road.space, config);
+		this.fillClub(9 * config.road.space, config);
 		
-		this.fillChurch(14 * config.feederSpace, config);
-		this.fillPub(16 * config.feederSpace, config);
-		this.fillClub(17 * config.feederSpace, config);
+		this.fillChurch(10 * config.road.space, config);
+		this.fillPub(12 * config.road.space, config);
+		this.fillClub(14 * config.road.space, config);
 
 		this.fillOutside(config);
 	}
@@ -158,7 +160,7 @@ class TownState extends State
 
 		for (var i = config.outside.road ; i < config.outside.count; i++) 
 		{
-			let x = i * config.feederSpace;
+			let x = i * config.road.space;
 			let outside = new Outside(x, y, width, height);
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
@@ -222,7 +224,7 @@ state.fill(config);
 
 window.requestAnimationFrame(animate);
 
-// for (var i = 100 - 1; i >= 0; i--) 
+// for (var i = 2000 - 1; i >= 0; i--) 
 // {
 // 	state.step(FRAME);
 // }

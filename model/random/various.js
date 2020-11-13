@@ -14,6 +14,28 @@
  *		Go E/W to the dest
  */
 
+class NextRoom extends Shift
+{
+	constructor()
+	{
+		super();
+	}
+
+	startShift()
+	{
+		let which = 0;
+
+		for (const room of state.roomList)
+		{
+			which = (which + 1) % state.roomList.length;
+			room.leaveFor(state.roomList[which]);
+			room.resetEvents();
+		}
+
+	}
+}
+
+
 function roomChoice(type, args, x, y, config) 
 {
 	let roomSize = config.roomSize;
@@ -34,11 +56,41 @@ function roomChoice(type, args, x, y, config)
 	}
 }
 
+class Sit extends Event
+{
+	constructor(room, time)
+	{
+		super(room, time);
+	}
+
+	action()
+	{
+		this.room.change(new Rules());
+	}
+}
+
+class Millabout extends Event
+{
+	constructor(room, time, args)
+	{
+		super(room, time);
+
+		this.args = args;
+	}
+
+	action()
+	{
+		this.room.change(new RandomRules(this.args.halfEdge, this.args.start, this.args.pause));
+	}
+}
+
 class VariousState extends State
 {
 	constructor(config, width, height)
 	{
 		super(config, width, height);
+		let shift = new NextRoom();
+		this.week = [shift, shift];
 	}
 
 	fill(config)
@@ -49,7 +101,12 @@ class VariousState extends State
 			let args = config.roomSpec[i].args;
 			let x = config.roomSpec[i].x;
 			let y = config.roomSpec[i].y;
-			this.roomList[i] = roomChoice(type, args, x, y, config);
+			let room = roomChoice(type, args, x, y, config);
+
+			room.addEvent(new Sit(room, config.sit));		
+			room.addEvent(new Millabout(room, config.millabout, config.roomSpec[i].args));		
+
+			this.roomList[i] = room;
 		}
 
 		for (var i = 0; i < config.count; i++) 
@@ -59,50 +116,6 @@ class VariousState extends State
 			this.roomList[i % this.roomList.length].insert(person);
 		}
 	}
-
-	step(stepCount) 
-	{
-		super.step(stepCount);
-
-		if (0 === this.tick % this.when)
-		{
-			let which = 1;
-	
-			for (const room of this.roomList)
-			{
-				room.leaveFor(this.roomList[which++ % this.roomList.length]);
-			}
-		}
-		else
-		{
-			if (config.sit === this.tick % this.when)
-			{
-				let i = 0;
-				for (const room of this.roomList)
-				{
-					room.change(new Rules());
-				}
-			}
-
-			if (config.millabout === this.tick % this.when)
-			{
-				let i = 0;
-				for (const room of this.roomList)
-				{
-					let args = config.roomSpec[i++].args;
-					room.change(new RandomRules(args.halfEdge, args.start, args.pause));
-				}
-			}
-
-		}
-
-		for (const room of this.roomList)
-		{
-			room.step(deltaT);
-		}
-
-		this.tick += 1;
-	}
 }
 
 const canvas = document.getElementById('canvas');
@@ -111,3 +124,8 @@ var state = new VariousState(config, canvas.width, canvas.height);
 state.fill(config);
 
 window.requestAnimationFrame(animate);
+
+// for (var i = 0; i < 100; i++) 
+// {
+// 	state.step(1);
+// }

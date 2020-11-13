@@ -44,7 +44,7 @@ class State
 		this.travelVariation = config.travelVariation;
 
 		this.main = config.main;
-		this.feederSpace = config.feederSpace;
+		this.road = config.road;
 
 		this.spacing = config.spacing;
 
@@ -100,11 +100,12 @@ class State
 		}
 	}
 
-	findFeeder(x)
+	findRoad(x)
 	{
-		let feederSpace = this.feederSpace;
-		let last = this.size.width - feederSpace;
-		return Math.min(last, Math.max(feederSpace, feederSpace * Math.round(x / feederSpace)));
+		let space = this.road.space;
+		let first = this.road.first;
+		let last = this.road.last;
+		return Math.min(last * space, Math.max(first * space, space * Math.round(x / space)));
 	}
 
 	goHome()

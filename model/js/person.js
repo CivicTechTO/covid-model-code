@@ -47,21 +47,25 @@ class Person
 		let dest = fromRoom.door();
 		this.dest = dest;
 
-		let fromFeeder = state.findFeeder(dest.x);
-		this.itinerary.push(new Point(fromFeeder, dest.y));
+		let fromRoad = state.findRoad(dest.x);
+		this.itinerary.push(new Point(fromRoad, dest.y));
 
 		let toDoor = toRoom.door();
-		let toFeeder = state.findFeeder(toDoor.x);
-		if (toFeeder !== fromFeeder)
+		let toRoad = state.findRoad(toDoor.x);
+		if (toRoad !== fromRoad)
 		{
-			this.itinerary.push(new Point(fromFeeder, state.main));
-			this.itinerary.push(new Point(toFeeder, state.main));
+			this.itinerary.push(new Point(fromRoad, state.main));
+			this.itinerary.push(new Point(toRoad, state.main));
 		}
 
-		this.itinerary.push(new Point(toFeeder, toDoor.y))
+		this.itinerary.push(new Point(toRoad, toDoor.y))
 		this.itinerary.push(new Point(toDoor.x, toDoor.y))
 
+console.log(JSON.stringify(this.itinerary));
+
 		this.index = 0;
+
+		fromRoom.personSet.delete(this);
 	}
 
 	step(stepCount)
@@ -80,7 +84,7 @@ class Person
 				{
 					if (0 === this.index)		//  Leaving door
 					{
-						this.speed = 1 + rand(state.travelSpeed + state.travelVariation);
+						this.speed = 1 + rand(state.travelSpeed);
 					}
 					else
 					{
