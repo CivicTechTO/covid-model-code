@@ -286,6 +286,14 @@ class Room
 			person.goToWork(this);
 		}
 	}
+
+	goToChurch()
+	{
+		for (const person of this.personSet)
+		{
+			person.goToChurch(this);
+		}
+	}
 }
 
 class Outside extends Room

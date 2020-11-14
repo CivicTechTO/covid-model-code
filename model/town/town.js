@@ -107,49 +107,50 @@ class TownState extends State
 
 	fillOther(config)
 	{
-		this.fillChurch(2 * config.road.space, config);
-		this.fillPub(4 * config.road.space, config);
-		this.fillClub(5 * config.road.space, config);
+		this.fillChurch(2 * config.road.space, config.church);
+		this.fillPub(4 * config.road.space, config.pub);
+		this.fillClub(5 * config.road.space, config.club);
+		this.fillRestaurant(6 * config.road.space, config.restaurant);
 
-		this.fillChurch(6 * config.road.space, config);
-		this.fillPub(8 * config.road.space, config);
-		this.fillClub(9 * config.road.space, config);
+		this.fillChurch(7 * config.road.space, config.church);
+		this.fillPub(9 * config.road.space, config.pub);
+		this.fillClub(10 * config.road.space, config.club);
+		this.fillRestaurant(11 * config.road.space, config.restaurant);
 		
-		this.fillChurch(10 * config.road.space, config);
-		this.fillPub(12 * config.road.space, config);
-		this.fillClub(14 * config.road.space, config);
+		this.fillChurch(12 * config.road.space, config.church);
+		this.fillPub(14 * config.road.space, config.pub);
+		this.fillClub(15 * config.road.space, config.club);
+		this.fillRestaurant(16 * config.road.space, config.restaurant);
 
 		this.fillOutside(config);
 	}
 
-	fillChurch(x, config)
+	fillChurch(x, church)
 	{
-		let count = config.church.count;
-		let width = config.church.width;
-		let height = config.church.height;
-		let churchs = stack(count, x, 1, width, height);
+		let churchs = stack(church.count, x + church.offset, 1, church.width, church.height);
 		Array.prototype.push.apply(this.roomList, churchs);
 		Array.prototype.push.apply(this.otherList, churchs);
 	}
 
-	fillClub(x, config)
+	fillClub(x, club)
 	{
-		let count = config.club.count;
-		let width = config.club.width;
-		let height = config.club.height;
-		let clubs = stack(count, x, 1, width, height);
+		let clubs = stack(club.count, x + club.offset, 1, club.width, club.height);
 		Array.prototype.push.apply(this.roomList, clubs);
 		Array.prototype.push.apply(this.otherList, clubs);
 	}
 
-	fillPub(x, config)
+	fillPub(x, pub)
 	{
-		let count = config.pub.count;
-		let width = config.pub.width;
-		let height = config.pub.width;
-		let pubs = twoStack(count, x, 1, width, height);
+		let pubs = twoStack(pub.count, x + pub.offset, 1, pub.width, pub.height);
 		Array.prototype.push.apply(this.roomList, pubs);
 		Array.prototype.push.apply(this.otherList, pubs);
+	}
+
+	fillRestaurant(x, resto)
+	{
+		let restaurants = twoStack(resto.count, x + resto.offset, 1, resto.width, resto.height);
+		Array.prototype.push.apply(this.roomList, restaurants);
+		Array.prototype.push.apply(this.otherList, restaurants);
 	}
 
 	fillOutside(config)
@@ -209,6 +210,16 @@ class TownState extends State
 		for (const person of this.personList)
 		{
 			person.work = chooseOne(choices);
+		}
+	}
+
+	setChurch(config)
+	{
+		let choices = makeChoices(this.workList, config.workAllocation);
+
+		for (const person of this.personList)
+		{
+			person.church = chooseOne(choices);
 		}
 	}
 }

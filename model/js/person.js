@@ -117,6 +117,11 @@ class Person
 		this.setItinerary(from, this.work);
 	}
 
+	goToChurch(from)
+	{
+		this.setItinerary(from, this.church);
+	}
+
 	draw(context)
 	{
 		context.strokeStyle = 'black';

@@ -123,6 +123,14 @@ class State
 			room.goToWork();
 		}
 	}
+
+	goToChurch()
+	{
+		for (const room of this.roomList)
+		{
+			room.goToChurch();
+		}
+	}
 }
 
 
