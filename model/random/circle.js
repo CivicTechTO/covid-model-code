@@ -26,11 +26,10 @@ class NextRoom extends Shift
 	{
 		this.which = (this.which + 1) % state.roomList.length;
 
-		for (const room of state.roomList)
+		for (const person of state.personList)
 		{
-			room.leaveFor(state.roomList[this.which]);
+			person.setItinerary(state.roomList[this.which]);
 		}
-
 	}
 }
 
@@ -41,6 +40,9 @@ class CircleState extends State
 		super(config, width, height);
 		let shift = new NextRoom();
 		this.week = [shift, shift];
+
+		this.limit = config.limit;
+		this.limitCount = 0;
 	}
 
 	fill(config)
@@ -61,12 +63,36 @@ class CircleState extends State
 	}
 }
 
+function limitedAnimate(timestamp)
+{
+	if (0 === state.limit ||  state.limit > state.limitCount++)
+	{
+		window.requestAnimationFrame(limitedAnimate);
+	}
+
+	let deltaT = (past ? timestamp - past : FRAME);
+	past = timestamp;
+	stepCount = Math.round(deltaT / FRAME);
+
+	const context = document.getElementById('canvas').getContext('2d');
+
+	context.save();
+
+	state.draw(context);
+
+	context.restore();
+
+	state.step(stepCount);
+}
+
+
+
 const canvas = document.getElementById('canvas');
 
 var state = new CircleState(config, canvas.width, canvas.height);
 state.fill(config);
 
-window.requestAnimationFrame(animate);
+window.requestAnimationFrame(limitedAnimate);
 
 // for (var i = 0; i < 200; i++)
 // {

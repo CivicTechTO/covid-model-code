@@ -3,17 +3,6 @@
  */
 
 
-/*
- *	There is one main E/W road halfway up the model
- *  There are a set of equally spaced N/S feeder roads
- *  Path finding is
- *		Go E/W to the nearest feeder road
- *		Go N/S to the main road
- *		Go E/W to the feeder road nearest the dest
- *		Go N/S to the dest y co-ordinate
- *		Go E/W to the dest
- */
-
 class TownState extends State
 {
 	constructor(config, width, height)
@@ -22,10 +11,16 @@ class TownState extends State
 
 		this.workList = [];
 		this.houseList = [];
-		this.otherList = [];
+
+		this.churchList = [];
+		this.restaurantList = [];
+		this.pubList = [];
+		this.clubList = [];
 		this.outsideList = [];
 
-		this.week = [new Night(), new Day()];
+		this.choiceList = 
+			[this.churchList, this.restaurantList, this.pubList, this.clubList, this.outsideList];
+		this.week = [];
 	}
 
 	fill(config)
@@ -41,6 +36,9 @@ class TownState extends State
 
 		this.setHomes(config, dwellings, crowd);
 		this.setWork(config);
+		this.setChurch(config);			// After setHomes
+
+		this.setWeek(config);
 	}
 
 	fillHome(config, dwellings, crowd)
@@ -108,19 +106,19 @@ class TownState extends State
 	fillOther(config)
 	{
 		this.fillChurch(2 * config.road.space, config.church);
-		this.fillPub(4 * config.road.space, config.pub);
-		this.fillClub(5 * config.road.space, config.club);
-		this.fillRestaurant(6 * config.road.space, config.restaurant);
+		this.fillRestaurant(4 * config.road.space, config.restaurant);
+		this.fillPub(5 * config.road.space, config.pub);
+		this.fillClub(6 * config.road.space, config.club);
 
 		this.fillChurch(7 * config.road.space, config.church);
-		this.fillPub(9 * config.road.space, config.pub);
-		this.fillClub(10 * config.road.space, config.club);
-		this.fillRestaurant(11 * config.road.space, config.restaurant);
+		this.fillRestaurant(9 * config.road.space, config.restaurant);
+		this.fillPub(10 * config.road.space, config.pub);
+		this.fillClub(11 * config.road.space, config.club);
 		
 		this.fillChurch(12 * config.road.space, config.church);
-		this.fillPub(14 * config.road.space, config.pub);
-		this.fillClub(15 * config.road.space, config.club);
-		this.fillRestaurant(16 * config.road.space, config.restaurant);
+		this.fillRestaurant(14 * config.road.space, config.restaurant);
+		this.fillPub(15 * config.road.space, config.pub);
+		this.fillClub(16 * config.road.space, config.club);
 
 		this.fillOutside(config);
 	}
@@ -129,28 +127,28 @@ class TownState extends State
 	{
 		let churchs = stack(church.count, x + church.offset, 1, church.width, church.height);
 		Array.prototype.push.apply(this.roomList, churchs);
-		Array.prototype.push.apply(this.otherList, churchs);
+		Array.prototype.push.apply(this.churchList, churchs);
 	}
 
 	fillClub(x, club)
 	{
 		let clubs = stack(club.count, x + club.offset, 1, club.width, club.height);
 		Array.prototype.push.apply(this.roomList, clubs);
-		Array.prototype.push.apply(this.otherList, clubs);
+		Array.prototype.push.apply(this.clubList, clubs);
 	}
 
 	fillPub(x, pub)
 	{
 		let pubs = twoStack(pub.count, x + pub.offset, 1, pub.width, pub.height);
 		Array.prototype.push.apply(this.roomList, pubs);
-		Array.prototype.push.apply(this.otherList, pubs);
+		Array.prototype.push.apply(this.pubList, pubs);
 	}
 
 	fillRestaurant(x, resto)
 	{
 		let restaurants = twoStack(resto.count, x + resto.offset, 1, resto.width, resto.height);
 		Array.prototype.push.apply(this.roomList, restaurants);
-		Array.prototype.push.apply(this.otherList, restaurants);
+		Array.prototype.push.apply(this.restaurantList, restaurants);
 	}
 
 	fillOutside(config)
@@ -215,12 +213,71 @@ class TownState extends State
 
 	setChurch(config)
 	{
-		let choices = makeChoices(this.workList, config.workAllocation);
-
 		for (const person of this.personList)
 		{
-			person.church = chooseOne(choices);
+			let roll = Math.random();
+
+			if (roll < config.sundayMorning.home)
+			{
+				person.church = person.home;
+			}
+			else
+			{
+				roll -= config.sundayMorning.home;
+
+				if (roll < config.sunday.outside)
+				{
+					person.church = chooseOne(this.outsideList);
+				}
+				else
+				{
+					person.church = chooseOne(this.churchList);
+				}
+			}
 		}
+	}
+
+	setWeek(config)
+	{
+		this.week = [];
+		let choices;
+
+		for (let i = 0 ; i < 4 ; i++)
+		{
+			this.week.push(new Day());
+			this.week.push(new Shift());
+			choices = makeChoices(this.choiceList, config.weekNight.other);
+			this.week.push(new OtherShift(config.weekNight.home, choices));
+			this.after();
+		}
+
+		this.week.push(new Day());
+		this.week.push(new Shift());
+		choices = makeChoices(this.choiceList, config.fridayNight.other);
+		this.week.push(new OtherShift(config.fridayNight.home, choices));
+		this.after();
+
+		choices = makeChoices(this.choiceList, config.saturday.other);
+		this.week.push(new OtherShift(config.saturday.home, choices));
+		this.week.push(new Shift());
+		choices = makeChoices(this.choiceList, config.saturdayNight.other);
+		this.week.push(new OtherShift(config.saturdayNight.home, choices));
+		this.after();
+
+		choices = makeChoices(this.choiceList, config.sundayMorning.other);
+		this.week.push(new OtherShift(config.sundayMorning.home, choices));
+		choices = makeChoices(this.choiceList, config.sunday.other);
+		this.week.push(new OtherShift(config.sunday.home, choices));
+		choices = makeChoices(this.choiceList, config.weekNight.other);
+		this.week.push(new OtherShift(config.weekNight.home, choices));
+		this.after();
+	}
+
+	after()
+	{
+		this.week.push(new Shift());
+		this.week.push(new Night());
+		this.week.push(new Shift());
 	}
 }
 
@@ -228,6 +285,8 @@ const canvas = document.getElementById('canvas');
 
 var state = new TownState(config, canvas.width, canvas.height);
 state.fill(config);
+
+state.week[0].startShift();
 
 // let context = canvas.getContext('2d');
 

@@ -9,13 +9,11 @@ class Rules
 	insert(room, person)
 	{
 		person.setNewCurrent(seat(room, person, room.personSet.size));
-		room.personSet.add(person);
 	}
 
 	arrive(room, person)
 	{
 		person.moveTo(seat(room, person, room.personSet.size));
-		room.personSet.add(person);
 	}
 
 	transition(room)
@@ -59,7 +57,6 @@ class RandomRules extends Rules
 		let y = startRandom(room.y + 1, room.height - 1);
 		person.setCurrent(x, y);
 		person.setDest(x,y);
-		room.personSet.add(person);
 		person.pause = this.newPause();
 	}
 
@@ -67,7 +64,6 @@ class RandomRules extends Rules
 	{
 		person.moveTo(findRandom(room, person, this.halfEdge));
 		person.pause = 0;
-		room.personSet.add(person);
 	}
 
 	transition(room)
@@ -187,11 +183,15 @@ class Room
 	insert(person)
 	{
 		this.rules.insert(this, person);
+		person.inRoom = this;
+		this.personSet.add(person);
 	}
 
 	arrive(person)
 	{
 		this.rules.arrive(this, person);
+		person.inRoom = this;
+		this.personSet.add(person);
 	}
 	
 	door()
@@ -256,8 +256,7 @@ class Room
 	{
 		for (const person of this.personSet)
 		{
-			this.personSet.delete(person);
-			person.setItinerary(this, to);
+			person.setItinerary(to);
 		}
 
 	}
@@ -269,30 +268,6 @@ class Room
 		context.strokeRect(this.x, this.y, this.width, this.height);	
 		context.fillStyle = 'lightGray';
 		context.fillRect(this.x, this.y, this.width, this.height);	
-	}
-
-	goHome()
-	{
-		for (const person of this.personSet)
-		{
-			person.goHome(this);
-		}
-	}
-
-	goToWork()
-	{
-		for (const person of this.personSet)
-		{
-			person.goToWork(this);
-		}
-	}
-
-	goToChurch()
-	{
-		for (const person of this.personSet)
-		{
-			person.goToChurch(this);
-		}
 	}
 }
 

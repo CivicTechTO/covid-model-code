@@ -1,43 +1,11 @@
-
-class Shift
-{
-	constructor(){}
-
-	nextShift(){}
-}
-
-class Night extends Shift
-{
-	constructor()
-	{
-		super();
-	}
-
-	startShift()
-	{
-		state.goHome();
-	}
-}
-
-class Day extends Shift
-{
-	constructor()
-	{
-		super();
-	}
-
-	startShift()
-	{
-		state.goToWork();
-	}
-} 
-
-
 class State 
 {
 	constructor(config, width, height)
 	{
 		this.size = config.size;
+
+		this.personSize = config.personSize;
+		
 		this.moveSpeed = config.moveSpeed;
 		this.moveVariation = config.moveVariation;
 		this.travelSpeed = config.travelSpeed;
@@ -110,25 +78,25 @@ class State
 
 	goHome()
 	{
-		for (const room of this.roomList)
+		for (const person of this.personList)
 		{
-			room.goHome();
+			person.goHome();
 		}
 	}
 
 	goToWork()
 	{
-		for (const room of this.roomList)
+		for (const person of this.personList)
 		{
-			room.goToWork();
+			person.goToWork();
 		}
 	}
 
 	goToChurch()
 	{
-		for (const room of this.roomList)
+		for (const person of this.personList)
 		{
-			room.goToChurch();
+			person.goToChurch();
 		}
 	}
 }

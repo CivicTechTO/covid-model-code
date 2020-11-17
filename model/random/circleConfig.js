@@ -1,15 +1,17 @@
 const config = {
 	  "size": {"height": 500, "width":1000}
+	, "limit": 0
 	, "moveSpeed": 1
-	, "moveVariation": 2
-	, "travelSpeed": 7
-	, "travelVariation": 2
+	, "moveVariation": 1
+	, "travelSpeed": 10
+	, "travelVariation": 1
 	, "count": 150
 	, "main": 250
 	, "road": {"space": 100, "first": 1, "last": 9} 
-	, "shiftLength": 300
+	, "shiftLength": 100
 	, "roomSize": 80
-	, "spacing": 4
+	, "personSize": 2
+	, "spacing": 5
  	, "roomLocation": 
  		[
  			  {x: 1, y: 1}

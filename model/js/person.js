@@ -3,6 +3,7 @@ class Person
 	constructor()
 	{
 		this.toRoom = null;
+		this.inRoom = null;
 		this.current = null;
 		this.dest = null;
 	}
@@ -36,34 +37,92 @@ class Person
 		return ((this.current && this.dest) ? this.current.equals(this.dest) : false);
 	}
 
+/*
+ *	There is one main E/W road partway up the model
+ *  There are a set of equally spaced N/S feeder roads
+ *  Path finding is
+ *		Go E/W to the nearest feeder road
+ *		Go N/S to the main road
+ *		Go E/W to the feeder road nearest the dest
+ *		Go N/S to the dest y co-ordinate
+ *		Go E/W to the dest
+ */
 
-	setItinerary(fromRoom, toRoom)
+	setItinerary(toRoom)
 	{
-		this.toRoom = toRoom;
-		this.speed = state.moveSpeed + rand(state.moveVariation);
-
-		this.itinerary = [];
-
-		let dest = fromRoom.door();
-		this.dest = dest;
-
-		let fromRoad = state.findRoad(dest.x);
-		this.itinerary.push(new Point(fromRoad, dest.y));
-
-		let toDoor = toRoom.door();
-		let toRoad = state.findRoad(toDoor.x);
-		if (toRoad !== fromRoad)
+		if (toRoom !== this.toRoom && toRoom !== this.inRoom)
 		{
-			this.itinerary.push(new Point(fromRoad, state.main));
-			this.itinerary.push(new Point(toRoad, state.main));
+			this.itinerary = [];
+			this.index = 0;
+			
+			let toDoor = toRoom.door();
+			let toRoad = state.findRoad(toDoor.x);
+
+			if (this.inRoom)
+			{
+				this.toRoom = toRoom;
+				this.speed = state.moveSpeed + rand(state.moveVariation);
+
+				let dest = this.inRoom.door();
+				this.dest = dest;
+
+				let fromRoad = state.findRoad(dest.x);
+				this.itinerary.push(new Point(fromRoad, dest.y));
+
+				if (toRoad !== fromRoad)
+				{
+					this.itinerary.push(new Point(fromRoad, state.main));
+					this.itinerary.push(new Point(toRoad, state.main));
+				}
+
+				this.itinerary.push(new Point(toRoad, toDoor.y));
+				this.itinerary.push(new Point(toDoor.x, toDoor.y));
+
+				this.inRoom.personSet.delete(this);
+			}
+			else
+			{
+				this.toRoom = toRoom;
+				let fromRoad = state.findRoad(this.current.x);
+				this.speed = state.travelSpeed + rand(state.travelVariation);
+
+				if (this.current.x !== fromRoad && this.current.y !== state.main)
+				{
+					this.itinerary.push(new Point(fromRoad, this.current.y));	// must be new room
+				}
+
+				if (fromRoad !== toRoad)
+				{
+					if (this.current.y !== state.main)
+					{
+						this.itinerary.push(new Point(fromRoad, state.main));
+					}
+						
+					this.itinerary.push(new Point(toRoad, state.main));
+				}
+				else
+				{
+					if (this.current.y === state.main)
+					{
+						this.itinerary.push(new Point(toRoad, state.main));
+					}
+				}
+
+				this.itinerary.push(new Point(toRoad, toDoor.y));
+				this.itinerary.push(new Point(toDoor.x, toDoor.y));
+
+				this.dest = this.itinerary[0];
+// on the road to the new room
+// Not on a road
+// 		Find nearest road - go to it
+//		Find new room road 
+//			If not on it go to main
+// on the main road - 
+//		go to new room road
+// 		go to new room
+
+			}			
 		}
-
-		this.itinerary.push(new Point(toRoad, toDoor.y))
-		this.itinerary.push(new Point(toDoor.x, toDoor.y))
-
-		this.index = 0;
-
-		fromRoom.personSet.delete(this);
 	}
 
 	step(stepCount)
@@ -82,6 +141,7 @@ class Person
 				{
 					if (0 === this.index)		//  Leaving door
 					{
+						this.inRoom = null;
 						this.speed = 1 + rand(state.travelSpeed);
 					}
 					else
@@ -96,6 +156,7 @@ class Person
 					if (this.index >= this.itinerary.length)
 					{
 						this.toRoom.arrive(this);
+						this.inRoom = this.toRoom;
 						this.toRoom = null;
 					}
 					else
@@ -107,25 +168,33 @@ class Person
 		}
 	}
 
-	goHome(from)
+	goHome()
 	{
-		this.setItinerary(from, this.home);
+		this.setItinerary(this.home);
 	}
 
-	goToWork(from)
+	goToWork()
 	{
-		this.setItinerary(from, this.work);
+		this.setItinerary(this.work);
 	}
 
-	goToChurch(from)
+	goToChurch()
 	{
-		this.setItinerary(from, this.church);
+		this.setItinerary(this.church);
 	}
 
 	draw(context)
 	{
-		context.strokeStyle = 'black';
-	 	context.strokeRect(this.current.x, this.current.y, 1, 1);
+		let size = state.personSize;
+
+		context.strokeStyle = 'blue';
+
+		context.beginPath();
+		context.moveTo(this.current.x, this.current.y - size);
+		context.lineTo(this.current.x, this.current.y + size);
+		context.moveTo(this.current.x - size, this.current.y);
+		context.lineTo(this.current.x + size, this.current.y);
+		context.stroke();
 	}
 }
 
