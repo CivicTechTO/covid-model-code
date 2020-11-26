@@ -48,12 +48,13 @@ class TownState extends State
 		let count = config.bunkHouse.count;
 		let width = config.bunkHouse.width;
 		let height = config.bunkHouse.height;
+		let speed = config.bunkHouse.speed;
 
 		let offset = Math.round((config.road.space - width) / 2);
 		let x = (config.bunkHouse.road * config.road.space) + offset;
 		let top = config.size.height - count * height;
 
-		let bunkHouses = stack(count, x, top, width, height);
+		let bunkHouses = stack(count, x, top, width, height, speed);
 		Array.prototype.push.apply(this.houseList, bunkHouses);
 		Array.prototype.push.apply(this.roomList, bunkHouses);
 		Array.prototype.push.apply(dwellings, bunkHouses);
@@ -69,13 +70,14 @@ class TownState extends State
 		let count = config.house.count;
 		let width = config.house.width;
 		let height = config.house.height;
+		let speed = config.house.speed;
 		let offset = Math.round((config.road.space - 2 * width) / 2);
 		let top = config.size.height - count * height;
 
 		for (var road = config.house.startRoad; road <= config.house.endRoad; road++) 
 		{
 			let x = road * config.road.space + offset;
-			let houses = twoStack(count, x, top, width, height);
+			let houses = twoStack(count, x, top, width, height, speed);
 			Array.prototype.push.apply(this.houseList, houses);
 			Array.prototype.push.apply(this.roomList, houses);
 
@@ -90,11 +92,12 @@ class TownState extends State
 
 	fillWork(config)
 	{
-		let left = row(1, 1, config.depth, config.left);
+		let left = row(1, 1, config.depth, config.workSpeed, config.left);
 		Array.prototype.push.apply(this.roomList, left);
 		Array.prototype.push.apply(this.workList, left);
 
-		let right = row(config.size.width - (config.depth + 1), 1, config.depth, config.right);
+		let x = config.size.width - (config.depth + 1);
+		let right = row(x, 1, config.depth, config.workSpeed, config.right);
 		Array.prototype.push.apply(this.roomList, right);
 		Array.prototype.push.apply(this.workList, right);
 	}
@@ -121,28 +124,32 @@ class TownState extends State
 
 	fillChurch(x, church)
 	{
-		let churchs = stack(church.count, x + church.offset, 1, church.width, church.height);
+		let actual = x + church.offset;
+		let churchs = stack(church.count, actual, 1, church.width, church.height, church.speed);
 		Array.prototype.push.apply(this.roomList, churchs);
 		Array.prototype.push.apply(this.churchList, churchs);
 	}
 
 	fillClub(x, club)
 	{
-		let clubs = stack(club.count, x + club.offset, 1, club.width, club.height);
+		let actual = x + club.offset;
+		let clubs = stack(club.count, actual, 1, club.width, club.height, club.speed);
 		Array.prototype.push.apply(this.roomList, clubs);
 		Array.prototype.push.apply(this.clubList, clubs);
 	}
 
 	fillPub(x, pub)
 	{
-		let pubs = twoStack(pub.count, x + pub.offset, 1, pub.width, pub.height);
+		let actual = x + pub.offset;
+		let pubs = twoStack(pub.count, actual, 1, pub.width, pub.height, pub.speed);
 		Array.prototype.push.apply(this.roomList, pubs);
 		Array.prototype.push.apply(this.pubList, pubs);
 	}
 
 	fillRestaurant(x, resto)
 	{
-		let restaurants = twoStack(resto.count, x + resto.offset, 1, resto.width, resto.height);
+		let actual = x + resto.offset;
+		let restaurants = twoStack(resto.count, actual, 1, resto.width, resto.height, resto.speed);
 		Array.prototype.push.apply(this.roomList, restaurants);
 		Array.prototype.push.apply(this.restaurantList, restaurants);
 	}
@@ -152,15 +159,19 @@ class TownState extends State
 		let width = config.outside.width;
 		let height = config.outside.height;
 		let y = config.outside.y;
+		let speed = config.outside.speed;
+		let halfEdge = config.outside.halfEdge;
+		let start = config.outside.start;
+		let pause = config.outside.pause;
 
 		for (var i = config.outside.road ; i < config.outside.count; i++) 
 		{
 			let x = i * config.road.space;
-			let outside = new Outside(x, y, width, height);
+			let outside = new Outside(x, y, width, height, speed, halfEdge, start, pause);
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 
-			outside = new Outside(x + width, y, width, height);
+			outside = new Outside(x + width, y, width, height, speed, halfEdge, start, pause);
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 		}

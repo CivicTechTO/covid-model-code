@@ -43,15 +43,19 @@ class CircleState extends State
 
 		this.limit = config.limit;
 		this.limitCount = 0;
+
+		this.shortShiftLength = config.shortShiftLength;
+		this.longShiftLength = config.longShiftLength;
 	}
 
 	fill(config)
 	{
-		for (var i = 0; i < config.roomLocation.length; i++) 
+		for (var i = 0; i < config.roomSpec.length; i++) 
 		{
-			let x = config.roomLocation[i].x;
-			let y = config.roomLocation[i].y;
-			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize)
+			let x = config.roomSpec[i].x;
+			let y = config.roomSpec[i].y;
+			let speed = config.roomSpec[i].speed;
+			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize, speed);
 		}
 
 		for (var i = 0; i < config.count; i++) 
@@ -60,6 +64,8 @@ class CircleState extends State
 			this.personList[i] = person;
 			this.roomList[0].insert(person);
 		}
+	
+		setShort();
 	}
 }
 
@@ -85,8 +91,28 @@ function limitedAnimate(timestamp)
 	state.step(stepCount);
 }
 
+function setShort() 
+{
+	setShift(state.shortShiftLength);
+}
 
+function setLong() 
+{
+	setShift(state.longShiftLength);
+}
 
+function setShift(length) 
+{
+	state.shiftLength = length;
+	const nameElement = document.getElementById('length');
+	nameElement.textContent = length.toString();
+}
+
+/*
+ *		Execution starts here
+ */
+
+ 
 const canvas = document.getElementById('canvas');
 
 var state = new CircleState(config, canvas.width, canvas.height);

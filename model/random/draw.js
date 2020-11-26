@@ -163,11 +163,12 @@ class DrawState extends State
 
 	fill(config)
 	{
-		for (var i = 0; i < config.roomLocation.length; i++) 
+		for (var i = 0; i < config.roomSpec.length; i++) 
 		{
-			let x = config.roomLocation[i].x;
-			let y = config.roomLocation[i].y;
-			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize)
+			let x = config.roomSpec[i].x;
+			let y = config.roomSpec[i].y;
+			let speed = config.roomSpec[i].speed;
+			this.roomList[i] = new Room(x, y, config.roomSize, config.roomSize, speed)
 		}
 
 		for (var i = 0; i < config.count; i++) 

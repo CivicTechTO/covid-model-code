@@ -15,7 +15,15 @@
 <body>
   <div id="container">
     <h1>Circle</h1>
-  	<canvas id="canvas" width=1000 height=500></canvas>
+    <div>
+      <canvas id="canvas" width=1000 height=500></canvas>
+    </div>
+    <div id="controls">
+      <button type="button" onclick="setShort();">Short Shift</button>
+      <button type="button" onclick="setLong();">Long Shift</button>
+      Length 
+      <span id="length">Short</span>
+    </div>
   </div>
 
   <script src="../js/lib.js"></script>

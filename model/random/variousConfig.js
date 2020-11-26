@@ -2,16 +2,16 @@ const config = {
 	  "size": {"height": 500, "width":1000}
 	, "offset": 4
 	, "personSize": 1
-	, "moveSpeed": 1
+	, "moveSpeed": 0.25
 	, "moveVariation": 1
 	, "travelSpeed": 8
 	, "travelVariation": 1
 	, "count": 10000
 	, "main": 195
 	, "road": {"space": 100, "first": 1, "last": 9} 
-	, "shiftLength": 600
-	, "sit": 300
-	, "millabout": 100
+	, "shiftLength": 1000
+	, "sit": 500
+	, "millabout": 200
 	, "spacing": 4
 	, "roomSize": 80
  	, "roomSpec": 

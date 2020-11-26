@@ -25,11 +25,11 @@ class Person
 		this.dest = new Point(x, y);
 	}
 
-	moveTo(dest)
+	moveTo(dest, speed)
 	{
 		this.dest = dest;
 		this.to = null;
-		this.speed = state.moveSpeed + rand(state.moveVariation);
+		this.speed = speed;
 	}
 
 	hasArrived()
@@ -61,7 +61,7 @@ class Person
 			if (this.inRoom)
 			{
 				this.toRoom = toRoom;
-				this.speed = state.moveSpeed + rand(state.moveVariation);
+				this.speed = this.inRoom.getSpeed();
 
 				let dest = this.inRoom.door();
 				this.dest = dest;

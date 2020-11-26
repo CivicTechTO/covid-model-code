@@ -17,15 +17,20 @@
 function roomChoice(type, args, x, y, config) 
 {
 	let roomSize = config.roomSize;
+	let speed = config.moveSpeed;
 
 	switch (type)
 	{
 	case 1:
-		return new Room(x, y, roomSize, roomSize);
+		return new Room(x, y, roomSize, roomSize, speed);
 		break;
 
 	case 2:
-		return new RandomRoom(x, y, roomSize, roomSize, args.halfEdge, args.start, args.pause);
+		return new RandomRoom(x, y, roomSize, roomSize, speed, args.halfEdge, args.start, args.pause);
+		break;
+
+	case 3:
+		return new Outside(x, y, roomSize, roomSize, speed);
 		break;
 	}
 }
@@ -55,7 +60,8 @@ class Sit extends Event
 
 	action()
 	{
-		this.room.change(new Rules());
+		let speed = this.room.rules.speed;
+		this.room.change(new Rules(speed));
 	}
 }
 
@@ -70,7 +76,9 @@ class Millabout extends Event
 
 	action()
 	{
-		this.room.change(new RandomRules(this.args.halfEdge, this.args.start, this.args.pause));
+		let speed = this.room.rules.speed;
+		let args = this.args;
+		this.room.change(new RandomRules(speed, args.halfEdge, args.start, args.pause));
 	}
 }
 

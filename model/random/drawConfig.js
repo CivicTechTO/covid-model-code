@@ -10,16 +10,16 @@ const config = {
 	, "shiftLength": 300
 	, "roomSize": 80
 	, "spacing": 8
- 	, "roomLocation": 
+ 	, "roomSpec": 
  		[
- 			  {x: 1, y: 1}
- 			, {x: 1, y: 100}
- 			, {x: 105, y: 100}
- 			, {x: 210, y: 100}
- 			, {x: 305, y: 10}
- 			, {x: 1, y: 418}
- 			, {x: 918, y: 1}
- 			, {x: 918, y: 418}
+ 			  {x: 1, y: 1, speed: 0.25}
+ 			, {x: 1, y: 100, speed: 0.5}
+ 			, {x: 105, y: 100, speed: 0.75}
+ 			, {x: 210, y: 100, speed: 1}
+ 			, {x: 305, y: 10, speed: 1.25}
+ 			, {x: 1, y: 418, speed: 1.5}
+ 			, {x: 918, y: 1, speed: 1.75}
+ 			, {x: 918, y: 418, speed: 2}
  		]
 }
 

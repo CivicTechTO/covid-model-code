@@ -2,10 +2,16 @@
 
 class Rules
 {
-	constructor()
+	constructor(speed)
 	{
+		this.speed = speed;
 	}
 
+	getSpeed()
+	{
+		return this.speed;
+	}
+	
 	insert(room, person)
 	{
 		person.setNewCurrent(seat(room, person, room.personSet.size));
@@ -13,7 +19,7 @@ class Rules
 
 	arrive(room, person)
 	{
-		person.moveTo(seat(room, person, room.personSet.size));
+		person.moveTo(seat(room, person, room.personSet.size), this.speed);
 	}
 
 	transition(room)
@@ -21,7 +27,7 @@ class Rules
 		let i = 0;
 		for (const person of room.personSet)
 		{
-			person.moveTo(seat(room, person, i++));
+			person.moveTo(seat(room, person, i++), this.speed);
 		}
 	}
 
@@ -43,9 +49,9 @@ function seat(room, person, which)
 
 class RandomRules extends Rules
 {
-	constructor(halfEdge, start, pause)
+	constructor(speed, halfEdge, start, pause)
 	{
-		super();
+		super(speed);
 		this.halfEdge = halfEdge;
 		this.pause = pause;
 		this.start = start;
@@ -62,7 +68,7 @@ class RandomRules extends Rules
 
 	arrive(room, person)
 	{
-		person.moveTo(findRandom(room, person, this.halfEdge));
+		person.moveTo(findRandom(room, person, this.halfEdge), this.speed);
 		person.pause = 0;
 	}
 
@@ -85,7 +91,7 @@ class RandomRules extends Rules
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
-					person.moveTo(findRandom(room, person, this.halfEdge));
+					person.moveTo(findRandom(room, person, this.halfEdge), this.speed);
 				}
 			}
 		}
