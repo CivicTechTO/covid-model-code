@@ -117,8 +117,8 @@ class RandomRules extends RandomRulesBase
 
 	findRandom(room, person, halfEdge) 
 	{
-		let x = randomCoord(room.x + 1, room.width - 1, person.current.x, halfEdge);
-		let y = randomCoord(room.y + 1, room.height - 1, person.current.y, halfEdge);
+		let x = centredRandom(room.x + 1, room.width - 1, person.current.x, halfEdge);
+		let y = centredRandom(room.y + 1, room.height - 1, person.current.y, halfEdge);
 		return new Point(x, y)
 	}
 }
@@ -132,7 +132,7 @@ class TotalRandomRules extends RandomRulesBase
 
 	arrive(room, person)
 	{
-		person.moveTo(this.findRandom(room, person), this.speed);
+		person.moveTo(findRandom(room), this.speed);
 		person.pause = 0;
 	}
 
@@ -146,19 +146,12 @@ class TotalRandomRules extends RandomRulesBase
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
-					person.moveTo(this.findRandom(room, person), this.speed);
+					person.moveTo(findRandom(room), this.speed);
 				}
 			}
 		}
 	}
 
-	findRandom(room, person)
-	{
-		let x = getRandom(room.x, room.width);
-		let y = getRandom(room.y, room.height);
-
-		return new Point(x, y);
-	}
 }
 
 function getRandom(lower, limit) 
@@ -166,10 +159,40 @@ function getRandom(lower, limit)
 	return lower + rand(limit);
 }
 
-function randomCoord(lower, limit, current, halfEdge) 
+function findRandom(room)
+{
+	let x = getRandom(room.x, room.width);
+	let y = getRandom(room.y, room.height);
+
+	return new Point(x, y);
+}
+
+function centredRandom(lower, limit, current, halfEdge) 
 {
 	let mid = clamp(lower + halfEdge, lower + (limit - halfEdge), current);
 	let delta = rand(2 * halfEdge + 1) - halfEdge;
 	return mid + delta;
 }
 
+class WorkRules extends Rules
+{
+	constructor(speed, chance)
+	{
+		super(speed);
+		this.chance = chance;
+	}
+
+	step(room, stepCount)
+	{
+		for (const person of room.personSet)
+		{
+			if (person.hasArrived())
+			{
+				if (Math.random() < this.chance)
+				{
+					person.andBack(findRandom(room), room.getSpeed());
+				}
+			}
+		}
+	}
+}

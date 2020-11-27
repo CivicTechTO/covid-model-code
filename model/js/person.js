@@ -6,6 +6,7 @@ class Person
 		this.inRoom = null;
 		this.current = null;
 		this.dest = null;
+		this.back = null;
 	}
 
 // newCurrent : Point
@@ -27,6 +28,14 @@ class Person
 
 	moveTo(dest, speed)
 	{
+		this.dest = dest;
+		this.to = null;
+		this.speed = speed;
+	}
+
+	andBack(dest, speed)
+	{
+		this.back = new Point(this.current.x, this.current.y);
 		this.dest = dest;
 		this.to = null;
 		this.speed = speed;
@@ -137,34 +146,46 @@ class Person
 			}
 			else
 			{
-				if (this.toRoom)		// We are travelling and we are at an intermediate dest
+				if (this.back)
 				{
-					if (0 === this.index)		//  Leaving door
+					this.dest = this.back;
+					this.back = null;
+				}
+				else
+				{
+					if (this.toRoom)		// We are travelling and we are at an intermediate dest
 					{
-						this.inRoom = null;
-						this.speed = 1 + rand(state.travelSpeed);
-					}
-					else
-					{
-						if (1 === this.index)
-						{
-							this.speed = state.travelSpeed + rand(state.travelVariation);
-						}
-					}
-
-
-					if (this.index >= this.itinerary.length)
-					{
-						this.toRoom.arrive(this);
-						this.inRoom = this.toRoom;
-						this.toRoom = null;
-					}
-					else
-					{
-						this.dest = this.itinerary[this.index++];
+						this.travel();
 					}
 				}
 			}
+		}
+	}
+
+	travel()
+	{
+		if (0 === this.index)		//  Leaving door
+		{
+			this.inRoom = null;
+			this.speed = 1 + rand(state.travelSpeed);
+		}
+		else
+		{
+			if (1 === this.index)
+			{
+				this.speed = state.travelSpeed + rand(state.travelVariation);
+			}
+		}
+
+		if (this.index >= this.itinerary.length)		// Last entry is toRoom.door
+		{
+			this.toRoom.arrive(this);
+			this.inRoom = this.toRoom;
+			this.toRoom = null;
+		}
+		else
+		{
+			this.dest = this.itinerary[this.index++];
 		}
 	}
 

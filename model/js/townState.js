@@ -17,6 +17,8 @@ class TownState extends State
 		this.choiceList = 
 			[this.churchList, this.restaurantList, this.pubList, this.clubList, this.outsideList];
 		this.week = [];
+
+		this.workBack = config.workBack;
 	}
 
 	fill(config)
@@ -101,6 +103,11 @@ class TownState extends State
 		let right = row(x, 1, config.depth, config.workSpeed, config.right);
 		Array.prototype.push.apply(this.roomList, right);
 		Array.prototype.push.apply(this.workList, right);
+
+		for (const room of this.workList)
+		{
+			room.change(new WorkRules(config.workSpeed, config.workBack));
+		}
 	}
 
 	fillOther(config)
