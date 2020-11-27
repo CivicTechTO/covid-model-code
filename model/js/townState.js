@@ -35,6 +35,7 @@ class TownState extends State
 		this.setChurch(config);			// After setHomes
 
 		this.setWeek(config);
+		this.setDays(config);
 	}
 
 	fillHome(config, dwellings, crowd)
@@ -285,5 +286,26 @@ class TownState extends State
 		this.week.push(new Shift());
 		this.week.push(new Night());
 		this.week.push(new Shift());
+	}
+
+	setDays(config)
+	{
+		this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+		this.dayTicks = (24 * 60 * 60) / config.realTick;
+		this.currentDay = 0;
+	}
+
+	step(stepCount)
+	{
+		super.step(stepCount);
+
+		let nextDay = Math.floor(this.clock / this.dayTicks) % 7;
+
+		if (nextDay !== this.currentDay)
+		{
+			this.currentDay = nextDay;
+			const dayElement = document.getElementById('day');
+			dayElement.textContent = this.days[nextDay];
+		}
 	}
 }

@@ -126,11 +126,12 @@ class RandomRoom extends Room
 	}
 }
 
-class Outside extends RandomRoom
+class Outside extends Room
 {
-	constructor(x, y, width, height, speed, halfEdge, start, pause)
+	constructor(x, y, width, height, speed, start, pause)
 	{
-		super(x, y, width, height, speed, halfEdge, start, pause);
+		super(x, y, width, height, speed, start, pause);
+		this.rules = new TotalRandomRules(speed, start, pause);
 	}
 
 	draw(context)

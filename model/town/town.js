@@ -1,4 +1,5 @@
 
+
 const canvas = document.getElementById('canvas');
 
 var state = new TownState(config, canvas.width, canvas.height);
