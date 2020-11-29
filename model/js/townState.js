@@ -140,12 +140,22 @@ class TownState extends State
 		Array.prototype.push.apply(this.churchList, churchs);
 	}
 
-	fillClub(x, club)
+	fillClub(x, clubSpec)
 	{
-		let actual = x + club.offset;
-		let clubs = stack(club.count, actual, 1, club.width, club.height, club.speed);
-		Array.prototype.push.apply(this.roomList, clubs);
-		Array.prototype.push.apply(this.clubList, clubs);
+		let actual = x + clubSpec.offset;
+		let width = clubSpec.width;
+		let height = clubSpec.height;
+		let speed = clubSpec.speed;
+		let halfEdge = clubSpec.halfEdge;
+
+		let clubList = stack(clubSpec.count, actual, 1, width, height, speed);
+		for (const club of clubList)
+		{
+			club.rules = new RandomRules(speed, halfEdge, 1, 1);
+		}
+		
+		Array.prototype.push.apply(this.roomList, clubList);
+		Array.prototype.push.apply(this.clubList, clubList);
 	}
 
 	fillPub(x, pub)

@@ -207,7 +207,7 @@ class Person
 	{
 		let size = state.personSize;
 
-		context.strokeStyle = 'blue';
+		context.strokeStyle = 'green';
 
 		context.beginPath();
 		context.moveTo(this.current.x, this.current.y - size);

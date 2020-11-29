@@ -28,7 +28,8 @@ const config = {
 	, "church": {"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 5, "speed": 0.5}
 	, "restaurant": {"count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.5}
 	, "pub": {"count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 1}
-	, "club": {"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 1.5}
+	, "club": {"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.75
+		, "halfEdge": 5}
 	, "outside": {"y": 180, "road": 2, "count": 18, "width": 25, "height": 100, "crowd": 1
 		, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.25}
 	, "fridayNight": {"home": 0.25, "other": [1, 1, 1, 1, 1]}
