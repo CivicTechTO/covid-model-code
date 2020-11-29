@@ -1,5 +1,6 @@
 const config = {
 	  "size": {"height": 500, "width":1000}
+	, "stepsPerFrame": 1
 	, "offset": 4
 	, "personSize": 1
 	, "moveSpeed": 0.25

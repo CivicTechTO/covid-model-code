@@ -134,15 +134,14 @@ class Person
 		}
 	}
 
-	step(stepCount)
+	step()
 	{
 		if (this.current && this.dest)
 		{
 			if (!this.current.equals(this.dest))
 			{
-				let delta = stepCount * this.speed;
-				this.current.x = closer(this.dest.x, this.current.x, delta);
-				this.current.y = closer(this.dest.y, this.current.y, delta);
+				this.current.x = closer(this.dest.x, this.current.x, this.speed);
+				this.current.y = closer(this.dest.y, this.current.y, this.speed);
 			}
 			else
 			{

@@ -8,11 +8,11 @@ class Event
 		this.clock = 0;
 	}
 
-	step(stepCount)
+	step()
 	{
 		let result = false;
 
-		this.clock += stepCount;
+		this.clock++;
 
 		if (this.clock >= this.time)
 		{

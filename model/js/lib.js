@@ -18,7 +18,12 @@ function animate(timestamp)
 
 	let deltaT = (past ? timestamp - past : FRAME);
 	past = timestamp;
-	stepCount = Math.round(deltaT / FRAME);
+	stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+
+	for (var i = 0; i < stepCount; i++) 
+	{
+		state.step();
+	}
 
 	const context = document.getElementById('canvas').getContext('2d');
 
@@ -28,7 +33,11 @@ function animate(timestamp)
 
 	context.restore();
 
-	state.step(stepCount);
+}
+
+function setSteps(steps) 
+{
+	state.stepsPerFrame = steps;
 }
 
 class Point

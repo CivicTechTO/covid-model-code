@@ -2,8 +2,9 @@
 
 const config = {
 	  "size": {"height": 500, "width":1000}
-	, "realTick": 60
-	, "shiftLength": 240
+	, "stepsPerFrame": 1
+	, "realTick": 15
+	, "shiftLength": 960
 	, "offset": 4
 	, "personSize": 2
 	, "moveSpeed": 0.25
@@ -16,7 +17,7 @@ const config = {
 	, "spacing": 5
 	, "depth": 80
 	, "workSpeed": 0.75
-	, "workBack": 0.01
+	, "workBack": 0.001
 	, "left":[30, 55, 30, 80, 65, 70, 80, 20, 65]
 	, "right": [70, 30, 65, 75, 30, 90, 70, 65]
 	, "workAllocation": [12, 30, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]

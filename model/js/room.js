@@ -70,13 +70,13 @@ class Room
 		}
 	}
 
-	step(stepCount)
+	step()
 	{
-		this.rules.step(this, stepCount);
+		this.rules.step(this);
 
 		if (this.currentEvent)
 		{
-			if (this.currentEvent.step(stepCount)) 
+			if (this.currentEvent.step()) 
 			{
 				this.eventIndex++;
 
@@ -94,7 +94,7 @@ class Room
 
 		for (const person of this.personSet)
 		{
-			person.step(stepCount);
+			person.step();
 		}
 	}
 

@@ -5,6 +5,8 @@ class TownState extends State
 	{
 		super(config, width, height);
 
+		this.oldSteps = 0;
+
 		this.workList = [];
 		this.houseList = [];
 
@@ -302,9 +304,9 @@ class TownState extends State
 		this.currentDay = 0;
 	}
 
-	step(stepCount)
+	step()
 	{
-		super.step(stepCount);
+		super.step();
 
 		let nextDay = Math.floor(this.clock / this.dayTicks) % 7;
 
@@ -313,6 +315,14 @@ class TownState extends State
 			this.currentDay = nextDay;
 			const dayElement = document.getElementById('day');
 			dayElement.textContent = this.days[nextDay];
+		}
+
+		if (this.oldSteps !== this.stepsPerFrame)
+		{
+			this.oldSteps = this.stepsPerFrame;
+
+			const stepElement = document.getElementById('steps');
+			stepElement.textContent = this.stepsPerFrame.toString();
 		}
 	}
 }

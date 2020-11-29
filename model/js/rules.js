@@ -31,7 +31,7 @@ class Rules
 		}
 	}
 
-	step(room, stepCount)
+	step(room)
 	{
 
 	}
@@ -99,13 +99,13 @@ class RandomRules extends RandomRulesBase
 		person.pause = 0;
 	}
 
-	step(room, stepCount)
+	step(room)
 	{
 		for (const person of room.personSet)
 		{
 			if (person.hasArrived())
 			{
-				person.pause -= stepCount;
+				person.pause--;
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
@@ -136,13 +136,13 @@ class TotalRandomRules extends RandomRulesBase
 		person.pause = 0;
 	}
 
-	step(room, stepCount)
+	step(room)
 	{
 		for (const person of room.personSet)
 		{
 			if (person.hasArrived())
 			{
-				person.pause -= stepCount;
+				person.pause--;
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
@@ -182,7 +182,7 @@ class WorkRules extends Rules
 		this.chance = chance;
 	}
 
-	step(room, stepCount)
+	step(room)
 	{
 		for (const person of room.personSet)
 		{

@@ -4,6 +4,8 @@ class State
 	{
 		this.size = config.size;
 
+		this.stepsPerFrame = config.stepsPerFrame;
+
 		this.personSize = config.personSize;
 		
 		this.moveSpeed = config.moveSpeed;
@@ -27,9 +29,9 @@ class State
 		this.shift = 0;
 	}
 
-	step(stepCount)
+	step()
 	{
-		this.clock += stepCount;
+		this.clock++;
 		let nextShift = Math.floor(this.clock / this.shiftLength) % this.week.length;
 
 		if (this.shift !== nextShift)
@@ -40,12 +42,12 @@ class State
 
 		for (const room of this.roomList)
 		{
-			room.step(stepCount);
+			room.step();
 		}
 
 		for (const person of this.personList)
 		{
-			person.step(stepCount);
+			person.step();
 		}
 	}
 

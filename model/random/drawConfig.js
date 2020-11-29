@@ -1,5 +1,6 @@
 const config = {
 	  "size": {"height": 500, "width":1000}
+	, "stepsPerFrame": 1
 	, "moveSpeed": 1
 	, "moveVariation": 2
 	, "travelSpeed": 7
