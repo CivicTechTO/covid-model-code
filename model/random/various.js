@@ -57,37 +57,6 @@ function roomChoice(type, args, x, y, config)
 	}
 }
 
-class Sit extends Event
-{
-	constructor(room, time)
-	{
-		super(room, time);
-	}
-
-	action()
-	{
-		let speed = this.room.rules.speed;
-		this.room.change(new Rules(speed));
-	}
-}
-
-class Millabout extends Event
-{
-	constructor(room, time, args)
-	{
-		super(room, time);
-
-		this.args = args;
-	}
-
-	action()
-	{
-		let speed = this.room.rules.speed;
-		let args = this.args;
-		this.room.change(new RandomRules(speed, args.halfEdge, args.start, args.pause));
-	}
-}
-
 class VariousState extends State
 {
 	constructor(config, width, height)

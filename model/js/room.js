@@ -70,6 +70,11 @@ class Room
 		}
 	}
 
+	clearEvents()
+	{
+		this.eventList = [];
+	}
+
 	step()
 	{
 		this.rules.step(this);

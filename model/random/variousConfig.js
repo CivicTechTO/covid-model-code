@@ -4,6 +4,7 @@ const config = {
 	, "offset": 4
 	, "personSize": 1
 	, "moveSpeed": 0.25
+	, "leaveSpeed": 1
 	, "moveVariation": 1
 	, "travelSpeed": 8
 	, "travelVariation": 1

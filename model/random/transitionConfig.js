@@ -5,6 +5,7 @@ const config = {
 	, "personSize": 1
 	, "moveSpeed": 0.1
 	, "moveVariation": 1
+	, "leaveSpeed": 1
 	, "travelSpeed": 16
 	, "travelVariation": 8
 	, "count": 10000

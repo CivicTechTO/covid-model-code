@@ -9,6 +9,7 @@ class State
 		this.personSize = config.personSize;
 		
 		this.moveSpeed = config.moveSpeed;
+		this.leaveSpeed = config.leaveSpeed;
 		this.moveVariation = config.moveVariation;
 		this.travelSpeed = config.travelSpeed;
 		this.travelVariation = config.travelVariation;

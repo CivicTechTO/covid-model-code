@@ -13,7 +13,7 @@ state.week[0].startShift();
 
 window.requestAnimationFrame(animate);
 
-// for (var i = 200; i >= 0; i--) 
+// for (var i = 2000; i >= 0; i--) 
 // {
 // 	state.step(FRAME);
 // }

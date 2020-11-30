@@ -28,6 +28,8 @@ class TownState extends State
 		let dwellings = [];
 		let crowd = [];
 
+		this.churchSpec = config.church;
+
 		this.fillHome(config, dwellings, crowd);
 		this.fillWork(config);
 		this.fillOther(config);
@@ -132,12 +134,19 @@ class TownState extends State
 		this.fillOutside(config);
 	}
 
-	fillChurch(x, church)
+	fillChurch(x, churchSpec)
 	{
-		let actual = x + church.offset;
-		let churchs = stack(church.count, actual, 1, church.width, church.height, church.speed);
-		Array.prototype.push.apply(this.roomList, churchs);
-		Array.prototype.push.apply(this.churchList, churchs);
+		let actual = x + churchSpec.offset;
+		let width = churchSpec.width;
+		let height = churchSpec.height;
+		let speed = churchSpec.speed;
+		let halfEdge = churchSpec.halfEdge;
+		let start = churchSpec.start;
+		let pause = churchSpec.pause;
+
+		let churches = stack(churchSpec.count, actual, 1, width, height, speed);
+		Array.prototype.push.apply(this.roomList, churches);
+		Array.prototype.push.apply(this.churchList, churches);
 	}
 
 	fillClub(x, clubSpec)
@@ -252,7 +261,7 @@ class TownState extends State
 			{
 				roll -= config.sundayMorning.home;
 
-				if (roll < config.sunday.outside)
+				if (roll < config.sundayMorning.outside)
 				{
 					person.church = chooseOne(this.outsideList);
 				}
@@ -268,6 +277,13 @@ class TownState extends State
 	{
 		this.week = [];
 		let choices;
+
+		this.week.push(new Sunday(config.church));
+		choices = makeChoices(this.choiceList, config.sunday.other);
+		this.week.push(new OtherShift(config.sunday.home, choices));
+		choices = makeChoices(this.choiceList, config.weekNight.other);
+		this.week.push(new OtherShift(config.weekNight.home, choices));
+		this.after();
 
 		for (let i = 0 ; i < 4 ; i++)
 		{
@@ -290,14 +306,6 @@ class TownState extends State
 		choices = makeChoices(this.choiceList, config.saturdayNight.other);
 		this.week.push(new OtherShift(config.saturdayNight.home, choices));
 		this.after();
-
-		choices = makeChoices(this.choiceList, config.sundayMorning.other);
-		this.week.push(new OtherShift(config.sundayMorning.home, choices));
-		choices = makeChoices(this.choiceList, config.sunday.other);
-		this.week.push(new OtherShift(config.sunday.home, choices));
-		choices = makeChoices(this.choiceList, config.weekNight.other);
-		this.week.push(new OtherShift(config.weekNight.home, choices));
-		this.after();
 	}
 
 	after()
@@ -309,22 +317,34 @@ class TownState extends State
 
 	setDays(config)
 	{
-		this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+		this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 		this.dayTicks = (24 * 60 * 60) / config.realTick;
 		this.currentDay = 0;
+	}
+
+	clearChurch()
+	{
+		for (const church of this.churchList)
+		{
+			church.clearEvents();
+		}
 	}
 
 	step()
 	{
 		super.step();
 
-		let nextDay = Math.floor(this.clock / this.dayTicks) % 7;
+		let nextDay = Math.floor(this.clock / this.dayTicks);
 
 		if (nextDay !== this.currentDay)
 		{
 			this.currentDay = nextDay;
+
 			const dayElement = document.getElementById('day');
-			dayElement.textContent = this.days[nextDay];
+			dayElement.textContent = (nextDay + 1).toString();
+
+			const nameElement = document.getElementById('name');
+			nameElement.textContent = this.days[nextDay % 7];
 		}
 
 		if (this.oldSteps !== this.stepsPerFrame)

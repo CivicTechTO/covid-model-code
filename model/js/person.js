@@ -70,7 +70,7 @@ class Person
 			if (this.inRoom)
 			{
 				this.toRoom = toRoom;
-				this.speed = this.inRoom.getSpeed();
+				this.speed = state.leaveSpeed;
 
 				let dest = this.inRoom.door();
 				this.dest = dest;

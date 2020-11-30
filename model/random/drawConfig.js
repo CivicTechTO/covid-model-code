@@ -3,6 +3,7 @@ const config = {
 	, "stepsPerFrame": 1
 	, "moveSpeed": 1
 	, "moveVariation": 2
+	, "leaveSpeed": 1
 	, "travelSpeed": 7
 	, "travelVariation": 2
 	, "count": 50

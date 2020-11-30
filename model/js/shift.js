@@ -34,13 +34,27 @@ class Day extends Shift
 
 class Sunday extends Shift
 {
-	constructor()
+	constructor(churchSpec)
 	{
 		super();
+		this.churchSpec = churchSpec;
 	}
 
 	startShift()
 	{
+		let speed = this.churchSpec.speed;
+		let halfEdge = this.churchSpec.halfEdge;
+		let start = this.churchSpec.start;
+		let pause = this.churchSpec.pause;
+
+		for (const church of state.churchList)
+		{
+			church.clearEvents();
+			church.change(new RandomRules(speed, halfEdge, start, pause));
+			church.addEvent(new Sit(church, this.churchSpec.millingTime));
+			church.addEvent(new Millabout(church, this.churchSpec.sitTime, this.churchSpec));
+		}
+
 		state.goToChurch();
 	}
 } 

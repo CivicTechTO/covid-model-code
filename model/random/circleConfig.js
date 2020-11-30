@@ -1,6 +1,7 @@
 const config = {
 	  "size": {"height": 500, "width":1000}
 	, "limit": 0
+	, "leaveSpeed": 1
 	, "travelSpeed": 8
 	, "travelVariation": 8
 	, "count": 150

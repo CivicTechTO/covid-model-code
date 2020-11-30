@@ -34,3 +34,35 @@ class Event
 	}
 }
 
+class Sit extends Event
+{
+	constructor(room, time)
+	{
+		super(room, time);
+	}
+
+	action()
+	{
+		let speed = this.room.getSpeed();
+		this.room.change(new Rules(speed));
+	}
+}
+
+class Millabout extends Event
+{
+	constructor(room, time, args)
+	{
+		super(room, time);
+
+		this.args = args;
+	}
+
+	action()
+	{
+		let speed = this.room.getSpeed();
+		let args = this.args;
+console.log("args", args);
+		this.room.change(new RandomRules(speed, args.halfEdge, args.start, args.pause));
+	}
+}
+
