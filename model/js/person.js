@@ -7,6 +7,8 @@ class Person
 		this.current = null;
 		this.dest = null;
 		this.back = null;
+		this.group = null;
+this.debugFlag = false;
 	}
 
 // newCurrent : Point
@@ -87,7 +89,7 @@ class Person
 				this.itinerary.push(new Point(toRoad, toDoor.y));
 				this.itinerary.push(new Point(toDoor.x, toDoor.y));
 
-				this.inRoom.personSet.delete(this);
+				this.inRoom.depart(this);
 			}
 			else
 			{
@@ -121,6 +123,7 @@ class Person
 				this.itinerary.push(new Point(toDoor.x, toDoor.y));
 
 				this.dest = this.itinerary[0];
+
 // on the road to the new room
 // Not on a road
 // 		Find nearest road - go to it
@@ -129,6 +132,7 @@ class Person
 // on the main road - 
 //		go to new room road
 // 		go to new room
+
 
 			}			
 		}
@@ -178,9 +182,11 @@ class Person
 
 		if (this.index >= this.itinerary.length)		// Last entry is toRoom.door
 		{
-			this.toRoom.arrive(this);
-			this.inRoom = this.toRoom;
-			this.toRoom = null;
+			if (this.toRoom.arrive(this))
+			{
+				this.inRoom = this.toRoom;
+				this.toRoom = null;
+			}
 		}
 		else
 		{
@@ -216,6 +222,14 @@ class Person
 		context.lineTo(this.current.x + size, this.current.y);
 		context.stroke();
 	}
+
+debug(message)
+{
+	if (this.debugFlag)
+	{
+		console.log("person", message);
+	}
+}
 }
 
 function closer(dest, current, delta)

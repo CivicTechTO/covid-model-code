@@ -21,14 +21,15 @@ const config = {
 	, "workBack": 0.001
 	, "left":[30, 55, 30, 80, 65, 70, 80, 20, 65]
 	, "right": [70, 30, 65, 75, 30, 90, 70, 65]
-	, "workAllocation": [12, 30, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
+	, "workAllocation": [12, 25, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
 	, "fillFactor": 1.25
 	, "bunkHouse": {"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "speed": 0.25}
 	, "house": {"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17
 		, "speed": 0.25}
 	, "church": {"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 5, "speed": 0.25
 		, "halfEdge": 20, "start": 100, "pause": 100, "millingTime": 360, "sitTime": 240}
-	, "restaurant": {"count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.25}
+	, "restaurant": {"count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.25
+		, "separation": 1}
 	, "pub": {"count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 0.25}
 	, "club": {"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.75
 		, "halfEdge": 5}

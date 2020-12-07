@@ -61,7 +61,6 @@ class Millabout extends Event
 	{
 		let speed = this.room.getSpeed();
 		let args = this.args;
-console.log("args", args);
 		this.room.change(new RandomRules(speed, args.halfEdge, args.start, args.pause));
 	}
 }

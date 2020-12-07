@@ -39,6 +39,8 @@ class TownState extends State
 		this.setHomes(config, dwellings, crowd);
 		this.setWork(config);
 		this.setChurch(config);			// After setHomes
+		this.setRestaurants(config);
+		this.setPubs(config);
 
 		this.setWeek(config);
 		this.setDays(config);
@@ -108,9 +110,11 @@ class TownState extends State
 		Array.prototype.push.apply(this.roomList, right);
 		Array.prototype.push.apply(this.workList, right);
 
+		let index = 0;
 		for (const room of this.workList)
 		{
-			room.change(new WorkRules(config.workSpeed, config.workBack));
+			let crowd = Math.floor(config.workAllocation[index++] / room.height);
+			room.change(new WorkRules(config.workSpeed, config.workBack, room, crowd));
 		}
 	}
 
@@ -175,12 +179,36 @@ class TownState extends State
 		Array.prototype.push.apply(this.pubList, pubs);
 	}
 
+	setPubs(config)
+	{
+		let speed = config.pub.speed;
+
+		for (const pub of this.pubList)
+		{
+			pub.rules = new PubRules(speed, this.pubList, pub);
+		}
+	}
+
 	fillRestaurant(x, resto)
 	{
 		let actual = x + resto.offset;
-		let restaurants = twoStack(resto.count, actual, 1, resto.width, resto.height, resto.speed);
-		Array.prototype.push.apply(this.roomList, restaurants);
-		Array.prototype.push.apply(this.restaurantList, restaurants);
+		let speed = resto.speed;
+
+		let restaurantStack = twoStack(resto.count, actual, 1, resto.width, resto.height, speed);
+
+		Array.prototype.push.apply(this.roomList, restaurantStack);
+		Array.prototype.push.apply(this.restaurantList, restaurantStack);
+	}
+
+	setRestaurants(config)
+	{
+		let speed = config.restaurant.speed;
+		let separation = config.restaurant.separation;
+
+		for (const restaurant of this.restaurantList)
+		{
+			restaurant.rules = new RestaurantRules(speed, this.restaurantList, restaurant, separation);
+		}
 	}
 
 	fillOutside(config)

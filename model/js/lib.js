@@ -80,3 +80,11 @@ function makeChoices(optionList, weightList)
 
 	return result;
 }
+
+function debug(argument) 
+{
+	if (state.debug) 
+	{
+		console.log(argument);
+	}
+}

@@ -15,6 +15,11 @@ class Room
 		this.currentEvent = null;
 	}
 
+	equals(other)
+	{
+		return this.x === other.x && this.y === other.y;
+	}
+
 	getSpeed()
 	{
 		return this.rules.getSpeed();
@@ -35,9 +40,25 @@ class Room
 
 	arrive(person)
 	{
-		this.rules.arrive(this, person);
-		person.inRoom = this;
-		this.personSet.add(person);
+		let result = true;
+
+		if (this.rules.arrive(this, person))
+		{
+			person.inRoom = this;
+			this.personSet.add(person);
+		}
+		else
+		{
+			result = false;
+		}
+
+		return result;
+	}
+
+	depart(person)
+	{
+		this.rules.depart(this, person)
+		this.personSet.delete(person);
 	}
 	
 	door()

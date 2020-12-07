@@ -28,6 +28,9 @@ class State
 		this.week = [new Shift()];
 		this.shiftLength = config.shiftLength;
 		this.shift = 0;
+
+
+this.debug = false;
 	}
 
 	step()

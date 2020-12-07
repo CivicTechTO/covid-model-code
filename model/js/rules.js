@@ -20,6 +20,12 @@ class Rules
 	arrive(room, person)
 	{
 		person.moveTo(seat(room, person, room.personSet.size), this.speed);
+		return true;
+	}
+
+	depart(room, person)
+	{
+
 	}
 
 	transition(room)
@@ -97,6 +103,7 @@ class RandomRules extends RandomRulesBase
 	{
 		person.moveTo(this.findRandom(room, person, this.halfEdge), this.speed);
 		person.pause = 0;
+		return true;
 	}
 
 	step(room)
@@ -134,6 +141,8 @@ class TotalRandomRules extends RandomRulesBase
 	{
 		person.moveTo(findRandom(room), this.speed);
 		person.pause = 0;
+
+		return true;
 	}
 
 	step(room)
@@ -174,12 +183,123 @@ function centredRandom(lower, limit, current, halfEdge)
 	return mid + delta;
 }
 
+class FullRules extends Rules
+{
+	constructor(speed, otherList)
+	{
+		super(speed);
+		this.tableList = [];
+		this.otherList = otherList;
+	}
+
+	arrive(room, person)
+	{
+		let full = true;
+		let other = null;
+		let result = true;
+
+		for (const table of this.tableList)
+		{
+			if (table.add(person))
+			{
+				full = false;
+				break;
+			}
+		}
+
+		if (full)
+		{
+			result = false;
+
+			do
+			{
+				other = chooseOne(this.otherList);
+			}
+			while (other.equals(room));
+
+			person.setItinerary(other);
+		}
+
+		return result;
+	}
+
+	depart(room, person)
+	{
+		for (const table of this.tableList)
+		{
+			table.delete(person);
+		}
+	}
+}
+
+class RestaurantRules extends FullRules
+{
+	constructor(speed, otherList, room, separation)
+	{
+		super(speed, otherList);
+		let spacing = state.spacing;
+		let tableSpace = 2 * spacing + separation;
+		let across = Math.floor(room.width / (spacing + 2));
+		let down = Math.floor(room.height / (tableSpace + 2));
+
+		for (var i = 0 ; i < down ; i++)
+		{
+			this.tableList.push(new Group(room, spacing / 2, i * tableSpace, across, 2))
+		}
+	}
+
+}
+
+class PubRules extends FullRules
+{
+	constructor(speed, otherList, room)
+	{
+		super(speed, otherList);
+		let spacing = state.spacing;
+		let down = Math.floor(room.height / (spacing + 2));
+
+		for (var i = 0 ; i < down ; i++)
+		{
+			this.tableList.push(new Group(room, spacing / 2, i * spacing, 1, 1))
+			this.tableList.push(new Group(room, spacing * 2, i * spacing, 1, 1))
+		}
+	}
+
+}
+
 class WorkRules extends Rules
 {
-	constructor(speed, chance)
+	constructor(speed, chance, room, crowd)
 	{
 		super(speed);
 		this.chance = chance;
+		this.tableList = [];
+		
+		let spacing = state.spacing;
+		let across =  Math.floor(room.width / (2 * (spacing + 2)));
+		let width = across * spacing;
+		let down = Math.floor(room.height / (spacing + 2));
+
+		for (var i = 0 ; i < down ; i++)
+		{
+			this.tableList.push(new Group(room, spacing / 2, i * spacing, across, 1))
+			this.tableList.push(new Group(room, spacing + width, i * spacing, across, 1))
+		}
+	}
+
+	arrive(room, person)
+	{
+		let result = true;
+
+		for (const table of this.tableList)
+		{
+			if (table.add(person))
+			{
+				break;
+			}
+		}
+
+		return true;
 	}
 
 	step(room)
@@ -193,6 +313,14 @@ class WorkRules extends Rules
 					person.andBack(findRandom(room), room.getSpeed());
 				}
 			}
+		}
+	}
+
+	depart(room, person)
+	{
+		for (const table of this.tableList)
+		{
+			table.delete(person);
 		}
 	}
 }
