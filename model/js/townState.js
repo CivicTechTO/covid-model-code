@@ -363,6 +363,9 @@ class TownState extends State
 		this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 		this.dayTicks = (24 * 60 * 60) / config.realTick;
 		this.currentDay = 0;
+		this.hourTicks = (60 * 60) / config.realTick;
+		this.startHour = config.startHour;
+		this.currentHour = config.startHour;	
 	}
 
 	clearChurch()
@@ -388,6 +391,15 @@ class TownState extends State
 
 			const nameElement = document.getElementById('name');
 			nameElement.textContent = this.days[nextDay % 7];
+		}
+
+		let hour = (Math.floor((this.clock / this.hourTicks)) + this.startHour) % 24;
+		if (hour !== this.currentHour)
+		{
+			this.currentHour = hour;
+
+			const timeElement = document.getElementById('time');
+			timeElement.textContent = hour.toString().concat(':00') ;
 		}
 
 		if (this.oldSteps !== this.stepsPerFrame)
