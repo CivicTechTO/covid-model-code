@@ -4,6 +4,21 @@ class Shift
 	constructor(){}
 
 	startShift(){}
+
+	move()
+	{
+		return 0;
+	}
+
+	whereList()
+	{
+		return [];
+	}
+
+	migrate(personList)
+	{
+
+	}
 }
 
 class Night extends Shift
@@ -59,27 +74,56 @@ class Sunday extends Shift
 	}
 } 
 
-class OtherShift extends Shift
+class MigrateShift extends Shift
 {
-	constructor(home, other)
+	constructor(chance, migrateHome, migrateChoices)
 	{
 		super();
 		
-		this.home = home;
-		this.other = other;
+		this.chance = chance;
+		this.migrateHome = migrateHome;
+		this.migrateChoices = migrateChoices;
+	}
+
+	migrate(personList)
+	{
+		if (this.chance > Math.random())
+		{
+			for (const person of personList)
+			{
+				if (this.migrateHome > Math.random())
+				{
+					person.goHome();
+				}
+				else
+				{
+					person.setItinerary(chooseOne(chooseOne(this.migrateChoices)));
+				}
+			}
+		}
+	}
+}
+
+class InitialShift extends MigrateShift
+{
+	constructor(chance, migrateHome, migrateChoices, initialHome, initialChoices)
+	{
+		super(chance, migrateHome, migrateChoices);
+		this.initialHome = initialHome;
+		this.initialChoices = initialChoices;
 	}
 
 	startShift()
 	{
 		for (const person of state.personList)
 		{
-			if (this.home > Math.random())
+			if (this.initialHome > Math.random())
 			{
 				person.goHome();
 			}
 			else
 			{
-				person.setItinerary(chooseOne(chooseOne(this.other)));
+				person.setItinerary(chooseOne(chooseOne(this.initialChoices)));
 			}
 		}
 	}

@@ -41,6 +41,17 @@ class Rules
 	{
 
 	}
+
+	migrate(room, move, whereList)
+	{
+		for (const person of room.personSet)
+		{
+			if (move < Math.random())
+			{
+				person.setItinerary(pickOne(whereList));
+			}
+		}
+	}
 }
 
 function seat(room, person, which)
@@ -280,10 +291,10 @@ class WorkRules extends Rules
 		let width = across * spacing;
 		let down = Math.floor(room.height / (spacing + 2));
 
-		for (var i = 0 ; i < down ; i++)
+		for (var i = 1 ; i <= down ; i++)
 		{
-			this.tableList.push(new Group(room, spacing / 2, i * spacing, across, 1))
-			this.tableList.push(new Group(room, spacing + width, i * spacing, across, 1))
+			this.tableList.push(new Group(room, spacing, i * spacing, across, 1))
+			this.tableList.push(new Group(room, 2 * spacing + width, i * spacing, across, 1))
 		}
 	}
 

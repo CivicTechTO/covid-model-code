@@ -46,6 +46,11 @@ this.debug = false;
 
 		for (const room of this.roomList)
 		{
+			room.migrate(this.week[this.shift]);
+		}
+
+		for (const room of this.roomList)
+		{
 			room.step();
 		}
 

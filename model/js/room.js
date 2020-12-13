@@ -60,7 +60,15 @@ class Room
 		this.rules.depart(this, person)
 		this.personSet.delete(person);
 	}
-	
+
+	migrate(shift)
+	{
+		for (const person of this.personSet)
+		{
+			shift.migrate([person]);
+		}
+	}	
+
 	door()
 	{
 		let midX = this.x + Math.floor(this.width / 2);

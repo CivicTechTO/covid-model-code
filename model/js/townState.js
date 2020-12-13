@@ -37,7 +37,7 @@ class TownState extends State
 		this.fillPersons(config);
 
 		this.setHomes(config, dwellings, crowd);
-		this.setWork(config);
+		this.setWork(config);			// After setHomes
 		this.setChurch(config);			// After setHomes
 		this.setRestaurants(config);
 		this.setPubs(config);
@@ -271,7 +271,14 @@ class TownState extends State
 
 		for (const person of this.personList)
 		{
-			person.work = chooseOne(choices);
+			if (Math.random() < config.weekday.home)
+			{
+				person.work = person.home;
+			}
+			else
+			{
+				person.work = chooseOne(choices);
+			}
 		}
 	}
 
@@ -304,43 +311,51 @@ class TownState extends State
 	setWeek(config)
 	{
 		this.week = [];
-		let choices;
 
 		this.week.push(new Sunday(config.church));
-		choices = makeChoices(this.choiceList, config.sunday.other);
-		this.week.push(new OtherShift(config.sunday.home, choices));
-		choices = makeChoices(this.choiceList, config.weekNight.other);
-		this.week.push(new OtherShift(config.weekNight.home, choices));
-		this.after();
 
+		this.pushInitial(config.sundayAfternoon.initial, config.sundayAfternoon.migrate);
+		this.pushMigrate(config.sundayEve.migrate);
+		this.pushMigrate(config.sundayNight.migrate);
+		this.week.push(new Night());
+		this.week.push(new Shift());
+		
 		for (let i = 0 ; i < 4 ; i++)
 		{
 			this.week.push(new Day());
 			this.week.push(new Shift());
-			choices = makeChoices(this.choiceList, config.weekNight.other);
-			this.week.push(new OtherShift(config.weekNight.home, choices));
-			this.after();
+			this.pushInitial(config.weekdayEve.initial, config.weekdayEve.migrate);
+			this.pushMigrate(config.weekdayNight.migrate);
+			this.week.push(new Night());
+			this.week.push(new Shift());
 		}
 
 		this.week.push(new Day());
 		this.week.push(new Shift());
-		choices = makeChoices(this.choiceList, config.fridayNight.other);
-		this.week.push(new OtherShift(config.fridayNight.home, choices));
-		this.after();
-
-		choices = makeChoices(this.choiceList, config.saturday.other);
-		this.week.push(new OtherShift(config.saturday.home, choices));
-		this.week.push(new Shift());
-		choices = makeChoices(this.choiceList, config.saturdayNight.other);
-		this.week.push(new OtherShift(config.saturdayNight.home, choices));
-		this.after();
-	}
-
-	after()
-	{
-		this.week.push(new Shift());
+		this.pushInitial(config.fridayEve.initial, config.fridayEve.migrate);
+		this.pushMigrate(config.fridayNight.migrate);
 		this.week.push(new Night());
 		this.week.push(new Shift());
+
+		this.pushInitial(config.saturdayMorning.initial, config.saturdayMorning.migrate);
+		this.pushMigrate(config.saturdayAfternoon.migrate);
+		this.pushMigrate(config.saturdayEve.migrate);
+		this.pushMigrate(config.saturdayNight.migrate);
+		this.week.push(new Night());
+		this.week.push(new Shift());
+	}
+
+	pushInitial(initialConfig, migrateConfig)
+	{
+		let initialChoices = makeChoices(this.choiceList, initialConfig.other);
+		let migrateChoices = makeChoices(this.choiceList, migrateConfig.other);
+		this.week.push(new InitialShift(migrateConfig.chance, migrateConfig.home, migrateChoices, initialConfig.home, initialChoices));
+	}
+
+	pushMigrate(migrateConfig)
+	{
+		let migrateChoices = makeChoices(this.choiceList, migrateConfig.other);
+		this.week.push(new MigrateShift(migrateConfig.chance, migrateConfig.home, migrateChoices));
 	}
 
 	setDays(config)

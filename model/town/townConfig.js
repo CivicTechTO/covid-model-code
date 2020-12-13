@@ -35,12 +35,20 @@ const config = {
 		, "halfEdge": 5}
 	, "outside": {"y": 180, "road": 2, "count": 18, "width": 25, "height": 100, "crowd": 1
 		, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.25}
-	, "fridayNight": {"home": 0.25, "other": [0, 1, 1, 1, 1]}
-	, "saturday": {"home": 0.1, "other": [0, 1, 1, 1, 1]}
-	, "saturdayNight": {"home": 0.1, "other": [0, 1, 1, 1, 1]}
+
 	, "sundayMorning": {"home": 0.20, "outside": 0.1}
-	, "sunday": {"home": 0.50, "other": [0, 1, 1, 1, 1]}
-	, "weekNight": {"home": 0.50, "other": [0, 5, 2, 1, 1]}
+	, "sundayAfternoon": {"initial": {"home": 0.50, "other": [0, 1, 1, 0, 1]}, "migrate": {"chance": 0.001, "home": 0.50, "other": [0, 1, 1, 0, 1]}}
+	, "sundayEve": {"migrate": {"chance": 0.001, "home": 0.50, "other": [0, 1, 1, 0, 1]}}
+	, "sundayNight": {"migrate": {"chance": 0.001, "home": 0.50, "other": [0, 1, 1, 2, 1]}}
+	, "weekday": {"home": 0.1}
+	, "weekdayEve": {"initial": {"home": 0.50, "other": [0, 5, 2, 0, 1]}, "migrate": {"chance": 0.001, "home": 0.50, "other": [0, 5, 2, 0, 1]}}
+	, "weekdayNight": {"migrate": {"chance": 0.001, "home": 0.50, "other": [0, 5, 2, 4, 1]}}
+	, "fridayEve": {"initial": {"home": 0.25, "other": [0, 0, 1, 1, 0, 1]}, "migrate": {"chance": 0.001, "home": 0.25, "other": [0, 1, 1, 0, 1]}}
+	, "fridayNight": {"migrate": {"home": 0.25, "other": [0, 1, 1, 2, 1]}}
+	, "saturdayMorning": {"initial": {"home": 0.1, "other": [0, 1, 1, 0, 1]}, "migrate": {"chance": 0.001, "home": 0.25, "other": [0, 1, 1, 0, 1]}}
+	, "saturdayAfternoon": {"migrate": {"chance": 0.001, "home": 0.1, "other": [0, 1, 1, 0, 1]}}
+	, "saturdayEve": {"migrate": {"chance": 0.001, "home": 0.1, "other": [0, 1, 1, 0, 1]}}
+	, "saturdayNight": {"migrate": {"chance": 0.001, "home": 0.1, "other": [0, 1, 1, 4, 1]}}
 }
 
 
