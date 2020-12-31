@@ -62,8 +62,8 @@ this.debug = false;
 
 	draw(context)
 	{
-		let width = this.size.width;
-		let height = this.size.height;
+		// let width = this.size.width;
+		// let height = this.size.height;
 
 		context.fillStyle = 'LightBlue';
 		context.fillRect(0, 0, this.size.width, this.size.height);

@@ -42,14 +42,11 @@ class Rules
 
 	}
 
-	migrate(room, move, whereList)
+	migrate(room, shift)
 	{
 		for (const person of room.personSet)
 		{
-			if (move < Math.random())
-			{
-				person.setItinerary(pickOne(whereList));
-			}
+			shift.migrate([person]);
 		}
 	}
 }
@@ -243,6 +240,34 @@ class FullRules extends Rules
 	}
 }
 
+class ChurchRules extends Rules
+{
+	constructor(speed, room, separation)
+	{
+		super(speed);
+
+		this.pewList = [];
+
+		let spacing = state.spacing;
+		let pewSpace = 2 * spacing + separation;
+		let across =  Math.floor(room.width / (2 * (spacing + 2)));
+		let width = across * spacing;
+		let down = Math.floor(room.height / (spacing + 2));
+
+		this.pewList.push(new Group(room, spacing, pewSpace, across, down))
+		this.pewList.push(new Group(room, 2 * spacing + width, pewSpace, across, down))
+	}
+
+	transition(room)
+	{
+		let i = 0;
+		for (const person of room.personSet)
+		{
+			this.pewList[i++ % 2].add(person);
+		}
+	}
+}
+
 class RestaurantRules extends FullRules
 {
 	constructor(speed, otherList, room, separation)
@@ -259,6 +284,13 @@ class RestaurantRules extends FullRules
 		}
 	}
 
+	migrate(room, shift)
+	{
+		for (const table of this.tableList)
+		{
+			shift.migrate(table.personSet);
+		}
+	}
 }
 
 class PubRules extends FullRules

@@ -4,6 +4,7 @@ class Event
 	{
 		this.room = room;
 		this.time = time;
+		this.notDone = true;
 
 		this.clock = 0;
 	}
@@ -14,8 +15,9 @@ class Event
 
 		this.clock++;
 
-		if (this.clock >= this.time)
+		if (this.notDone && this.clock >= this.time)
 		{
+			this.notDone = false;
 			this.action();
 			result = true;
 		}
@@ -31,20 +33,23 @@ class Event
 	reset()
 	{
 		this.clock = 0;
+		this.notDone = true;
 	}
 }
 
 class Sit extends Event
 {
-	constructor(room, time)
+	constructor(room, time, separation)
 	{
 		super(room, time);
+
+		this.separation = separation;
 	}
 
 	action()
 	{
 		let speed = this.room.getSpeed();
-		this.room.change(new Rules(speed));
+		this.room.change(new ChurchRules(speed, this.room, this.separation));
 	}
 }
 

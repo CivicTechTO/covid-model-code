@@ -9,34 +9,41 @@ class TownState extends State
 
 		this.workList = [];
 		this.houseList = [];
+		this.dwellingList = [];
 
 		this.churchList = [];
 		this.restaurantList = [];
 		this.pubList = [];
 		this.clubList = [];
 		this.outsideList = [];
+		this.partyList =[];
 
-		this.choiceList = 
-			[this.churchList, this.restaurantList, this.pubList, this.clubList, this.outsideList];
 		this.week = [];
 
 		this.workBack = config.workBack;
+
+		this.hosts = new Set();
+		this.notHosts = new Set();
+	}
+
+	choiceList()
+	{
+		return [this.churchList, this.restaurantList, this.pubList, this.clubList, this.outsideList, this.partyList];
 	}
 
 	fill(config)
 	{
-		let dwellings = [];
 		let crowd = [];
 
 		this.churchSpec = config.church;
 
-		this.fillHome(config, dwellings, crowd);
+		this.fillHome(config, this.dwellingList, crowd);
 		this.fillWork(config);
 		this.fillOther(config);
 
 		this.fillPersons(config);
 
-		this.setHomes(config, dwellings, crowd);
+		this.setHomes(config, this.dwellingList, crowd);
 		this.setWork(config);			// After setHomes
 		this.setChurch(config);			// After setHomes
 		this.setRestaurants(config);
@@ -64,12 +71,12 @@ class TownState extends State
 		let top = config.size.height - count * height;
 
 		let bunkHouses = stack(count, x, top, width, height, speed);
-		Array.prototype.push.apply(this.houseList, bunkHouses);
-		Array.prototype.push.apply(this.roomList, bunkHouses);
-		Array.prototype.push.apply(dwellings, bunkHouses);
 		
-		for (var i = 0; i < bunkHouses.length; i++) 
+		for (const room of bunkHouses) 
 		{
+			this.roomList.push(room);
+			dwellings.push(room);
+			room.house = false;
 			crowd.push(config.bunkHouse.crowd);
 		}
 	}
@@ -87,13 +94,14 @@ class TownState extends State
 		{
 			let x = road * config.road.space + offset;
 			let houses = twoStack(count, x, top, width, height, speed);
-			Array.prototype.push.apply(this.houseList, houses);
-			Array.prototype.push.apply(this.roomList, houses);
-
-			Array.prototype.push.apply(dwellings, houses);
 			
-			for (var i = 0; i < houses.length; i++) 
+			for (const room of houses) 
 			{
+				this.houseList.push(room);
+				this.roomList.push(room);
+				dwellings.push(room);
+
+				room.house = true;
 				crowd.push(config.house.crowd);
 			}
 		}
@@ -102,13 +110,21 @@ class TownState extends State
 	fillWork(config)
 	{
 		let left = row(1, 1, config.depth, config.workSpeed, config.left);
-		Array.prototype.push.apply(this.roomList, left);
-		Array.prototype.push.apply(this.workList, left);
+
+		for (const room of left)
+		{
+			this.roomList.push(room);
+			this.workList.push(room);
+		}
 
 		let x = config.size.width - (config.depth + 1);
 		let right = row(x, 1, config.depth, config.workSpeed, config.right);
-		Array.prototype.push.apply(this.roomList, right);
-		Array.prototype.push.apply(this.workList, right);
+
+		for (const room of right)
+		{
+			this.roomList.push(room);
+			this.workList.push(room);
+		}
 
 		let index = 0;
 		for (const room of this.workList)
@@ -147,10 +163,16 @@ class TownState extends State
 		let halfEdge = churchSpec.halfEdge;
 		let start = churchSpec.start;
 		let pause = churchSpec.pause;
+		let separation = churchSpec.separation;
 
-		let churches = stack(churchSpec.count, actual, 1, width, height, speed);
-		Array.prototype.push.apply(this.roomList, churches);
-		Array.prototype.push.apply(this.churchList, churches);
+		let churchList = stack(churchSpec.count, actual, 1, width, height, speed);
+
+		for (const church of churchList)
+		{
+			this.roomList.push(church);
+			this.churchList.push(church);
+			church.rules = new ChurchRules(speed, church, separation);
+		}
 	}
 
 	fillClub(x, clubSpec)
@@ -162,21 +184,25 @@ class TownState extends State
 		let halfEdge = clubSpec.halfEdge;
 
 		let clubList = stack(clubSpec.count, actual, 1, width, height, speed);
+
 		for (const club of clubList)
 		{
+			this.roomList.push(club);
+			this.clubList.push(club);
 			club.rules = new RandomRules(speed, halfEdge, 1, 1);
 		}
-		
-		Array.prototype.push.apply(this.roomList, clubList);
-		Array.prototype.push.apply(this.clubList, clubList);
 	}
 
 	fillPub(x, pub)
 	{
 		let actual = x + pub.offset;
-		let pubs = twoStack(pub.count, actual, 1, pub.width, pub.height, pub.speed);
-		Array.prototype.push.apply(this.roomList, pubs);
-		Array.prototype.push.apply(this.pubList, pubs);
+		let pubStack = twoStack(pub.count, actual, 1, pub.width, pub.height, pub.speed);
+
+		for (const pub of pubStack)
+		{
+			this.roomList.push(pub);
+			this.pubList.push(pub);
+		}
 	}
 
 	setPubs(config)
@@ -196,8 +222,11 @@ class TownState extends State
 
 		let restaurantStack = twoStack(resto.count, actual, 1, resto.width, resto.height, speed);
 
-		Array.prototype.push.apply(this.roomList, restaurantStack);
-		Array.prototype.push.apply(this.restaurantList, restaurantStack);
+		for (const restaurant of restaurantStack)
+		{
+			this.roomList.push(restaurant);
+			this.restaurantList.push(restaurant);
+		}
 	}
 
 	setRestaurants(config)
@@ -271,7 +300,7 @@ class TownState extends State
 
 		for (const person of this.personList)
 		{
-			if (Math.random() < config.weekday.home)
+			if (person.home.house && Math.random() < config.weekday.home)
 			{
 				person.work = person.home;
 			}
@@ -312,9 +341,9 @@ class TownState extends State
 	{
 		this.week = [];
 
-		this.week.push(new Sunday(config.church));
+		this.week.push(new Sunday(config.dwelling.start, config.dwelling.pause, config.church));
 
-		this.pushInitial(config.sundayAfternoon.initial, config.sundayAfternoon.migrate);
+		this.pushInitial(config.dwelling.start, config.dwelling.pause, config.sundayAfternoon.initial, config.sundayAfternoon.migrate);
 		this.pushMigrate(config.sundayEve.migrate);
 		this.pushMigrate(config.sundayNight.migrate);
 		this.week.push(new Night());
@@ -322,22 +351,22 @@ class TownState extends State
 		
 		for (let i = 0 ; i < 4 ; i++)
 		{
-			this.week.push(new Day());
+			this.week.push(new Day(config.dwelling.start, config.dwelling.pause));
 			this.week.push(new Shift());
-			this.pushInitial(config.weekdayEve.initial, config.weekdayEve.migrate);
+			this.pushInitial(config.dwelling.start, config.dwelling.pause, config.weekdayEve.initial, config.weekdayEve.migrate);
 			this.pushMigrate(config.weekdayNight.migrate);
 			this.week.push(new Night());
 			this.week.push(new Shift());
 		}
 
-		this.week.push(new Day());
+		this.week.push(new Day(config.dwelling.start, config.dwelling.pause));
 		this.week.push(new Shift());
-		this.pushInitial(config.fridayEve.initial, config.fridayEve.migrate);
+		this.pushInitial(config.dwelling.start, config.dwelling.pause, config.fridayEve.initial, config.fridayEve.migrate);
 		this.pushMigrate(config.fridayNight.migrate);
 		this.week.push(new Night());
 		this.week.push(new Shift());
 
-		this.pushInitial(config.saturdayMorning.initial, config.saturdayMorning.migrate);
+		this.pushInitial(config.dwelling.start, config.dwelling.pause, config.saturdayMorning.initial, config.saturdayMorning.migrate);
 		this.pushMigrate(config.saturdayAfternoon.migrate);
 		this.pushMigrate(config.saturdayEve.migrate);
 		this.pushMigrate(config.saturdayNight.migrate);
@@ -345,17 +374,16 @@ class TownState extends State
 		this.week.push(new Shift());
 	}
 
-	pushInitial(initialConfig, migrateConfig)
+	pushInitial(start, pause, initialConfig, migrateConfig)
 	{
-		let initialChoices = makeChoices(this.choiceList, initialConfig.other);
-		let migrateChoices = makeChoices(this.choiceList, migrateConfig.other);
-		this.week.push(new InitialShift(migrateConfig.chance, migrateConfig.home, migrateChoices, initialConfig.home, initialChoices));
+		let chance = migrateConfig.chance;
+
+		this.week.push(new InitialShift(start, pause, initialConfig, migrateConfig));
 	}
 
 	pushMigrate(migrateConfig)
 	{
-		let migrateChoices = makeChoices(this.choiceList, migrateConfig.other);
-		this.week.push(new MigrateShift(migrateConfig.chance, migrateConfig.home, migrateChoices));
+		this.week.push(new MigrateShift(migrateConfig));
 	}
 
 	setDays(config)
@@ -364,8 +392,11 @@ class TownState extends State
 		this.dayTicks = (24 * 60 * 60) / config.realTick;
 		this.currentDay = 0;
 		this.hourTicks = (60 * 60) / config.realTick;
+		this.tenTicks = (10 * 60) / config.realTick;
+		this.minuteTicks = 60 / config.realTick;
 		this.startHour = config.startHour;
-		this.currentHour = config.startHour;	
+		this.currentHour = config.startHour;
+		this.currentMinute = 0;
 	}
 
 	clearChurch()
@@ -380,7 +411,7 @@ class TownState extends State
 	{
 		super.step();
 
-		let nextDay = Math.floor(this.clock / this.dayTicks);
+		let nextDay = Math.floor((Math.floor(this.clock / this.hourTicks) + this.startHour) / 24);
 
 		if (nextDay !== this.currentDay)
 		{
@@ -398,8 +429,17 @@ class TownState extends State
 		{
 			this.currentHour = hour;
 
-			const timeElement = document.getElementById('time');
-			timeElement.textContent = hour.toString().concat(':00') ;
+			const hourElement = document.getElementById('hour');
+			hourElement.textContent = hour.toString();
+		}
+
+		let minute = Math.floor(this.clock / this.minuteTicks) % 60;
+		if (minute !== this.currentMinute)
+		{
+			this.currentMinute = minute;
+
+			const minuteElement = document.getElementById('minutes');
+			minuteElement.textContent = minute.toString().padStart(2, '0');
 		}
 
 		if (this.oldSteps !== this.stepsPerFrame)

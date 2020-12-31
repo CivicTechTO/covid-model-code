@@ -30,33 +30,60 @@ class Night extends Shift
 
 	startShift()
 	{
+		for(const dwelling of state.dwellingList)
+		{
+			dwelling.change(new Rules(dwelling.getSpeed()));
+		}
+
 		state.goHome();
 	}
 }
 
-class Day extends Shift
+class Daytime extends Shift
 {
-	constructor()
+	constructor(start, pause)
 	{
 		super();
+		this.start = start;
+		this.pause = pause;
 	}
 
 	startShift()
 	{
+		for (const dwelling of state.dwellingList)
+		{
+			dwelling.change(new TotalRandomRules(dwelling.getSpeed(), this.start, this.pause));
+		}
+	}
+}
+
+class Day extends Daytime
+{
+	constructor(start, pause)
+	{
+		super(start, pause);
+	}
+
+	startShift()
+	{
+		super.startShift();
+
 		state.goToWork();
 	}
 } 
 
-class Sunday extends Shift
+class Sunday extends Daytime
 {
-	constructor(churchSpec)
+	constructor(start, pause, churchSpec)
 	{
-		super();
+		super(start, pause);
 		this.churchSpec = churchSpec;
 	}
 
 	startShift()
 	{
+		super.startShift();
+
 		let speed = this.churchSpec.speed;
 		let halfEdge = this.churchSpec.halfEdge;
 		let start = this.churchSpec.start;
@@ -66,7 +93,7 @@ class Sunday extends Shift
 		{
 			church.clearEvents();
 			church.change(new RandomRules(speed, halfEdge, start, pause));
-			church.addEvent(new Sit(church, this.churchSpec.millingTime));
+			church.addEvent(new Sit(church, this.churchSpec.millingTime, this.churchSpec.separation));
 			church.addEvent(new Millabout(church, this.churchSpec.sitTime, this.churchSpec));
 		}
 
@@ -76,28 +103,35 @@ class Sunday extends Shift
 
 class MigrateShift extends Shift
 {
-	constructor(chance, migrateHome, migrateChoices)
+	constructor(config)
 	{
 		super();
-		
-		this.chance = chance;
-		this.migrateHome = migrateHome;
-		this.migrateChoices = migrateChoices;
+		this.migrateConfig = {... config};
+	}
+
+	startShift()
+	{
+		this.migrateConfig.choices = makeChoices(state.choiceList(), this.migrateConfig.other);
 	}
 
 	migrate(personList)
 	{
-		if (this.chance > Math.random())
+		this.move(this.migrateConfig, personList);
+	}
+
+	move(which, personList)
+	{
+		if (which.chance > Math.random())
 		{
 			for (const person of personList)
 			{
-				if (this.migrateHome > Math.random())
+				if (which.home > Math.random())
 				{
 					person.goHome();
 				}
 				else
 				{
-					person.setItinerary(chooseOne(chooseOne(this.migrateChoices)));
+					person.setItinerary(chooseOne(chooseOne(which.choices)));
 				}
 			}
 		}
@@ -106,24 +140,51 @@ class MigrateShift extends Shift
 
 class InitialShift extends MigrateShift
 {
-	constructor(chance, migrateHome, migrateChoices, initialHome, initialChoices)
+	constructor(start, pause, initialConfig, migrateConfig)
 	{
-		super(chance, migrateHome, migrateChoices);
-		this.initialHome = initialHome;
-		this.initialChoices = initialChoices;
+		super(migrateConfig);
+		this.start = start;
+		this.pause = pause;
+		this.initial = {... initialConfig};
+		this.initial.chance = 1;
 	}
 
 	startShift()
 	{
+		this.createParties(this.initial);
+
+		super.startShift();
+
+		this.initial.choices = makeChoices(state.choiceList(), this.initial.other);
+
+		for (const person of state.notHosts)
+		{
+			this.move(this.initial, [person]);
+		}
+
+		for (const dwelling of state.dwellingList)
+		{
+			dwelling.change(new TotalRandomRules(dwelling.getSpeed(), this.start, this.pause));
+		}
+	}
+
+	createParties(which)
+	{
+		state.hosts = new Set();
+		state.notHosts = new Set();
+		state.partyList = [];
+
 		for (const person of state.personList)
 		{
-			if (this.initialHome > Math.random())
+			if (which.hostChance > Math.random())
 			{
+				state.hosts.add(person);
+				state.partyList.push(person.home);
 				person.goHome();
 			}
 			else
 			{
-				person.setItinerary(chooseOne(chooseOne(this.initialChoices)));
+				state.notHosts.add(person);
 			}
 		}
 	}

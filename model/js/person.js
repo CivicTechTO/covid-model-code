@@ -52,6 +52,7 @@ this.debugFlag = false;
  *	There is one main E/W road partway up the model
  *  There are a set of equally spaced N/S feeder roads
  *  Path finding is
+ *		If in a room, go to the door
  *		Go E/W to the nearest feeder road
  *		Go N/S to the main road
  *		Go E/W to the feeder road nearest the dest
@@ -61,81 +62,77 @@ this.debugFlag = false;
 
 	setItinerary(toRoom)
 	{
-		if (toRoom !== this.toRoom && toRoom !== this.inRoom)
+		this.itinerary = [];
+		this.index = 0;
+		
+		let toDoor = toRoom.door();
+		let toRoad = state.findRoad(toDoor.x);
+
+		if (this.inRoom)
 		{
-			this.itinerary = [];
-			this.index = 0;
-			
-			let toDoor = toRoom.door();
-			let toRoad = state.findRoad(toDoor.x);
-
-			if (this.inRoom)
-			{
-				this.toRoom = toRoom;
-				this.speed = state.leaveSpeed;
-
-				let dest = this.inRoom.door();
-				this.dest = dest;
-
-				let fromRoad = state.findRoad(dest.x);
-				this.itinerary.push(new Point(fromRoad, dest.y));
-
-				if (toRoad !== fromRoad)
-				{
-					this.itinerary.push(new Point(fromRoad, state.main));
-					this.itinerary.push(new Point(toRoad, state.main));
-				}
-
-				this.itinerary.push(new Point(toRoad, toDoor.y));
-				this.itinerary.push(new Point(toDoor.x, toDoor.y));
-
-				this.inRoom.depart(this);
-			}
-			else
-			{
-				this.toRoom = toRoom;
-				let fromRoad = state.findRoad(this.current.x);
-				this.speed = state.travelSpeed + rand(state.travelVariation);
-
-				if (this.current.x !== fromRoad && this.current.y !== state.main)
-				{
-					this.itinerary.push(new Point(fromRoad, this.current.y));	// must be new room
-				}
-
-				if (fromRoad !== toRoad)
-				{
-					if (this.current.y !== state.main)
-					{
-						this.itinerary.push(new Point(fromRoad, state.main));
-					}
-						
-					this.itinerary.push(new Point(toRoad, state.main));
-				}
-				else
-				{
-					if (this.current.y === state.main)
-					{
-						this.itinerary.push(new Point(toRoad, state.main));
-					}
-				}
-
-				this.itinerary.push(new Point(toRoad, toDoor.y));
-				this.itinerary.push(new Point(toDoor.x, toDoor.y));
-
-				this.dest = this.itinerary[0];
-
-// on the road to the new room
-// Not on a road
-// 		Find nearest road - go to it
-//		Find new room road 
-//			If not on it go to main
-// on the main road - 
-//		go to new room road
-// 		go to new room
-
-
-			}			
+			this.fromRoom(toRoom, toDoor, toRoad);
 		}
+		else
+		{
+			this.notFromRoom(toRoom, toDoor, toRoad);
+		}			
+	}
+
+	fromRoom(toRoom, toDoor, toRoad)
+	{
+		this.toRoom = toRoom;
+		this.speed = state.leaveSpeed;
+
+		let dest = this.inRoom.door();
+		this.dest = dest;
+
+		let fromRoad = state.findRoad(dest.x);
+		this.itinerary.push(new Point(fromRoad, dest.y));
+
+		if (toRoad !== fromRoad)
+		{
+			this.itinerary.push(new Point(fromRoad, state.main));
+			this.itinerary.push(new Point(toRoad, state.main));
+		}
+
+		this.itinerary.push(new Point(toRoad, toDoor.y));
+		this.itinerary.push(new Point(toDoor.x, toDoor.y));
+
+		this.inRoom.depart(this);
+	}
+
+	notFromRoom(toRoom, toDoor, toRoad)
+	{
+		this.toRoom = toRoom;
+		let fromRoad = state.findRoad(this.current.x);
+		this.speed = state.travelSpeed + rand(state.travelVariation);
+
+		if (this.current.x !== fromRoad && this.current.y !== state.main)
+		{
+			this.itinerary.push(new Point(fromRoad, this.current.y));	// must be new room
+		}
+
+		if (fromRoad !== toRoad)
+		{
+			if (this.current.y !== state.main)
+			{
+				this.itinerary.push(new Point(fromRoad, state.main));
+			}
+				
+			this.itinerary.push(new Point(toRoad, state.main));
+		}
+		else
+		{
+			if (this.current.y === state.main)
+			{
+				this.itinerary.push(new Point(toRoad, state.main));
+			}
+		}
+
+		this.itinerary.push(new Point(toRoad, toDoor.y));
+		this.itinerary.push(new Point(toDoor.x, toDoor.y));
+
+		this.dest = this.itinerary[0];
 	}
 
 	step()

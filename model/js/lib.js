@@ -14,8 +14,6 @@ var past = null;
 
 function animate(timestamp)
 {
-	window.requestAnimationFrame(animate);
-
 	let deltaT = (past ? timestamp - past : FRAME);
 	past = timestamp;
 	stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
@@ -25,14 +23,17 @@ function animate(timestamp)
 		state.step();
 	}
 
+	draw();
+	
+	window.requestAnimationFrame(animate);
+}
+
+function draw() 
+{
 	const context = document.getElementById('canvas').getContext('2d');
-
 	context.save();
-
 	state.draw(context);
-
 	context.restore();
-
 }
 
 function setSteps(steps) 

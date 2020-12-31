@@ -63,10 +63,7 @@ class Room
 
 	migrate(shift)
 	{
-		for (const person of this.personSet)
-		{
-			shift.migrate([person]);
-		}
+		this.rules.migrate(this, shift);
 	}	
 
 	door()
@@ -101,6 +98,7 @@ class Room
 
 	clearEvents()
 	{
+		this.eventIndex = 0;
 		this.eventList = [];
 	}
 
@@ -126,10 +124,10 @@ class Room
 			}
 		}
 
-		for (const person of this.personSet)
-		{
-			person.step();
-		}
+		// for (const person of this.personSet)
+		// {
+		// 	person.step();
+		// }
 	}
 
 	leaveFor(to)
