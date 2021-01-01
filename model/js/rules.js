@@ -250,7 +250,7 @@ class ChurchRules extends Rules
 
 		let spacing = state.spacing;
 		let pewSpace = 2 * spacing + separation;
-		let across =  Math.floor(room.width / (2 * (spacing + 2)));
+		let across =  Math.floor(room.width / (2 * (spacing + 1)));
 		let width = across * spacing;
 		let down = Math.floor(room.height / (spacing + 2));
 
@@ -319,7 +319,7 @@ class WorkRules extends Rules
 		this.tableList = [];
 		
 		let spacing = state.spacing;
-		let across =  Math.floor(room.width / (2 * (spacing + 2)));
+		let across =  Math.floor(room.width / (2 * (spacing + 1)));
 		let width = across * spacing;
 		let down = Math.floor(room.height / (spacing + 2));
 
