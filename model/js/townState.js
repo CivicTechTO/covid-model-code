@@ -268,9 +268,14 @@ class TownState extends State
 	{
 		for (var i = 0; i < config.count; i++) 
 		{
-			let person = new Person();
+			let person = this.makePerson();
 			this.personList[i] = person;
 		}	
+	}
+
+	makePerson()
+	{
+		return new Person();
 	}
 
 	setHomes(config, dwellings, crowd)

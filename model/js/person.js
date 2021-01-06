@@ -1,4 +1,4 @@
-class Person
+class Person 
 {
 	constructor()
 	{
@@ -204,20 +204,6 @@ this.debugFlag = false;
 	goToChurch()
 	{
 		this.setItinerary(this.church);
-	}
-
-	draw(context)
-	{
-		let size = state.personSize;
-
-		context.strokeStyle = 'green';
-
-		context.beginPath();
-		context.moveTo(this.current.x, this.current.y - size);
-		context.lineTo(this.current.x, this.current.y + size);
-		context.moveTo(this.current.x - size, this.current.y);
-		context.lineTo(this.current.x + size, this.current.y);
-		context.stroke();
 	}
 
 debug(message)

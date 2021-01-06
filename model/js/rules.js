@@ -132,8 +132,9 @@ class RandomRules extends RandomRulesBase
 
 	findRandom(room, person, halfEdge) 
 	{
-		let x = centredRandom(room.x + 1, room.width - 1, person.current.x, halfEdge);
-		let y = centredRandom(room.y + 1, room.height - 1, person.current.y, halfEdge);
+		let buffer = state.personSize;
+		let x = centredRandom(room.x + buffer, room.width - buffer, person.current.x, halfEdge);
+		let y = centredRandom(room.y + buffer, room.height - buffer, person.current.y, halfEdge);
 		return new Point(x, y)
 	}
 }
@@ -178,8 +179,9 @@ function getRandom(lower, limit)
 
 function findRandom(room)
 {
-	let x = getRandom(room.x, room.width);
-	let y = getRandom(room.y, room.height);
+	let buffer = state.personSize + 1;
+	let x = getRandom(room.x + buffer, room.width - 2 * buffer);
+	let y = getRandom(room.y + buffer, room.height - 2 * buffer);
 
 	return new Point(x, y);
 }

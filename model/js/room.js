@@ -13,6 +13,9 @@ class Room
 		this.eventList = [];
 		this.eventIndex = 0;
 		this.currentEvent = null;
+
+		this.loud = 5;
+		this.ventilation = 4;
 	}
 
 	equals(other)
@@ -139,13 +142,58 @@ class Room
 
 	}
 
+	fillColour()
+	{
+		return 'lightGray';
+	}
+
 	draw(context)
 	{
 		context.strokeStyle = 'black';
 		context.lineWidth = 1;
 		context.strokeRect(this.x, this.y, this.width, this.height);	
-		context.fillStyle = 'lightGray';
+		context.fillStyle = this.fillColour();
 		context.fillRect(this.x, this.y, this.width, this.height);	
+	}
+
+	spread()
+	{
+		let infectious = new Set();
+		let susceptible = new Set();
+
+		for (const person of this.personSet)
+		{
+			if (person.infectable())
+			{
+				susceptible.add(person);
+			}
+			else
+			{
+				if (person.infectious())
+				{
+					infectious.add(person);
+				}
+			}
+		}
+
+		for (const source of infectious)
+		{
+			for (const person of susceptible)
+			{
+				this.load(source, person);
+			}
+		}
+	}
+
+	load(source, person)
+	{
+		let dx = source.current.x - person.current.x;
+		let dy = source.current.y - person.current.y;
+		let distance = Math.sqrt(dx * dx + dy * dy);
+
+		let increment = (source.load() * this.loud) / (distance * this.ventilation);
+
+		person.exposure += increment;
 	}
 }
 

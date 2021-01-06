@@ -24,7 +24,7 @@ function animate(timestamp)
 	}
 
 	draw();
-	
+
 	window.requestAnimationFrame(animate);
 }
 
