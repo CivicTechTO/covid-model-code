@@ -100,8 +100,8 @@ class NoSymptoms extends CanProgress
 	{
 		let startFactor = state.progression.noSymptoms.startFactor;
 		let endFactor = state.progression.noSymptoms.endFactor;
-		let start = state.transition.notYet.transition;
-		let end = state.transition.noSymptoms.transition;
+		let start = state.transition.notYet;
+		let end = state.transition.noSymptoms;
 
 		let slope = (endFactor - startFactor) / (end - start);
 		return  startFactor + slope * (state.clock - this.infectedAt);
@@ -141,8 +141,8 @@ class Peak extends CanProgress
 	{
 		let startFactor = state.progression.peak.startFactor;
 		let endFactor = state.progression.peak.endFactor;
-		let start = state.transition.noSymptoms.transition;
-		let end = state.transition.peak.transition;
+		let start = state.transition.noSymptoms;
+		let end = state.transition.peak;
 
 		let slope = (endFactor - startFactor) / (end - start);
 		return  startFactor + slope * (state.clock - this.infectedAt);
@@ -182,8 +182,8 @@ class Declining extends CanProgress
 	{
 		let startFactor = state.progression.declining.startFactor;
 		let endFactor = state.progression.declining.endFactor;
-		let start = state.transition.peak.transition;
-		let end = state.transition.declining.transition;
+		let start = state.transition.peak;
+		let end = state.transition.declining;
 
 		let slope = (endFactor - startFactor) / (end - start);
 		return  startFactor + slope * (state.clock - this.infectedAt);
