@@ -93,7 +93,7 @@ const config = {
 	, "reset": 0.001
 	, "base": 1610000
 	, "logCount": 0
-	, "pScale": 1
+	, "pScale": 0.0001
 	, "infectious":{"not": {"chance": 0.7, "style": "#A00000", "load": 0}
 		, "slightly": {"chance": 0.1, "style": "#A00000", "load": 1}
 		, "very": {"chance": 0.1, "style": "#A00000", "load": 10}
