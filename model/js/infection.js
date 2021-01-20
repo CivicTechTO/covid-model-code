@@ -19,12 +19,6 @@ class NotInfectious extends Infection
 
 	draw(context, point)
 	{		
-		context.strokeStyle = state.infectious.not.style;
-		context.lineWidth = 1;
-		context.beginPath();
-		context.moveTo(point.x, point.y);
-		context.lineTo(point.x, point.y + state.personSize);
-		context.stroke();
 	}
 }
 
@@ -39,8 +33,12 @@ class SlightlyInfectious extends Infection
 
 	draw(context, point)
 	{		
-		let style = state.infectious.slightly.style;
-		bottomRight(context, point, style, style);
+		let size = state.personSize;
+
+		context.beginPath();
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x + size, point.y + size);
+		context.stroke();
 	}
 }
 
@@ -55,8 +53,12 @@ class VeryInfectious extends Infection
 
 	draw(context, point)
 	{		
-		let style = state.infectious.very.style;
-		bottomLeft(context, point, style, style);
+		let size = state.personSize;
+
+		context.beginPath();
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x + size, point.y - size);
+		context.stroke();
 	}
 }
 
@@ -71,9 +73,14 @@ class ExceedinglyInfectious extends Infection
 
 	draw(context, point)
 	{		
-		let style = state.infectious.exceedingly.style;
-		bottomLeft(context, point, style, style);
-		bottomRight(context, point, style, style);
+		let size = state.personSize;
+
+		context.beginPath();
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x + size, point.y + size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x + size, point.y - size);
+		context.stroke();
 	}
 }
 

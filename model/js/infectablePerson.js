@@ -94,6 +94,8 @@ class InfectablePerson extends Person
 
 	draw(context)
 	{
+		context.strokeStyle = this.progression.getStyle();
+
 		this.infected.draw(context, this.current);
 		this.progression.draw(context, this.current);
 	}

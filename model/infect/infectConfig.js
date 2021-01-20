@@ -93,11 +93,11 @@ const config = {
 	, "reset": 0.001
 	, "base": 1610000
 	, "logCount": 0
-	, "pScale": 0.0001
-	, "infectious":{"not": {"chance": 0.7, "style": "#A00000", "load": 0}
-		, "slightly": {"chance": 0.1, "style": "#A00000", "load": 1}
-		, "very": {"chance": 0.1, "style": "#A00000", "load": 10}
-		, "exceedingly": {"chance": 0.1, "style": "#A00000", "load": 40}}
+	, "pScale": 0.00032
+	, "infectious":{"not": {"chance": 0.7, "load": 0}
+		, "slightly": {"chance": 0.1, "load": 1}
+		, "very": {"chance": 0.1, "load": 10}
+		, "exceedingly": {"chance": 0.1, "load": 40}}
 	, "progression":{"notYet": {"style": "#A00000", "transition": 4, "startFactor": 0.0, "endFactor": 0.0}
 		, "noSymptoms": {"style": "#A00000", "transition": 2, "startFactor": 0.0, "endFactor": 1.0}
 		, "peak": {"style": "#A00000", "transition": 2, "startFactor": 1.0, "endFactor": 1.0}
