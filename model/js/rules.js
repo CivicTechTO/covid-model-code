@@ -14,12 +14,10 @@ class Rules
 	
 	insert(room, person)
 	{
-		person.setNewCurrent(seat(room, person, room.personSet.size));
 	}
 
 	arrive(room, person)
 	{
-		person.moveTo(seat(room, person, room.personSet.size), this.speed);
 		return true;
 	}
 
@@ -30,11 +28,6 @@ class Rules
 
 	transition(room)
 	{
-		let i = 0;
-		for (const person of room.personSet)
-		{
-			person.moveTo(seat(room, person, i++), this.speed);
-		}
 	}
 
 	step(room)
@@ -59,6 +52,34 @@ function seat(room, person, which)
 	let y = room.y + spacing + spacing * Math.floor(which / columnCount);
 
 	return new Point(x,y);
+}
+
+class SeatRules extends Rules
+{
+	constructor(speed)
+	{
+		super(speed);
+	}
+
+	insert(room, person)
+	{
+		person.setNewCurrent(seat(room, person, room.personSet.size));
+	}
+
+	arrive(room, person)
+	{
+		person.moveTo(seat(room, person, room.personSet.size), this.speed);
+		return true;
+	}
+
+	transition(room)
+	{
+		let i = 0;
+		for (const person of room.personSet)
+		{
+			person.moveTo(seat(room, person, i++), this.speed);
+		}
+	}
 }
 
 class RandomRulesBase extends Rules

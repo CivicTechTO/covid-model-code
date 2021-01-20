@@ -2,10 +2,23 @@
 
 const canvas = document.getElementById('canvas');
 
-var state = new InfectState(config, canvas.width, canvas.height);
+var state = new TownState(config, canvas.width, canvas.height);
 state.fill(config);
 
 state.week[0].startShift();
+
+function start()
+{
+	state.run = true;
+
+	window.requestAnimationFrame(animate);
+}
+
+function stop() 
+{
+	state.run = false;
+}
+
 
 // let context = canvas.getContext('2d');
 

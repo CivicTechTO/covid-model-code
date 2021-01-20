@@ -25,13 +25,9 @@ const config = {
 	, "workAllocation": [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
 	, "fillFactor": 1.25
 
-	, "dwelling": {"start": 100, "pause": 30}
-	, "bunkHouse": {"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "speed": 0.25}
-	, "house": 
-		{
-			"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17
-			, "speed": 0.2
-		}
+	, "dwelling": {"start": 100, "pause": 30, "speed": 0.25}
+	, "bunkHouse": {"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2}
+	, "house": {"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17}
 	, "church": 
 		{
 			"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 5, "speed": 0.5
@@ -93,11 +89,15 @@ const config = {
 
 	, "contrast": "#FFFFFF"
 	, "susceptible": "#00A000"
-	, "decay": 0.001
+	, "decay": 0.999
 	, "reset": 0.001
-	, "infectLevel": 0.0001
-	, "infectious":{"not": {"chance": 0.7, "style": "#A00000", "load": 0.0}, "slightly": {"chance": 0.1, "style": "#A00000", "load": 0.025}
-		, "very": {"chance": 0.1, "style": "#A00000", "load": 0.25}, "exceedingly": {"chance": 0.1, "style": "#A00000", "load": 1.0}}
+	, "base": 1610000
+	, "logCount": 0
+	, "pScale": 1
+	, "infectious":{"not": {"chance": 0.7, "style": "#A00000", "load": 0}
+		, "slightly": {"chance": 0.1, "style": "#A00000", "load": 1}
+		, "very": {"chance": 0.1, "style": "#A00000", "load": 10}
+		, "exceedingly": {"chance": 0.1, "style": "#A00000", "load": 40}}
 	, "progression":{"notYet": {"style": "#A00000", "transition": 4, "startFactor": 0.0, "endFactor": 0.0}
 		, "noSymptoms": {"style": "#A00000", "transition": 2, "startFactor": 0.0, "endFactor": 1.0}
 		, "peak": {"style": "#A00000", "transition": 2, "startFactor": 1.0, "endFactor": 1.0}

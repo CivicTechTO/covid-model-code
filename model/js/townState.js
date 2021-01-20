@@ -1,5 +1,5 @@
 
-class TownState extends State
+class TownState extends InfectState
 {
 	constructor(config, width, height)
 	{
@@ -51,6 +51,8 @@ class TownState extends State
 
 		this.setWeek(config);
 		this.setDays(config);
+
+		super.fill(config);
 	}
 
 	fillHome(config, dwellings, crowd)
@@ -273,22 +275,22 @@ class TownState extends State
 		}	
 	}
 
-	makePerson()
+	setHomes(config, dwellingList, crowd)
 	{
-		return new Person();
-	}
+		for (const dwelling of dwellingList)
+		{
+			dwelling.rules = new SeatRules(config.dwelling.speed);
+		}
 
-	setHomes(config, dwellings, crowd)
-	{
-		let choices = makeChoices(dwellings, crowd);
+		let choices = makeChoices(dwellingList, crowd);
 
 		for (var i = 0; i < this.personList.length; i++) 
 		{
 			let person = this.personList[i];
 
-			if (i < Math.round(config.fillFactor * dwellings.length))
+			if (i < Math.round(config.fillFactor * dwellingList.length))
 			{
-				person.home = dwellings[i % dwellings.length];
+				person.home = dwellingList[i % dwellingList.length];
 			}
 			else
 			{

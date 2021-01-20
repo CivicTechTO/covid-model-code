@@ -1,4 +1,4 @@
-class InfectState extends TownState
+class InfectState extends State
 {
 	constructor(config, width, height)
 	{
@@ -9,7 +9,9 @@ class InfectState extends TownState
 		this.progression = config.progression;
 		this.reset = config.reset;
 		this.decay = config.decay;
-		this.infectLevel = config.infectLevel;
+		this.base = config.base;
+		this.logCount = config.logCount;
+		this.pScale = config.pScale;
 		
 		let dayTick = 24 * 60 * 60 / config.realTick;
 		this.contrast = config.contrast;
@@ -18,6 +20,8 @@ class InfectState extends TownState
 		this.transition.noSymptoms = this.transition.notYet + config.progression.noSymptoms.transition * dayTick;
 		this.transition.peak = this.transition.noSymptoms + config.progression.peak.transition * dayTick;
 		this.transition.declining = this.transition.peak + config.progression.declining.transition * dayTick;
+
+		this.run = true;
 	}
 
 	makePerson()
@@ -27,8 +31,6 @@ class InfectState extends TownState
 	
 	fill(config)
 	{
-		super.fill(config);
-
 		this.personList[0].infect(new ExceedinglyInfectious());
 	}
 

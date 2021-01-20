@@ -1,0 +1,154 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+
+  <title>Tune</title>
+  <meta name="description" content="tune">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <style type="text/css">
+    .statcontainer
+    {
+      width: 1000px;
+    }
+
+    .stats 
+    {
+      display: inline-block;
+      margin-left: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h1>Tune</h1>
+    <div>
+      <canvas id="canvas" width=1000 height=200></canvas>    
+    </div>
+    
+    <div class="statcontainer">
+      <div>
+        Load <span id="loadvalue">0</span>
+        Infected at <span id="infectedat">Not</span>
+      </div>
+      
+      <div class="stats">
+        <div>
+          Max factor <span id="maxfactor">0</span>
+        </div>
+        <canvas id="factor" width=200 height=200></canvas>
+      </div>
+
+      <div class="stats">
+        <div>
+          Max other <span id="maxother">0</span>
+        </div>
+        <canvas id="other" width=200 height=200></canvas>
+      </div>
+
+      <div class="stats">
+        <div>
+          Max expose <span id="maxexpose">0</span>
+        </div>
+        <canvas id="expose" width=200 height=200></canvas>
+      </div>
+
+      <div class="stats">
+        <div>
+          Max p <span id="maxp">0</span>
+        </div>
+        <canvas id="pchart" width=200 height=200></canvas>  
+      </div>
+
+    </div>
+    <div>
+      Day number: <span id="day">1</span> &nbsp; <span id="name">Sunday</span> &nbsp; Time: <span id="hour">8</span>:<span id="minutes">00</span>
+    </div>
+    <div><span>Speed </span><span id="steps"> </span></div>
+    <div>
+      <button type="button" onclick="setSteps(1);">1</button>
+      <button type="button" onclick="setSteps(2);">2</button>
+      <button type="button" onclick="setSteps(3);">3</button>
+      <button type="button" onclick="setSteps(4);">4</button>
+      <button type="button" onclick="setSteps(5);">5</button>
+      <button type="button" onclick="setSteps(10);">10</button>
+      <button type="button" onclick="setSteps(20);">20</button>
+      <button type="button" onclick="setSteps(100);">100</button>
+      <button type="button" onclick="setSteps(200);">200</button>
+      <button type="button" onclick="setSteps(400);">400</button>
+    </div>
+
+    <div>
+      <div>
+        Level: <span id="level"> </span>
+      </div>
+      <button type="button" onclick="setSlightly();">Slightly</button>
+      <button type="button" onclick="setVery();">Very</button>
+      <button type="button" onclick="setExceedingly(1);">Exceedingly</button>
+    </div>
+
+    <div>
+      <div>
+        Distance: <span id="distance">1</span>
+      </div>
+      <button type="button" onclick="incrementDistance(-10);">-10</button>
+      <button type="button" onclick="incrementDistance(-1);">-1</button>
+      <button type="button" onclick="incrementDistance(1);">1</button>
+      <button type="button" onclick="incrementDistance(10);">10</button>
+    </div>
+
+    <div>
+      <div>
+        Ventilation: <span id="ventilation">1</span>
+      </div>
+      <button type="button" onclick="setVentilation(1);">1</button>
+      <button type="button" onclick="setVentilation(2);">2</button>
+      <button type="button" onclick="setVentilation(3);">3</button>
+      <button type="button" onclick="setVentilation(5);">5</button>
+      <button type="button" onclick="setVentilation(10);">10</button>
+      <button type="button" onclick="setVentilation(20);">20</button>
+      <button type="button" onclick="setVentilation(40);">40</button>
+    </div>
+    <div>
+      <div>
+        Loud: <span id="loud">1</span>
+      </div>
+      <button type="button" onclick="setLoud(1);">1</button>
+      <button type="button" onclick="setLoud(2);">2</button>
+      <button type="button" onclick="setLoud(3);">3</button>
+      <button type="button" onclick="setLoud(5);">5</button>
+      <button type="button" onclick="setLoud(10);">10</button>
+      <button type="button" onclick="setLoud(20);">20</button>
+      <button type="button" onclick="setLoud(40);">40</button>
+    </div>
+    <div>
+      <button type="button" onclick="stop();">Stop</button>
+      <button type="button" onclick="start();">Start</button>
+      <button type="button" onclick="reset();">Reset</button>
+    </div>
+  </div>
+
+  <script src="../js/lib.js"></script>
+  <script src="../js/draw.js"></script>
+  <script src="../js/infection.js"></script>
+  <script src="../js/progression.js"></script>
+  <script src="../js/shift.js"></script>
+  <script src="../js/group.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/person.js"></script>
+  <script src="../js/infectablePerson.js"></script>
+  <script src="../js/rules.js"></script>
+  <script src="../js/event.js"></script>
+  <script src="../js/room.js"></script>
+  <script src="../js/plan.js"></script>
+  <script src="../js/infectState.js"></script>
+  <script src="../js/tuneState.js"></script>
+  <script src="infectConfig.js"></script>
+  <script src="tune.js"></script>
+
+</body>
+</html>

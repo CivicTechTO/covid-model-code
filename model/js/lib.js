@@ -25,7 +25,10 @@ function animate(timestamp)
 
 	draw();
 
-	window.requestAnimationFrame(animate);
+	if (state.run)
+	{
+		window.requestAnimationFrame(animate);
+	}
 }
 
 function draw() 

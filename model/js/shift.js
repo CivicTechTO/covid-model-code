@@ -32,7 +32,7 @@ class Night extends Shift
 	{
 		for(const dwelling of state.dwellingList)
 		{
-			dwelling.change(new Rules(dwelling.getSpeed()));
+			dwelling.change(new SeatRules(dwelling.getSpeed()));
 		}
 
 		state.goHome();

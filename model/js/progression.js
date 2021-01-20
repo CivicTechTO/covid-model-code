@@ -40,6 +40,12 @@ class Progression
 		context.lineTo(point.x - size, point.y + size);
 		context.stroke();
 	}
+
+	linear(startValue, endValue, startTime, endTime) 
+	{		
+		let slope = (endValue - startValue) / (endTime - startTime);
+		return  startValue + slope * ((state.clock - this.infectedAt) - startTime);
+	}
 }
 
 class CanProgress extends Progression
@@ -102,9 +108,7 @@ class NoSymptoms extends CanProgress
 		let endFactor = state.progression.noSymptoms.endFactor;
 		let start = state.transition.notYet;
 		let end = state.transition.noSymptoms;
-
-		let slope = (endFactor - startFactor) / (end - start);
-		return  startFactor + slope * (state.clock - this.infectedAt);
+		return this.linear(startFactor, endFactor, start, end);
 	}
 
 	transition()
@@ -123,6 +127,7 @@ class NoSymptoms extends CanProgress
 		topRight(context, point, style, state.contrast);
 		topLeft(context, point, style, style);
 	}
+
 }
 
 class Peak extends CanProgress
@@ -144,8 +149,7 @@ class Peak extends CanProgress
 		let start = state.transition.noSymptoms;
 		let end = state.transition.peak;
 
-		let slope = (endFactor - startFactor) / (end - start);
-		return  startFactor + slope * (state.clock - this.infectedAt);
+		return this.linear(startFactor, endFactor, start, end);
 	}
 
 	transition()
@@ -184,9 +188,7 @@ class Declining extends CanProgress
 		let endFactor = state.progression.declining.endFactor;
 		let start = state.transition.peak;
 		let end = state.transition.declining;
-
-		let slope = (endFactor - startFactor) / (end - start);
-		return  startFactor + slope * (state.clock - this.infectedAt);
+		return this.linear(startFactor, endFactor, start, end);
 	}
 
 	transition()

@@ -14,8 +14,7 @@ class Room
 		this.eventIndex = 0;
 		this.currentEvent = null;
 
-		this.loud = 5;
-		this.ventilation = 4;
+		this.stats = false;
 	}
 
 	equals(other)
@@ -176,6 +175,11 @@ class Room
 			}
 		}
 
+if (infectious.size > 0)
+{
+console.log("spread", infectious.size, susceptible.size);
+}
+
 		for (const source of infectious)
 		{
 			for (const person of susceptible)
@@ -189,7 +193,7 @@ class Room
 	{
 		let dx = source.current.x - person.current.x;
 		let dy = source.current.y - person.current.y;
-		let distance = Math.sqrt(dx * dx + dy * dy);
+		let distance = Math.max(1, dx * dx + dy * dy);
 
 		let increment = (source.load() * this.loud) / (distance * this.ventilation);
 
