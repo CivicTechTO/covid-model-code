@@ -45,6 +45,11 @@ class InfectablePerson extends Person
 			state.addStat(0, result);
 		}
 
+// !!!
+// if (this.exposure > 0)
+// {
+// result = 1;
+// }
 		return result;
 	}
 
@@ -59,7 +64,10 @@ class InfectablePerson extends Person
 
 		if (Math.random() < p)
 		{
-			setInfectedAt(state.clock);
+			if (this.stats)
+			{
+				setInfectedAt(state.clock);
+			}
 			this.infect(makeInfectious());
 		}
 	}

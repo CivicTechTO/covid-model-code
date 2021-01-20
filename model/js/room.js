@@ -14,6 +14,9 @@ class Room
 		this.eventIndex = 0;
 		this.currentEvent = null;
 
+		this.ventilation = 1;
+		this.loud = 40;
+		
 		this.stats = false;
 	}
 
@@ -175,11 +178,12 @@ class Room
 			}
 		}
 
-if (infectious.size > 0)
-{
-console.log("spread", infectious.size, susceptible.size);
-}
-
+// !!!
+// if (infectious.size > 0)
+// {
+// console.log("spread", infectious.size, susceptible.size);
+// }
+// this.flag = true;
 		for (const source of infectious)
 		{
 			for (const person of susceptible)
@@ -190,7 +194,7 @@ console.log("spread", infectious.size, susceptible.size);
 	}
 
 	load(source, person)
-	{
+	{ 
 		let dx = source.current.x - person.current.x;
 		let dy = source.current.y - person.current.y;
 		let distance = Math.max(1, dx * dx + dy * dy);
@@ -198,6 +202,13 @@ console.log("spread", infectious.size, susceptible.size);
 		let increment = (source.load() * this.loud) / (distance * this.ventilation);
 
 		person.exposure += increment;
+
+// !!!
+// if (this.flag)
+// {
+// console.log("load", distance, this.ventilation, increment, person.exposure);
+// this.flag = false;
+// }
 	}
 }
 
