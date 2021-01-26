@@ -5,7 +5,7 @@ class InfectablePerson extends Person
 		super();
 
 		this.infected = new Infection();
-		this.progression = new Progression(-1);
+		this.progression = new Progression();
 
 		this.exposure = 0;
 	}
@@ -45,37 +45,35 @@ class InfectablePerson extends Person
 			state.addStat(0, result);
 		}
 
-// !!!
-// if (this.exposure > 0)
-// {
-// result = 1;
-// }
 		return result;
 	}
 
 	expose()
 	{
-		let p = 1 - Math.pow(1 - this.compress(), state.pScale);
-		
-		if (this.stats)
+		if (this.progression.infectable())
 		{
-			state.addStat(1,p);
-		}
-
-		if (Math.random() < p)
-		{
+			let p = 1 - Math.pow(1 - this.compress(), state.pScale);
+			
 			if (this.stats)
 			{
-				setInfectedAt(state.clock);
+				state.addStat(1,p);
 			}
-			this.infect(makeInfectious());
+
+			if (Math.random() < p)
+			{
+				if (this.stats)
+				{
+					setInfectedAt(state.clock);
+				}
+				this.infect(makeInfectious());
+			}
 		}
 	}
 
 	infect(infectious)
 	{
 		this.infected = infectious;
-		this.progression = new NotYet(state.clock);
+		this.progression.progress(state.clock);
 	}
 
 	step()
@@ -84,13 +82,12 @@ class InfectablePerson extends Person
 		{
 			if (this.progression.transition() <= state.clock)
 			{
-				this.progression = this.progression.progress();
+				this.progression.progress(state.clock);
 			}
 		}
 
 		super.step();
 	}
-
 
 	draw(context)
 	{

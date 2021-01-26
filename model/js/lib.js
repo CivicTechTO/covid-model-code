@@ -8,6 +8,31 @@ function clamp(lower, upper, value)
 	return (lower > value ? lower : (upper < value ? upper : value));
 }
 
+function tickToMinute(tick)
+{
+	return Math.floor(tick / ((60 / config.realTick)));
+}
+
+function tickToHour(tick)
+{
+	return Math.floor(tick / (((60 * 60) / config.realTick)));
+}
+
+function tickToDay(tick)
+{
+	return Math.floor(tick / (((24 * 60 * 60) / config.realTick)));
+}
+
+function hourToTick(hour) 
+{
+	return hour * ((60 * 60) / config.realTick);
+}
+
+function dayToTick(day) 
+{
+	return day * ((24 * 60 * 60) / config.realTick);
+}
+
 const FRAME = 1000 / 60;
 
 var past = null;

@@ -86,7 +86,7 @@ function showAll()
 function setInfectedAt(clock)
 {
 	const infectedAtElement = document.getElementById('infectedat');
-	infectedAtElement.textContent = clock.toString();
+	infectedAtElement.textContent = tickToHour(clock).toString();
 }
 
 function reset() 

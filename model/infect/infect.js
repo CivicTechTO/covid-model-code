@@ -20,9 +20,9 @@ function stop()
 }
 
 
-// let context = canvas.getContext('2d');
+let context = canvas.getContext('2d');
 
-// state.draw(context);
+//state.draw(context);
 
 window.requestAnimationFrame(animate);
 

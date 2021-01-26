@@ -178,12 +178,6 @@ class Room
 			}
 		}
 
-// !!!
-// if (infectious.size > 0)
-// {
-// console.log("spread", infectious.size, susceptible.size);
-// }
-// this.flag = true;
 		for (const source of infectious)
 		{
 			for (const person of susceptible)
@@ -203,12 +197,6 @@ class Room
 
 		person.exposure += increment;
 
-// !!!
-// if (this.flag)
-// {
-// console.log("load", distance, this.ventilation, increment, person.exposure);
-// this.flag = false;
-// }
 	}
 }
 

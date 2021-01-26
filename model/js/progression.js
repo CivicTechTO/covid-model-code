@@ -1,49 +1,6 @@
-class Progression
+class Draw
 {
-	constructor(infectedAt)
-	{
-		this.infectedAt = infectedAt;
-	}
-
 	draw(context, point) {}
-
-	canProgress()
-	{
-		return false;
-	}
-
-	infectable()
-	{
-		return true;
-	}
-
-	infectious()
-	{
-		return false;
-	}
-
-	factor()
-	{
-		return 0.0;
-	}
-
-	getStyle()
-	{
-		return state.susceptible;
-	}
-
-	draw(context, point)
-	{		
-		let size = state.personSize;
-		context.lineWidth = 1;
-
-		context.beginPath();
-		context.moveTo(point.x - size, point.y);
-		context.lineTo(point.x + size, point.y);
-		context.moveTo(point.x, point.y - size);
-		context.lineTo(point.x, point.y + size);
-		context.stroke();
-	}
 
 	baseDraw(context, point, size)
 	{
@@ -55,54 +12,26 @@ class Progression
 		context.moveTo(point.x, point.y);
 		context.lineTo(point.x, point.y + size);
 	}
+}
 
-	linear(startValue, endValue, startTime, endTime) 
-	{		
-		let slope = (endValue - startValue) / (endTime - startTime);
-		return  startValue + slope * ((state.clock - this.infectedAt) - startTime);
+class Draw0 extends Draw
+{
+	draw(context, point) 
+	{
+		const size = state.personSize;
+		context.lineWidth = 1;
+
+		context.beginPath();
+		context.moveTo(point.x - size, point.y);
+		context.lineTo(point.x + size, point.y);
+		context.moveTo(point.x, point.y - size);
+		context.lineTo(point.x, point.y + size);
+		context.stroke();
 	}
 }
 
-class CanProgress extends Progression
+class Draw1 extends Draw
 {
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	canProgress()
-	{
-		return true;
-	}
-
-	infectable()
-	{
-		return false;
-	}
-}
-
-class NotYet extends CanProgress
-{
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	transition()
-	{
-		return state.transition.notYet + this.infectedAt;
-	}
-
-	progress()
-	{
-		return new NoSymptoms(this.infectedAt);
-	}
-
-	getStyle()
-	{
-		return state.progression.notYet.style;
-	}
-
 	draw(context, point) 
 	{
 		let size = state.personSize;
@@ -112,42 +41,8 @@ class NotYet extends CanProgress
 	}
 }
 
-class NoSymptoms extends CanProgress
+class Draw2 extends Draw
 {
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	infectious()
-	{
-		return true;
-	}
-	
-	factor()
-	{
-		let startFactor = state.progression.noSymptoms.startFactor;
-		let endFactor = state.progression.noSymptoms.endFactor;
-		let start = state.transition.notYet;
-		let end = state.transition.noSymptoms;
-		return this.linear(startFactor, endFactor, start, end);
-	}
-
-	transition()
-	{
-		return state.transition.noSymptoms + this.infectedAt;
-	}
-
-	progress()
-	{
-		return new Peak(this.infectedAt);
-	}
-
-	getStyle()
-	{
-		return state.progression.notYet.style;
-	}
-
 	draw(context, point) 
 	{
 		let size = state.personSize;
@@ -157,46 +52,10 @@ class NoSymptoms extends CanProgress
 		context.lineTo(point.x - size, point.y + size);
 		context.stroke();
 	}
-
 }
 
-class Peak extends CanProgress
+class Draw3 extends Draw
 {
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	infectious()
-	{
-		return true;
-	}
-	
-	factor()
-	{
-		let startFactor = state.progression.peak.startFactor;
-		let endFactor = state.progression.peak.endFactor;
-		let start = state.transition.noSymptoms;
-		let end = state.transition.peak;
-
-		return this.linear(startFactor, endFactor, start, end);
-	}
-
-	transition()
-	{
-		return state.transition.peak + this.infectedAt;
-	}
-
-	progress()
-	{
-		return new Declining(this.infectedAt);
-	}
-
-	getStyle()
-	{
-		return state.progression.peak.style;
-	}
-
 	draw(context, point) 
 	{
 		let size = state.personSize;
@@ -208,42 +67,8 @@ class Peak extends CanProgress
 	}
 }
 
-class Declining extends CanProgress
+class Draw4 extends Draw
 {
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	infectious()
-	{
-		return true;
-	}
-	
-	factor()
-	{
-		let startFactor = state.progression.declining.startFactor;
-		let endFactor = state.progression.declining.endFactor;
-		let start = state.transition.peak;
-		let end = state.transition.declining;
-		return this.linear(startFactor, endFactor, start, end);
-	}
-
-	transition()
-	{
-		return state.transition.declining + this.infectedAt;
-	}
-
-	progress()
-	{
-		return new Recovered(this.infectedAt);
-	}
-
-	getStyle()
-	{
-		return state.progression.declining.style;
-	}
-
 	draw(context, point) 
 	{
 		let size = state.personSize;
@@ -257,18 +82,8 @@ class Declining extends CanProgress
 	}
 }
 
-class Recovered extends Progression
+class Draw5 extends Draw
 {
-	constructor(infectedAt)
-	{
-		super(infectedAt);
-	}
-
-	getStyle()
-	{
-		return state.progression.notYet.style;
-	}
-
 	draw(context, point) 
 	{
 		let size = state.personSize;
@@ -278,10 +93,149 @@ class Recovered extends Progression
 		context.lineTo(point.x - size, point.y - size);
 		context.stroke();
 	}
+}
 
-	infectable()
+class Draw6 extends Draw
+{
+	draw(context, point) 
 	{
-		return false;
+		let size = state.personSize;
+
+		this.baseDraw(context, point, size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y - size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y + size);
+		context.stroke();
 	}
 }
 
+class Draw7 extends Draw
+{
+	draw(context, point) 
+	{
+		let size = state.personSize;
+
+		this.baseDraw(context, point, size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y - size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y);
+		context.stroke();
+	}
+}
+
+class Draw8 extends Draw
+{
+	draw(context, point) 
+	{
+		let size = state.personSize;
+
+		this.baseDraw(context, point, size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y - size);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y);
+		context.moveTo(point.x, point.y);
+		context.lineTo(point.x - size, point.y + size);
+		context.stroke();
+	}
+}
+
+class Draw9 extends Draw
+{
+	draw(context, point) 
+	{
+		const size = state.personSize;
+		const cross = size - state.cross;
+
+		context.beginPath();
+		context.moveTo(point.x, point.y - size);
+		context.lineTo(point.x, point.y + size);
+		context.moveTo(point.x - state.cross, point.y - cross);
+		context.lineTo(point.x + state.cross, point.y - cross);
+		context.stroke();
+	}
+}
+
+class DrawList
+{
+	constructor()
+	{
+		this.drawObjectArray = 
+			[
+				  new Draw0(), new Draw1(), new Draw2(), new Draw3(), new Draw4()
+				  , new Draw5(), new Draw6(), new Draw7(), new Draw8(), new Draw9()
+			]
+	}
+}
+
+class Progression
+{
+	constructor(at)
+	{
+		this.at = at;
+		this.index = 0;
+	}
+
+	draw(context, point) 
+	{
+		const drawIndex = state.progression[this.index].draw;
+		const drawObject = state.drawList.drawObjectArray[drawIndex];
+		drawObject.draw(context, point); 
+	}
+
+	canProgress()
+	{
+		return state.progression[this.index].canProgress;
+	}
+
+	infectable()
+	{
+		return state.progression[this.index].infectable;
+	}
+
+	infectious()
+	{
+		return state.progression[this.index].infectious;
+	}
+
+	getStyle()
+	{
+		return state.progression[this.index].style;
+	}
+
+	transition()
+	{
+		return state.progression[this.index].time + this.at;
+	}
+
+	progress(at)
+	{
+		this.at = at;
+		const progression = state.progression[this.index];
+
+		if (progression.worse.p > Math.random())
+		{
+			this.index = progression.worse.next;
+		}
+		else
+		{
+			this.index = progression.next;
+		}
+	}
+
+	factor() 
+	{		
+		const progression = state.progression[this.index];
+		let result = 0;
+
+		if (progression.infectious)
+		{
+			let slope = (progression.end - progression.start) / progression.time;
+			result = progression.start + slope * (state.clock - this.at);
+		}
+
+		return result;
+	}
+}

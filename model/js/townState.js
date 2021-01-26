@@ -70,7 +70,7 @@ class TownState extends InfectState
 
 		let offset = Math.round((config.road.space - width) / 2);
 		let x = (config.bunkHouse.road * config.road.space) + offset;
-		let top = config.size.height - count * height;
+		let top = (config.size.height - count * height) - config.bunkHouse.buffer;
 
 		let bunkHouses = stack(count, x, top, width, height, speed);
 		
@@ -90,7 +90,7 @@ class TownState extends InfectState
 		let height = config.house.height;
 		let speed = config.house.speed;
 		let offset = Math.round((config.road.space - 2 * width) / 2);
-		let top = config.size.height - count * height;
+		let top = (config.size.height - count * height) - config.house.buffer;
 
 		for (var road = config.house.startRoad; road <= config.house.endRoad; road++) 
 		{
@@ -154,6 +154,40 @@ class TownState extends InfectState
 		this.fillClub(16 * config.road.space, config.club);
 
 		this.fillOutside(config);
+
+		this.fillHospital(config);
+		this.fillCemetary(config);
+	}
+
+	fillCemetary(config)
+	{
+		let y = config.cemetary.y;
+		let x = (config.cemetary.road * config.road.space) + config.cemetary.offset;
+		let width = config.cemetary.width;
+		let speed = config.cemetary.speed;
+
+		let cemetary = new Room(x, y, width, config.cemetary.height, speed);
+		this.roomList.push(cemetary);
+	}
+
+	fillHospital(config)
+	{
+		let y = config.hospital.y;
+		let x = (config.hospital.road * config.road.space) + config.hospital.offset;
+		let width = config.hospital.width;
+		let speed = config.hospital.speed;
+
+		let icu = new Room(x, y, width, config.hospital.icu.height, speed);
+		y += config.hospital.icu.height;
+		this.roomList.push(icu);
+
+		let ward = new Room(x, y, width, config.hospital.ward.height, speed);
+		y += config.hospital.ward.height;
+		this.roomList.push(ward);
+
+		let hallway = new Room(x, y, width, config.hospital.hallway.height, speed);
+		y += config.hospital.hallway.height;
+		this.roomList.push(hallway);
 	}
 
 	fillChurch(x, churchSpec)
