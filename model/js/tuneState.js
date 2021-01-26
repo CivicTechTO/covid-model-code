@@ -153,6 +153,7 @@ class TuneState extends State
 	drawStats(factorContext, otherContext, exposeContext, pContext)
 	{
 		this.display('loadvalue', this.personList[0].infected.load);
+		this.display('progress', this.personList[0].progression.index);		
 
 		this.drawAStat(factorContext, this.stats.factor, 'maxfactor');
 		this.drawAStat(otherContext, this.stats.exposure, 'maxother');

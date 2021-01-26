@@ -160,8 +160,8 @@ const config = {
 			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 0.0, "sick": 2
 			}
 			, {
-			  	"style": "#FF3333", "draw":7, "infectable": false, "infectious": false, "canProgress": true, "time": 5
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 0.0, "end": 0.0, "sick": 2
+			  	"style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 5
+			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 2
 			}
 			, {
 			  	"style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 1

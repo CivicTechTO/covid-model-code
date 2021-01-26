@@ -166,8 +166,9 @@ class TownState extends InfectState
 		let width = config.cemetary.width;
 		let speed = config.cemetary.speed;
 
-		let cemetary = new Room(x, y, width, config.cemetary.height, speed);
-		this.roomList.push(cemetary);
+		this.cemetary = new Room(x, y, width, config.cemetary.height, speed);
+		this.cemetary.fillColour = "lightgreen";
+		this.roomList.push(this.cemetary);
 	}
 
 	fillHospital(config)
