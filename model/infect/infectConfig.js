@@ -56,7 +56,7 @@ const config = {
 	, "hospital": 
 		{
 			"y": 180, "road": 16, "offset": 10, "width": 35, "speed": 1
-			,"icu": {"height": 10}, "ward": {"height": 10}, "hallway": {"height": 80}
+			,"icu": {"height": 10, "count": 1}, "ward": {"height": 10, "count": 5}, "hallway": {"height": 80, "count": 160}
 		}
 
 	, "cemetary": {"y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.1}

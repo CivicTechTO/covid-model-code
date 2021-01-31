@@ -180,17 +180,17 @@ class TownState extends InfectState
 		let speed = config.hospital.speed;
 
 		this.icu = new Hospital(x, y, width, config.hospital.icu.height, speed);
-		this.icu.rules = new HospitalRules(speed);
+		this.icu.rules = new HospitalRules(speed, this.icu, config.hospital.icu.count);
 		y += config.hospital.icu.height;
 		this.roomList.push(this.icu);
 
 		this.ward = new Hospital(x, y, width, config.hospital.ward.height, speed);
-		this.ward.rules = new HospitalRules(speed);
+		this.ward.rules = new HospitalRules(speed, this.ward, config.hospital.ward.count);
 		y += config.hospital.ward.height;
 		this.roomList.push(this.ward);
 
 		this.hallway = new Room(x, y, width, config.hospital.hallway.height, speed);
-		this.hallway.rules = new HospitalRules(speed);
+		this.hallway.rules = new HospitalRules(speed, this.hallway, config.hospital.hallway.count);
 		this.roomList.push(this.hallway);
 	}
 

@@ -43,7 +43,7 @@ class Group
 		let index = 0;
 		for (let person of this.personSet)
 		{
-			person.setNewCurrent(place(index++));
+			person.setNewCurrent(this.place(index++));
 		}
 	}
 
