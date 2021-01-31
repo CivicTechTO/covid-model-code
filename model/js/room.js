@@ -130,18 +130,13 @@ class Room
 				}
 			}
 		}
-
-		// for (const person of this.personSet)
-		// {
-		// 	person.step();
-		// }
 	}
 
 	leaveFor(to)
 	{
 		for (const person of this.personSet)
 		{
-			person.setItinerary(to);
+			person.goToRoom(to);
 		}
 
 	}
@@ -219,5 +214,20 @@ class Outside extends Room
 	{
 		context.fillStyle = this.fillColour;
 		context.fillRect(this.x, this.y, this.width, this.height);	
+	}
+}
+
+class Hospital extends Room
+{
+	constructor(x, y, width, height, speed)
+	{
+		super(x, y, width, height, speed);
+
+		this.rules = new SeatRules()
+	}
+
+	isFull()
+	{
+		return false;
 	}
 }

@@ -205,6 +205,16 @@ class Progression
 		return state.progression[this.index].style;
 	}
 
+	sickness()
+	{
+		return state.progression[this.index].sick;
+	}
+
+	change()
+	{
+		return state.progression[this.index].change;
+	}
+
 	transition()
 	{
 		return state.progression[this.index].time + this.at;
@@ -213,7 +223,7 @@ class Progression
 	progress(at)
 	{
 		this.at = at;
-		const progression = state.progression[this.index];
+		let progression = state.progression[this.index];
 
 		if (progression.worse.p > Math.random())
 		{

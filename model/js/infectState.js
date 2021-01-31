@@ -4,6 +4,8 @@ class InfectState extends State
 	{
 		super(config, width, height);
 
+		this.deadSpeed = config.deadSpeed;
+		
 		this.susceptible = config.susceptible;
 		this.infectious = config.infectious;
 		
@@ -34,6 +36,8 @@ class InfectState extends State
 	fill(config)
 	{
 		this.personList[0].infect(new ExceedinglyInfectious());
+		this.personList[0].progression.index = 3;
+		this.personList[0].church = this.churchList[0];
 	}
 
 	step()

@@ -8,7 +8,6 @@ class Person
 		this.dest = null;
 		this.back = null;
 		this.group = null;
-this.debugFlag = false;
 	}
 
 // newCurrent : Point
@@ -48,6 +47,7 @@ this.debugFlag = false;
 		return ((this.current && this.dest) ? this.current.equals(this.dest) : false);
 	}
 
+
 /*
  *	There is one main E/W road partway up the model
  *  There are a set of equally spaced N/S feeder roads
@@ -60,7 +60,7 @@ this.debugFlag = false;
  *		Go E/W to the dest
  */
 
-	setItinerary(toRoom)
+	goToRoom(toRoom)
 	{
 		this.itinerary = [];
 		this.index = 0;
@@ -75,7 +75,7 @@ this.debugFlag = false;
 		else
 		{
 			this.notFromRoom(toRoom, toDoor, toRoad);
-		}			
+		}
 	}
 
 	fromRoom(toRoom, toDoor, toRoad)
@@ -141,6 +141,11 @@ this.debugFlag = false;
 		{
 			if (!this.current.equals(this.dest))
 			{
+				if (this.sickness() === C.DEAD)
+				{
+					this.speed = state.deadspeed;
+				}
+				
 				this.current.x = closer(this.dest.x, this.current.x, this.speed);
 				this.current.y = closer(this.dest.y, this.current.y, this.speed);
 			}
@@ -193,17 +198,17 @@ this.debugFlag = false;
 
 	goHome()
 	{
-		this.setItinerary(this.home);
+		this.goToRoom(this.home);
 	}
 
 	goToWork()
 	{
-		this.setItinerary(this.work);
+		this.goToRoom(this.work);
 	}
 
 	goToChurch()
 	{
-		this.setItinerary(this.church);
+		this.goToRoom(this.church);
 	}
 
 debug(message)

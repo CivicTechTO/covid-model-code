@@ -248,7 +248,7 @@ class FullRules extends Rules
 			}
 			while (other.equals(room));
 
-			person.setItinerary(other);
+			person.goToRoom(other);
 		}
 
 		return result;
@@ -332,6 +332,32 @@ class PubRules extends FullRules
 	}
 
 }
+
+class HospitalRules extends Rules
+{
+	constructor(speed, room, count)
+	{
+		super(speed);
+		let spacing = state.spacing;
+		this.beds = new Group(room, spacing, spacing, count, 1);
+	}
+
+	arrive(room, person)
+	{
+		return this.beds.add(person);
+	}
+
+	migrate(room, shift)
+	{
+	}
+
+	depart(person)
+	{
+		this.beds.delete(person);
+		this.beds.replace();
+	}
+}
+
 
 class WorkRules extends Rules
 {

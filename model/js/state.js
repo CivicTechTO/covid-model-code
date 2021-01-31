@@ -16,6 +16,7 @@ class State
 
 		this.main = config.main;
 		this.road = config.road;
+		this.churchRoads = config.churchRoads;
 
 		this.spacing = config.spacing;
 
@@ -73,6 +74,35 @@ this.debug = false;
 			room.draw(context);
 		}
 
+		const startX = this.road.space * this.road.first;
+		const endX = this.road.space * this.road.last;
+
+		context.strokeStyle = this.road.style;
+		context.lineWidth = 1;
+
+		context.beginPath();
+		context.moveTo(startX, this.main);
+		context.lineTo(endX, this.main);
+
+		for (var i = this.road.first; i <= this.road.last; i++) 
+		{
+			const x = i * this.road.space;
+
+			if (this.churchRoads.includes(i))
+			{
+				context.moveTo(x, this.main);
+
+			}
+			else
+			{
+				context.moveTo(x, 0);
+			}
+
+			context.lineTo(x, this.size.height);
+		}
+
+		context.stroke();
+
 		for (const person of this.personList)
 		{
 			person.draw(context);
@@ -91,7 +121,10 @@ this.debug = false;
 	{
 		for (const person of this.personList)
 		{
-			person.goHome();
+			if (!person.isSick())
+			{
+				person.goHome();
+			}
 		}
 	}
 
@@ -99,7 +132,10 @@ this.debug = false;
 	{
 		for (const person of this.personList)
 		{
-			person.goToWork();
+			if (!person.isSick())
+			{
+				person.goToWork();
+			}
 		}
 	}
 
@@ -107,7 +143,10 @@ this.debug = false;
 	{
 		for (const person of this.personList)
 		{
-			person.goToChurch();
+			if (!person.isSick())
+			{
+				person.goToChurch();
+			}
 		}
 	}
 }

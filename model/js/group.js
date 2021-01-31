@@ -19,18 +19,31 @@ class Group
 		}
 		else
 		{
-			let which = this.personSet.size;
-			let column = which % this.columnCount; 
-			let row = Math.floor(which / this.columnCount); 
-			let x = this.room.x + this.deltaX + (1 + column) * state.spacing;
-			let y = this.room.y + this.deltaY + (1 + row) * state.spacing;
-
-			person.moveTo(new Point(x, y), this.room.getSpeed());
+			person.moveTo(this.place(this.personSet.size), this.room.getSpeed());
 
 			this.personSet.add(person);
 			person.group = this;
 
 			return true;
+		}
+	}
+
+	place(which)
+	{
+		let column = which % this.columnCount; 
+		let row = Math.floor(which / this.columnCount); 
+		let x = this.room.x + this.deltaX + (1 + column) * state.spacing;
+		let y = this.room.y + this.deltaY + (1 + row) * state.spacing;
+
+		return new Point(x,y);
+	}
+
+	replace()
+	{
+		let index = 0;
+		for (let person of this.personSet)
+		{
+			person.setNewCurrent(place(index++));
 		}
 	}
 

@@ -91,6 +91,7 @@ class TuneState extends State
 
 
 		let room = new Room(400, 50, 100, 100, 1);
+		room.fillColour = "gray";
 		this.roomList.push(room);
 
 		this.start();

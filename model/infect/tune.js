@@ -2,6 +2,8 @@
 
 const canvas = document.getElementById('canvas');
 
+var C = makeConstants();
+
 var state = new TuneState(config, canvas.width, canvas.height);
 state.fill(config);
 

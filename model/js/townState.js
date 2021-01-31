@@ -167,7 +167,8 @@ class TownState extends InfectState
 		let speed = config.cemetary.speed;
 
 		this.cemetary = new Room(x, y, width, config.cemetary.height, speed);
-		this.cemetary.fillColour = "lightgreen";
+		this.cemetary.rules = new SeatRules(speed);
+		this.cemetary.fillColour = "#4DFF4D";
 		this.roomList.push(this.cemetary);
 	}
 
@@ -178,17 +179,19 @@ class TownState extends InfectState
 		let width = config.hospital.width;
 		let speed = config.hospital.speed;
 
-		let icu = new Room(x, y, width, config.hospital.icu.height, speed);
+		this.icu = new Hospital(x, y, width, config.hospital.icu.height, speed);
+		this.icu.rules = new HospitalRules(speed);
 		y += config.hospital.icu.height;
-		this.roomList.push(icu);
+		this.roomList.push(this.icu);
 
-		let ward = new Room(x, y, width, config.hospital.ward.height, speed);
+		this.ward = new Hospital(x, y, width, config.hospital.ward.height, speed);
+		this.ward.rules = new HospitalRules(speed);
 		y += config.hospital.ward.height;
-		this.roomList.push(ward);
+		this.roomList.push(this.ward);
 
-		let hallway = new Room(x, y, width, config.hospital.hallway.height, speed);
-		y += config.hospital.hallway.height;
-		this.roomList.push(hallway);
+		this.hallway = new Room(x, y, width, config.hospital.hallway.height, speed);
+		this.hallway.rules = new HospitalRules(speed);
+		this.roomList.push(this.hallway);
 	}
 
 	fillChurch(x, churchSpec)

@@ -125,13 +125,16 @@ class MigrateShift extends Shift
 		{
 			for (const person of personList)
 			{
-				if (which.home > Math.random())
+				if (!person.isSick())
 				{
-					person.goHome();
-				}
-				else
-				{
-					person.setItinerary(chooseOne(chooseOne(which.choices)));
+					if (which.home > Math.random())
+					{
+						person.goHome();
+					}
+					else
+					{
+						person.goToRoom(chooseOne(chooseOne(which.choices)));
+					}
 				}
 			}
 		}
@@ -176,15 +179,18 @@ class InitialShift extends MigrateShift
 
 		for (const person of state.personList)
 		{
-			if (which.hostChance > Math.random())
+			if (!person.isSick())
 			{
-				state.hosts.add(person);
-				state.partyList.push(person.home);
-				person.goHome();
-			}
-			else
-			{
-				state.notHosts.add(person);
+				if (which.hostChance > Math.random())
+				{
+					state.hosts.add(person);
+					state.partyList.push(person.home);
+					person.goHome();
+				}
+				else
+				{
+					state.notHosts.add(person);
+				}
 			}
 		}
 	}
