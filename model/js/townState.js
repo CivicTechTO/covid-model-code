@@ -24,6 +24,7 @@ class TownState extends InfectState
 
 		this.hosts = new Set();
 		this.notHosts = new Set();
+this.stepFlag = false;
 	}
 
 	choiceList()
@@ -174,24 +175,29 @@ class TownState extends InfectState
 
 	fillHospital(config)
 	{
-		let y = config.hospital.y;
-		let x = (config.hospital.road * config.road.space) + config.hospital.offset;
-		let width = config.hospital.width;
-		let speed = config.hospital.speed;
+		const x = (config.hospital.road * config.road.space) + config.hospital.offset;
+		const width = config.hospital.width;
+		const speed = config.hospital.speed;
+		const wardConfig = config.hospital.ward;
+		const icuConfig = config.hospital.icu;
+		const hallwayConfig = config.hospital.hallway;
 
-		this.icu = new Hospital(x, y, width, config.hospital.icu.height, speed);
-		this.icu.rules = new HospitalRules(speed, this.icu, config.hospital.icu.count);
-		y += config.hospital.icu.height;
-		this.roomList.push(this.icu);
+console.log("hospital", x);
+		let y = config.hospital.y + icuConfig.height + wardConfig.height;
+		this.hallway = new Room(x, y, width, hallwayConfig.height, speed);
+		this.hallway.rules = new HospitalRules(speed, this.hallway, hallwayConfig.columns, hallwayConfig.rows, null);
+		this.roomList.push(this.hallway);
 
-		this.ward = new Hospital(x, y, width, config.hospital.ward.height, speed);
-		this.ward.rules = new HospitalRules(speed, this.ward, config.hospital.ward.count);
-		y += config.hospital.ward.height;
+		y = config.hospital.y + icuConfig.height;
+		this.ward = new Hospital(x, y, width, wardConfig.height, speed);
+		this.ward.rules = new HospitalRules(speed, this.ward, wardConfig.columns, wardConfig.rows, this.hallway);
+this.ward.rules.beds.debugFlag = true;
 		this.roomList.push(this.ward);
 
-		this.hallway = new Room(x, y, width, config.hospital.hallway.height, speed);
-		this.hallway.rules = new HospitalRules(speed, this.hallway, config.hospital.hallway.count);
-		this.roomList.push(this.hallway);
+		y = config.hospital.y;
+		this.icu = new Hospital(x, y, width, icuConfig.height, speed);
+		this.icu.rules = new HospitalRules(speed, this.icu, icuConfig.columns, icuConfig.rows, this.ward);
+		this.roomList.push(this.icu);
 	}
 
 	fillChurch(x, churchSpec)
@@ -454,6 +460,10 @@ class TownState extends InfectState
 
 	step()
 	{
+if (this.stepFlag)
+{
+console.log("step");
+}
 		super.step();
 
 		let nextDay = Math.floor((Math.floor(this.clock / this.hourTicks) + this.startHour) / 24);

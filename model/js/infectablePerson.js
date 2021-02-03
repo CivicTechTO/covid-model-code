@@ -65,6 +65,35 @@ class InfectablePerson extends Person
 		return result;
 	}
 
+	discharge()
+	{
+this.debug("discharge");
+		if (this.inRoom)
+		{
+			if (this.inRoom.equals(state.hallway))
+			{
+this.debug("discharge hallway");
+				state.hallway.depart(this);
+			}
+			else
+			{
+				if (this.inRoom.equals(state.ward))
+				{
+this.debug("discharge ward");
+					state.ward.depart(this);
+				}
+				else
+				{
+					if (this.inRoom.equals(state.icu))
+					{
+this.debug("discharge icu");
+						state.icu.depart(this);
+					}
+				}
+			}
+		}
+	}
+
 	decay()
 	{
 		this.exposure = (this.exposure > state.reset ? this.exposure * state.decay : 0.0);
@@ -141,6 +170,7 @@ class InfectablePerson extends Person
 		case C.WELL:
 			if (this.inHospital())
 			{
+				this.discharge();
 				this.goHome();
 			}
 			break;
@@ -149,6 +179,7 @@ class InfectablePerson extends Person
 			break;
 
 		case C.HOMESICK:
+			this.discharge();
 			this.goHome();
 			break;
 
@@ -170,10 +201,12 @@ class InfectablePerson extends Person
 				{
 					if (!state.ward.isFull())
 					{
+						this.discharge();
 						this.goToRoom(state.ward);
 					}
 					else
 					{
+						this.discharge();
 						this.goToRoom(state.hallway);
 					}
 				}
@@ -183,22 +216,26 @@ class InfectablePerson extends Person
 		case C.ICUSICK:
 			if (!state.icu.isFull())
 			{
+				this.discharge();
 				this.goToRoom(state.icu);
 			}
 			else
 			{
 				if (!state.ward.isFull())
 				{
+					this.discharge();
 					this.goToRoom(state.ward);
 				}
 				else
 				{
+					this.discharge();
 					this.goToRoom(state.hallway);
 				}
 			}
 			break;
 
 		case C.DEAD:
+			this.discharge();
 			this.goToRoom(state.cemetary);
 			break;
 		}
@@ -207,7 +244,7 @@ class InfectablePerson extends Person
 	draw(context)
 	{
 		context.strokeStyle = this.progression.getStyle();
-
+this.debug("draw " + JSON.stringify(this.current));
 		if (!this.isDead())
 		{
 			this.infected.draw(context, this.current);

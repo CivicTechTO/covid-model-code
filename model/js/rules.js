@@ -335,16 +335,36 @@ class PubRules extends FullRules
 
 class HospitalRules extends Rules
 {
-	constructor(speed, room, count)
+	constructor(speed, room, columns, rows, other)
 	{
 		super(speed);
 		let spacing = state.spacing;
-		this.beds = new Group(room, spacing, spacing, count, 1);
+		this.other = other;
+		this.beds = new Group(room, 0, 0, columns, rows);
+this.debugFlag = false;
 	}
 
 	arrive(room, person)
 	{
-		return this.beds.add(person);
+if (this.debugFlag)
+{
+state.stepFlag = true;
+}
+		let result = this.beds.add(person);
+
+		if (!result)
+		{
+			if (this.other !== null)
+			{
+				person.goToRoom(this.other);
+			}
+			else
+			{
+				person.goHome();
+			}
+		}
+
+		return result;
 	}
 
 	migrate(room, shift)

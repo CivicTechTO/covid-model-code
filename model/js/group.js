@@ -9,8 +9,16 @@ class Group
 		this.rowCount = rowCount;
 
 		this.personSet = new Set();
+this.debugFlag = false;
 	}
 
+debug(name, value)
+{
+if (debugFlag)
+{
+console,log(name, value);
+}
+}
 	add(person)
 	{
 		if (this.isFull())
@@ -19,6 +27,10 @@ class Group
 		}
 		else
 		{
+if (this.debugFlag)
+{
+person.debugFlag = true;
+}
 			person.moveTo(this.place(this.personSet.size), this.room.getSpeed());
 
 			this.personSet.add(person);

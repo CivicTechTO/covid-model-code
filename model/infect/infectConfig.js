@@ -32,7 +32,7 @@ const config = {
 	, "house": {"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17, "buffer": 5}
 	, "church": 
 		{
-			"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 5, "speed": 0.5
+			"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 10, "speed": 0.5
 			, "halfEdge": 20, "start": 100, "pause": 100, "millingTime": 240, "sitTime": 480
 			, "separation": 1
 		}
@@ -56,7 +56,9 @@ const config = {
 	, "hospital": 
 		{
 			"y": 180, "road": 16, "offset": 10, "width": 35, "speed": 1
-			,"icu": {"height": 10, "count": 1}, "ward": {"height": 10, "count": 5}, "hallway": {"height": 80, "count": 160}
+			,"icu": {"height": 10, "columns": 1, "rows": 1}
+			, "ward": {"height": 10, "columns": 5, "rows": 1}
+			, "hallway": {"height": 80, "columns": 5, "rows": 20}
 		}
 
 	, "cemetary": {"y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.1}

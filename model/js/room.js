@@ -68,6 +68,11 @@ class Room
 		this.personSet.delete(person);
 	}
 
+	inRoom(person)
+	{
+		return this.personSet.has(person);
+	}
+
 	migrate(shift)
 	{
 		this.rules.migrate(this, shift);
