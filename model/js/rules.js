@@ -373,6 +373,7 @@ state.stepFlag = true;
 
 	depart(person)
 	{
+		super.depart(person);
 		this.beds.delete(person);
 		this.beds.replace();
 	}
