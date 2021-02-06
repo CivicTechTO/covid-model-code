@@ -42,6 +42,11 @@ class Rules
 			shift.migrate([person]);
 		}
 	}
+
+	isFull()
+	{
+		return false;
+	}
 }
 
 function seat(room, person, which)
@@ -354,6 +359,7 @@ state.stepFlag = true;
 
 		if (!result)
 		{
+console.log("arrive to full");
 			if (this.other !== null)
 			{
 				person.goToRoom(this.other);
@@ -371,11 +377,15 @@ state.stepFlag = true;
 	{
 	}
 
-	depart(person)
+	depart(room, person)
 	{
-		super.depart(person);
 		this.beds.delete(person);
-		this.beds.replace();
+//		this.beds.replace();
+	}
+
+	isFull()
+	{
+		return this.beds.isFull();
 	}
 }
 

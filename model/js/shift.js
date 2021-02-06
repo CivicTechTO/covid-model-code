@@ -133,7 +133,16 @@ class MigrateShift extends Shift
 					}
 					else
 					{
-						person.goToRoom(chooseOne(chooseOne(which.choices)));
+						let choice = chooseOne(chooseOne(which.choices));
+
+						if (choice)
+						{
+							person.goToRoom(choice);
+						}
+						else
+						{
+							person.goHome();
+						}
 					}
 				}
 			}

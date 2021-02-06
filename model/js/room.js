@@ -24,7 +24,7 @@ class Room
 
 	equals(other)
 	{
-		return this.x === other.x && this.y === other.y;
+		return other && this.x === other.x && this.y === other.y;
 	}
 
 	getSpeed()
@@ -85,6 +85,12 @@ class Room
 		let nearest = state.findRoad(midX);
 		let side = (nearest < midX ? this.x : this.x + this.width);
 		return new Point(side, midY);
+	}
+
+	isFull()
+	{
+console.log("room isFull");
+		return this.rules.isFull();
 	}
 
 	addEvent(event)

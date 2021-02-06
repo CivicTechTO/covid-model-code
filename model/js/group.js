@@ -55,7 +55,7 @@ person.debugFlag = true;
 		let index = 0;
 		for (let person of this.personSet)
 		{
-			person.setNewCurrent(this.place(index++));
+			person.moveTo(this.place(index++));
 		}
 	}
 
@@ -67,6 +67,7 @@ person.debugFlag = true;
 
 	isFull()
 	{
+console.log("group", this.personSet.size, this.rowCount * this.columnCount);
 		return (this.personSet.size >= (this.rowCount * this.columnCount));
 	}
 }

@@ -49,16 +49,16 @@ const config = {
 		}
 	, "outside": 
 		{
-			"y": 180, "road": 2, "count": 16, "width": 25, "height": 100, "crowd": 1
+			"y": 180, "road": 2, "count": 17, "width": 25, "height": 100, "crowd": 1
 			, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.5
 		}
 
 	, "hospital": 
 		{
-			"y": 180, "road": 16, "offset": 10, "width": 35, "speed": 1
+			"y": 1, "road": 17, "offset": 10, "width": 35, "speed": 1
 			,"icu": {"height": 10, "columns": 1, "rows": 1}
 			, "ward": {"height": 10, "columns": 5, "rows": 1}
-			, "hallway": {"height": 80, "columns": 5, "rows": 20}
+			, "hallway": {"height": 140, "columns": 6, "rows": 20}
 		}
 
 	, "cemetary": {"y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.1}
@@ -153,43 +153,43 @@ const config = {
 			}
 			, {
 			  	"index": 9, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 1
-			  	, "next": 10, "worse": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 3, "change": true
+			  	, "next": 10, "worse": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 4, "change": true
 			}
 			, {
 			  	"index": 10, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 6
-			  	, "next": 11, "worse": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 3, "change": false
+			  	, "next": 11, "worse": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 4, "change": false
 			}
 			, {
 			  	"index": 11, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 5
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 3, "change": false
+			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 4, "change": false
 			}
 			, {
 			  	"index": 12, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 5
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 3, "change": false
+			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 4, "change": false
 			}
 			, {
 			  	"index": 13, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 1
-			  	, "next": 14, "worse": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 4, "change": true
+			  	, "next": 14, "worse": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 5, "change": true
 			}
 			, {
 			  	"index": 14, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 5
-			  	, "next": 15, "worse": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 4, "change": false
+			  	, "next": 15, "worse": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 5, "change": false
 			}
 			, {
 			  	"index": 15, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 5
-			  	, "next": 16, "worse": {"p": 0.0, "next": 16}, "start": 1.0, "end": 0.0, "sick": 4, "change": false
+			  	, "next": 16, "worse": {"p": 0.0, "next": 17}, "start": 1.0, "end": 0.0, "sick": 5, "change": false
 			}
 			, {
 			  	"index": 16, "style": "#FF1111", "draw":8, "infectable": false, "infectious": false, "canProgress": true, "time": 5
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 4, "change": false
+			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 5, "change": false
 			}
 			, {
 			  	"index": 17, "style": "#FF1111", "draw":8, "infectable": false, "infectious": false, "canProgress": true, "time": 15
-			  	, "next": 18, "worse": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 4, "change": false
+			  	, "next": 18, "worse": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 5, "change": false
 			}
 			, {
 			  	"index": 18, "style": "#FFFFFF", "draw": 9, "infectable": false, "infectious": false, "canProgress": false, "time": undefined
-			  	, "next": undefined, "worse": {"p": 0.0, "next": undefined}, "start": 0.0, "end": 0.0, "sick": 5, "change": true
+			  	, "next": undefined, "worse": {"p": 0.0, "next": undefined}, "start": 0.0, "end": 0.0, "sick": 6, "change": true
 			}
 		]
 }

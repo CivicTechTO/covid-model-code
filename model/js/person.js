@@ -8,6 +8,9 @@ class Person
 		this.dest = null;
 		this.back = null;
 		this.group = null;
+		this.home = null;
+		this.work = null;
+		this.church = null;
 	}
 
 // newCurrent : Point
@@ -143,7 +146,7 @@ class Person
 			{
 				if (this.sickness() === C.DEAD)
 				{
-					this.speed = state.deadspeed;
+					this.speed = state.deadSpeed;
 				}
 				
 				this.current.x = closer(this.dest.x, this.current.x, this.speed);

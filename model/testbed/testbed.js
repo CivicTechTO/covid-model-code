@@ -28,7 +28,7 @@ let context = canvas.getContext('2d');
 
 window.requestAnimationFrame(animate);
 
-// for (var i = 2000; i >= 0; i--) 
+// for (var i = 2; i >= 0; i--) 
 // {
 // 	state.step(FRAME);
 // }

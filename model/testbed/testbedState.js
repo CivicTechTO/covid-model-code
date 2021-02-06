@@ -10,10 +10,13 @@ class TestbedState extends TownState
 	{
 		super.fill(config);
 
+		this.stepsPerFrame = 1;
+
 		for (let person of this.personList)
 		{
 			person.infect(new ExceedinglyInfectious());
-			person.progression.index = 6;
+			person.progression.index = 9;
+			person.goToRoom(person.findRoom());
 		}
 	}
 }

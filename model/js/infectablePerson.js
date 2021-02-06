@@ -43,55 +43,22 @@ class InfectablePerson extends Person
 
 	inHospital()
 	{
-		let result = false;
-
-		if (this.inRoom)
-		{
-			result = this.inRoom.equals(state.hallway) || this.inRoom.equals(state.ward) || this.inRoom.equals(state.icu); 
-		}
-
-		return result;
+		return this.inHallway() || this.inWard() || this.inICU();
 	}
 
 	inICU()
 	{
-		let result = false;
-
-		if (this.inRoom)
-		{
-			result = this.inRoom.equal(state.icu); 
-		}
-
-		return result;
+		return this.inRoom && this.inRoom.equals(state.icu); 
 	}
 
-	discharge()
+	inWard()
 	{
-this.debug("discharge");
-		if (this.inRoom)
-		{
-			if (this.inRoom.equals(state.hallway))
-			{
-this.debug("discharge hallway");
-				state.hallway.depart(this);
-			}
-			else
-			{
-				if (this.inRoom.equals(state.ward))
-				{
-this.debug("discharge ward");
-					state.ward.depart(this);
-				}
-				else
-				{
-					if (this.inRoom.equals(state.icu))
-					{
-this.debug("discharge icu");
-						state.icu.depart(this);
-					}
-				}
-			}
-		}
+		return this.inRoom && this.inRoom.equals(state.ward); 
+	}
+
+	inHallway()
+	{
+		return this.inRoom && this.inRoom.equals(state.hallway); 
 	}
 
 	decay()
@@ -157,94 +124,37 @@ this.debug("discharge icu");
 
 				if (this.progression.change())
 				{
-					this.doChange();
+					let toRoom = this.findRoom();
+
+					if (!toRoom.equals(this.inRoom))
+					{
+						this.goToRoom(toRoom);
+					}
 				}
 			}
 		}
 	}
 
-	doChange()
+	findRoom()
 	{
-		switch(this.sickness())
+		const rooms = [this.home, this.home, this.home, state.hallway, state.ward, state.icu, state.cemetary];
+
+		let index = this.sickness();
+
+console.log("before", index, JSON.stringify(rooms[index].isFull), rooms[index].isFull());
+		while(rooms[index].isFull())
 		{
-		case C.WELL:
-			if (this.inHospital())
-			{
-				this.discharge();
-				this.goHome();
-			}
-			break;
-
-		case C.INFECTED:
-			break;
-
-		case C.HOMESICK:
-			this.discharge();
-			this.goHome();
-			break;
-
-		case C.WARDSICK:
-			if (!this.inHospital())
-			{
-				if (!state.ward.isFull())
-				{
-					this.goToRoom(state.ward);
-				}
-				else
-				{
-					this.goToRoom(state.hallway);
-				}
-			}
-			else
-			{
-				if (this.inICU())
-				{
-					if (!state.ward.isFull())
-					{
-						this.discharge();
-						this.goToRoom(state.ward);
-					}
-					else
-					{
-						this.discharge();
-						this.goToRoom(state.hallway);
-					}
-				}
-			}
-			break;
-
-		case C.ICUSICK:
-			if (!state.icu.isFull())
-			{
-				this.discharge();
-				this.goToRoom(state.icu);
-			}
-			else
-			{
-				if (!state.ward.isFull())
-				{
-					this.discharge();
-					this.goToRoom(state.ward);
-				}
-				else
-				{
-					this.discharge();
-					this.goToRoom(state.hallway);
-				}
-			}
-			break;
-
-		case C.DEAD:
-			this.discharge();
-			this.goToRoom(state.cemetary);
-			break;
+			index--;
 		}
+
+console.log("after", index);
+		return rooms[index];
 	}
 
 	draw(context)
 	{
 		context.strokeStyle = this.progression.getStyle();
-this.debug("draw " + JSON.stringify(this.current));
+
 		if (!this.isDead())
 		{
 			this.infected.draw(context, this.current);
