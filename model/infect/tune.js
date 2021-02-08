@@ -31,26 +31,26 @@ function showDistance()
 
 function setVentilation(value)
 {
-	state.ventilation = value;
+	state.tune.ventilation = value;
 	showVentilation();
 }
 
 function showVentilation() 
 {
 	const ventilationElement = document.getElementById('ventilation');
-	ventilationElement.textContent = state.ventilation.toString();
+	ventilationElement.textContent = state.tune.ventilation.toString();
 }
 
 function setLoud(value)
 {
-	state.loud = value;
+	state.tune.loud = value;
 	showLoud();
 }
 
 function showLoud()
 {
 	const loudElement = document.getElementById('loud');
-	loudElement.textContent = state.loud.toString();
+	loudElement.textContent = state.tune.loud.toString();
 }
 
 function setSlightly()

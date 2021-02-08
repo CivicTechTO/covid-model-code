@@ -71,8 +71,10 @@ class TuneState extends State
 		
 		this.distance = 1;
 
-		this.ventilation = 1;
-		this.loud = 40;
+		this.ventilation = config.ventilation;
+		this.loudness = config.loudness;
+
+		this.tune = {ventilation: 1, loud: 40}
 
 		this.level = new MakeExceedingly();
 		this.drawList = new DrawList();
@@ -120,8 +122,8 @@ class TuneState extends State
 		this.personList.push(other);
 
 		let room = this.roomList[0];
-		room.loud = state.loud;
-		room.ventilation = state.ventilation;
+		room.loud = state.tune.loud;
+		room.ventilation = state.tune.ventilation;
 
 		room.personSet = new Set();
 

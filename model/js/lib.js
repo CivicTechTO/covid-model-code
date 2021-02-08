@@ -33,6 +33,29 @@ function dayToTick(day)
 	return day * ((24 * 60 * 60) / config.realTick);
 }
 
+function computeLevel(levels)
+{
+	return levels.low + (rand((levels.high - levels.low) + 1));
+}
+
+function computeColour(colours, scale)
+{
+	const red = scaleColour(colours.high.r, colours.low.r, scale);
+	const green = scaleColour(colours.high.g, colours.low.g, scale);
+	const blue = scaleColour(colours.high.b, colours.low.b, scale);
+	return formatColours(red, green, blue);
+}
+
+function scaleColour(high, low, scale) 
+{
+	return low + (high - low) * scale;
+}
+
+function formatColours(red, green, blue)
+{
+	return `rgba(${red}, ${green}, ${blue})`;
+}
+
 const FRAME = 1000 / 60;
 
 var past = null;

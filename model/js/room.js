@@ -17,7 +17,7 @@ class Room
 		this.currentEvent = null;
 
 		this.ventilation = 1;
-		this.loud = 40;
+		this.loudness = 40;
 		
 		this.stats = false;
 	}
@@ -89,7 +89,6 @@ class Room
 
 	isFull()
 	{
-console.log("room isFull");
 		return this.rules.isFull();
 	}
 
@@ -154,11 +153,37 @@ console.log("room isFull");
 
 	draw(context)
 	{
+		this.background(context);
+		this.drawVentilation(context);
+		this.drawLoudness(context);
+	}
+
+	background(context)
+	{
 		context.strokeStyle = 'black';
 		context.lineWidth = 1;
 		context.strokeRect(this.x, this.y, this.width, this.height);	
 		context.fillStyle = this.fillColour;
 		context.fillRect(this.x, this.y, this.width, this.height);	
+	}
+
+	drawVentilation(context)
+	{
+		const scale = (state.ventilation.max - this.ventilation) / state.ventilation.max;
+		context.fillStyle = computeColour(state.ventilation.colours, scale);
+		const height = this.height * scale;
+		const offset = this.height - height; 
+		context.fillRect(this.x, this.y + offset, state.ventilation.width, height);	
+	}
+
+	drawLoudness(context)
+	{
+		const scale = this.loudness / state.loudness.max;
+		context.fillStyle = computeColour(state.loudness.colours, scale);
+		const xOffset = this.width - state.loudness.width;
+		const height = this.height * scale;
+		const yOffset = this.height - height;
+		context.fillRect(this.x + xOffset, this.y + yOffset, state.loudness.width, height);	
 	}
 
 	spread()
@@ -196,7 +221,7 @@ console.log("room isFull");
 		let dy = source.current.y - person.current.y;
 		let distance = Math.max(1, dx * dx + dy * dy);
 
-		let increment = (source.load() * this.loud) / (distance * this.ventilation);
+		let increment = (source.load() * this.loudness) / (distance * this.ventilation);
 
 		person.exposure += increment;
 
@@ -234,11 +259,6 @@ class Hospital extends Room
 	{
 		super(x, y, width, height, speed);
 
-		this.rules = new SeatRules()
-	}
-
-	isFull()
-	{
-		return false;
+		this.rules = new SeatRules();
 	}
 }

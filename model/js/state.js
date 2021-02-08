@@ -30,8 +30,7 @@ class State
 		this.shiftLength = config.shiftLength;
 		this.shift = 0;
 
-
-this.debug = false;
+		this.debug = false;
 	}
 
 	step()

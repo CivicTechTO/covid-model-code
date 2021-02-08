@@ -25,32 +25,47 @@ const config = {
 	, "left":[30, 55, 30, 80, 65, 70, 80, 20, 65]
 	, "right": [70, 30, 65, 75, 30, 90, 70, 65]
 	, "workAllocation": [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
+	, "workScale":{"maxAllocation": 20, "ventilation": {"min": 10, "max": 20}, "loudness": {"min": 5, "max": 10}}
+	
 	, "fillFactor": 1.25
-
 	, "dwelling": {"start": 100, "pause": 30, "speed": 0.25}
-	, "bunkHouse": {"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "buffer": 5}
-	, "house": {"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17, "buffer": 5}
+	, "bunkHouse": 
+		{
+			"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "buffer": 5
+			, "ventilation": {"low": 1, "high": 2}, "loudness":{"low":2, "high": 5}
+		}
+	, "house": 
+		{
+			"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17, "buffer": 5
+			, "ventilation": {"low": 1, "high": 2}, "loudness":{"low":2, "high": 3}
+		}
 	, "church": 
 		{
 			"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 10, "speed": 0.5
 			, "halfEdge": 20, "start": 100, "pause": 100, "millingTime": 240, "sitTime": 480
 			, "separation": 1
+			, "ventilation": [6, 11, 14, 9, 8, 15], "loudness": [40, 38, 37, 40, 37, 36]
 		}
 	, "restaurant": 
 		{
 			"count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.5
 			, "separation": 1
+			, "ventilation": {"low": 8, "high": 12}, "loudness":{"low":5, "high": 15}
 		}
-	, "pub": {"count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 0.25}
+	, "pub": 
+		{
+			"count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 0.25
+			, "ventilation": {"low": 20, "high": 30}, "loudness":{"low":15, "high": 30}
+		}
 	, "club": 
 		{
-			"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.75
-			, "halfEdge": 5
+			"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.75, "halfEdge": 5
+			, "ventilation": {"low": 6, "high": 9}, "loudness":{"low":30, "high": 40}
 		}
 	, "outside": 
 		{
 			"y": 180, "road": 2, "count": 17, "width": 25, "height": 100, "crowd": 1
-			, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.5
+			, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.5, "ventilation": 100
 		}
 
 	, "hospital": 
@@ -62,6 +77,9 @@ const config = {
 		}
 
 	, "cemetary": {"y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.1}
+
+	, "ventilation": {"width": 2, "max":40, "colours": {"low": {"r": 127, "g": 127, "b": 255}, "high": {"r": 0, "g": 0, "b": 255}}}
+	, "loudness": {"width": 2, "max":40, "colours": {"low": {"r": 255, "g": 127, "b": 127}, "high": {"r": 255, "g": 0, "b": 0}}}
 
 	, "sundayMorning": {"home": 0.25, "outside": 0.25}
 	, "sundayAfternoon": 

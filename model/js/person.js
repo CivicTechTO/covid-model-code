@@ -213,14 +213,6 @@ class Person
 	{
 		this.goToRoom(this.church);
 	}
-
-debug(message)
-{
-	if (this.debugFlag)
-	{
-		console.log("person", message);
-	}
-}
 }
 
 function closer(dest, current, delta)

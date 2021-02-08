@@ -92,7 +92,7 @@ class InfectablePerson extends Person
 			
 			if (this.stats)
 			{
-				state.addStat(1,p);
+				state.addStat(1, p);
 			}
 
 			if (Math.random() < p)
@@ -141,13 +141,11 @@ class InfectablePerson extends Person
 
 		let index = this.sickness();
 
-console.log("before", index, JSON.stringify(rooms[index].isFull), rooms[index].isFull());
 		while(rooms[index].isFull())
 		{
 			index--;
 		}
 
-console.log("after", index);
 		return rooms[index];
 	}
 

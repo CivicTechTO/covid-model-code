@@ -346,20 +346,14 @@ class HospitalRules extends Rules
 		let spacing = state.spacing;
 		this.other = other;
 		this.beds = new Group(room, 0, 0, columns, rows);
-this.debugFlag = false;
 	}
 
 	arrive(room, person)
 	{
-if (this.debugFlag)
-{
-state.stepFlag = true;
-}
 		let result = this.beds.add(person);
 
 		if (!result)
 		{
-console.log("arrive to full");
 			if (this.other !== null)
 			{
 				person.goToRoom(this.other);

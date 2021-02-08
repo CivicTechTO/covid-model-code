@@ -22,7 +22,10 @@ class InfectState extends State
 		this.base = config.base;
 		this.logCount = config.logCount;
 		this.pScale = config.pScale;
-		
+
+		this.ventilation = config.ventilation;
+		this.loudness = config.loudness;
+
 		this.drawList = new DrawList();
 
 		this.run = true;

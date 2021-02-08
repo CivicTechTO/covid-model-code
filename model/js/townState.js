@@ -24,7 +24,6 @@ class TownState extends InfectState
 
 		this.hosts = new Set();
 		this.notHosts = new Set();
-this.stepFlag = false;
 	}
 
 	choiceList()
@@ -77,9 +76,12 @@ this.stepFlag = false;
 		
 		for (const room of bunkHouses) 
 		{
+			room.ventilation = computeLevel(config.bunkHouse.ventilation);
+			room.loudness = computeLevel(config.bunkHouse.loudness);
+			room.house = false;
+
 			this.roomList.push(room);
 			dwellings.push(room);
-			room.house = false;
 			crowd.push(config.bunkHouse.crowd);
 		}
 	}
@@ -100,11 +102,13 @@ this.stepFlag = false;
 			
 			for (const room of houses) 
 			{
+				room.ventilation = computeLevel(config.house.ventilation);
+				room.loudness = computeLevel(config.house.loudness);
+				room.house = true;
+
 				this.houseList.push(room);
 				this.roomList.push(room);
 				dwellings.push(room);
-
-				room.house = true;
 				crowd.push(config.house.crowd);
 			}
 		}
@@ -132,8 +136,17 @@ this.stepFlag = false;
 		let index = 0;
 		for (const room of this.workList)
 		{
-			let crowd = Math.floor(config.workAllocation[index++] / room.height);
+			const allocation = config.workAllocation[index++];
+			const crowd = Math.floor(allocation / room.height);
 			room.change(new WorkRules(config.workSpeed, config.workBack, room, crowd));
+
+			const scale = allocation / config.workScale.maxAllocation;
+
+			const ventilationConfig = config.workScale.ventilation;
+			room.ventilation = ventilationConfig.min + scale * (ventilationConfig.max - ventilationConfig.min);
+
+			const loudnessConfig = config.workScale.loudness;
+			room.loudness = loudnessConfig.min + scale * (loudnessConfig.max - loudnessConfig.min);
 		}
 	}
 
@@ -169,6 +182,8 @@ this.stepFlag = false;
 
 		this.cemetary = new Room(x, y, width, config.cemetary.height, speed);
 		this.cemetary.rules = new SeatRules(speed);
+		this.cemetary.ventilation = config.ventilation.max;
+		this.cemetary.loudness = 0;
 		this.cemetary.fillColour = "#4DFF4D";
 		this.roomList.push(this.cemetary);
 	}
@@ -182,21 +197,26 @@ this.stepFlag = false;
 		const icuConfig = config.hospital.icu;
 		const hallwayConfig = config.hospital.hallway;
 
-console.log("hospital", x);
 		let y = config.hospital.y + icuConfig.height + wardConfig.height;
 		this.hallway = new Room(x, y, width, hallwayConfig.height, speed);
 		this.hallway.rules = new HospitalRules(speed, this.hallway, hallwayConfig.columns, hallwayConfig.rows, null);
+		this.hallway.ventilation = config.ventilation.max;
+		this.hallway.loudness = 0;
 		this.roomList.push(this.hallway);
 
 		y = config.hospital.y + icuConfig.height;
 		this.ward = new Hospital(x, y, width, wardConfig.height, speed);
 		this.ward.rules = new HospitalRules(speed, this.ward, wardConfig.columns, wardConfig.rows, this.hallway);
-this.ward.rules.beds.debugFlag = true;
+		this.ward.ventilation = config.ventilation.max;
+		this.ward.loudness = 0;
+
 		this.roomList.push(this.ward);
 
 		y = config.hospital.y;
 		this.icu = new Hospital(x, y, width, icuConfig.height, speed);
 		this.icu.rules = new HospitalRules(speed, this.icu, icuConfig.columns, icuConfig.rows, this.ward);
+		this.icu.ventilation = config.ventilation.max;
+		this.icu.loudness = 0;
 		this.roomList.push(this.icu);
 	}
 
@@ -233,19 +253,25 @@ this.ward.rules.beds.debugFlag = true;
 
 		for (const club of clubList)
 		{
+			club.ventilation = computeLevel(clubSpec.ventilation);
+			club.loudness = computeLevel(clubSpec.loudness);
+			club.rules = new RandomRules(speed, halfEdge, 1, 1);
+
 			this.roomList.push(club);
 			this.clubList.push(club);
-			club.rules = new RandomRules(speed, halfEdge, 1, 1);
 		}
 	}
 
-	fillPub(x, pub)
+	fillPub(x, pubSpec)
 	{
-		let actual = x + pub.offset;
-		let pubStack = twoStack(pub.count, actual, 1, pub.width, pub.height, pub.speed);
+		let actual = x + pubSpec.offset;
+		let pubStack = twoStack(pubSpec.count, actual, 1, pubSpec.width, pubSpec.height, pubSpec.speed);
 
 		for (const pub of pubStack)
 		{
+			pub.ventilation = computeLevel(pubSpec.ventilation);
+			pub.loudness = computeLevel(pubSpec.loudness);
+
 			this.roomList.push(pub);
 			this.pubList.push(pub);
 		}
@@ -270,6 +296,9 @@ this.ward.rules.beds.debugFlag = true;
 
 		for (const restaurant of restaurantStack)
 		{
+			restaurant.ventilation = computeLevel(resto.ventilation);
+			restaurant.loudness = computeLevel(resto.loudness);
+
 			this.roomList.push(restaurant);
 			this.restaurantList.push(restaurant);
 		}
@@ -460,10 +489,6 @@ this.ward.rules.beds.debugFlag = true;
 
 	step()
 	{
-if (this.stepFlag)
-{
-console.log("step");
-}
 		super.step();
 
 		let nextDay = Math.floor((Math.floor(this.clock / this.hourTicks) + this.startHour) / 24);
