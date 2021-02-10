@@ -110,6 +110,8 @@ class InfectablePerson extends Person
 	{
 		this.infected = infectious;
 		this.progression.progress(state.clock);
+		infectIncrement();
+		state.update = true;
 	}
 
 	step()
@@ -130,6 +132,12 @@ class InfectablePerson extends Person
 					{
 						this.goToRoom(toRoom);
 					}
+				}
+
+				if (this.progression.delta() >= 0)
+				{
+					state.recordFns[this.progression.delta()]();
+					state.update = true;
 				}
 			}
 		}

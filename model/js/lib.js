@@ -133,6 +133,32 @@ function makeChoices(optionList, weightList)
 	return result;
 }
 
+function infectIncrement()
+{
+// console.log("incrementing");
+	state.infectRecord.increment();
+}
+
+function infectDecrement()
+{
+// console.log("decrementing");
+	state.infectRecord.decrement();
+}
+
+function deadIncrement()
+{
+	state.infectRecord.decrement();
+	state.deadRecord.increment();
+}
+
+function computeR()
+{
+// EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))
+
+	const r0 = Math.exp((Math.log(state.count/((1/(state.infectRecord.current/(1*state.count)))-1)))/(state.infectRecord.current-1))
+	return r0 * ((state.count - state.infectRecord.current) / state.infectRecord.current);
+}
+
 function debug(argument) 
 {
 	if (state.debug) 

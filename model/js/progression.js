@@ -215,6 +215,11 @@ class Progression
 		return state.progression[this.index].change;
 	}
 
+	delta()
+	{
+		return state.progression[this.index].delta;
+	}
+
 	transition()
 	{
 		return state.progression[this.index].time + this.at;

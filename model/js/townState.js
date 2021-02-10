@@ -5,6 +5,8 @@ class TownState extends InfectState
 	{
 		super(config, width, height);
 
+		this.count = config.count;
+
 		this.oldSteps = 0;
 
 		this.workList = [];
@@ -184,7 +186,7 @@ class TownState extends InfectState
 		this.cemetary.rules = new SeatRules(speed);
 		this.cemetary.ventilation = config.ventilation.max;
 		this.cemetary.loudness = 0;
-		this.cemetary.fillColour = "#4DFF4D";
+		this.cemetary.fillColour = "#20FF20";
 		this.roomList.push(this.cemetary);
 	}
 
