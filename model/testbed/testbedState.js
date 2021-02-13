@@ -14,7 +14,10 @@ class TestbedState extends TownState
 
 		for (let person of this.personList)
 		{
-			person.infect(new ExceedinglyInfectious());
+			if (person.infectable())
+			{
+				person.infect(new ExceedinglyInfectious());
+			}
 			person.progression.index = 9;
 			person.goToRoom(person.findRoom());
 		}

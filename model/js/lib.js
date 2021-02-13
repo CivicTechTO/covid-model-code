@@ -8,31 +8,6 @@ function clamp(lower, upper, value)
 	return (lower > value ? lower : (upper < value ? upper : value));
 }
 
-function tickToMinute(tick)
-{
-	return Math.floor(tick / ((60 / config.realTick)));
-}
-
-function tickToHour(tick)
-{
-	return Math.floor(tick / (((60 * 60) / config.realTick)));
-}
-
-function tickToDay(tick)
-{
-	return Math.floor(tick / (((24 * 60 * 60) / config.realTick)));
-}
-
-function hourToTick(hour) 
-{
-	return hour * ((60 * 60) / config.realTick);
-}
-
-function dayToTick(day) 
-{
-	return day * ((24 * 60 * 60) / config.realTick);
-}
-
 function computeLevel(levels)
 {
 	return levels.low + (rand((levels.high - levels.low) + 1));
@@ -135,13 +110,11 @@ function makeChoices(optionList, weightList)
 
 function infectIncrement()
 {
-// console.log("incrementing");
 	state.infectRecord.increment();
 }
 
 function infectDecrement()
 {
-// console.log("decrementing");
 	state.infectRecord.decrement();
 }
 
@@ -154,9 +127,10 @@ function deadIncrement()
 function computeR()
 {
 // EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))
-
-	const r0 = Math.exp((Math.log(state.count/((1/(state.infectRecord.current/(1*state.count)))-1)))/(state.infectRecord.current-1))
-	return r0 * ((state.count - state.infectRecord.current) / state.infectRecord.current);
+	const delta = state.infectRecord.current - 1;
+	const ratio = state.infectRecord.current/(1*state.count)
+	const r0 = Math.exp(Math.log(state.count/(1/ratio)-1)/delta)
+	return r0 * ((state.count - state.infectRecord.current) / state.count);
 }
 
 function debug(argument) 

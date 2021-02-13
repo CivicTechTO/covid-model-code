@@ -5,6 +5,9 @@ class State
 		this.size = config.size;
 
 		this.stepsPerFrame = config.stepsPerFrame;
+		this.realTick = config.realTick;		// Thisshould be early
+
+		this.scaleTime(config);
 
 		this.personSize = config.personSize;
 		
@@ -31,6 +34,86 @@ class State
 		this.shift = 0;
 
 		this.debug = false;
+	}
+
+	tickToSecond(tick)
+	{
+		return tick * this.realTick;
+	}
+
+	tickToMinute(tick)
+	{
+		return Math.floor(tick / ((60 / this.realTick)));
+	}
+
+	tickToHour(tick)
+	{
+		return Math.floor(tick / (((60 * 60) / this.realTick)));
+	}
+
+	tickToDay(tick)
+	{
+		return Math.floor(tick / (((24 * 60 * 60) / this.realTick)));
+	}
+
+	secondToTick(second)
+	{
+		return second / this.realTick;
+	}
+
+	minuteToTick(second)
+	{
+		return second * 60 / this.realTick;
+	}
+
+	hourToTick(hour) 
+	{
+		return hour * ((60 * 60) / this.realTick);
+	}
+
+	dayToTick(day) 
+	{
+		return day * ((24 * 60 * 60) / this.realTick);
+	}
+
+	perSecondToPerTick(speed)
+	{
+		return speed * this.realTick;
+	}
+
+	scaleTime(config)
+	{
+		config.shiftLength = this.hourToTick(config.shiftLength);
+
+		config.moveSpeed = this.perSecondToPerTick(config.moveSpeed);
+		config.leaveSpeed = this.perSecondToPerTick(config.leaveSpeed);
+		config.deadSpeed = this.perSecondToPerTick(config.deadSpeed);
+		config.moveVariation = this.perSecondToPerTick(config.moveVariation);
+		config.travelSpeed = this.perSecondToPerTick(config.travelSpeed);
+		config.travelVariation = this.perSecondToPerTick(config.travelVariation);
+
+		config.workSpeed = this.perSecondToPerTick(config.workSpeed);
+
+		config.dwelling.start = this.minuteToTick(config.dwelling.start);
+		config.dwelling.pause = this.minuteToTick(config.dwelling.pause);
+		config.dwelling.speed = this.perSecondToPerTick(config.dwelling.speed);
+
+		config.church.speed = this.perSecondToPerTick(config.church.speed);
+		config.church.start = this.minuteToTick(config.church.start);
+		config.church.pause = this.minuteToTick(config.church.pause);
+		config.church.millingTime = this.minuteToTick(config.church.millingTime);
+		config.church.sitTime = this.minuteToTick(config.church.sitTime);
+
+		config.restaurant.speed = this.perSecondToPerTick(config.restaurant.speed);
+		config.pub.speed = this.perSecondToPerTick(config.pub.speed);
+		config.club.speed = this.perSecondToPerTick(config.club.speed);
+
+		config.outside.speed = this.perSecondToPerTick(config.outside.speed);
+		config.outside.start = this.minuteToTick(config.outside.start);
+		config.outside.pause = this.minuteToTick(config.outside.pause);
+		
+		config.hospital.speed = this.perSecondToPerTick(config.hospital.speed);
+		config.cemetary.speed = this.perSecondToPerTick(config.cemetary.speed);
 	}
 
 	step()

@@ -46,7 +46,7 @@ class MakeExceedingly extends Level
 	}
 }
 
-class TuneState extends State
+class TuneState extends InfectState
 {
 	constructor(config, width, height)
 	{
@@ -60,7 +60,7 @@ class TuneState extends State
 		this.progression = config.progression;
 		for (let progress of this.progression)
 		{
-			progress.time = dayToTick(progress.time);
+			progress.time = this.dayToTick(progress.time);
 		}
 
 		this.reset = config.reset;
@@ -217,11 +217,7 @@ class TuneState extends State
 	setDays(config)
 	{
 		this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		this.dayTicks = (24 * 60 * 60) / config.realTick;
 		this.currentDay = 0;
-		this.hourTicks = (60 * 60) / config.realTick;
-		this.tenTicks = (10 * 60) / config.realTick;
-		this.minuteTicks = 60 / config.realTick;
 		this.startHour = config.startHour;
 		this.currentHour = config.startHour;
 		this.currentMinute = 0;
@@ -229,7 +225,7 @@ class TuneState extends State
 
 	updateTime()
 	{
-		let nextDay = Math.floor((Math.floor(this.clock / this.hourTicks) + this.startHour) / 24);
+		let nextDay = Math.floor((Math.floor(this.tickToHour(this.clock)) + this.startHour) / 24);
 
 		if (nextDay !== this.currentDay)
 		{
@@ -242,7 +238,7 @@ class TuneState extends State
 			nameElement.textContent = this.days[nextDay % 7];
 		}
 
-		let hour = (Math.floor((this.clock / this.hourTicks)) + this.startHour) % 24;
+		let hour = (Math.floor(this.tickToHour(this.clock)) + this.startHour) % 24;
 		if (hour !== this.currentHour)
 		{
 			this.currentHour = hour;
@@ -251,7 +247,7 @@ class TuneState extends State
 			hourElement.textContent = hour.toString();
 		}
 
-		let minute = Math.floor(this.clock / this.minuteTicks) % 60;
+		let minute = Math.floor(this.tickToMinute(this.clock)) % 60;
 		if (minute !== this.currentMinute)
 		{
 			this.currentMinute = minute;

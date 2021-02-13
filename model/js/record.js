@@ -11,6 +11,7 @@ class Record
 	{
 		this.current++;
 		this.total++;
+
 		if (this.current > this.max)
 		{
 			this.max++;

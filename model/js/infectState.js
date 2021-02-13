@@ -12,7 +12,7 @@ class InfectState extends State
 		this.progression = config.progression;
 		for (let progress of this.progression)
 		{
-			progress.time = hourToTick(progress.time);
+			progress.time = this.hourToTick(progress.time);
 		}
 
 		this.cross = config.cross;
@@ -47,7 +47,6 @@ class InfectState extends State
 		this.personList[0].progression.index = 3;
 		this.personList[0].church = this.churchList[0];
 
-		infectIncrement();
 		this.update = true;
 	}
 
