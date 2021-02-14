@@ -12,7 +12,7 @@
   <style type="text/css">
     .statcontainer
     {
-      width: 1000px;
+      width: 1500px;
     }
 
     .stats 
@@ -42,6 +42,13 @@
           Max factor <span id="maxfactor">0</span>
         </div>
         <canvas id="factor" width=200 height=200></canvas>
+      </div>
+
+      <div class="stats">
+        <div>
+          Max increment <span id="maxincrement">0</span>
+        </div>
+        <canvas id="increment" width=200 height=200></canvas>
       </div>
 
       <div class="stats">
@@ -99,6 +106,13 @@
       <button type="button" onclick="setSlightly();">Slightly</button>
       <button type="button" onclick="setVery();">Very</button>
       <button type="button" onclick="setExceedingly(1);">Exceedingly</button>
+    </div>
+
+    <div>
+      <div>
+        Infecting: <span id="infecting">Yes</span>
+        <button type="button" onclick="toggle()">Toggle</button>
+      </div>
     </div>
 
     <div>

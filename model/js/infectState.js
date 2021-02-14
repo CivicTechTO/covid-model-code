@@ -10,18 +10,10 @@ class InfectState extends State
 		this.infectious = config.infectious;
 		
 		this.progression = config.progression;
-		for (let progress of this.progression)
-		{
-			progress.time = this.hourToTick(progress.time);
-		}
 
 		this.cross = config.cross;
 
-		this.reset = config.reset;
-		this.decay = config.decay;
-		this.base = config.base;
-		this.logCount = config.logCount;
-		this.pScale = config.pScale;
+		this.infectConfig = config.infection;
 
 		this.ventilation = config.ventilation;
 		this.loudness = config.loudness;
@@ -34,6 +26,8 @@ class InfectState extends State
 		this.drawList = new DrawList();
 
 		this.run = true;
+
+		this.infecting = true;
 	}
 
 	makePerson()
@@ -88,8 +82,12 @@ class InfectState extends State
 			const deadElement = document.getElementById('dead');
 			deadElement.textContent = this.deadRecord.current.toString();
 
-			const rElement = document.getElementById('r');
-			rElement.textContent = computeR().toString();
+			const r = computeR();
+			const r0Element = document.getElementById('r0');
+			r0Element.textContent = r.r0.toFixed(3);
+
+			const rtElement = document.getElementById('rt');
+			rtElement.textContent = r.rt.toFixed(2);
 
 			this.update = false;
 		}

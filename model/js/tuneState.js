@@ -58,10 +58,6 @@ class TuneState extends InfectState
 		this.infectious = config.infectious;
 
 		this.progression = config.progression;
-		for (let progress of this.progression)
-		{
-			progress.time = this.dayToTick(progress.time);
-		}
 
 		this.reset = config.reset;
 		this.decay = config.decay;
@@ -79,7 +75,11 @@ class TuneState extends InfectState
 		this.level = new MakeExceedingly();
 		this.drawList = new DrawList();
 
-		this.run = true;
+		this.run = false;
+
+		this.infecting = true;
+
+		this.statFlag = true;
 	}
 
 	makePerson()
@@ -136,7 +136,7 @@ class TuneState extends InfectState
 	startStats()
 	{
 		this.stats = {};
-		this.stats.load = [];
+		this.stats.increment = [];
 		this.stats.factor = [];
 		this.stats.exposure =[];
 		this.stats.numbered = [[], []];
@@ -147,18 +147,24 @@ class TuneState extends InfectState
 		this.stats.numbered[which].push(value);
 	}
 
+	addIncrement(value)
+	{
+		this.stats.increment.push(value);
+	}
+
 	stepStats()
 	{
 		this.stats.factor.push(this.personList[0].progression.factor());
 		this.stats.exposure.push(this.personList[1].exposure);
 	}
 
-	drawStats(factorContext, otherContext, exposeContext, pContext)
+	drawStats(factorContext, incrementContext, otherContext, exposeContext, pContext)
 	{
 		this.display('loadvalue', this.personList[0].infected.load);
 		this.display('progress', this.personList[0].progression.index);		
 
 		this.drawAStat(factorContext, this.stats.factor, 'maxfactor');
+		this.drawAStat(incrementContext, this.stats.increment, 'maxincrement');
 		this.drawAStat(otherContext, this.stats.exposure, 'maxother');
 		this.drawAStat(exposeContext, this.stats.numbered[0], 'maxexpose');
 		this.drawAStat(pContext, this.stats.numbered[1], 'maxp');

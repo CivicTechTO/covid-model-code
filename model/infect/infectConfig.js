@@ -3,7 +3,7 @@
 const config = {
 	  "size": {"height": 505, "width":1000}
 	, "stepsPerFrame": 1
-	, "realTick": 300
+	, "realTick": 120
 	, "startHour": 8
 	, "shiftLength": 4
 	, "offset": 4
@@ -117,12 +117,12 @@ const config = {
 	, "saturdayEve": {"migrate": {"chance": 0.001, "home": 0.1, "other": [0, 1, 1, 0, 1, 1]}}
 	, "saturdayNight": {"migrate": {"chance": 0.001, "home": 0.1, "other": [0, 1, 5, 10, 1, 1]}}
 
-	, "decay": 0.999
-	, "reset": 0.001
-	, "base": 1610000
-	, "logCount": 2
-	, "pScale": 0.00025
-	
+	, "infection":
+		{
+			"decay": 0.999, "reset": 0.00001, "maximum": 1610000
+			, "which": 0, "params": [{"log": false,  "pScale": 0.25}, {"log": true,  "pScale": 0.00025}]
+		}
+
 	, "infectious":
 		{
 			"not": {"chance": 0.7, "load": 0}
@@ -130,7 +130,9 @@ const config = {
 			, "very": {"chance": 0.1, "load": 10}
 			, "exceedingly": {"chance": 0.1, "load": 40}
 		}
+	
 	, "cross": 2
+	
 	, "progression":
 		[
 			{
@@ -146,15 +148,15 @@ const config = {
 			  	, "next": 3, "worse": {"p": 0.30, "next": 6}, "start": 0.0, "end": 1.0, "sick": 1, "change": false, "delta": -1
 			}
 			, {
-			  	"index": 3, "style": "#FF1111", "draw":3, "infectable": false, "infectious": true, "canProgress": true, "time": 96
+			  	"index": 3, "style": "#FF1111", "draw":3, "infectable": false, "infectious": true, "canProgress": true, "time": 120
 			  	, "next": 4, "worse": {"p": 0.0, "next": 4}, "start": 1.0, "end": 1.0, "sick": 1, "change": false, "delta": -1
 			}
 			, {
-			  	"index": 4, "style": "#FF3333", "draw":4, "infectable": false, "infectious": true, "canProgress": true, "time": 144
+			  	"index": 4, "style": "#FF3333", "draw":4, "infectable": false, "infectious": true, "canProgress": true, "time": 120
 			  	, "next": 5, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 1, "change": false, "delta": -1
 			}
 			, {
-			  	"index": 5, "style": "#1111FF", "draw":5, "infectable": false, "infectious": false, "canProgress": false, "time": 24
+			  	"index": 5, "style": "#1111FF", "draw":5, "infectable": false, "infectious": false, "canProgress": false, "time": undefined
 			  	, "next": undefined, "worse": {"p": 0.0, "next": undefined}, "start": undefined, "end": undefined, "sick": 0
 			  	, "change": true, "delta": 1
 			}

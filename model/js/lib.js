@@ -130,7 +130,8 @@ function computeR()
 	const delta = state.infectRecord.current - 1;
 	const ratio = state.infectRecord.current/(1*state.count)
 	const r0 = Math.exp(Math.log(state.count/(1/ratio)-1)/delta)
-	return r0 * ((state.count - state.infectRecord.current) / state.count);
+	const factor = (state.count - state.infectRecord.total) / state.infectRecord.total;
+	return {r0: r0, rt: r0 * factor};
 }
 
 function debug(argument) 

@@ -63,19 +63,22 @@ class InfectablePerson extends Person
 
 	decay()
 	{
-		this.exposure = (this.exposure > state.reset ? this.exposure * state.decay : 0.0);
+		this.exposure = (this.exposure > state.infectConfig.reset ? this.exposure * state.infectConfig.decay : 0.0);
 	}
 
-	compress()
+	compress(maximum, log)
 	{
-		let result = Math.log1p(this.exposure) / Math.log(state.base);
-		
-		for (var i = 0; i < state.logCount; i++) 
-		{
-			
-			result = Math.log1p(result) / Math.log(2);
-		}
+		let result;
 
+		if (log)
+		{
+			result = Math.log(this.exposure) / Math.log(maximum);
+		}
+		else
+		{
+			result = this.exposure / maximum;
+		}
+		
 		if (this.stats)
 		{
 			state.addStat(0, result);
@@ -88,14 +91,17 @@ class InfectablePerson extends Person
 	{
 		if (this.progression.infectable())
 		{
-			let p = 1 - Math.pow(1 - this.compress(), state.pScale);
+			const maximum = state.infectConfig.maximum;
+			const choices = state.infectConfig.params;
+			const config = choices[state.infectConfig.which];
+			let p = 1 - Math.pow(1 - this.compress(maximum, config.log), config.pScale);
 			
 			if (this.stats)
 			{
 				state.addStat(1, p);
 			}
 
-			if (Math.random() < p)
+			if (state.infecting && Math.random() < p)
 			{
 				if (this.stats)
 				{
@@ -124,7 +130,7 @@ class InfectablePerson extends Person
 			{
 				this.progression.progress(state.clock);
 
-				if (this.progression.change())
+				if (!state.statFlag && this.progression.change())
 				{
 					let toRoom = this.findRoom();
 

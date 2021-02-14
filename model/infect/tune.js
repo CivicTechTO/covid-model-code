@@ -10,11 +10,12 @@ state.fill(config);
 function drawStats()
 {
 	const factor = document.getElementById('factor').getContext('2d');
+	const increment = document.getElementById('increment').getContext('2d');
 	const other = document.getElementById('other').getContext('2d');
 	const expose = document.getElementById('expose').getContext('2d');
 	const pchart = document.getElementById('pchart').getContext('2d');
 
-	state.drawStats(factor, other, expose, pchart);
+	state.drawStats(factor, increment, other, expose, pchart);
 }
 
 function incrementDistance(value)
@@ -77,18 +78,39 @@ function showLevel()
 	levelElement.textContent = state.level.name();
 }
 
+function toggle()
+{
+	state.infecting = ! state.infecting;
+	showToggle();
+}
+
+function showToggle()
+{
+	const toggleElement = document.getElementById('infecting');
+
+	if (state.infecting)
+	{
+		toggleElement.textContent = 'Yes';
+	}
+	else
+	{
+		toggleElement.textContent = 'No';
+	}
+}
+
 function showAll()
 {
 	showDistance();
 	showLoud();
 	showVentilation();
 	showLevel();
+	showToggle();
 }
 
 function setInfectedAt(clock)
 {
 	const infectedAtElement = document.getElementById('infectedat');
-	infectedAtElement.textContent = tickToHour(clock).toString();
+	infectedAtElement.textContent = state.tickToHour(clock).toString();
 }
 
 function reset() 

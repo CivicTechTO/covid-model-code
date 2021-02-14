@@ -223,6 +223,11 @@ class Room
 
 		let increment = (source.load() * this.loudness) / (distance * this.ventilation);
 
+		if (state.statFlag)
+		{
+			state.addIncrement(increment);
+		}
+
 		person.exposure += increment;
 
 	}

@@ -34,6 +34,7 @@ class State
 		this.shift = 0;
 
 		this.debug = false;
+		this.statFlag = false;
 	}
 
 	tickToSecond(tick)
@@ -114,6 +115,13 @@ class State
 		
 		config.hospital.speed = this.perSecondToPerTick(config.hospital.speed);
 		config.cemetary.speed = this.perSecondToPerTick(config.cemetary.speed);
+
+		for (let progress of config.progression)
+		{
+			progress.time = this.hourToTick(progress.time);
+		}
+
+
 	}
 
 	step()
