@@ -340,20 +340,38 @@ class PubRules extends FullRules
 
 class HospitalRules extends Rules
 {
-	constructor(speed, room, columns, rows, other)
+	constructor(speed, room, pool, count, other)
 	{
 		super(speed);
-		let spacing = state.spacing;
+		this.pool = pool;
 		this.other = other;
-		this.beds = new Group(room, 0, 0, columns, rows);
+		this.beds = [];
+
+		let spacing = state.spacing;
+
+		for (let i = 0 ; i < count ; i++)
+		{
+			this.beds.push(new Group(room, i * spacing, 0, 1, 1));
+		}
 	}
 
 	arrive(room, person)
 	{
-		let result = this.beds.add(person);
+		let result = false;
+
+		for (let bed of this.beds)
+		{
+			if (bed.add(person))
+			{
+				result = true;
+				break;
+			}
+		}
 
 		if (!result)
 		{
+			this.pool.add(person);
+			
 			if (this.other !== null)
 			{
 				person.goToRoom(this.other);
@@ -373,13 +391,34 @@ class HospitalRules extends Rules
 
 	depart(room, person)
 	{
-		this.beds.delete(person);
-//		this.beds.replace();
+		for (let bed of this.beds)
+		{
+			if (bed.delete(person))
+			{
+				const admittee = nextInPool(this.pool);
+				if (admittee)
+				{
+					admittee.goToRoom(room);
+				}
+				break;
+			}
+		}
 	}
 
 	isFull()
 	{
-		return this.beds.isFull();
+		let result = true;
+
+		for (const bed of this.beds)
+		{
+			if (!bed.isFull())
+			{
+				result = false;
+				break;
+			}
+		}
+
+		return result;
 	}
 }
 

@@ -2,6 +2,7 @@
 
 const config = {
 	  "size": {"height": 505, "width":1000}
+	, "background": "#ADD8E6"
 	, "stepsPerFrame": 1
 	, "realTick": 120
 	, "startHour": 8
@@ -12,11 +13,11 @@ const config = {
 	, "leaveSpeed": 0.1
 	, "deadSpeed": 0.01
 	, "moveVariation": 0.1
-	, "travelSpeed": 1
-	, "travelVariation": 0.4
+	, "travelSpeed": 0.2
+	, "travelVariation": 0.2
 	, "count": 1000
 	, "main": 170
-	, "road" : {"style": "#7777ff", "space": 50, "first": 2, "last":18} 
+	, "road" : {"style": "#7777ff", "width": 4, "space": 50, "first": 2, "last":18} 
 	, "churchRoads": [3, 8,13]
 	, "spacing": 5
 	, "depth": 80
@@ -26,57 +27,57 @@ const config = {
 	, "right": [70, 30, 65, 75, 30, 90, 70, 65]
 	, "workAllocation": [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
 	, "workScale":{"maxAllocation": 20, "ventilation": {"min": 10, "max": 20}, "loudness": {"min": 5, "max": 10}}
-	
+	, "workStyle": "#C2C2C2"
 	, "fillFactor": 1.25
 	, "dwelling": {"start": 10, "pause": 5, "speed": 0.025}
 	, "bunkHouse": 
 		{
-			"count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "buffer": 5
+			"style": "#C2C2C2", "count": 20, "width": 40, "height": 10, "crowd": 4, "road": 2, "buffer": 5
 			, "ventilation": {"low": 1, "high": 2}, "loudness":{"low":2, "high": 5}
 		}
 	, "house": 
 		{
-			"count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17, "buffer": 5
+			"style": "#C2C2C2", "count": 20, "width": 20, "height": 10, "crowd": 1, "startRoad": 3, "endRoad": 17, "buffer": 5
 			, "ventilation": {"low": 1, "high": 2}, "loudness":{"low":2, "high": 3}
 		}
 	, "church": 
 		{
-			"count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 10, "speed": 0.05
-			, "halfEdge": 20, "start": 100, "pause": 100, "millingTime": 240, "sitTime": 480
+			"style": "#C2C2C2", "count": 2, "width": 80, "height": 80, "crowd": 24, "offset": 10, "speed": 0.05
+			, "halfEdge": 20, "start": 10, "pause": 10, "millingTime": 60, "sitTime": 120
 			, "separation": 1
 			, "ventilation": [6, 11, 14, 9, 8, 15], "loudness": [40, 38, 37, 40, 37, 36]
 		}
 	, "restaurant": 
 		{
-			"count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.05
+			"style": "#C2C2C2", "count": 4, "width": 20, "height": 40, "crowd": 2, "offset": 4, "speed": 0.05
 			, "separation": 1
 			, "ventilation": {"low": 8, "high": 12}, "loudness":{"low":5, "high": 15}
 		}
 	, "pub": 
 		{
-			"count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 0.025
+			"style": "#C2C2C2", "count": 4, "width": 20, "height": 40, "crowd": 1, "offset": 4, "speed": 0.025
 			, "ventilation": {"low": 20, "high": 30}, "loudness":{"low":15, "high": 30}
 		}
 	, "club": 
 		{
-			"count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.075, "halfEdge": 5
+			"style": "#C2C2C2", "count": 4, "width": 40, "height": 40, "crowd": 8, "offset": 4, "speed": 0.075, "halfEdge": 5
 			, "ventilation": {"low": 6, "high": 9}, "loudness":{"low":30, "high": 40}
 		}
 	, "outside": 
 		{
-			"y": 180, "road": 2, "count": 17, "width": 25, "height": 100, "crowd": 1
+			"style": "#80FF80", "y": 180, "road": 2, "count": 17, "width": 25, "height": 100, "crowd": 1
 			, "halfEdge": 12, "start":1, "pause": 1, "speed": 0.05, "ventilation": 100
 		}
 
 	, "hospital": 
 		{
-			"y": 1, "road": 17, "offset": 10, "width": 35, "speed": 0.1
-			,"icu": {"height": 10, "columns": 1, "rows": 1}
-			, "ward": {"height": 10, "columns": 5, "rows": 1}
-			, "hallway": {"height": 140, "columns": 6, "rows": 20}
+			"style": "#C2C2C2", "y": 1, "road": 17, "offset": 10, "width": 35, "speed": 0.1
+			,"icu": {"height": 10, "count": 1}
+			, "ward": {"height": 10, "count": 5}
+			, "hallway": {"height": 140}
 		}
 
-	, "cemetary": {"y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.01}
+	, "cemetary": {"style": "#008800", "y": 180, "road": 17, "offset": 10, "width": 35, "height": 100, "speed": 0.01}
 
 	, "ventilation": {"width": 2, "max":40, "colours": {"low": {"r": 127, "g": 127, "b": 255}, "high": {"r": 0, "g": 0, "b": 255}}}
 	, "loudness": {"width": 2, "max":40, "colours": {"low": {"r": 255, "g": 127, "b": 127}, "high": {"r": 255, "g": 0, "b": 0}}}
@@ -120,7 +121,7 @@ const config = {
 	, "infection":
 		{
 			"decay": 0.999, "reset": 0.00001, "maximum": 1610000
-			, "which": 0, "params": [{"log": false,  "pScale": 0.25}, {"log": true,  "pScale": 0.00025}]
+			, "which": 1, "params": [{"log": false,  "pScale": 0.25}, {"log": true,  "pScale": 0.00025}]
 		}
 
 	, "infectious":
@@ -136,7 +137,7 @@ const config = {
 	, "progression":
 		[
 			{
-			  	"index": 0, "style": "#0000FF", "draw":0, "infectable": true, "infectious": false, "canProgress": false, "time": undefined
+			  	"index": 0, "style": "#008800", "draw":0, "infectable": true, "infectious": false, "canProgress": false, "time": undefined
 			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 0, "change": false, "delta": -1
 			}
 			, {

@@ -26,6 +26,9 @@ class TownState extends InfectState
 
 		this.hosts = new Set();
 		this.notHosts = new Set();
+
+		this.icuPool = new Set();
+		this.wardPool = new Set();
 	}
 
 	choiceList()
@@ -78,6 +81,7 @@ class TownState extends InfectState
 		
 		for (const room of bunkHouses) 
 		{
+			room.fillStyle = config.bunkHouse.style;
 			room.ventilation = computeLevel(config.bunkHouse.ventilation);
 			room.loudness = computeLevel(config.bunkHouse.loudness);
 			room.house = false;
@@ -104,6 +108,7 @@ class TownState extends InfectState
 			
 			for (const room of houses) 
 			{
+				room.fillStyle = config.house.style;
 				room.ventilation = computeLevel(config.house.ventilation);
 				room.loudness = computeLevel(config.house.loudness);
 				room.house = true;
@@ -143,6 +148,8 @@ class TownState extends InfectState
 			room.change(new WorkRules(config.workSpeed, config.workBack, room, crowd));
 
 			const scale = allocation / config.workScale.maxAllocation;
+
+			room.fillStyle = config.workStyle;
 
 			const ventilationConfig = config.workScale.ventilation;
 			room.ventilation = ventilationConfig.min + scale * (ventilationConfig.max - ventilationConfig.min);
@@ -186,7 +193,7 @@ class TownState extends InfectState
 		this.cemetary.rules = new SeatRules(speed);
 		this.cemetary.ventilation = config.ventilation.max;
 		this.cemetary.loudness = 0;
-		this.cemetary.fillColour = "#20FF20";
+		this.cemetary.fillStyle = config.cemetary.style;
 		this.roomList.push(this.cemetary);
 	}
 
@@ -201,24 +208,27 @@ class TownState extends InfectState
 
 		let y = config.hospital.y + icuConfig.height + wardConfig.height;
 		this.hallway = new Room(x, y, width, hallwayConfig.height, speed);
-		this.hallway.rules = new HospitalRules(speed, this.hallway, hallwayConfig.columns, hallwayConfig.rows, null);
+		this.hallway.rules = new SeatRules(speed);
 		this.hallway.ventilation = config.ventilation.max;
 		this.hallway.loudness = 0;
+		this.hallway.fillStyle = config.hospital.style;
 		this.roomList.push(this.hallway);
 
 		y = config.hospital.y + icuConfig.height;
-		this.ward = new Hospital(x, y, width, wardConfig.height, speed);
-		this.ward.rules = new HospitalRules(speed, this.ward, wardConfig.columns, wardConfig.rows, this.hallway);
+		this.ward = new Room(x, y, width, wardConfig.height, speed);
+		this.ward.rules = new HospitalRules(speed, this.ward, this.wardPool, wardConfig.count, this.hallway);
 		this.ward.ventilation = config.ventilation.max;
 		this.ward.loudness = 0;
+		this.ward.fillStyle = config.hospital.style;
 
 		this.roomList.push(this.ward);
 
 		y = config.hospital.y;
-		this.icu = new Hospital(x, y, width, icuConfig.height, speed);
-		this.icu.rules = new HospitalRules(speed, this.icu, icuConfig.columns, icuConfig.rows, this.ward);
+		this.icu = new Room(x, y, width, icuConfig.height, speed);
+		this.icu.rules = new HospitalRules(speed, this.icu, this.icuPool, icuConfig.count, this.ward);
 		this.icu.ventilation = config.ventilation.max;
 		this.icu.loudness = 0;
+		this.icu.fillStyle = config.hospital.style;
 		this.roomList.push(this.icu);
 	}
 
@@ -237,6 +247,8 @@ class TownState extends InfectState
 
 		for (const church of churchList)
 		{
+			church.fillStyle = config.church.style;
+
 			this.roomList.push(church);
 			this.churchList.push(church);
 			church.rules = new ChurchRules(speed, church, separation);
@@ -255,6 +267,7 @@ class TownState extends InfectState
 
 		for (const club of clubList)
 		{
+			club.fillStyle = config.club.style;
 			club.ventilation = computeLevel(clubSpec.ventilation);
 			club.loudness = computeLevel(clubSpec.loudness);
 			club.rules = new RandomRules(speed, halfEdge, 1, 1);
@@ -271,6 +284,7 @@ class TownState extends InfectState
 
 		for (const pub of pubStack)
 		{
+			pub.fillStyle = pubSpec.style;
 			pub.ventilation = computeLevel(pubSpec.ventilation);
 			pub.loudness = computeLevel(pubSpec.loudness);
 
@@ -298,6 +312,7 @@ class TownState extends InfectState
 
 		for (const restaurant of restaurantStack)
 		{
+			restaurant.fillStyle = resto.style;
 			restaurant.ventilation = computeLevel(resto.ventilation);
 			restaurant.loudness = computeLevel(resto.loudness);
 
@@ -331,10 +346,14 @@ class TownState extends InfectState
 		{
 			let x = i * config.road.space;
 			let outside = new Outside(x, y, width, height, speed, halfEdge, start, pause);
+			outside.fillStyle = config.outside.style;
+
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 
 			outside = new Outside(x + width, y, width, height, speed, halfEdge, start, pause);
+			outside.fillStyle = config.outside.style;
+
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 		}
@@ -488,6 +507,8 @@ class TownState extends InfectState
 	step()
 	{
 		super.step();
+
+// !!! validate();
 
 		let nextDay = Math.floor(Math.floor(this.tickToHour(this.clock) + this.startHour) / 24);
 

@@ -28,7 +28,21 @@ function scaleColour(high, low, scale)
 
 function formatColours(red, green, blue)
 {
-	return `rgba(${red}, ${green}, ${blue})`;
+	return `rgb(${red}, ${green}, ${blue})`;
+}
+
+function nextInPool(set)
+{
+	let first = null;
+	let attempt = set.values().next();
+
+	if (!attempt.done)
+	{
+		first = attempt.value;
+		set.delete(first);
+	}
+
+	return first;
 }
 
 const FRAME = 1000 / 60;
@@ -141,3 +155,72 @@ function debug(argument)
 		console.log(argument);
 	}
 }
+
+function validate() 
+{
+	let hallway = state.hallway;
+	let wardPool = state.wardPool;
+	let ward = state.ward;
+	let icuPool = state.icuPool;
+	let icu = state.icu;
+
+	for (const person of state.personList)
+	{
+		if (person.sickness() === C.WARDSICK 
+			&& !(wardPool.has(person) 
+			|| hospitalHas(ward, person) 
+			|| ward.equals(person.toRoom) 
+			|| hallway.equals(person.toRoom)
+			))
+		{
+			console.log("Ward sick person not in ward or ward pool");
+		}
+
+		if (person.sickness() === C.ICUSICK 
+			&& !(icuPool.has(person) 
+			|| hospitalHas(icu, person) 
+			|| icu.equals(person.toRoom)
+			|| ward.equals(person.toRoom) 
+			|| hallway.equals(person.toRoom)
+			))
+		{
+			console.log("ICU sick person not in ICU or ICU pool");
+		}
+	}
+
+	for (const person of wardPool)
+	{
+		if (person.sickness() !== C.WARDSICK)
+		{
+			console.log("Person in ward pool not ward sick")
+		}
+	}
+
+	for (const person of icuPool)
+	{
+		if (person.sickness() !== C.ICUSICK)
+		{
+			console.log("Person in ICU pool not ICU sick")
+		}
+	}
+}
+
+function hospitalHas(hospital, person)
+{
+	let beds = hospital.rules.beds;
+
+	let result = false;
+
+	for (const bed of beds)
+	{
+		if (bed.personSet.has(person))
+		{
+			result = true;
+			break;
+		}
+	}
+
+	return result;
+}
+
+

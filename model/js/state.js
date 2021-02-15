@@ -4,6 +4,8 @@ class State
 	{
 		this.size = config.size;
 
+		this.background = config.background;
+		
 		this.stepsPerFrame = config.stepsPerFrame;
 		this.realTick = config.realTick;		// Thisshould be early
 
@@ -156,7 +158,7 @@ class State
 		// let width = this.size.width;
 		// let height = this.size.height;
 
-		context.fillStyle = 'LightBlue';
+		context.fillStyle = this.background;
 		context.fillRect(0, 0, this.size.width, this.size.height);
 
 		for (const room of this.roomList)
@@ -168,7 +170,7 @@ class State
 		const endX = this.road.space * this.road.last;
 
 		context.strokeStyle = this.road.style;
-		context.lineWidth = 1;
+		context.lineWidth = this.road.width;
 
 		context.beginPath();
 		context.moveTo(startX, this.main);

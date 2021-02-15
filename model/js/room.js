@@ -7,7 +7,7 @@ class Room
 		this.width = width;
 		this.height = height;
 
-		this.fillColour = 'lightGray';
+		this.fillStyle = 'lightGray';
 
 		this.personSet = new Set();
 		this.rules = new Rules(speed);
@@ -163,7 +163,7 @@ class Room
 		context.strokeStyle = 'black';
 		context.lineWidth = 1;
 		context.strokeRect(this.x, this.y, this.width, this.height);	
-		context.fillStyle = this.fillColour;
+		context.fillStyle = this.fillStyle;
 		context.fillRect(this.x, this.y, this.width, this.height);	
 	}
 
@@ -248,22 +248,11 @@ class Outside extends Room
 	{
 		super(x, y, width, height, speed, start, pause);
 		this.rules = new TotalRandomRules(speed, start, pause);
-		this.fillColour = 'lightGreen';
 	}
 
 	draw(context)
 	{
-		context.fillStyle = this.fillColour;
+		context.fillStyle = this.fillStyle;
 		context.fillRect(this.x, this.y, this.width, this.height);	
-	}
-}
-
-class Hospital extends Room
-{
-	constructor(x, y, width, height, speed)
-	{
-		super(x, y, width, height, speed);
-
-		this.rules = new SeatRules();
 	}
 }
