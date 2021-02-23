@@ -134,6 +134,10 @@ class InfectablePerson extends Person
 				{
 					let toRoom = this.findRoom();
 
+if (this.sickness() === C.DEAD)
+{
+console.log("dead");
+}
 					if (!toRoom.equals(this.inRoom))
 					{
 						this.goToRoom(toRoom);
@@ -153,19 +157,13 @@ class InfectablePerson extends Person
 	{
 		const rooms = [this.home, this.home, this.home, state.hallway, state.ward, state.icu, state.cemetary];
 
-		let index = this.sickness();
-
-		while(rooms[index].isFull())
-		{
-			index--;
-		}
-
-		return rooms[index];
+		return rooms[this.sickness()];
 	}
 
 	draw(context)
 	{
 		context.strokeStyle = this.progression.getStyle();
+		context.lineWidth = 1;
 
 		if (!this.isDead())
 		{

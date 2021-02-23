@@ -35,7 +35,7 @@ class InfectState extends State
 		return new InfectablePerson();
 	}
 	
-	fill(config)
+	initialize()
 	{
 		this.personList[0].infect(new ExceedinglyInfectious());
 		this.personList[0].progression.index = 3;

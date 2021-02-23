@@ -122,7 +122,15 @@ class State
 		{
 			progress.time = this.hourToTick(progress.time);
 		}
+	}
 
+	fill()
+	{
+
+	}
+	
+	initialize()
+	{
 
 	}
 

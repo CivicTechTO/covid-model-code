@@ -4,8 +4,6 @@ class Draw
 
 	baseDraw(context, point, size)
 	{
-		context.lineWidth = 1;
-
 		context.beginPath();
 		context.moveTo(point.x, point.y);
 		context.lineTo(point.x + size, point.y);
@@ -19,7 +17,6 @@ class Draw0 extends Draw
 	draw(context, point) 
 	{
 		const size = state.personSize;
-		context.lineWidth = 1;
 
 		context.beginPath();
 		context.moveTo(point.x - size, point.y);

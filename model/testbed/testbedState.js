@@ -2,15 +2,18 @@ class TestbedState extends TownState
 {
 	constructor(config, width, height)
 	{
-		config.count = 10;
+		config.count = 30;
 		super(config, width, height);
 	}
 
-	fill(config)
+	initialize()
 	{
-		super.fill(config);
-
 		this.stepsPerFrame = 1;
+
+		this.progression[2].worse.p = 1.0;
+		this.progression[6].worse.p = 1.0;
+		this.progression[9].worse.p = 1.0;
+		this.progression[13].worse.p = 1.0;
 
 		for (let person of this.personList)
 		{
@@ -18,8 +21,6 @@ class TestbedState extends TownState
 			{
 				person.infect(new ExceedinglyInfectious());
 			}
-			person.progression.index = 9;
-			person.goToRoom(person.findRoom());
 		}
 	}
 }

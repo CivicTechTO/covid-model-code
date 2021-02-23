@@ -166,12 +166,14 @@ function validate()
 
 	for (const person of state.personList)
 	{
-		if (person.sickness() === C.WARDSICK 
+		if 
+		(
+			person.sickness() === C.WARDSICK 
 			&& !(wardPool.has(person) 
 			|| hospitalHas(ward, person) 
 			|| ward.equals(person.toRoom) 
-			|| hallway.equals(person.toRoom)
-			))
+			)
+		)
 		{
 			console.log("Ward sick person not in ward or ward pool");
 		}

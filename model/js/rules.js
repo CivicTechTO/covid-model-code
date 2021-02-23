@@ -363,6 +363,7 @@ class HospitalRules extends Rules
 		{
 			if (bed.add(person))
 			{
+				this.pool.delete(person);
 				result = true;
 				break;
 			}
@@ -395,6 +396,13 @@ class HospitalRules extends Rules
 		{
 			if (bed.delete(person))
 			{
+				if (person.sickness() === C.DEAD)
+				{
+console.log("the dear departed");
+					state.wardPool.delete(person);
+					state.icuPool.delete(person);
+				}
+
 				const admittee = nextInPool(this.pool);
 				if (admittee)
 				{

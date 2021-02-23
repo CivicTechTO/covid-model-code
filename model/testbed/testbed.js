@@ -6,6 +6,7 @@ var C = makeConstants();
 
 var state = new TestbedState(config, canvas.width, canvas.height);
 state.fill(config);
+state.initialize();
 
 state.week[0].startShift();
 
@@ -24,9 +25,9 @@ function stop()
 
 let context = canvas.getContext('2d');
 
-//state.draw(context);
+state.draw(context);
 
-window.requestAnimationFrame(animate);
+// window.requestAnimationFrame(animate);
 
 // for (var i = 2; i >= 0; i--) 
 // {

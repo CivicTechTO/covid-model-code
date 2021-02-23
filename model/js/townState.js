@@ -38,6 +38,8 @@ class TownState extends InfectState
 
 	fill(config)
 	{
+		super.fill(config);
+
 		let crowd = [];
 
 		this.churchSpec = config.church;
@@ -56,8 +58,6 @@ class TownState extends InfectState
 
 		this.setWeek(config);
 		this.setDays(config);
-
-		super.fill(config);
 	}
 
 	fillHome(config, dwellings, crowd)
