@@ -2,13 +2,8 @@ function makeConstants()
 {
 	let result = {};
 
-	result.WELL = 0;
-	result.INFECTED = 1;
-	result.SICK = 2;
-	result.HOMESICK = 3;
-	result.WARDSICK = 4;
-	result.ICUSICK = 5;
-	result.DEAD = 6;
-	
+	result.PROGRESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
+	result.INFECTIOUS = {NOT: 0, SLIGHTLY: 1, VERY: 10, EXTREMELY: 40};
+
 	return result;	
 }

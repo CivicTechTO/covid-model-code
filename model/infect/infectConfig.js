@@ -133,98 +133,99 @@ const config = {
 	, "progression":
 		[
 			{
-			  	"index": 0, "display": [0, 0], "infectable": true, "infectious": false, "canProgress": false, "time": undefined
-			  	, "next": 0, "worse": {"p": 0.0, "next": 0}, "start": 0.0, "end": 0.0, "sick": 0, "change": false, "delta": -1
+			  	"index": 0, "display": [0, 0], "time": undefined, "next": 0, "worse": {"p": 0.0, "next": 0}
+			  	, "start": 0.0, "end": 0.0, "sick": 0, "delta": -1
+			}
+			
+			, {
+			  	"index": 1, "display": [3, 3], "time": undefined, "next": 1, "worse": {"p": 0.0, "next": 1}
+			  	, "start": 0.0, "end": 0.0, "sick": 7, "delta": -1
 			}
 			, {
-			  	"index": 1, "display": [3, 3], "infectable": false, "infectious": false, "canProgress": false, "time": undefined
-			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 0, "change": true, "delta": 1
-			}
-			, {
-			  	"index": 2, "display" : [4, 4], "infectable": false, "infectious": false, "canProgress": false, "time": undefined
-			  	, "next": 2, "worse": {"p": 0.0, "next": 2}, "start": 0.0, "end": 0.0, "sick": 6, "change": true, "delta": 2
-			}
-
-
-			, {
-			  	"index": 3, "display": [2, 0], "infectable": false, "infectious": false, "canProgress": true, "time": 96
-			  	, "next": 4, "worse": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 1, "change": false, "delta": 0
-			}
-			, {
-			  	"index": 4, "display": [1, 0], "infectable": false, "infectious": true, "canProgress": true, "time": 48
-			  	, "next": 5, "worse": {"p": 0.0, "next": 6}, "start": 0.0, "end": 1.0, "sick": 1, "change": false, "delta": -1
-			}
-			, {
-			  	"index": 5, "display": [1, 1], "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 6, "worse": {"p": 0.0, "next": 6}, "start": 1.0, "end": 1.0, "sick": 2, "change": false, "delta": -1
-			}
-			, {
-			  	"index": 6, "display": [1, 1], "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 7, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 2, "change": false, "delta": -1
-			}
-			, {
-			  	"index": 7, "display": [3, 1], "infectable": false, "infectious": false, "canProgress": true, "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 2, "change": false, "delta": -1
-			}
-			, {
-			  	"index": 8, "display": [3, 3], "infectable": false, "infectious": false, "canProgress": true, "time": 1
-			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 2, "change": false, "delta": -1
+			  	"index": 2, "display" : [4, 4], "time": undefined, "next": 2, "worse": {"p": 0.0, "next": 2}
+			  	, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
 			}
 
 
 			, {
-			  	"index": 6, "style": "#FF4444", "draw":6, "infectable": false, "infectious": true, "canProgress": true, "time": 24
-			  	, "next": 7, "worse": {"p": 0.40, "next": 9}, "start": 1.0, "end": 1.0, "sick": 2, "change": true, "delta": -1
+			  	"index": 3, "display": [2, 0], "time": 96, "next": 4, "worse": {"p": 0.0, "next": 4}
+			  	, "start": 0.0, "end": 0.0, "sick": 1, "delta": 0
 			}
 			, {
-			  	"index": 7, "style": "#FF4444", "draw":6, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 1.0, "sick": 2, "change": false, "delta": -1
+			  	"index": 4, "display": [1, 0], "time": 48, "next": 5, "worse": {"p": 0.0, "next": 6}
+			  	, "start": 0.0, "end": 1.0, "sick": 1, "delta": -1
 			}
 			, {
-			  	"index": 8, "style": "#FF4444", "draw":6, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 5, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 2, "change": false, "delta": -1
-			}
-
-
-			, {
-			  	"index": 9, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 24
-			  	, "next": 10, "worse": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 4, "change": true, "delta": -1
+			  	"index": 5, "display": [1, 1], "time": 120, "next": 6, "worse": {"p": 0.0, "next": 6}
+			  	, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 10, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 144
-			  	, "next": 11, "worse": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 4, "change": false, "delta": -1
+			  	"index": 6, "display": [1, 1], "time": 120, "next": 7, "worse": {"p": 0.0, "next": 5}
+			  	, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 11, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 4, "change": false, "delta": -1
+			  	"index": 7, "display": [3, 1], "time": 120, "next": 8, "worse": {"p": 0.0, "next": 1}
+			  	, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 12, "style": "#FF3333", "draw":7, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 4, "change": false, "delta": -1
+			  	"index": 8, "display": [3, 3], "time": 1, "next": 1, "worse": {"p": 0.0, "next": 1}
+			  	, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 
 
 			, {
-			  	"index": 13, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 24
-			  	, "next": 14, "worse": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 5, "change": true, "delta": -1
+			  	"index": 6, "style": "#FF4444", "draw":6,"canProgress": true, "time": 24
+			  	, "next": 7, "worse": {"p": 0.40, "next": 9}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 14, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 15, "worse": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 5, "change": false, "delta": -1
+			  	"index": 7, "style": "#FF4444", "draw":6,"canProgress": true, "time": 120
+			  	, "next": 8, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 15, "style": "#FF1111", "draw":8, "infectable": false, "infectious": true, "canProgress": true, "time": 120
-			  	, "next": 16, "worse": {"p": 0.0, "next": 17}, "start": 1.0, "end": 0.0, "sick": 5, "change": false, "delta": -1
-			}
-			, {
-			  	"index": 16, "style": "#FF1111", "draw":8, "infectable": false, "infectious": false, "canProgress": true, "time": 120
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 5, "change": false, "delta": -1
+			  	"index": 8, "style": "#FF4444", "draw":6,"canProgress": true, "time": 120
+			  	, "next": 5, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 
 
 			, {
-			  	"index": 17, "style": "#FF1111", "draw":8, "infectable": false, "infectious": false, "canProgress": true, "time": 360
-			  	, "next": 18, "worse": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 5, "change": false, "delta": -1
+			  	"index": 9, "style": "#FF3333", "draw":7,"canProgress": true, "time": 24
+			  	, "next": 10, "worse": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			}
+			, {
+			  	"index": 10, "style": "#FF3333", "draw":7,"canProgress": true, "time": 144
+			  	, "next": 11, "worse": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			}
+			, {
+			  	"index": 11, "style": "#FF3333", "draw":7,"canProgress": true, "time": 120
+			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			}
+			, {
+			  	"index": 12, "style": "#FF3333", "draw":7,"canProgress": true, "time": 120
+			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			}
+
+
+			, {
+			  	"index": 13, "style": "#FF1111", "draw":8,"canProgress": true, "time": 24
+			  	, "next": 14, "worse": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
+			}
+			, {
+			  	"index": 14, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
+			  	, "next": 15, "worse": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
+			}
+			, {
+			  	"index": 15, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
+			  	, "next": 16, "worse": {"p": 0.0, "next": 17}, "start": 1.0, "end": 0.0, "sick": 5, "delta": -1
+			}
+			, {
+			  	"index": 16, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
+			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
+			}
+
+
+			, {
+			  	"index": 17, "style": "#FF1111", "draw":8,"canProgress": true, "time": 360
+			  	, "next": 18, "worse": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
 			}
 		]
 }

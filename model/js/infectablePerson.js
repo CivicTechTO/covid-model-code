@@ -4,41 +4,82 @@ class InfectablePerson extends Person
 	{
 		super();
 
-		this.infected = new Infection();
-		this.progression = new Progression();
-
+		this.at = 0;
+		this.index = 0;
 		this.exposure = 0;
+	}
+
+	canProgress()
+	{
+		return state.progression[this.index].time !== undefined;
 	}
 
 	infectable()
 	{
-		return this.progression.infectable();
+		return state.progression[this.index].sick === state.C.PROGRESS.WELL;
 	}
 
 	infectious()
 	{
-		return this.progression.infectious();
-	}
-
-	load()
-	{
-		return this.infected.load * this.progression.factor();
+		return state.progression[this.index].start !== 0.0 || state.progression[this.index].end !== 0.0;
 	}
 
 	sickness()
 	{
-		return this.progression.sickness();
+		return state.progression[this.index].sick;
+	}
+
+	change()
+	{
+		return state.progression[this.index].delta >= 0;
+	}
+
+	delta()
+	{
+		return state.progression[this.index].delta;
+	}
+
+	transition()
+	{
+		return state.progression[this.index].time + this.at;
+	}
+
+	progress(at)
+	{
+		this.at = at;
+		let progression = state.progression[this.index];
+
+		if (progression.worse.p > Math.random())
+		{
+			this.index = progression.worse.next;
+		}
+		else
+		{
+			this.index = progression.next;
+		}
+	}
+
+	factor() 
+	{		
+		const progression = state.progression[this.index];
+		const slope = (progression.end - progression.start) / progression.time;
+		return progression.start + slope * (state.clock - this.at);
+	}
+
+	load()
+	{
+		return this.loadValue * this.factor();
 	}
 
 	isSick()
 	{
-		const sickness = this.progression.sickness();
+		const sickness = this.sickness();
 		return sickness === C.HOMESICK || sickness === C.WARDSICK || sickness === C.ICUSICK || sickness === C.DEAD;
 	}
 
 	isDead()
 	{
-		return this.progression.sickness() === C.DEAD;
+		return this.sickness() === C.DEAD;
 	}
 
 	inHospital()
@@ -89,7 +130,7 @@ class InfectablePerson extends Person
 
 	expose()
 	{
-		if (this.progression.infectable())
+		if (this.infectable())
 		{
 			const maximum = state.infectConfig.maximum;
 			const choices = state.infectConfig.params;
@@ -107,7 +148,8 @@ class InfectablePerson extends Person
 				{
 					setInfectedAt(state.clock);
 				}
-				this.infect(makeInfectious());
+
+				this.infect(pick(state.infectious.pList, state.infectious.valueList));
 			}
 		}
 	}
@@ -115,7 +157,7 @@ class InfectablePerson extends Person
 	infect(infectious)
 	{
 		this.infected = infectious;
-		this.progression.progress(state.clock);
+		this.progress(state.clock);
 		infectIncrement();
 		state.update = true;
 	}
@@ -124,29 +166,25 @@ class InfectablePerson extends Person
 	{
 		super.step();
 
-		if (this.progression.canProgress())
+		if (this.canProgress())
 		{
-			if (this.progression.transition() <= state.clock)
+			if (this.transition() <= state.clock)
 			{
-				this.progression.progress(state.clock);
+				this.progress(state.clock);
 
 				if (!state.statFlag && this.progression.change())
 				{
 					let toRoom = this.findRoom();
 
-if (this.sickness() === C.DEAD)
-{
-console.log("dead");
-}
 					if (!toRoom.equals(this.inRoom))
 					{
 						this.goToRoom(toRoom);
 					}
 				}
 
-				if (this.progression.delta() >= 0)
+				if (this.delta() >= 0)
 				{
-					state.recordFns[this.progression.delta()]();
+					state.recordFns[this.delta()]();
 					state.update = true;
 				}
 			}
@@ -165,10 +203,6 @@ console.log("dead");
 		context.strokeStyle = this.progression.getStyle();
 		context.lineWidth = 1;
 
-		if (!this.isDead())
-		{
-			this.infected.draw(context, this.current);
-		}
 		this.progression.draw(context, this.current);
 	}
 }

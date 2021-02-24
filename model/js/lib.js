@@ -3,6 +3,21 @@ function rand(end)
 	return Math.floor(end * Math.random());
 }
 
+function pick(pList, valueList)
+{
+	let pick = Math.random();
+
+	for (var i = 0; i < pList.length; i++) 
+	{
+		pick -= pList[i];
+
+		if (pick < 0)
+		{
+			return valueList[i];
+		}
+	}
+}|
+
 function clamp(lower, upper, value) 
 {
 	return (lower > value ? lower : (upper < value ? upper : value));
