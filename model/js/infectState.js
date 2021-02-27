@@ -23,11 +23,25 @@ class InfectState extends State
 		this.recordFns = [infectIncrement, infectDecrement, deadIncrement];
 		this.update = false;
 
-		this.drawList = new DrawList();
-
-		this.run = true;
+		this.pop = config.pop;
 
 		this.infecting = true;
+
+		this.mode = 0;
+
+		this.fillImages(config);
+
+		this.run = true;
+	}
+
+	fillImages(config)
+	{
+		this.imageList = [];
+
+		for (const id of config.imageList)
+		{
+			this.imageList.push(document.getElementById(id));
+		}
 	}
 
 	makePerson()
@@ -37,8 +51,8 @@ class InfectState extends State
 	
 	initialize()
 	{
-		this.personList[0].infect(state.C.INFECTIOUS.EXTREMELY);
-		this.personList[0].index = 3;
+		this.personList[0].infect(C.INFECTIOUS.EXTREMELY);
+		this.personList[0].progressIndex = C.PROGRESS.PEAK;
 		this.personList[0].church = this.churchList[0];
 
 		this.update = true;
@@ -82,12 +96,12 @@ class InfectState extends State
 			const deadElement = document.getElementById('dead');
 			deadElement.textContent = this.deadRecord.current.toString();
 
-			const r = computeR();
-			const r0Element = document.getElementById('r0');
-			r0Element.textContent = r.r0.toFixed(3);
+			// const r = computeR();
+			// const r0Element = document.getElementById('r0');
+			// r0Element.textContent = r.r0.toFixed(3);
 
-			const rtElement = document.getElementById('rt');
-			rtElement.textContent = r.rt.toFixed(2);
+			// const rtElement = document.getElementById('rt');
+			// rtElement.textContent = r.rt.toFixed(2);
 
 			this.update = false;
 		}

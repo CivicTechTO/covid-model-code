@@ -16,7 +16,7 @@ function pick(pList, valueList)
 			return valueList[i];
 		}
 	}
-}|
+}
 
 function clamp(lower, upper, value) 
 {

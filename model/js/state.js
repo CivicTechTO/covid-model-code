@@ -120,7 +120,11 @@ class State
 
 		for (let progress of config.progression)
 		{
-			progress.time = this.hourToTick(progress.time);
+			if (progress.time !== undefined)
+			{
+				progress.time = this.hourToTick(progress.time);
+
+			}
 		}
 	}
 

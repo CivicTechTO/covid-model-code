@@ -13,6 +13,13 @@
 </head>
 
 <body>
+  <div id="images">
+    <img id="wellsmile" src="../images/wellSmile.png">
+    <img id="frown" src="../images/frown.png">
+    <img id="recoveredsmile" src="../images/recoveredSmile.png">
+    <img id="cross" src="../images/cross.png">
+  </div>
+  
   <div id="container">
     <h1>Infect</h1>
     <div>
@@ -24,10 +31,10 @@
     <div>
       Dead: <span id="dead">0</span>
     </div>
-    <div>
+<!--     <div>
        R<sub>0</sub>: <span id="r0">0</span>  R<sub>t</sub>: <span id="rt">0</span>
     </div>
-
+ -->
   	<canvas id="canvas" width=1000 height=505></canvas>
     <div><span>Speed </span><span id="steps"> </span></div>
     <div>
@@ -57,8 +64,6 @@
   <script src="../js/constants.js"></script>
   <script src="../js/record.js"></script>
   <script src="../js/lib.js"></script>
-  <script src="../js/infection.js"></script>
-  <script src="../js/progression.js"></script>
   <script src="../js/shift.js"></script>
   <script src="../js/group.js"></script>
   <script src="../js/state.js"></script>

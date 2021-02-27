@@ -5,63 +5,64 @@ class InfectablePerson extends Person
 		super();
 
 		this.at = 0;
-		this.index = 0;
+		this.progressIndex = 0;
 		this.exposure = 0;
+		this.loadValue = 0.0;
 	}
 
 	canProgress()
 	{
-		return state.progression[this.index].time !== undefined;
+		return state.progression[this.progressIndex].time !== undefined;
 	}
 
 	infectable()
 	{
-		return state.progression[this.index].sick === state.C.PROGRESS.WELL;
+		return state.progression[this.progressIndex].sick === C.SICKNESS.WELL;
 	}
 
 	infectious()
 	{
-		return state.progression[this.index].start !== 0.0 || state.progression[this.index].end !== 0.0;
+		return state.progression[this.progressIndex].start !== 0.0 || state.progression[this.progressIndex].end !== 0.0;
 	}
 
 	sickness()
 	{
-		return state.progression[this.index].sick;
+		return state.progression[this.progressIndex].sick;
 	}
 
 	change()
 	{
-		return state.progression[this.index].delta >= 0;
+		return state.progression[this.progressIndex].delta >= 0;
 	}
 
 	delta()
 	{
-		return state.progression[this.index].delta;
+		return state.progression[this.progressIndex].delta;
 	}
 
 	transition()
 	{
-		return state.progression[this.index].time + this.at;
+		return state.progression[this.progressIndex].time + this.at;
 	}
 
 	progress(at)
 	{
 		this.at = at;
-		let progression = state.progression[this.index];
+		let progression = state.progression[this.progressIndex];
 
 		if (progression.worse.p > Math.random())
 		{
-			this.index = progression.worse.next;
+			this.progressIndex = progression.worse.next;
 		}
 		else
 		{
-			this.index = progression.next;
+			this.progressIndex = progression.next;
 		}
 	}
 
 	factor() 
 	{		
-		const progression = state.progression[this.index];
+		const progression = state.progression[this.progressIndex];
 		const slope = (progression.end - progression.start) / progression.time;
 		return progression.start + slope * (state.clock - this.at);
 	}
@@ -74,12 +75,13 @@ class InfectablePerson extends Person
 	isSick()
 	{
 		const sickness = this.sickness();
-		return sickness === C.HOMESICK || sickness === C.WARDSICK || sickness === C.ICUSICK || sickness === C.DEAD;
+		return sickness === C.SICKNESS.HOMESICK || sickness === C.SICKNESS.WARDSICK 
+			|| sickness === C.SICKNESS.ICUSICK || sickness === C.SICKNESS.DEAD;
 	}
 
 	isDead()
 	{
-		return this.sickness() === C.DEAD;
+		return this.sickness() === C.SICKNESS.DEAD;
 	}
 
 	inHospital()
@@ -154,10 +156,13 @@ class InfectablePerson extends Person
 		}
 	}
 
-	infect(infectious)
+	infect(loadValue)
 	{
-		this.infected = infectious;
-		this.progress(state.clock);
+console.log("infect");
+		this.loadValue = loadValue;
+		this.at = state.clock;
+		this.progressIndex = C.PROGRESS.INFECTED;
+
 		infectIncrement();
 		state.update = true;
 	}
@@ -172,7 +177,7 @@ class InfectablePerson extends Person
 			{
 				this.progress(state.clock);
 
-				if (!state.statFlag && this.progression.change())
+				if (!state.statFlag && this.change())
 				{
 					let toRoom = this.findRoom();
 
@@ -193,17 +198,36 @@ class InfectablePerson extends Person
 
 	findRoom()
 	{
-		const rooms = [this.home, this.home, this.home, state.hallway, state.ward, state.icu, state.cemetary];
+		const rooms = [this.home, this.home, this.home, state.hallway, state.ward, state.icu, state.cemetary, this.home];
 
 		return rooms[this.sickness()];
 	}
 
 	draw(context)
 	{
-		context.strokeStyle = this.progression.getStyle();
-		context.lineWidth = 1;
+		const image = state.imageList[state.progression[this.progressIndex].display[state.mode].image];
+		const scale = this.scale();
+		const size = scale * (2 * state.personSize) + 1;
+		const offset = scale * state.personSize;
 
-		this.progression.draw(context, this.current);
+		context.drawImage(image, this.current.x - offset, this.current.y - offset, size, size);
 	}
+
+	scale()
+	{
+		const decay = state.pop.decay;
+		const time = decay - (state.clock - this.at);
+		const pop = state.progression[this.progressIndex].display[state.mode].pop;
+		
+		if (pop && time > 1)
+		{
+			return Math.round(state.pop.scale * Math.log2(1 + (time / decay)));
+		}
+		else
+		{
+			return 1;
+		}
+	}	
 }
+
 

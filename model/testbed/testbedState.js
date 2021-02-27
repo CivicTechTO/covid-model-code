@@ -2,7 +2,7 @@ class TestbedState extends TownState
 {
 	constructor(config, width, height)
 	{
-		config.count = 30;
+		config.count = 1;
 		super(config, width, height);
 	}
 
@@ -10,16 +10,16 @@ class TestbedState extends TownState
 	{
 		this.stepsPerFrame = 1;
 
-		this.progression[2].worse.p = 1.0;
-		this.progression[6].worse.p = 1.0;
-		this.progression[9].worse.p = 1.0;
-		this.progression[13].worse.p = 1.0;
+		// this.progression[2].worse.p = 1.0;
+		// this.progression[6].worse.p = 1.0;
+		// this.progression[9].worse.p = 1.0;
+		// this.progression[13].worse.p = 1.0;
 
 		for (let person of this.personList)
 		{
 			if (person.infectable())
 			{
-				person.infect(new ExceedinglyInfectious());
+//				person.infect(C.INFECTIOUS.EXCEEDINGLY);
 			}
 		}
 	}
