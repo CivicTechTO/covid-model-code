@@ -126,7 +126,7 @@ const config = {
 
 	, "infectious": {"pList": [0.7, 0,1, 0.1, 0.1], "valueList": [0, 1, 10, 40]}
 	
-	, "imageList": ["wellsmile", "frown", "recoveredsmile", "cross"]
+	, "imageList": ["wellsmile", "frown", "recoveredsmile", "cross", "crescent", "star"]
 	, "pop": {"scale": 4, "decay": 30}
 
 	, "progression":
@@ -144,30 +144,38 @@ const config = {
 			  	"index": 2, "display" : [{"pop": false, "image": 3}, {"pop": false, "image": 3}], "time": undefined
 			  	, "next": 2, "worse": {"p": 0.0, "next": 2}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
 			}
+			, {
+			  	"index": 3, "display": [{"pop": false, "image": 4}, {"pop": false, "image": 2}], "time": undefined
+			  	, "next": 3, "worse": {"p": 0.0, "next": 3}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
+			}
+			, {
+			  	"index": 4, "display" : [{"pop": false, "image": 5}, {"pop": false, "image": 3}], "time": undefined
+			  	, "next": 4, "worse": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
+			}
 
 
 			, {
-			  	"index": 3, "display": [{"pop": true, "image": 1}, {"pop": false, "image": 0}], "time": 96
-			  	, "next": 4, "worse": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 1, "delta": 0
+			  	"index": 5, "display": [{"pop": true, "image": 1}, {"pop": false, "image": 0}], "time": 96
+			  	, "next": 6, "worse": {"p": 0.0, "next": 6}, "start": 0.0, "end": 0.0, "sick": 1, "delta": 0
 			}
 			, {
-			  	"index": 4, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 0}], "time": 48
-			  	, "next": 5, "worse": {"p": 0.0, "next": 5}, "start": 0.0, "end": 1.0, "sick": 1, "delta": -1
+			  	"index": 6, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 0}], "time": 48
+			  	, "next": 7, "worse": {"p": 0.0, "next": 7}, "start": 0.0, "end": 1.0, "sick": 1, "delta": -1
 			}
 			, {
-			  	"index": 5, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 6, "worse": {"p": 0.0, "next": 6}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
+			  	"index": 7, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
+			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 6, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 7, "worse": {"p": 0.0, "next": 7}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
+			  	"index": 8, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
+			  	, "next": 9, "worse": {"p": 0.0, "next": 9}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 7, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
+			  	"index": 9, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 1}], "time": 120
+			  	, "next": 10, "worse": {"p": 0.0, "next": 10}, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
-			  	"index": 8, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 0}], "time": 1
+			  	"index": 10, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 0}], "time": 1
 			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 2, "delta": 1
 			}
 
