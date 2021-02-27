@@ -158,7 +158,6 @@ class InfectablePerson extends Person
 
 	infect(loadValue)
 	{
-console.log("infect");
 		this.loadValue = loadValue;
 		this.at = state.clock;
 		this.progressIndex = C.PROGRESS.INFECTED;

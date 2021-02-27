@@ -73,7 +73,6 @@ class TuneState extends InfectState
 		this.tune = {ventilation: 1, loud: 40}
 
 		this.level = new MakeExceedingly();
-		this.drawList = new DrawList();
 
 		this.run = false;
 
