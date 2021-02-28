@@ -133,106 +133,106 @@ const config = {
 		[
 			{
 			  	"index": 0, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 0}], "time": undefined
-			  	, "next": 0, "worse": {"p": 0.0, "next": 0}, "start": 0.0, "end": 0.0, "sick": 0, "delta": -1
+			  	, "next": 0, "alt": {"p": 0.0, "next": 0}, "start": 0.0, "end": 0.0, "sick": 0, "delta": -1
 			}
 			
 			, {
 			  	"index": 1, "display": [{"pop": false, "image": 2}, {"pop": false, "image": 2}], "time": undefined
-			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 7, "delta": -1
+			  	, "next": 1, "alt": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 7, "delta": -1
 			}
 			, {
 			  	"index": 2, "display" : [{"pop": false, "image": 3}, {"pop": false, "image": 3}], "time": undefined
-			  	, "next": 2, "worse": {"p": 0.0, "next": 2}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
+			  	, "next": 2, "alt": {"p": 0.0, "next": 2}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
 			}
 			, {
 			  	"index": 3, "display": [{"pop": false, "image": 4}, {"pop": false, "image": 2}], "time": undefined
-			  	, "next": 3, "worse": {"p": 0.0, "next": 3}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
+			  	, "next": 3, "alt": {"p": 0.0, "next": 3}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
 			}
 			, {
 			  	"index": 4, "display" : [{"pop": false, "image": 5}, {"pop": false, "image": 3}], "time": undefined
-			  	, "next": 4, "worse": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
+			  	, "next": 4, "alt": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 6, "delta": -1
 			}
 
 
 			, {
 			  	"index": 5, "display": [{"pop": true, "image": 1}, {"pop": false, "image": 0}], "time": 96
-			  	, "next": 6, "worse": {"p": 0.0, "next": 6}, "start": 0.0, "end": 0.0, "sick": 1, "delta": 0
+			  	, "next": 6, "alt": {"p": 0.0, "next": 6}, "start": 0.0, "end": 0.0, "sick": 1, "delta": 0
 			}
 			, {
 			  	"index": 6, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 0}], "time": 48
-			  	, "next": 7, "worse": {"p": 0.0, "next": 7}, "start": 0.0, "end": 1.0, "sick": 1, "delta": -1
+			  	, "next": 7, "alt": {"p": 0.0, "next": 7}, "start": 0.0, "end": 1.0, "sick": 1, "delta": -1
 			}
 			, {
 			  	"index": 7, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
+			  	, "next": 8, "alt": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
 			  	"index": 8, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 9, "worse": {"p": 0.0, "next": 9}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
+			  	, "next": 9, "alt": {"p": 0.0, "next": 9}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
 			  	"index": 9, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 1}], "time": 120
-			  	, "next": 10, "worse": {"p": 0.0, "next": 10}, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
+			  	, "next": 10, "alt": {"p": 0.0, "next": 10}, "start": 0.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 			, {
 			  	"index": 10, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 0}], "time": 1
-			  	, "next": 1, "worse": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 2, "delta": 1
+			  	, "next": 1, "alt": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 2, "delta": 1
 			}
 
 
 			, {
 			  	"index": 6, "style": "#FF4444", "draw":6,"canProgress": true, "time": 24
-			  	, "next": 7, "worse": {"p": 0.40, "next": 9}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
+			  	, "next": 7, "alt": {"p": 0.40, "next": 9}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
 			  	"index": 7, "style": "#FF4444", "draw":6,"canProgress": true, "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
+			  	, "next": 8, "alt": {"p": 0.0, "next": 5}, "start": 1.0, "end": 1.0, "sick": 2, "delta": -1
 			}
 			, {
 			  	"index": 8, "style": "#FF4444", "draw":6,"canProgress": true, "time": 120
-			  	, "next": 5, "worse": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
+			  	, "next": 5, "alt": {"p": 0.0, "next": 5}, "start": 1.0, "end": 0.0, "sick": 2, "delta": -1
 			}
 
 
 			, {
 			  	"index": 9, "style": "#FF3333", "draw":7,"canProgress": true, "time": 24
-			  	, "next": 10, "worse": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			  	, "next": 10, "alt": {"p": 0.40, "next": 13}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
 			}
 			, {
 			  	"index": 10, "style": "#FF3333", "draw":7,"canProgress": true, "time": 144
-			  	, "next": 11, "worse": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			  	, "next": 11, "alt": {"p": 0.0, "next": 11}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
 			}
 			, {
 			  	"index": 11, "style": "#FF3333", "draw":7,"canProgress": true, "time": 120
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			  	, "next": 12, "alt": {"p": 0.0, "next": 12}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
 			}
 			, {
 			  	"index": 12, "style": "#FF3333", "draw":7,"canProgress": true, "time": 120
-			  	, "next": 8, "worse": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
+			  	, "next": 8, "alt": {"p": 0.0, "next": 8}, "start": 1.0, "end": 1.0, "sick": 4, "delta": -1
 			}
 
 
 			, {
 			  	"index": 13, "style": "#FF1111", "draw":8,"canProgress": true, "time": 24
-			  	, "next": 14, "worse": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
+			  	, "next": 14, "alt": {"p": 0.50, "next": 17}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
 			}
 			, {
 			  	"index": 14, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
-			  	, "next": 15, "worse": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
+			  	, "next": 15, "alt": {"p": 0.0, "next": 15}, "start": 1.0, "end": 1.0, "sick": 5, "delta": -1
 			}
 			, {
 			  	"index": 15, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
-			  	, "next": 16, "worse": {"p": 0.0, "next": 17}, "start": 1.0, "end": 0.0, "sick": 5, "delta": -1
+			  	, "next": 16, "alt": {"p": 0.0, "next": 17}, "start": 1.0, "end": 0.0, "sick": 5, "delta": -1
 			}
 			, {
 			  	"index": 16, "style": "#FF1111", "draw":8,"canProgress": true, "time": 120
-			  	, "next": 12, "worse": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
+			  	, "next": 12, "alt": {"p": 0.0, "next": 12}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
 			}
 
 
 			, {
 			  	"index": 17, "style": "#FF1111", "draw":8,"canProgress": true, "time": 360
-			  	, "next": 18, "worse": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
+			  	, "next": 18, "alt": {"p": 0.0, "next": 18}, "start": 0.0, "end": 0.0, "sick": 5, "delta": -1
 			}
 		]
 }

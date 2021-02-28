@@ -50,9 +50,9 @@ class InfectablePerson extends Person
 		this.at = at;
 		let progression = state.progression[this.progressIndex];
 
-		if (progression.worse.p > Math.random())
+		if (progression.alt.p > Math.random())
 		{
-			this.progressIndex = progression.worse.next;
+			this.progressIndex = progression.alt.next;
 		}
 		else
 		{

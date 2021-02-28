@@ -10,10 +10,10 @@ class TestbedState extends TownState
 	{
 		this.stepsPerFrame = 1;
 
-		// this.progression[2].worse.p = 1.0;
-		// this.progression[6].worse.p = 1.0;
-		// this.progression[9].worse.p = 1.0;
-		// this.progression[13].worse.p = 1.0;
+		// this.progression[2].alt.p = 1.0;
+		// this.progression[6].alt.p = 1.0;
+		// this.progression[9].alt.p = 1.0;
+		// this.progression[13].alt.p = 1.0;
 
 		for (let person of this.personList)
 		{
