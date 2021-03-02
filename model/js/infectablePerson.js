@@ -58,6 +58,11 @@ class InfectablePerson extends Person
 		{
 			this.progressIndex = progression.next;
 		}
+
+		progression = state.progression[this.progressIndex];
+		increment(progression.increment);
+		decrement(progression.decrement);
+		state.update = progression.increment !== 0 || progression.decrement !== 0;
 	}
 
 	factor() 
@@ -162,7 +167,9 @@ class InfectablePerson extends Person
 		this.at = state.clock;
 		this.progressIndex = C.PROGRESS.INFECTED;
 
-		infectIncrement();
+		increment(C.RECORD.INFECTED);
+		decrement(C.RECORD.WELL);
+
 		state.update = true;
 	}
 
@@ -184,12 +191,6 @@ class InfectablePerson extends Person
 					{
 						this.goToRoom(toRoom);
 					}
-				}
-
-				if (this.delta() >= 0)
-				{
-					state.recordFns[this.delta()]();
-					state.update = true;
 				}
 			}
 		}

@@ -331,8 +331,8 @@ class PubRules extends FullRules
 
 		for (var i = 0 ; i < down ; i++)
 		{
-			this.tableList.push(new Group(room, spacing / 2, i * spacing, 1, 1))
-			this.tableList.push(new Group(room, spacing * 2, i * spacing, 1, 1))
+			this.tableList.push(new Group(room, Math.floor(spacing / 2) - 1, i * spacing, 1, 1))
+			this.tableList.push(new Group(room, (spacing * 2) - 1, i * spacing, 1, 1))
 		}
 	}
 
@@ -398,7 +398,6 @@ class HospitalRules extends Rules
 			{
 				if (person.sickness() === C.DEAD)
 				{
-console.log("the dear departed");
 					state.wardPool.delete(person);
 					state.icuPool.delete(person);
 				}

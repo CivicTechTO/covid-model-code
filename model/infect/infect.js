@@ -29,7 +29,7 @@ window.requestAnimationFrame(animate);
 
 // state.step();
 
-// for (var i = 2000; i >= 0; i--) 
+// for (var i = 100000; i >= 0; i--) 
 // {
 // 	state.step(FRAME);
 // }

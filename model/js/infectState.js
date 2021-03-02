@@ -18,9 +18,17 @@ class InfectState extends State
 		this.ventilation = config.ventilation;
 		this.loudness = config.loudness;
 
-		this.infectRecord = new Record();
+		this.infectedRecord = new Record();
+		this.infectiousRecord = new Record();
+		this.symptomsRecord = new Record();
+		this.homeSickRecord = new Record();
+		this.wardSickRecord = new Record();
+		this.icuSickRecord = new Record();
+		this.hallwayRecord = new Record();
 		this.deadRecord = new Record();
-		this.recordFns = [infectIncrement, infectDecrement, deadIncrement];
+		this.recoveredRecord = new Record();
+		this.wellRecord = new Record();
+
 		this.update = false;
 
 		this.pop = config.pop;
@@ -44,6 +52,15 @@ class InfectState extends State
 		}
 	}
 
+	fill(config)
+	{
+		super.fill(config);
+
+		this.wellRecord.current = config.count;
+		this.wellRecord.max = config.count;
+		this.wellRecord.total = config.count;
+	}
+
 	makePerson()
 	{
 		return new InfectablePerson();
@@ -54,6 +71,8 @@ class InfectState extends State
 		this.personList[0].infect(C.INFECTIOUS.EXTREMELY);
 		this.personList[0].progressIndex = C.PROGRESS.PEAK;
 		this.personList[0].church = this.churchList[0];
+
+		increment(C.RECORD.INFECTIOUS | C.RECORD.SICK);
 
 		this.update = true;
 	}
@@ -77,24 +96,47 @@ class InfectState extends State
 			person.expose();
 		}
 
-		this.drawRecord();
+		this.drawAllRecords();
+
+this.computeTrackIndex();	
+
+if (this.recoveredRecord.current !== this.trackIndex[1] + this.trackIndex[10])
+{
+console.log("recovered not equal", this.recoveredRecord.current, this.trackIndex[1] + this.trackIndex[10]);
+}
+
+if (0 === this.clock % 1000)
+{
+console.log(JSON.stringify(this.trackIndex));
+}
 	}
 
-	drawRecord()
+computeTrackIndex()
+{
+this.trackIndex = [];
+for (let i = 0; i < 15 ; i++)
+{
+this.trackIndex.push(0);
+}
+for (const person of this.personList)
+{
+this.trackIndex[person.progressIndex]++;
+}
+}
+	drawAllRecords()
 	{
 		if (this.update)
 		{
-			const currentElement = document.getElementById('currentInfected');
-			currentElement.textContent = this.infectRecord.current.toString();
-
-			const maxElement = document.getElementById('maxInfected');
-			maxElement.textContent = this.infectRecord.max.toString();
-
-			const totalElement = document.getElementById('totalInfected');
-			totalElement.textContent = this.infectRecord.total.toString();
-
-			const deadElement = document.getElementById('dead');
-			deadElement.textContent = this.deadRecord.current.toString();
+			this.drawARecord("Infected", this.infectedRecord);
+			this.drawARecord("Infectious", this.infectiousRecord);
+			this.drawARecord("Symptomatic", this.symptomsRecord);
+			this.drawARecord("HomeSick", this.homeSickRecord);
+			this.drawARecord("WardSick", this.wardSickRecord);
+			this.drawARecord("ICUSick", this.icuSickRecord);
+			this.drawARecord("Hallway", this.hallwayRecord);
+			this.drawARecord("Recovered", this.recoveredRecord);
+			this.drawARecord("Well", this.wellRecord);
+			this.drawARecord("Dead", this.deadRecord);
 
 			// const r = computeR();
 			// const r0Element = document.getElementById('r0');
@@ -105,7 +147,19 @@ class InfectState extends State
 
 			this.update = false;
 		}
+	}
 
+	drawARecord(nameBase, record)
+	{
+		this.drawValue('current' + nameBase, record.current);
+		this.drawValue('max' + nameBase, record.max);
+		this.drawValue('total' + nameBase, record.total);
+	}
+
+	drawValue(idName, value)
+	{
+		const element = document.getElementById(idName);
+		element.textContent = value.toString();
 	}
 }
 

@@ -128,7 +128,7 @@ class State
 		}
 	}
 
-	fill()
+	fill(config)
 	{
 
 	}
