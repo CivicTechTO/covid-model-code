@@ -145,22 +145,22 @@ const config = {
 			  	, "next": 2, "alt": {"p": 0.0, "next": 2}, "start": 0.0, "end": 0.0, "sick": 6, "increment": 0, "decrement": 0
 			}
 			, {
-			  	"index": 3, "display": [{"pop": false, "image": 4}, {"pop": false, "image": 2}], "time": undefined
+			  	"index": 3, "display": [{"pop": false, "image": 4}, {"pop": false, "image": 4}], "time": undefined
 			  	, "next": 3, "alt": {"p": 0.0, "next": 3}, "start": 0.0, "end": 0.0, "sick": 6, "increment": 0, "decrement": 0
 			}
 			, {
-			  	"index": 4, "display" : [{"pop": false, "image": 5}, {"pop": false, "image": 3}], "time": undefined
+			  	"index": 4, "display" : [{"pop": false, "image": 5}, {"pop": false, "image": 5}], "time": undefined
 			  	, "next": 4, "alt": {"p": 0.0, "next": 4}, "start": 0.0, "end": 0.0, "sick": 6, "increment": 0, "decrement": 0
 			}
 
 
 			, {
 			  	"index": 5, "display": [{"pop": true, "image": 1}, {"pop": false, "image": 0}], "time": 96
-			  	, "next": 6, "alt": {"p": 0.0, "next": 6}, "start": 0.0, "end": 0.0, "sick": 1, "increment": 1, "decrement": 512
+			  	, "next": 6, "alt": {"p": 0.0, "next": 6}, "start": 0.0, "end": 0.0, "sick": 1, "increment": 1025, "decrement": 512
 			}
 			, {
 			  	"index": 6, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 0}], "time": 48
-			  	, "next": 7, "alt": {"p": 0.0, "next": 7}, "start": 0.0, "end": 1.0, "sick": 1, "increment": 2, "decrement": 0
+			  	, "next": 7, "alt": {"p": 0.0, "next": 7}, "start": 0.0, "end": 1.0, "sick": 1, "increment": 2, "decrement": 1024
 			}
 			, {
 			  	"index": 7, "display": [{"pop": false, "image": 1}, {"pop": false, "image": 1}], "time": 120
@@ -176,7 +176,7 @@ const config = {
 			}
 			, {
 			  	"index": 10, "display": [{"pop": false, "image": 0}, {"pop": false, "image": 0}], "time": 1
-			  	, "next": 1, "alt": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 0, "increment": 256, "decrement": 5
+			  	, "next": 1, "alt": {"p": 0.0, "next": 1}, "start": 0.0, "end": 0.0, "sick": 7, "increment": 256, "decrement": 5
 			}
 
 

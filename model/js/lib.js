@@ -139,39 +139,41 @@ function makeChoices(optionList, weightList)
 
 function increment(which)
 {
-	if (0 !== (which & C.RECORD.INFECTED)) {state.infectedRecord.increment();}		
-	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.infectiousRecord.increment();}
-	if (0 !== (which & C.RECORD.SICK)) {state.symptomsRecord.increment();}
-	if (0 !== (which & C.RECORD.HOMESICK)) {state.homeSickRecord.increment();}
-	if (0 !== (which & C.RECORD.WARDSICK)) {state.wardSickRecord.increment();}
-	if (0 !== (which & C.RECORD.ICUSICK)) {state.icuSickRecord.increment();}
-	if (0 !== (which & C.RECORD.DEAD)) {state.deadRecord.increment();}
-	if (0 !== (which & C.RECORD.HALLWAY)) {state.hallwayRecord.increment();}
-	if (0 !== (which & C.RECORD.RECOVERED)) {state.recoveredRecord.increment();}
-	if (0 !== (which & C.RECORD.WELL)) {state.wellRecord.increment();}
+	if (0 !== (which & C.RECORD.INFECTED)) {state.record.infected.increment();}		
+	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.record.infectious.increment();}
+	if (0 !== (which & C.RECORD.SICK)) {state.record.symptoms.increment();}
+	if (0 !== (which & C.RECORD.HOMESICK)) {state.record.homeSick.increment();}
+	if (0 !== (which & C.RECORD.WARDSICK)) {state.record.wardSick.increment();}
+	if (0 !== (which & C.RECORD.ICUSICK)) {state.record.icuSick.increment();}
+	if (0 !== (which & C.RECORD.DEAD)) {state.record.dead.increment();}
+	if (0 !== (which & C.RECORD.HALLWAY)) {state.record.hallway.increment();}
+	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.increment();}
+	if (0 !== (which & C.RECORD.WELL)) {state.record.well.increment();}
+	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.increment();}
 }
 
 function decrement(which)
 {
-	if (0 !== (which & C.RECORD.INFECTED)) {state.infectedRecord.decrement();}
-	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.infectiousRecord.decrement();}
-	if (0 !== (which & C.RECORD.SICK)) {state.symptomsRecord.decrement();}
-	if (0 !== (which & C.RECORD.HOMESICK)) {state.homeSickRecord.decrement();}
-	if (0 !== (which & C.RECORD.WARDSICK)) {state.wardSickRecord.decrement();}
-	if (0 !== (which & C.RECORD.ICUSICK)) {state.icuSickRecord.decrement();}
-	if (0 !== (which & C.RECORD.DEAD)) {state.deadRecord.decrement();}
-	if (0 !== (which & C.RECORD.HALLWAY)) {state.hallwayRecord.decrement();}
-	if (0 !== (which & C.RECORD.RECOVERED)) {state.recoveredRecord.decrement();}
-	if (0 !== (which & C.RECORD.WELL)) {state.wellRecord.decrement();}
+	if (0 !== (which & C.RECORD.INFECTED)) {state.record.infected.decrement();}
+	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.record.infectious.decrement();}
+	if (0 !== (which & C.RECORD.SICK)) {state.record.symptoms.decrement();}
+	if (0 !== (which & C.RECORD.HOMESICK)) {state.record.homeSick.decrement();}
+	if (0 !== (which & C.RECORD.WARDSICK)) {state.record.wardSick.decrement();}
+	if (0 !== (which & C.RECORD.ICUSICK)) {state.record.icuSick.decrement();}
+	if (0 !== (which & C.RECORD.DEAD)) {state.record.dead.decrement();}
+	if (0 !== (which & C.RECORD.HALLWAY)) {state.record.hallway.decrement();}
+	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.decrement();}
+	if (0 !== (which & C.RECORD.WELL)) {state.record.well.decrement();}
+	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.decrement();}
 }
 
 function computeR()
 {
 // EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))
-	const delta = state.infectRecord.current - 1;
-	const ratio = state.infectRecord.current/(1*state.count)
+	const delta = state.record.infect.current - 1;
+	const ratio = state.record.infect.current/(1*state.count)
 	const r0 = Math.exp(Math.log(state.count/(1/ratio)-1)/delta)
-	const factor = (state.count - state.infectRecord.total) / state.infectRecord.total;
+	const factor = (state.count - state.record.infect.total) / state.record.infect.total;
 	return {r0: r0, rt: r0 * factor};
 }
 

@@ -18,16 +18,7 @@ class InfectState extends State
 		this.ventilation = config.ventilation;
 		this.loudness = config.loudness;
 
-		this.infectedRecord = new Record();
-		this.infectiousRecord = new Record();
-		this.symptomsRecord = new Record();
-		this.homeSickRecord = new Record();
-		this.wardSickRecord = new Record();
-		this.icuSickRecord = new Record();
-		this.hallwayRecord = new Record();
-		this.deadRecord = new Record();
-		this.recoveredRecord = new Record();
-		this.wellRecord = new Record();
+		this.record = this.makeRecord();
 
 		this.update = false;
 
@@ -40,6 +31,23 @@ class InfectState extends State
 		this.fillImages(config);
 
 		this.run = true;
+	}
+
+	makeRecord()
+	{
+		return {
+				  infected: new Record()
+				, incubating: new Record()
+				, infectious: new Record()
+				, symptoms: new Record()
+				, homeSick: new Record()
+				, wardSick: new Record()
+				, icuSick: new Record()
+				, hallway: new Record()
+				, dead: new Record()
+				, recovered: new Record()
+				, well: new Record() 
+			}
 	}
 
 	fillImages(config)
@@ -56,9 +64,9 @@ class InfectState extends State
 	{
 		super.fill(config);
 
-		this.wellRecord.current = config.count;
-		this.wellRecord.max = config.count;
-		this.wellRecord.total = config.count;
+		this.record.well.current = config.count;
+		this.record.well.max = config.count;
+		this.record.well.total = config.count;
 	}
 
 	makePerson()
@@ -68,11 +76,12 @@ class InfectState extends State
 	
 	initialize()
 	{
-		this.personList[0].infect(C.INFECTIOUS.EXTREMELY);
+		this.personList[0].infect(this.infectious.valueList[3]);
 		this.personList[0].progressIndex = C.PROGRESS.PEAK;
 		this.personList[0].church = this.churchList[0];
 
 		increment(C.RECORD.INFECTIOUS | C.RECORD.SICK);
+		decrement(C.RECORD.INCUBATING);
 
 		this.update = true;
 	}
@@ -97,46 +106,23 @@ class InfectState extends State
 		}
 
 		this.drawAllRecords();
-
-this.computeTrackIndex();	
-
-if (this.recoveredRecord.current !== this.trackIndex[1] + this.trackIndex[10])
-{
-console.log("recovered not equal", this.recoveredRecord.current, this.trackIndex[1] + this.trackIndex[10]);
-}
-
-if (0 === this.clock % 1000)
-{
-console.log(JSON.stringify(this.trackIndex));
-}
 	}
 
-computeTrackIndex()
-{
-this.trackIndex = [];
-for (let i = 0; i < 15 ; i++)
-{
-this.trackIndex.push(0);
-}
-for (const person of this.personList)
-{
-this.trackIndex[person.progressIndex]++;
-}
-}
 	drawAllRecords()
 	{
 		if (this.update)
 		{
-			this.drawARecord("Infected", this.infectedRecord);
-			this.drawARecord("Infectious", this.infectiousRecord);
-			this.drawARecord("Symptomatic", this.symptomsRecord);
-			this.drawARecord("HomeSick", this.homeSickRecord);
-			this.drawARecord("WardSick", this.wardSickRecord);
-			this.drawARecord("ICUSick", this.icuSickRecord);
-			this.drawARecord("Hallway", this.hallwayRecord);
-			this.drawARecord("Recovered", this.recoveredRecord);
-			this.drawARecord("Well", this.wellRecord);
-			this.drawARecord("Dead", this.deadRecord);
+			this.drawARecord("Infected", this.record.infected);
+			this.drawARecord("Incubating", this.record.incubating);
+			this.drawARecord("Infectious", this.record.infectious);
+			this.drawARecord("Symptomatic", this.record.symptoms);
+			this.drawARecord("HomeSick", this.record.homeSick);
+			this.drawARecord("WardSick", this.record.wardSick);
+			this.drawARecord("ICUSick", this.record.icuSick);
+			this.drawARecord("Hallway", this.record.hallway);
+			this.drawARecord("Recovered", this.record.recovered);
+			this.drawARecord("Well", this.record.well);
+			this.drawARecord("Dead", this.record.dead);
 
 			// const r = computeR();
 			// const r0Element = document.getElementById('r0');

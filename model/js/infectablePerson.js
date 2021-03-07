@@ -17,7 +17,7 @@ class InfectablePerson extends Person
 
 	infectable()
 	{
-		return state.progression[this.progressIndex].sick === C.SICKNESS.WELL;
+		return this.progressIndex === C.PROGRESS.WELL;
 	}
 
 	infectious()
@@ -167,7 +167,7 @@ class InfectablePerson extends Person
 		this.at = state.clock;
 		this.progressIndex = C.PROGRESS.INFECTED;
 
-		increment(C.RECORD.INFECTED);
+		increment(C.RECORD.INFECTED | C.RECORD.INCUBATING);
 		decrement(C.RECORD.WELL);
 
 		state.update = true;
