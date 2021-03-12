@@ -7,6 +7,8 @@ var state = new TownState(config, canvas.width, canvas.height);
 state.fill(config);
 state.initialize();
 
+state.debugDraw = false;
+
 state.week[0].startShift();
 
 function start()

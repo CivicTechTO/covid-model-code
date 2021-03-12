@@ -12,7 +12,7 @@ class InfectablePerson extends Person
 
 	canProgress()
 	{
-		return state.progression[this.progressIndex].time !== undefined;
+		return state.getProgression(this.progressIndex).time !== undefined;
 	}
 
 	infectable()
@@ -22,33 +22,23 @@ class InfectablePerson extends Person
 
 	infectious()
 	{
-		return state.progression[this.progressIndex].start !== 0.0 || state.progression[this.progressIndex].end !== 0.0;
+		return state.getProgression(this.progressIndex).start !== 0.0 || state.getProgression(this.progressIndex).end !== 0.0;
 	}
 
 	sickness()
 	{
-		return state.progression[this.progressIndex].sick;
-	}
-
-	change()
-	{
-		return state.progression[this.progressIndex].delta >= 0;
-	}
-
-	delta()
-	{
-		return state.progression[this.progressIndex].delta;
+		return state.getProgression(this.progressIndex).sick;
 	}
 
 	transition()
 	{
-		return state.progression[this.progressIndex].time + this.at;
+		return state.getProgression(this.progressIndex).time + this.at;
 	}
 
 	progress(at)
 	{
 		this.at = at;
-		let progression = state.progression[this.progressIndex];
+		let progression = state.getProgression(this.progressIndex);
 
 		if (progression.alt.p > Math.random())
 		{
@@ -59,7 +49,7 @@ class InfectablePerson extends Person
 			this.progressIndex = progression.next;
 		}
 
-		progression = state.progression[this.progressIndex];
+		progression = state.getProgression(this.progressIndex);
 		increment(progression.increment);
 		decrement(progression.decrement);
 		state.update = progression.increment !== 0 || progression.decrement !== 0;
@@ -67,7 +57,7 @@ class InfectablePerson extends Person
 
 	factor() 
 	{		
-		const progression = state.progression[this.progressIndex];
+		const progression = state.getProgression(this.progressIndex);
 		const slope = (progression.end - progression.start) / progression.time;
 		return progression.start + slope * (state.clock - this.at);
 	}
@@ -183,41 +173,115 @@ class InfectablePerson extends Person
 			{
 				this.progress(state.clock);
 
-				if (!state.statFlag && this.change())
+				if (!state.tuneFlag)
 				{
-					let toRoom = this.findRoom();
-
-					if (!toRoom.equals(this.inRoom))
+					if (C.FIXEDROOM.includes(this.sickness()))
 					{
-						this.goToRoom(toRoom);
+						let toRoom = this.findRoom();
+
+						if (!toRoom.equals(this.inRoom))
+						{
+							this.setItinerary(toRoom);
+						}
 					}
 				}
 			}
 		}
 	}
 
+	goToRoom(toRoom)
+	{
+		if (C.FIXEDROOM.includes(this.sickness()))
+		{
+			switch(this.sickness())
+			{
+				case C.SICKNESS.HOMESICK:
+					this.setItinerary(this.home);
+					break;
+
+				case C.SICKNESS.WARDSICK:
+					switch(toRoom)
+					{
+						case state.ward:
+							this.setItinerary(state.ward);
+							break;
+
+						case state.hallway:
+							this.setItinerary(state.hallway);
+							break;
+					}
+				
+				case C.SICKNESS.ICUSICK:
+					switch(toRoom)
+					{
+						case state.icu:
+							this.setItinerary(state.icu);
+							break;
+
+						case state.ward:
+							this.setItinerary(state.ward);
+							break;
+
+						case state.hallway:
+							this.setItinerary(state.hallway);
+							break;
+					}
+
+				case C.SICKNESS.DEAD:
+					this.setItinerary(state.cemetary);
+					break;
+			}
+		}
+		else
+		{
+			this.setItinerary(toRoom);
+		}
+	}
+
 	findRoom()
 	{
-		const rooms = [this.home, this.home, this.home, state.hallway, state.ward, state.icu, state.cemetary, this.home];
+		switch(this.sickness())
+		{
+			case C.SICKNESS.HOMESICK:
+				return this.home;
 
-		return rooms[this.sickness()];
+			case C.SICKNESS.WARDSICK:
+				return state.ward;
+
+			case C.SICKNESS.ICUSICK:
+				return state.icu;
+
+			case C.SICKNESS.DEAD:
+				return state.cemetary;
+		}
 	}
 
 	draw(context)
 	{
-		const image = state.imageList[state.progression[this.progressIndex].display[state.mode].image];
-		const scale = this.scale();
-		const size = scale * (2 * state.personSize) + 1;
-		const offset = scale * state.personSize;
+		if (state.debugDraw)
+		{
+			const size = state.personSize;
+//	result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
+			const colours =["#00FF00", "#FF0000","#FFFF00", "#000000", "#8800FF", "#0000FF", "#FFFFFF", "#FFFFFF"];
+			context.fillStyle = colours[this.sickness()];
+			context.fillRect(this.current.x - size, this.current.y - size, size, size);
+		}
+		else
+		{
+			const image = state.imageList[state.getProgression(this.progressIndex).display[state.mode].image];
+			const scale = this.scale();
+			const size = scale * (2 * state.personSize) + 1;
+			const offset = scale * state.personSize;
 
-		context.drawImage(image, this.current.x - offset, this.current.y - offset, size, size);
+			context.drawImage(image, this.current.x - offset, this.current.y - offset, size, size);
+		}
 	}
 
 	scale()
 	{
 		const decay = state.pop.decay;
 		const time = decay - (state.clock - this.at);
-		const pop = state.progression[this.progressIndex].display[state.mode].pop;
+		const pop = state.getProgression(this.progressIndex).display[state.mode].pop;
 		
 		if (pop && time > 1)
 		{

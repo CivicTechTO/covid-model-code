@@ -36,7 +36,7 @@ class State
 		this.shift = 0;
 
 		this.debug = false;
-		this.statFlag = false;
+		this.tuneFlag = false;
 	}
 
 	tickToSecond(tick)

@@ -223,7 +223,7 @@ class Room
 
 		let increment = (source.load() * this.loudness) / (distance * this.ventilation);
 
-		if (state.statFlag)
+		if (state.tuneFlag)
 		{
 			state.addIncrement(increment);
 		}

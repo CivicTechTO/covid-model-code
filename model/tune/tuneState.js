@@ -1,51 +1,3 @@
-class Level
-{
-	makeInfectious()
-	{
-		return null;		
-	}
-}
-
-class MakeSlightly extends Level
-{
-	makeInfectious()
-	{
-		return new SlightlyInfectious();		
-	}
-
-	name()
-	{
-		return "Slightly";
-	}
-}
-
-class MakeVery extends Level
-{
-	makeInfectious()
-	{
-		return new VeryInfectious();		
-	}
-
-	name()
-	{
-		return "Very";
-	}
-}
-
-
-class MakeExceedingly extends Level
-{
-	makeInfectious()
-	{
-		return new ExceedinglyInfectious();		
-	}
-
-	name()
-	{
-		return "Exceedingly";
-	}
-}
-
 class TuneState extends InfectState
 {
 	constructor(config, width, height)
@@ -78,7 +30,7 @@ class TuneState extends InfectState
 
 		this.infecting = true;
 
-		this.statFlag = true;
+		this.tuneFlag = true;
 	}
 
 	makePerson()

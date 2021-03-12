@@ -86,6 +86,11 @@ class InfectState extends State
 		this.update = true;
 	}
 
+	getProgression(index)
+	{
+		return this.progression[index];
+	}
+
 	step()
 	{
 		super.step();

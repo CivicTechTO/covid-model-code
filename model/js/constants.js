@@ -12,5 +12,11 @@ function makeConstants()
 			, DEAD: 0X0040, HALLWAY: 0X0080, RECOVERED: 0X0100, WELL: 0X0200, INCUBATING: 0X0400
 		};
 
+	result.ROOMSET = result.RECORD.HOMESICK | result.RECORD.WARDSICK | result.RECORD.ICUSICK | result.RECORD.DEAD;
+
+	result.FIXEDROOM = [result.SICKNESS.HOMESICK, result.SICKNESS.WARDSICK, result.SICKNESS.ICUSICK, result.SICKNESS.DEAD];
+
+	result.HALLWAY = [result.SICKNESS.WARDSICK, result.SICKNESS.ICUSICK];
+	
 	return result;	
 }

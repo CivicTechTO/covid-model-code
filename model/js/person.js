@@ -50,7 +50,6 @@ class Person
 		return ((this.current && this.dest) ? this.current.equals(this.dest) : false);
 	}
 
-
 /*
  *	There is one main E/W road partway up the model
  *  There are a set of equally spaced N/S feeder roads
@@ -63,7 +62,7 @@ class Person
  *		Go E/W to the dest
  */
 
-	goToRoom(toRoom)
+	setItinerary(toRoom)
 	{
 		this.itinerary = [];
 		this.index = 0;
