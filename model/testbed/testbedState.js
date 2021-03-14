@@ -19,7 +19,8 @@ class TestbedState extends TownState
 		{
 			if (person.infectable())
 			{
-//				person.infect(C.INFECTIOUS.EXCEEDINGLY);
+				person.infect(0);
+console.log("start", person.progressIndex, this.getProgression(person.progressIndex));
 			}
 		}
 	}

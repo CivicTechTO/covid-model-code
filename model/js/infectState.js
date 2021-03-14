@@ -4,33 +4,46 @@ class InfectState extends State
 	{
 		super(config, width, height);
 
-		this.deadSpeed = config.deadSpeed;
+		this.deadSpeed = this.config.deadSpeed;
 		
-		this.susceptible = config.susceptible;
-		this.infectious = config.infectious;
+		this.susceptible = this.config.susceptible;
+		this.infectious = this.config.infectious;
 		
-		this.progression = config.progression;
+		this.infectConfig = this.config.infection;
 
-		this.cross = config.cross;
-
-		this.infectConfig = config.infection;
-
-		this.ventilation = config.ventilation;
-		this.loudness = config.loudness;
+		this.ventilation = this.config.ventilation;
+		this.loudness = this.config.loudness;
 
 		this.record = this.makeRecord();
 
 		this.update = false;
 
-		this.pop = config.pop;
+		this.pop = this.config.pop;
 
 		this.infecting = true;
 
 		this.mode = 0;
 
-		this.fillImages(config);
+		this.fillImages(this.config);
 
 		this.run = true;
+	}
+
+	makeMap(progression)
+	{
+		let result = new Map();
+
+		for (const row of progression)
+		{
+			result.set(row.index, row.data)
+		}
+
+		return result;
+	}
+
+	getProgression(index)
+	{
+		return this.progression.get(index);
 	}
 
 	makeRecord()
@@ -60,13 +73,13 @@ class InfectState extends State
 		}
 	}
 
-	fill(config)
+	fill()
 	{
-		super.fill(config);
+		super.fill();
 
-		this.record.well.current = config.count;
-		this.record.well.max = config.count;
-		this.record.well.total = config.count;
+		this.record.well.current = this.config.count;
+		this.record.well.max = this.config.count;
+		this.record.well.total = this.config.count;
 	}
 
 	makePerson()
@@ -84,11 +97,6 @@ class InfectState extends State
 		decrement(C.RECORD.INCUBATING);
 
 		this.update = true;
-	}
-
-	getProgression(index)
-	{
-		return this.progression[index];
 	}
 
 	step()

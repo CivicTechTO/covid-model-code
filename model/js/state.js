@@ -2,28 +2,32 @@ class State
 {
 	constructor(config, width, height)
 	{
-		this.size = config.size;
+		this.config = config;
 
-		this.background = config.background;
+		this.size = this.config.size;
+
+		this.background = this.config.background;
 		
-		this.stepsPerFrame = config.stepsPerFrame;
-		this.realTick = config.realTick;		// Thisshould be early
+		this.stepsPerFrame = this.config.stepsPerFrame;
+		this.realTick = this.config.realTick;		// This should be early
 
-		this.scaleTime(config);
+		this.scaleTime(this.config);
 
-		this.personSize = config.personSize;
+		this.progression = this.makeMap(this.config.progression);
+
+		this.personSize = this.config.personSize;
 		
-		this.moveSpeed = config.moveSpeed;
-		this.leaveSpeed = config.leaveSpeed;
-		this.moveVariation = config.moveVariation;
-		this.travelSpeed = config.travelSpeed;
-		this.travelVariation = config.travelVariation;
+		this.moveSpeed = this.config.moveSpeed;
+		this.leaveSpeed = this.config.leaveSpeed;
+		this.moveVariation = this.config.moveVariation;
+		this.travelSpeed = this.config.travelSpeed;
+		this.travelVariation = this.config.travelVariation;
 
-		this.main = config.main;
-		this.road = config.road;
-		this.churchRoads = config.churchRoads;
+		this.main = this.config.main;
+		this.road = this.config.road;
+		this.churchRoads = this.config.churchRoads;
 
-		this.spacing = config.spacing;
+		this.spacing = this.config.spacing;
 
 		this.roomList = [];
 		
@@ -32,7 +36,7 @@ class State
 		this.clock = 0;
 
 		this.week = [new Shift()];
-		this.shiftLength = config.shiftLength;
+		this.shiftLength = this.config.shiftLength;
 		this.shift = 0;
 
 		this.debug = false;
@@ -120,15 +124,14 @@ class State
 
 		for (let progress of config.progression)
 		{
-			if (progress.time !== undefined)
+			if (progress.data.time !== undefined)
 			{
-				progress.time = this.hourToTick(progress.time);
-
+				progress.data.time = this.hourToTick(progress.data.time);
 			}
 		}
 	}
 
-	fill(config)
+	fill()
 	{
 
 	}
@@ -225,10 +228,7 @@ class State
 	{
 		for (const person of this.personList)
 		{
-			if (!person.isSick())
-			{
-				person.goHome();
-			}
+			person.goHome();
 		}
 	}
 
@@ -236,10 +236,7 @@ class State
 	{
 		for (const person of this.personList)
 		{
-			if (!person.isSick())
-			{
-				person.goToWork();
-			}
+			person.goToWork();
 		}
 	}
 
@@ -247,10 +244,7 @@ class State
 	{
 		for (const person of this.personList)
 		{
-			if (!person.isSick())
-			{
-				person.goToChurch();
-			}
+			person.goToChurch();
 		}
 	}
 }

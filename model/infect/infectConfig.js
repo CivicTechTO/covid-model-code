@@ -132,81 +132,135 @@ const config = {
 	, progression:
 		[
 			{
-			  	index: 0, display: [{pop: false, image: 0}, {pop: false, image: 0}], time: undefined
-			  	, next: 0, alt: {p: 0.0, next: 0}, start: 0.0, end: 0.0, sick: 0, increment: 0, decrement: 0
+			  	index: 0, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 0}], time: undefined
+			  			, next: 0, alt: {p: 0.0, next: 0}, start: 0.0, end: 0.0, sick: 0, increment: 0, decrement: 0
+			  		}
 			}
 			
 			, {
-			  	index: 1, display: [{pop: false, image: 2}, {pop: false, image: 2}], time: undefined
-			  	, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 0, decrement: 0
+			  	index: 1, data: 
+			  		{
+			  			display: [{pop: false, image: 2}, {pop: false, image: 2}], time: undefined
+			  			, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 0, decrement: 0
+			  		}
 			}
 			, {
-			  	index: 2, display : [{pop: false, image: 3}, {pop: false, image: 3}], time: undefined
-			  	, next: 2, alt: {p: 0.0, next: 2}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
+			  	index: 2, data: 
+			  		{
+			  			display : [{pop: false, image: 3}, {pop: false, image: 3}], time: undefined
+			  			, next: 2, alt: {p: 0.0, next: 2}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
+			  		}
 			}
 			, {
-			  	index: 3, display: [{pop: false, image: 4}, {pop: false, image: 4}], time: undefined
-			  	, next: 3, alt: {p: 0.0, next: 3}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
+			  	index: 3, data: 
+			  		{
+			  			display: [{pop: false, image: 4}, {pop: false, image: 4}], time: undefined
+			  			, next: 3, alt: {p: 0.0, next: 3}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
+			  		}
 			}
 			, {
-			  	index: 4, display : [{pop: false, image: 5}, {pop: false, image: 5}], time: undefined
-			  	, next: 4, alt: {p: 0.0, next: 4}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
-			}
-
-
-			, {
-			  	index: 5, display: [{pop: true, image: 1}, {pop: false, image: 0}], time: 96
-			  	, next: 6, alt: {p: 0.0, next: 6}, start: 0.0, end: 0.0, sick: 1, increment: 1025, decrement: 512
-			}
-			, {
-			  	index: 6, display: [{pop: false, image: 1}, {pop: false, image: 0}], time: 48
-			  	, next: 7, alt: {p: 0.0, next: 7}, start: 0.0, end: 1.0, sick: 1, increment: 2, decrement: 1024
-			}
-			, {
-			  	index: 7, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 12
-			  	, next: 8, alt: {p: 0.30, next: 12}, start: 1.0, end: 1.0, sick: 2, increment: 4, decrement: 0
-			}
-			, {
-			  	index: 8, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 36
-			  	, next: 9, alt: {p: 0.30, next: 9}, start: 1.0, end: 1.0, sick: 2, increment: 0, decrement: 0
-			}
-			, {
-			  	index: 9, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 120
-			  	, next: 10, alt: {p: 0.0, next: 10}, start: 1.0, end: 0.0, sick: 2, increment: 0, decrement: 0
-			}
-			, {
-			  	index: 10, display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 120
-			  	, next: 11, alt: {p: 0.0, next: 11}, start: 0.0, end: 0.0, sick: 2, increment: 0, decrement: 2
-			}
-			, {
-			  	index: 11, display: [{pop: false, image: 0}, {pop: false, image: 0}], time: 1
-			  	, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 256, decrement: 5
+			  	index: 4, data: 
+			  		{
+			  			display : [{pop: false, image: 5}, {pop: false, image: 5}], time: undefined
+			  			, next: 4, alt: {p: 0.0, next: 4}, start: 0.0, end: 0.0, sick: 6, increment: 0, decrement: 0
+			  		}
 			}
 
 
 			, {
-			  	index: 12, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 12
-			  	, next: 13, alt: {p: 0.0, next: 13}, start: 1.0, end: 1.0, sick: 3, increment: 8, decrement: 0
+			  	index: 5, data: 
+			  		{
+			  			display: [{pop: true, image: 1}, {pop: false, image: 0}], time: 96
+			  			, next: 6, alt: {p: 0.0, next: 6}, start: 0.0, end: 0.0, sick: 1, increment: 1025, decrement: 512
+			  		}
 			}
 			, {
-			  	index: 13, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 36
-			  	, next: 14, alt: {p: 0.0, next: 14}, start: 1.0, end: 1.0, sick: 3, increment: 0, decrement: 0
+			  	index: 6, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 0}], time: 48
+			  			, next: 7, alt: {p: 0.0, next: 7}, start: 0.0, end: 1.0, sick: 1, increment: 2, decrement: 1024
+			  		}
 			}
 			, {
-			  	index: 14, display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 120
-			  	, next: 15, alt: {p: 0.0, next: 15}, start: 1.0, end: 0.0, sick: 3, increment: 0, decrement: 0
+			  	index: 7, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 12
+			  			, next: 8, alt: {p: 0.30, next: 12}, start: 1.0, end: 1.0, sick: 2, increment: 4, decrement: 0
+			  		}
 			}
 			, {
-			  	index: 15, display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 120
-			  	, next: 16, alt: {p: 0.0, next: 16}, start: 0.0, end: 0.0, sick: 3, increment: 0, decrement: 2
+			  	index: 8, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 36
+					  	, next: 9, alt: {p: 0.30, next: 9}, start: 1.0, end: 1.0, sick: 2, increment: 0, decrement: 0
+					}
 			}
 			, {
-			  	index: 16, display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 24
-			  	, next: 17, alt: {p: 0.0, next: 17}, start: 0.0, end: 0.0, sick: 1, increment: 0, decrement: 8 
+			  	index: 9, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 120
+			  			, next: 10, alt: {p: 0.0, next: 10}, start: 1.0, end: 0.0, sick: 2, increment: 0, decrement: 0
+			  		}
 			}
 			, {
-			  	index: 17, display: [{pop: false, image: 0}, {pop: false, image: 0}], time: 1
-			  	, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 256, decrement: 5
+			  	index: 10, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 120
+			  			, next: 11, alt: {p: 0.0, next: 11}, start: 0.0, end: 0.0, sick: 2, increment: 0, decrement: 2
+			  		}
+			}
+			, {
+			  	index: 11, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 0}], time: 1
+			  			, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 256, decrement: 5
+			  		}
+			}
+
+
+			, {
+			  	index: 12, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 12
+			  			, next: 13, alt: {p: 0.0, next: 13}, start: 1.0, end: 1.0, sick: 3, increment: 8, decrement: 0
+			  		}
+			}
+			, {
+			  	index: 13, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 36
+			  			, next: 14, alt: {p: 0.0, next: 14}, start: 1.0, end: 1.0, sick: 3, increment: 0, decrement: 0
+			  		}
+			}
+			, {
+			  	index: 14, data: 
+			  		{
+			  			display: [{pop: false, image: 1}, {pop: false, image: 1}], time: 120
+			  			, next: 15, alt: {p: 0.0, next: 15}, start: 1.0, end: 0.0, sick: 3, increment: 0, decrement: 0
+			  		}
+			}
+			, {
+			  	index: 15, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 120
+			  			, next: 16, alt: {p: 0.0, next: 16}, start: 0.0, end: 0.0, sick: 3, increment: 0, decrement: 2
+			  		}
+			}
+			, {
+			  	index: 16, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 1}], time: 24
+			  			, next: 17, alt: {p: 0.0, next: 17}, start: 0.0, end: 0.0, sick: 1, increment: 0, decrement: 8 
+			  		}
+			}
+			, {
+			  	index: 17, data: 
+			  		{
+			  			display: [{pop: false, image: 0}, {pop: false, image: 0}], time: 1
+			  			, next: 1, alt: {p: 0.0, next: 1}, start: 0.0, end: 0.0, sick: 7, increment: 256, decrement: 5
+			  		}
 			}
 
 
