@@ -4,9 +4,11 @@ const canvas = document.getElementById('canvas');
 
 var C = makeConstants();
 
-var state = new TestbedState(config, canvas.width, canvas.height);
-state.fill(config);
+var state = new TestbedState(makeConfig(), canvas.width, canvas.height);
+state.fill();
 state.initialize();
+
+state.debugDraw = true;
 
 state.week[0].startShift();
 

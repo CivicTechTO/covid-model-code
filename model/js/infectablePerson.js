@@ -210,6 +210,8 @@ class InfectablePerson extends Person
 							this.setItinerary(state.hallway);
 							break;
 					}
+
+					break;
 				
 				case C.SICKNESS.ICUSICK:
 					switch(toRoom)
@@ -227,6 +229,8 @@ class InfectablePerson extends Person
 							break;
 					}
 
+					break;
+
 				case C.SICKNESS.DEAD:
 					this.setItinerary(state.cemetary);
 					break;
@@ -240,29 +244,40 @@ class InfectablePerson extends Person
 
 	findRoom()
 	{
+		let result;
+
 		switch(this.sickness())
 		{
 			case C.SICKNESS.HOMESICK:
-				return this.home;
+				result = this.home;
+				break;
 
 			case C.SICKNESS.WARDSICK:
-				return state.ward;
+				result = state.ward;
+				break;
 
 			case C.SICKNESS.ICUSICK:
-				return state.icu;
+				result = state.icu;
+				break;
 
 			case C.SICKNESS.DEAD:
-				return state.cemetary;
+				result = state.cemetary;
+				break;
+
+			default:
+				result = this.home;
 		}
+
+		return result;
 	}
 
 	draw(context)
 	{
 		if (state.debugDraw)
 		{
-			const size = state.personSize;
+			const size = state.personSize + 1;
 //	result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
-			const colours =["#00FF00", "#FF0000","#FFFF00", "#000000", "#8800FF", "#0000FF", "#FFFFFF", "#FFFFFF"];
+			const colours =["#00FF00", "#FF0000","#888800", "#000000", "#8800FF", "#0000FF", "#FFFFFF", "#FFFFFF"];
 			context.fillStyle = colours[this.sickness()];
 			context.fillRect(this.current.x - size, this.current.y - size, size, size);
 		}

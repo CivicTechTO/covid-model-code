@@ -150,6 +150,8 @@ function increment(which)
 	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.increment();}
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.increment();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.increment();}
+
+	state.drawAllRecords();
 }
 
 function decrement(which)
@@ -165,6 +167,8 @@ function decrement(which)
 	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.decrement();}
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.decrement();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.decrement();}
+
+	state.drawAllRecords();
 }
 
 function computeR()

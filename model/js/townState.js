@@ -208,7 +208,7 @@ class TownState extends InfectState
 
 		let y = this.config.hospital.y + icuConfig.height + wardConfig.height;
 		this.hallway = new Room(x, y, width, hallwayConfig.height, speed);
-		this.hallway.rules = new SeatRules(speed);
+		this.hallway.rules = new HallwayRules(speed);
 		this.hallway.ventilation = this.config.ventilation.max;
 		this.hallway.loudness = 0;
 		this.hallway.fillStyle = this.config.hospital.style;

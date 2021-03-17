@@ -338,6 +338,30 @@ class PubRules extends FullRules
 
 }
 
+class HallwayRules extends SeatRules
+{
+	constructor(speed)
+	{
+		super(speed);
+	}
+
+	arrive(room, person)
+	{
+		let result = super.arrive(room, person);
+
+		increment(C.RECORD.HALLWAY);
+
+		return result;
+	}
+
+	depart(room, person)
+	{
+		super.depart(room, person);
+
+		decrement(C.RECORD.HALLWAY);
+	}
+}
+
 class HospitalRules extends Rules
 {
 	constructor(speed, room, pool, count, other)

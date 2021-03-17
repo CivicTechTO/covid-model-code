@@ -2,7 +2,7 @@ class TestbedState extends TownState
 {
 	constructor(config, width, height)
 	{
-		config.count = 1;
+		config.count = 10;
 		super(config, width, height);
 	}
 
@@ -20,7 +20,6 @@ class TestbedState extends TownState
 			if (person.infectable())
 			{
 				person.infect(0);
-console.log("start", person.progressIndex, this.getProgression(person.progressIndex));
 			}
 		}
 	}

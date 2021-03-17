@@ -3,11 +3,11 @@
 const canvas = document.getElementById('canvas');
 
 var C = makeConstants();
-var state = new TownState(config, canvas.width, canvas.height);
-state.fill(config);
+var state = new TownState(makeConfig(), canvas.width, canvas.height);
+state.fill();
 state.initialize();
 
-state.debugDraw = false;
+state.debugDraw = true;
 
 state.week[0].startShift();
 
