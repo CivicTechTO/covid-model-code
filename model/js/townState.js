@@ -27,8 +27,8 @@ class TownState extends InfectState
 		this.hosts = new Set();
 		this.notHosts = new Set();
 
-		this.icuPool = new Set();
-		this.wardPool = new Set();
+		this.icuPool = new ICUPool(this.config.hospital.icu.count);
+		this.wardPool = new WardPool(this.config.hospital.ward.count);
 	}
 
 	choiceList()
