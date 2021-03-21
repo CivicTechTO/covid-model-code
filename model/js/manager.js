@@ -45,31 +45,43 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 
 	discharge(person)
 	{
-		if (this.wardAllocated.has(person))
+		this.doDischarge(person, person.home);
+	}
+
+	doDischarge(person, destination)
+	{
+		this.wardAllocated.delete(person);
+		this.needsWard.delete(person);
+		this.icuAllocated.delete(person);
+		this.needsICU.delete(person);
+
+		person.setItinerary(destination);
+
+		let patient = this.firstInSet(this.needsICU);
+
+		if (patient && this.icuNotFull())
 		{
-			this.wardAllocated.delete(person);
-
-// 			let patient = this.firstInSet(this.needsICU);
-
-// // Loop?
-// 			if (patient && !wardAllocated(patient))
-// 			{
-// 				this.wardAllocated.add(patient);
-// 				this.needsWard.delete(patient);
-// 			}
-			let patient = this.firstInSet(this.needsWard);
-
-			if (patient)
+			if (this.wardAllocated.has(patient))
 			{
-				this.transfer(patient, this.needsWard, this.wardAllocated);
+				this.transfer(patient, this.wardAllocated, this.icuAllocated);
+				patient.setItinerary(state.icu);
 			}
-		}
-		else
-		{
-			this.needsWard.delete(person);
+			else
+			{
+				this.transfer(patient, this.needsWard, this.icuAllocated);
+				patient.setItinerary(state.ward);
+			}
+				
+			this.needsICU.delete(patient);
 		}
 
-		person.setItinerary(person.home);
+		patient = this.firstInSet(this.needsWard);
+
+		if (patient && this.wardNotFull())
+		{
+			this.transfer(patient, this.needsWard, this.wardAllocated);
+			patient.setItinerary(state.ward);
+		}
 	}
 
 	sicker(person)
@@ -97,26 +109,43 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	{
 		if (this.icuAllocated.has(person))
 		{
-			if (this.wardNotFull())
+			let patient = this.firstInSet(this.intersect(this.needsICU, this.wardAllocated));
+
+			if (patient)
 			{
 				this.transfer(person, this.icuAllocated, this.wardAllocated);
+				this.transfer(patient, this.wardAllocated, this.icuAllocated);
+
 				person.setItinerary(state.ward);
+				patient.setItinerary(state.icu);
 			}
 			else
 			{
-				this.transfer(person, this.icuAllocated, this.needsWard);
+				if (this.wardNotFull())
+				{
+					this.transfer(person, this.icuAllocated, this.wardAllocated);
+					person.setItinerary(state.ward);
+				}
+				else
+				{
+					patient = this.firstInSet(this.intersect(this.needsICU, this.needsWard));
 
+					if (patient)
+					{
+						this.transfer(patient, this.needsWard, this.icuAllocated);
+						patient.setItinerary(state.icu);
+					}
+						
+					this.transfer(person, this.icuAllocated, this.needsWard);
+					person.setItinerary(state.hallway);
+				}
 			}
 		}
 	}
 
 	die(person)
 	{
-		this.icuAllocated.delete(person);
-		this.wardAllocated.delete(person);
-		this.needsICU.delete(person);
-
-		person.setItinerary(state.cemetary);
+		this.doDischarge(person, state.cemetary);
 	}
 
 	transfer(person, from, to)
@@ -149,6 +178,21 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	wardNotFull()
 	{
 		return this.wardAllocated.size < this.wardCount;
+	}
+
+	intersect(set1, set2)
+	{
+		let result = new Set();
+
+		for (const element of set1)
+		{
+			if (set2.has(element))
+			{
+				result.add(element);
+			}
+		}
+
+		return result;
 	}
 }
 
