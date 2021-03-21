@@ -57,7 +57,7 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 // 				this.wardAllocated.add(patient);
 // 				this.needsWard.delete(patient);
 // 			}
-			patient = this.firstInSet(this.needsWard);
+			let patient = this.firstInSet(this.needsWard);
 
 			if (patient)
 			{
@@ -99,18 +99,14 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		{
 			if (this.wardNotFull())
 			{
-				this.transfer(this.icuAllocated, this.wardAllocated);
+				this.transfer(person, this.icuAllocated, this.wardAllocated);
 				person.setItinerary(state.ward);
 			}
 			else
 			{
-				this.transfer(this.icuAllocated, this.needsWard);
+				this.transfer(person, this.icuAllocated, this.needsWard);
 
 			}
-		}
-		else
-		{
-
 		}
 	}
 
