@@ -175,15 +175,8 @@ class InfectablePerson extends Person
 
 				if (!state.tuneFlag)
 				{
-					if (C.FIXEDROOM.includes(this.sickness()))
-					{
-						let toRoom = this.findRoom();
-
-						if (!toRoom.equals(this.inRoom))
-						{
-							this.setItinerary(toRoom);
-						}
-					}
+					let progression = state.getProgression(this.progressIndex);
+					state.manager.transition(this, progression.increment, progression.decrement);
 				}
 			}
 		}
@@ -191,84 +184,10 @@ class InfectablePerson extends Person
 
 	goToRoom(toRoom)
 	{
-		if (C.FIXEDROOM.includes(this.sickness()))
-		{
-			switch(this.sickness())
-			{
-				case C.SICKNESS.HOMESICK:
-					this.setItinerary(this.home);
-					break;
-
-				case C.SICKNESS.WARDSICK:
-					switch(toRoom)
-					{
-						case state.ward:
-							this.setItinerary(state.ward);
-							break;
-
-						case state.hallway:
-							this.setItinerary(state.hallway);
-							break;
-					}
-
-					break;
-				
-				case C.SICKNESS.ICUSICK:
-					switch(toRoom)
-					{
-						case state.icu:
-							this.setItinerary(state.icu);
-							break;
-
-						case state.ward:
-							this.setItinerary(state.ward);
-							break;
-
-						case state.hallway:
-							this.setItinerary(state.hallway);
-							break;
-					}
-
-					break;
-
-				case C.SICKNESS.DEAD:
-					this.setItinerary(state.cemetary);
-					break;
-			}
-		}
-		else
+		if (!C.FIXEDROOM.includes(this.sickness()))
 		{
 			this.setItinerary(toRoom);
 		}
-	}
-
-	findRoom()
-	{
-		let result;
-
-		switch(this.sickness())
-		{
-			case C.SICKNESS.HOMESICK:
-				result = this.home;
-				break;
-
-			case C.SICKNESS.WARDSICK:
-				result = state.ward;
-				break;
-
-			case C.SICKNESS.ICUSICK:
-				result = state.icu;
-				break;
-
-			case C.SICKNESS.DEAD:
-				result = state.cemetary;
-				break;
-
-			default:
-				result = this.home;
-		}
-
-		return result;
 	}
 
 	draw(context)

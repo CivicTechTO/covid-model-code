@@ -362,96 +362,64 @@ class HallwayRules extends SeatRules
 	}
 }
 
-class HospitalRules extends Rules
-{
-	constructor(speed, room, pool, count, other)
-	{
-		super(speed);
-		this.pool = pool;
-		this.other = other;
-		this.beds = [];
+// class HospitalRules extends Rules
+// {
+// 	constructor(speed, room, count)
+// 	{
+// 		super(speed);
+// 		this.beds = [];
 
-		let spacing = state.spacing;
+// 		let spacing = state.spacing;
 
-		for (let i = 0 ; i < count ; i++)
-		{
-			this.beds.push(new Group(room, i * spacing, 0, 1, 1));
-		}
-	}
+// 		for (let i = 0 ; i < count ; i++)
+// 		{
+// 			this.beds.push(new Group(room, i * spacing, 0, 1, 1));
+// 		}
+// 	}
 
-	arrive(room, person)
-	{
-		let result = false;
 
-		for (let bed of this.beds)
-		{
-			if (bed.add(person))
-			{
-				this.pool.delete(person);
-				result = true;
-				break;
-			}
-		}
+// 	migrate(room, shift)
+// 	{
+// 	}
 
-		if (!result)
-		{
-			this.pool.add(person);
-			
-			if (this.other !== null)
-			{
-				person.goToRoom(this.other);
-			}
-			else
-			{
-				person.goHome();
-			}
-		}
+// 	depart(room, person)
+// 	{
+// 		for (let bed of this.beds)
+// 		{
+// 			if (bed.delete(person))
+// 			{
+// 				if (person.sickness() === C.DEAD)
+// 				{
+// 					state.wardPool.delete(person);
+// 					state.icuPool.delete(person);
+// 				}
 
-		return result;
-	}
+// 				const admittee = nextInPool(this.pool);
+// 				if (admittee)
+// 				{
+// 					admittee.goToRoom(room);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 	}
 
-	migrate(room, shift)
-	{
-	}
+// 	isFull()
+// 	{
+// 		let result = true;
 
-	depart(room, person)
-	{
-		for (let bed of this.beds)
-		{
-			if (bed.delete(person))
-			{
-				if (person.sickness() === C.DEAD)
-				{
-					state.wardPool.delete(person);
-					state.icuPool.delete(person);
-				}
+// 		for (const bed of this.beds)
+// 		{
+// 			if (!bed.isFull())
+// 			{
+// 				result = false;
+// 				break;
+// 			}
+// 		}
 
-				const admittee = nextInPool(this.pool);
-				if (admittee)
-				{
-					admittee.goToRoom(room);
-				}
-				break;
-			}
-		}
-	}
-
-	isFull()
-	{
-		let result = true;
-
-		for (const bed of this.beds)
-		{
-			if (!bed.isFull())
-			{
-				result = false;
-				break;
-			}
-		}
-
-		return result;
-	}
-}
+// 		return result;
+// 	}
+// }
 
 
 class WorkRules extends Rules

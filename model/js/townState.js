@@ -27,8 +27,7 @@ class TownState extends InfectState
 		this.hosts = new Set();
 		this.notHosts = new Set();
 
-		this.icuPool = new ICUPool(this.config.hospital.icu.count);
-		this.wardPool = new WardPool(this.config.hospital.ward.count);
+		this.manager = new SicknessManager(this.config.hospital);
 	}
 
 	choiceList()
@@ -216,7 +215,7 @@ class TownState extends InfectState
 
 		y = this.config.hospital.y + icuConfig.height;
 		this.ward = new Room(x, y, width, wardConfig.height, speed);
-		this.ward.rules = new HospitalRules(speed, this.ward, this.wardPool, wardConfig.count, this.hallway);
+		this.ward.rules = new SeatRules(speed);
 		this.ward.ventilation = this.config.ventilation.max;
 		this.ward.loudness = 0;
 		this.ward.fillStyle = this.config.hospital.style;
@@ -225,7 +224,7 @@ class TownState extends InfectState
 
 		y = this.config.hospital.y;
 		this.icu = new Room(x, y, width, icuConfig.height, speed);
-		this.icu.rules = new HospitalRules(speed, this.icu, this.icuPool, icuConfig.count, this.ward);
+		this.icu.rules = new SeatRules(speed);
 		this.icu.ventilation = this.config.ventilation.max;
 		this.icu.loudness = 0;
 		this.icu.fillStyle = this.config.hospital.style;
