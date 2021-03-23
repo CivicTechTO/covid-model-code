@@ -5,11 +5,11 @@ class SicknessManager
 		this.wardCount = config.ward.count;
 		this.icuCount = config.icu.count;
 
-		this.needsWard = new Set();
 		this.needsICU = new Set();
 
-		this.wardAllocated = new Set();
 		this.icuAllocated = new Set();
+		this.wardAllocated = new Set();
+		this.hallwayAllocated = new Set();
 	}
 
 	transition(person, increment, decrement)
@@ -33,13 +33,11 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	{
 		if (this.wardNotFull())
 		{
-			this.wardAllocated.add(person);
-			person.setItinerary(state.ward);
+			this.sendToWard(person);
 		}
 		else
 		{
-			this.needsWard.add(person);
-			person.setItinerary(state.hallway);
+			this.sendToHallway(person);
 		}
 	}
 
@@ -51,95 +49,54 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	doDischarge(person, destination)
 	{
 		this.wardAllocated.delete(person);
-		this.needsWard.delete(person);
+		this.hallwayAllocated.delete(person);
 		this.icuAllocated.delete(person);
 		this.needsICU.delete(person);
 
 		person.setItinerary(destination);
 
-		let patient = this.firstInSet(this.needsICU);
-
-		if (patient && this.icuNotFull())
-		{
-			if (this.wardAllocated.has(patient))
-			{
-				this.transfer(patient, this.wardAllocated, this.icuAllocated);
-				patient.setItinerary(state.icu);
-			}
-			else
-			{
-				this.transfer(patient, this.needsWard, this.icuAllocated);
-				patient.setItinerary(state.ward);
-			}
-				
-			this.needsICU.delete(patient);
-		}
-
-		patient = this.firstInSet(this.needsWard);
-
-		if (patient && this.wardNotFull())
-		{
-			this.transfer(patient, this.needsWard, this.wardAllocated);
-			patient.setItinerary(state.ward);
-		}
+		this.allocate();
 	}
 
 	sicker(person)
 	{
-		if (this.icuNotFull())
-		{
-			if (this.wardAllocated.has(person))
-			{
-				this.transfer(person, this.wardAllocated, this.icuAllocated);
-			}
-			else
-			{
-				this.transfer(person, this.needsWard, this.icuAllocated);
-			}
-			
-			person.setItinerary(state.icu);
-		}
-		else
-		{
-			this.needsICU.add(person);
-		}
+		this.needsICU.add(person);
+
+		this.allocate();
 	}
 
 	lessSick(person)
 	{
+		this.needsICU.delete(person);
+
+// This special casing may need another branch if we fully prioritize needsICU
+
 		if (this.icuAllocated.has(person))
 		{
-			let patient = this.firstInSet(this.intersect(this.needsICU, this.wardAllocated));
+			this.icuAllocated.delete(person);
 
-			if (patient)
+			if (this.wardNotFull())
 			{
-				this.transfer(person, this.icuAllocated, this.wardAllocated);
-				this.transfer(patient, this.wardAllocated, this.icuAllocated);
-
-				person.setItinerary(state.ward);
-				patient.setItinerary(state.icu);
+				this.sendToWard(person);
 			}
 			else
 			{
-				if (this.wardNotFull())
+				let patient = this.firstInSet(this.intersect(this.wardAllocated, this.needsICU));
+
+				if (patient)
 				{
-					this.transfer(person, this.icuAllocated, this.wardAllocated);
-					person.setItinerary(state.ward);
+					this.sendToWard(person);
+					this.sendToICU(patient);
 				}
 				else
 				{
-					patient = this.firstInSet(this.intersect(this.needsICU, this.needsWard));
-
-					if (patient)
-					{
-						this.transfer(patient, this.needsWard, this.icuAllocated);
-						patient.setItinerary(state.icu);
-					}
-						
-					this.transfer(person, this.icuAllocated, this.needsWard);
-					person.setItinerary(state.hallway);
+					this.sendToHallway(person);
 				}
 			}
+		}
+		else
+		{
+			this.allocate();
 		}
 	}
 
@@ -148,12 +105,42 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		this.doDischarge(person, state.cemetary);
 	}
 
-	transfer(person, from, to)
+	allocate()
 	{
-		if (person)
+		this.allocateICU();
+		this.allocateWard();
+	}
+
+	allocateICU()
+	{
+		let patient = this.firstInSet(this.needsICU);
+
+		if (patient && this.icuNotFull())
 		{
-			to.add(person);
-			from.delete(person);
+			if (this.wardAllocated.has(patient))
+			{
+				this.wardAllocated.delete(patient);
+				this.sendToICU(patient);
+			}
+			else
+			{
+				this.hallwayAllocated.delete(patient);
+				this.sendToICU(patient);
+			}
+				
+			this.needsICU.delete(patient);
+		}
+	}
+
+	allocateWard()
+	{
+// this is where we need to put needsICU prioritization code
+
+		let patient = this.firstInSet(this.hallwayAllocated);
+
+		if (patient && this.wardNotFull())
+		{	
+			this.sendToWard(patient);
 		}
 	}
 
@@ -168,6 +155,24 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		}
 
 		return first;
+	}
+
+	sendToICU(person)
+	{
+		this.icuAllocated.add(person);
+		person.setItinerary(state.icu);
+	}	
+
+	sendToWard(person)
+	{
+		this.wardAllocated.add(person);
+		person.setItinerary(state.ward);
+	}
+
+	sendToHallway(person)
+	{
+		this.hallwayAllocated.add(person);
+		person.setItinerary(state.hallway);
 	}
 
 	icuNotFull()

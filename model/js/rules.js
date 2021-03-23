@@ -338,7 +338,22 @@ class PubRules extends FullRules
 
 }
 
-class HallwayRules extends SeatRules
+class HospitalRules extends SeatRules
+{
+	constructor(speed)
+	{
+		super(speed);
+	}
+
+	depart(room, person)
+	{
+		super.depart(room, person);
+
+		this.transition(room);
+	}
+}
+
+class HallwayRules extends HospitalRules
 {
 	constructor(speed)
 	{
