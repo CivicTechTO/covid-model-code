@@ -173,7 +173,12 @@ class Person
 	{
 		if (0 === this.index)		//  Leaving door
 		{
-			this.inRoom = null;
+			if (this.inRoom)		// Really
+			{
+				this.inRoom.leave(this);
+				this.inRoom = null;
+			}
+
 			this.speed = 1 + rand(state.travelSpeed);
 		}
 		else

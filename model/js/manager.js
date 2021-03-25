@@ -90,6 +90,13 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 				}
 				else
 				{
+					patient = this.firstInSet(this.intersect(this.hallwayAllocated, this.needsICU));
+					
+					if (patient)
+					{
+						this.sendToICU(patient);
+					}
+
 					this.sendToHallway(person);
 				}
 			}
@@ -147,11 +154,11 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	firstInSet(set)
 	{
 		let first = null;
-		let attempt = set.values().next();
+		let attempt = set.values();
 
 		if (!attempt.done)
 		{
-			first = attempt.value;
+			first = attempt.next().value;
 		}
 
 		return first;

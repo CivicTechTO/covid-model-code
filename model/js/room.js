@@ -64,8 +64,13 @@ class Room
 
 	depart(person)
 	{
-		this.rules.depart(this, person)
 		this.personSet.delete(person);
+		this.rules.depart(this, person)
+	}
+
+	leave(person)
+	{
+		this.rules.leave(this, person);
 	}
 
 	inRoom(person)

@@ -35,3 +35,8 @@ state.draw(context);
 // {
 // 	state.step(FRAME);
 // }
+
+// while(true)
+// {
+// state.step(FRAME);
+// }

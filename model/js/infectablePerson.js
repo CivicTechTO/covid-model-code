@@ -52,7 +52,6 @@ class InfectablePerson extends Person
 		progression = state.getProgression(this.progressIndex);
 		increment(progression.increment);
 		decrement(progression.decrement);
-		state.update = progression.increment !== 0 || progression.decrement !== 0;
 	}
 
 	factor() 
@@ -159,8 +158,6 @@ class InfectablePerson extends Person
 
 		increment(C.RECORD.INFECTED | C.RECORD.INCUBATING);
 		decrement(C.RECORD.WELL);
-
-		state.update = true;
 	}
 
 	step()

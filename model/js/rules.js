@@ -26,6 +26,11 @@ class Rules
 
 	}
 
+	leave(room, person)
+	{
+
+	}
+	
 	transition(room)
 	{
 	}
@@ -364,15 +369,16 @@ class HallwayRules extends HospitalRules
 	{
 		let result = super.arrive(room, person);
 
+console.log("arrive");
 		increment(C.RECORD.HALLWAY);
 
 		return result;
 	}
 
-	depart(room, person)
+	leave(room, person)
 	{
-		super.depart(room, person);
-
+		super.leave(room, person);
+console.log("leave");
 		decrement(C.RECORD.HALLWAY);
 	}
 }

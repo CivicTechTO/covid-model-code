@@ -16,8 +16,6 @@ class InfectState extends State
 
 		this.record = this.makeRecord();
 
-		this.update = false;
-
 		this.pop = this.config.pop;
 
 		this.infecting = true;
@@ -95,8 +93,6 @@ class InfectState extends State
 
 		increment(C.RECORD.INFECTIOUS | C.RECORD.SICK);
 		decrement(C.RECORD.INCUBATING);
-
-		this.update = true;
 	}
 
 	step()
@@ -123,19 +119,17 @@ class InfectState extends State
 
 	drawAllRecords()
 	{
-		if (this.update)
-		{
-			this.drawARecord("Infected", this.record.infected);
-			this.drawARecord("Incubating", this.record.incubating);
-			this.drawARecord("Infectious", this.record.infectious);
-			this.drawARecord("Symptomatic", this.record.symptoms);
-			this.drawARecord("HomeSick", this.record.homeSick);
-			this.drawARecord("WardSick", this.record.wardSick);
-			this.drawARecord("ICUSick", this.record.icuSick);
-			this.drawARecord("Hallway", this.record.hallway);
-			this.drawARecord("Recovered", this.record.recovered);
-			this.drawARecord("Well", this.record.well);
-			this.drawARecord("Dead", this.record.dead);
+		this.drawARecord("Infected", this.record.infected);
+		this.drawARecord("Incubating", this.record.incubating);
+		this.drawARecord("Infectious", this.record.infectious);
+		this.drawARecord("Symptomatic", this.record.symptoms);
+		this.drawARecord("HomeSick", this.record.homeSick);
+		this.drawARecord("WardSick", this.record.wardSick);
+		this.drawARecord("ICUSick", this.record.icuSick);
+		this.drawARecord("Hallway", this.record.hallway);
+		this.drawARecord("Recovered", this.record.recovered);
+		this.drawARecord("Well", this.record.well);
+		this.drawARecord("Dead", this.record.dead);
 
 			// const r = computeR();
 			// const r0Element = document.getElementById('r0');
@@ -143,9 +137,6 @@ class InfectState extends State
 
 			// const rtElement = document.getElementById('rt');
 			// rtElement.textContent = r.rt.toFixed(2);
-
-			this.update = false;
-		}
 	}
 
 	drawARecord(nameBase, record)
