@@ -26,8 +26,6 @@ class TownState extends InfectState
 
 		this.hosts = new Set();
 		this.notHosts = new Set();
-
-		this.manager = new SicknessManager(this.config.hospital);
 	}
 
 	choiceList()
@@ -57,6 +55,8 @@ class TownState extends InfectState
 
 		this.setWeek();
 		this.setDays();
+
+		this.manager = new SicknessManager(this.config.hospital);
 	}
 
 	fillHome(dwellings, crowd)

@@ -10,11 +10,16 @@ class SicknessManager
 		this.icuAllocated = new Set();
 		this.wardAllocated = new Set();
 		this.hallwayAllocated = new Set();
+
+		this.hospital = [];
+		this.hospital[C.HOSPITAL.HALLWAY] = {allocated: this.hallwayAllocated, dest: state.hallway};
+		this.hospital[C.HOSPITAL.WARD] = {allocated: this.wardAllocated, dest: state.ward};
+		this.hospital[C.HOSPITAL.ICU] = {allocated: this.icuAllocated, dest: state.icu};
 	}
 
 	transition(person, increment, decrement)
 	{
-console.log("transition", state.tickToDay(state.clock), increment, decrement);
+// !!!! console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
 		if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
 		if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
@@ -33,11 +38,11 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 	{
 		if (this.wardNotFull())
 		{
-			this.sendToWard(person);
+			this.sendTo(C.HOSPITAL.WARD, person);
 		}
 		else
 		{
-			this.sendToHallway(person);
+			this.sendTo(C.HOSPITAL.HALLWAY, person);
 		}
 	}
 
@@ -77,7 +82,7 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 
 			if (this.wardNotFull())
 			{
-				this.sendToWard(person);
+				this.transfer(C.HOSPITAL.ICU, C.HOSPITAL.WARD, person);
 			}
 			else
 			{
@@ -85,8 +90,8 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 
 				if (patient)
 				{
-					this.sendToWard(person);
-					this.sendToICU(patient);
+					this.transfer(C.HOSPITAL.ICU, C.HOSPITAL.WARD, person);
+					this.transfer(C.HOSPITAL.WARD, C.HOSPITAL.ICU, patient);
 				}
 				else
 				{
@@ -94,10 +99,10 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 					
 					if (patient)
 					{
-						this.sendToICU(patient);
+						this.transfer(C.HOSPITAL.HALLWAY, C.HOSPITAL.ICU, patient);
 					}
 
-					this.sendToHallway(person);
+					this.transfer(C.HOSPITAL.ICU, C.HOSPITAL.HALLWAY, person);
 				}
 			}
 		}
@@ -126,13 +131,11 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		{
 			if (this.wardAllocated.has(patient))
 			{
-				this.wardAllocated.delete(patient);
-				this.sendToICU(patient);
+				this.transfer(C.HOSPITAL.WARD, C.HOSPITAL.ICU, patient);
 			}
 			else
 			{
-				this.hallwayAllocated.delete(patient);
-				this.sendToICU(patient);
+				this.transfer(C.HOSPITAL.HALLWAY, C.HOSPITAL.ICU, patient);
 			}
 				
 			this.needsICU.delete(patient);
@@ -141,13 +144,11 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 
 	allocateWard()
 	{
-// this is where we need to put needsICU prioritization code
-
 		let patient = this.firstInSet(this.hallwayAllocated);
 
 		if (patient && this.wardNotFull())
-		{	
-			this.sendToWard(patient);
+		{
+			this.transfer(C.HOSPITAL.HALLWAY, C.HOSPITAL.WARD, patient);
 		}
 	}
 
@@ -164,22 +165,16 @@ console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		return first;
 	}
 
-	sendToICU(person)
+	transfer(from, to, person)
 	{
-		this.icuAllocated.add(person);
-		person.setItinerary(state.icu);
-	}	
-
-	sendToWard(person)
-	{
-		this.wardAllocated.add(person);
-		person.setItinerary(state.ward);
+		this.hospital[from].allocated.delete(person);
+		this.sendTo(to, person);
 	}
 
-	sendToHallway(person)
+	sendTo(to, person)
 	{
-		this.hallwayAllocated.add(person);
-		person.setItinerary(state.hallway);
+		this.hospital[to].allocated.add(person);
+		person.setItinerary(this.hospital[to].dest);
 	}
 
 	icuNotFull()

@@ -13,6 +13,8 @@ function makeConstants()
 		};
 
 	result.IMAGE = {WELL: 0, SICK: 1, RECOVERED: 2, CROSS: 3, CRESCENT: 4, STAR: 5};
+
+	result.HOSPITAL = {HALLWAY: 0, WARD: 1, ICU:2};
 	
 	result.ROOMSET = result.RECORD.HOMESICK | result.RECORD.WARDSICK | result.RECORD.ICUSICK | result.RECORD.DEAD;
 
