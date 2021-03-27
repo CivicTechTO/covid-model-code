@@ -8,7 +8,7 @@ var state = new TestbedState(makeConfig(), canvas.width, canvas.height);
 state.fill();
 state.initialize();
 
-state.debugDraw = true;
+state.debugDraw = false;
 
 state.week[0].startShift();
 

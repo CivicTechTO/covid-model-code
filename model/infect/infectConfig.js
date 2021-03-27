@@ -195,7 +195,7 @@ function makeConfig()
 				  	index: 1020, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
-				  			, next: 1030, alt: {p: 1.0, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
+				  			, next: 1030, alt: {p: 0.2, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
 				  			, increment: C.RECORD.SICK, decrement: 0
 				  		}
 				}
@@ -238,7 +238,7 @@ function makeConfig()
 				  	index: 2000, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
-				  			, next: 2010, alt: {p: 1.0, next: 3000}, start: 1.0, end: 1.0, sick: C.SICKNESS.HOMESICK
+				  			, next: 2010, alt: {p: 0.3, next: 3000}, start: 1.0, end: 1.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: C.RECORD.HOMESICK, decrement: 0
 				  		}
 				}
@@ -289,7 +289,7 @@ function makeConfig()
 				  	index: 3000, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
-				  			, next: 3010, alt: {p: 1.0, next: 4000}, start: 1.0, end: 1.0, sick: C.SICKNESS.WARDSICK
+				  			, next: 3010, alt: {p: 0.4, next: 4000}, start: 1.0, end: 1.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: C.RECORD.WARDSICK, decrement: 0
 				  		}
 				}
@@ -343,22 +343,12 @@ function makeConfig()
 				}
 
 
-		// result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
-
-		// result.PROGRESS = {WELL: 0, INFECTED: 1000, ASYMPTOMATIC: 1010, PEAK: 1020, HOMESICK: 2000, WARDSICK: 3000, ICUSICK: 4000, DEAD: 5000};
-
-		// result.RECORD = 
-		// 	{
-		// 		INFECTED: 0X0001, INFECTIOUS: 0X0002, SICK: 0X0004, HOMESICK: 0X0008, WARDSICK: 0X0010, ICUSICK: 0X0020
-		// 		, DEAD: 0X0040, HALLWAY: 0X0080, RECOVERED: 0X0100, WELL: 0X0200, INCUBATING: 0X0400
-		// 	};
-
 
 				, {
 				  	index: 4000, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
-				  			, next: 4010, alt: {p: 0.0, next: 4010}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
+				  			, next: 4010, alt: {p: 0.7, next: 5000}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: C.RECORD.ICUSICK, decrement: 0
 				  		}
 				}
@@ -410,60 +400,82 @@ function makeConfig()
 				  			, increment: C.RECORD.RECOVERED, decrement: C.RECORD.INFECTED | C.RECORD.SICK
 				  		}
 				}
-				// , {
-				//   	index: 6, style: "#FF4444", draw:6,canProgress: true, time: 24
-				//   	, next: 7, alt: {p: 0.40, next: 9}, start: 1.0, end: 1.0, sick: 2, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 7, style: "#FF4444", draw:6,canProgress: true, time: 120
-				//   	, next: 8, alt: {p: 0.0, next: 5}, start: 1.0, end: 1.0, sick: 2, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 8, style: "#FF4444, draw:6,canProgress: true, time: 120
-				//   	, next: 5, alt: {p: 0.0, next: 5}, start: 1.0, end: 0.0, sick: 2, increment: 0, decrement: 0
-				// }
 
 
-				// , {
-				//   	index: 9, style: "#FF3333, draw:7,canProgress: true, time: 24
-				//   	, next: 10, alt: {p: 0.40, next: 13}, start: 1.0, end: 1.0, sick: 4, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 10, style: "#FF3333, draw:7,canProgress: true, time: 144
-				//   	, next: 11, alt: {p: 0.0, next: 11}, start: 1.0, end: 1.0, sick: 4, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 11, style: "#FF3333, draw:7,canProgress: true, time: 120
-				//   	, next: 12, alt: {p: 0.0, next: 12}, start: 1.0, end: 1.0, sick: 4, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 12, style: "#FF3333, draw:7,canProgress: true, time: 120
-				//   	, next: 8, alt: {p: 0.0, next: 8}, start: 1.0, end: 1.0, sick: 4, increment: 0, decrement: 0
-				// }
+
+				, {
+				  	index: 5000, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 10
+				  			, next: 5010, alt: {p: 0.0, next: 5010}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
+				  			, increment: 0, decrement: 0
+				  		}
+				}
+				, {
+				  	index: 5010, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 20
+				  			, next: 5020, alt: {p: 0.0, next: 5020}, start: 1.0, end: 0.0, sick: C.SICKNESS.ICUSICK
+				  			, increment: 0, decrement: 0
+				  		}
+				}
+				, {
+				  	index: 5020, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 30
+				  			, next: 5030, alt: {p: 0.0, next: 5030}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
+				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  		}
+				}
 
 
-				// , {
-				//   	index: 13, style: "#FF1111, draw:8,canProgress: true, time: 24
-				//   	, next: 14, alt: {p: 0.50, next: 17}, start: 1.0, end: 1.0, sick: 5, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 14, style: "#FF1111, draw:8,canProgress: true, time: 120
-				//   	, next: 15, alt: {p: 0.0, next: 15}, start: 1.0, end: 1.0, sick: 5, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 15, style: "#FF1111, draw:8,canProgress: true, time: 120
-				//   	, next: 16, alt: {p: 0.0, next: 17}, start: 1.0, end: 0.0, sick: 5, increment: 0, decrement: 0
-				// }
-				// , {
-				//   	index: 16, style: "#FF1111, draw:8,canProgress: true, time: 120
-				//   	, next: 12, alt: {p: 0.0, next: 12}, start: 0.0, end: 0.0, sick: 5, increment: 0, decrement: 0
-				// }
+
+				, {
+				  	index: 5030, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 1
+				  			, next: 5060, alt: {p: 0.4, next: 5040}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
+				  			, increment: 0, decrement: 0
+				  		}
+				}
+				, {
+				  	index: 5040, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 1
+				  			, next: 5070, alt: {p: 0.5, next: 5080}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
+				  			, increment: 0, decrement: 0
+				  		}
+				}
 
 
-				// , {
-				//   	index: 17, style: "#FF1111, draw:8,canProgress: true, time: 360
-				//   	, next: 18, alt: {p: 0.0, next: 18}, start: 0.0, end: 0.0, sick: 5, increment: 0, decrement: 0
-				// }
+
+				, {
+				  	index: 5060, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.CROSS}, {pop: false, image: C.IMAGE.CROSS}], time: 1
+				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
+				  			, increment: C.RECORD.DEAD
+				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  		}
+				}
+				, {
+				  	index: 5070, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.CRESCENT}, {pop: false, image: C.IMAGE.CRESCENT}], time: 1
+				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
+				  			, increment: C.RECORD.DEAD
+				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  		}
+				}
+				, {
+				  	index: 5080, data: 
+				  		{
+				  			  display: [{pop: false, image: C.IMAGE.STAR}, {pop: false, image: C.IMAGE.STAR}], time: 1
+				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
+				  			, increment: C.RECORD.DEAD
+				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  		}
+				}
 			]
 	}
 

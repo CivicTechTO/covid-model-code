@@ -20,13 +20,18 @@ class SicknessManager
 	transition(person, increment, decrement)
 	{
 // !!!! console.log("transition", state.tickToDay(state.clock), increment, decrement);
-		if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
-		if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
-		if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
-		if (0 !== (increment & C.RECORD.DEAD)) this.die(person);
+		if (0 !== (increment & C.RECORD.DEAD))
+		{
+			this.die(person);
+			return;
+		}
 
-		if (0 !== (decrement & C.RECORD.ICUSICK)) this.lessSick(person);
+		if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
+		if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
+		if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
+
 		if (0 !== (decrement & C.RECORD.WARDSICK)) this.discharge(person);
+		if (0 !== (decrement & C.RECORD.ICUSICK)) this.lessSick(person);
 	}
 
 	homeSick(person)
@@ -53,6 +58,7 @@ class SicknessManager
 
 	doDischarge(person, destination)
 	{
+
 		this.wardAllocated.delete(person);
 		this.hallwayAllocated.delete(person);
 		this.icuAllocated.delete(person);
