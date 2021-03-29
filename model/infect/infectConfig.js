@@ -128,7 +128,7 @@ function makeConfig()
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 		
-		, imageList: ["wellsmile", "frown", "recoveredsmile", "cross", "crescent", "star"]
+		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
 		, pop: {scale: 4, decay: 30}
 
 		, progression:
@@ -195,7 +195,7 @@ function makeConfig()
 				  	index: 1020, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
-				  			, next: 1030, alt: {p: 0.2, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
+				  			, next: 1030, alt: {p: 0.3, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
 				  			, increment: C.RECORD.SICK, decrement: 0
 				  		}
 				}
@@ -434,7 +434,7 @@ function makeConfig()
 				  	index: 5030, data: 
 				  		{
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 1
-				  			, next: 5060, alt: {p: 0.4, next: 5040}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
+				  			, next: 5060, alt: {p: 0.2, next: 5040}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
 				  		}
 				}
@@ -452,7 +452,7 @@ function makeConfig()
 				, {
 				  	index: 5060, data: 
 				  		{
-				  			  display: [{pop: false, image: C.IMAGE.CROSS}, {pop: false, image: C.IMAGE.CROSS}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CROSS}, {pop: true, image: C.IMAGE.CROSS}], time: 1
 				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -461,7 +461,7 @@ function makeConfig()
 				, {
 				  	index: 5070, data: 
 				  		{
-				  			  display: [{pop: false, image: C.IMAGE.CRESCENT}, {pop: false, image: C.IMAGE.CRESCENT}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CRESCENT}, {pop: true, image: C.IMAGE.CRESCENT}], time: 1
 				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -470,7 +470,7 @@ function makeConfig()
 				, {
 				  	index: 5080, data: 
 				  		{
-				  			  display: [{pop: false, image: C.IMAGE.STAR}, {pop: false, image: C.IMAGE.STAR}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.STAR}, {pop: true, image: C.IMAGE.STAR}], time: 1
 				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
