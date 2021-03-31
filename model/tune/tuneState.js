@@ -9,8 +9,6 @@ class TuneState extends InfectState
 		this.susceptible = config.susceptible;
 		this.infectious = config.infectious;
 
-		this.progression = config.progression;
-
 		this.reset = config.reset;
 		this.decay = config.decay;
 		this.base = config.base;
@@ -23,8 +21,6 @@ class TuneState extends InfectState
 		this.loudness = config.loudness;
 
 		this.tune = {ventilation: 1, loud: 40}
-
-		this.level = new MakeExceedingly();
 
 		this.run = false;
 
@@ -42,6 +38,7 @@ class TuneState extends InfectState
 	{
 		this.setDays(this.config);
 
+		this.level = exceedingly();
 
 		let room = new Room(400, 50, 100, 100, 1);
 		room.fillColour = "gray";
@@ -59,7 +56,7 @@ class TuneState extends InfectState
 
 		let infected = this.makePerson();
 		infected.stats = false;
-		infected.infect(state.level.makeInfectious());
+		infected.infect(this.level.value);
 
 		let other = this.makePerson();
 		other.stats = true;
@@ -105,14 +102,14 @@ class TuneState extends InfectState
 
 	stepStats()
 	{
-		this.stats.factor.push(this.personList[0].progression.factor());
+		this.stats.factor.push(this.personList[0].factor());
 		this.stats.exposure.push(this.personList[1].exposure);
 	}
 
 	drawStats(factorContext, incrementContext, otherContext, exposeContext, pContext)
 	{
-		this.display('loadvalue', this.personList[0].infected.load);
-		this.display('progress', this.personList[0].progression.index);		
+		this.display('loadvalue', this.personList[0].loadValue);
+		this.display('progress', this.personList[0].progressIndex);		
 
 		this.drawAStat(factorContext, this.stats.factor, 'maxfactor');
 		this.drawAStat(incrementContext, this.stats.increment, 'maxincrement');

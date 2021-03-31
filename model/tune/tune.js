@@ -4,8 +4,8 @@ const canvas = document.getElementById('canvas');
 
 var C = makeConstants();
 
-var state = new TuneState(config, canvas.width, canvas.height);
-state.fill(config);
+var state = new TuneState(makeConfig(), canvas.width, canvas.height);
+state.fill();
 
 function drawStats()
 {
@@ -54,28 +54,43 @@ function showLoud()
 	loudElement.textContent = state.tune.loud.toString();
 }
 
+function slightly()
+{
+	return {name: "Slightly", value: state.infectious.valueList[C.INFECTIOUS.SLIGHTLY]}
+}
+
 function setSlightly()
 {
-	state.level = new MakeSlightly();
+	state.level = slightly();
 	showLevel();
+}
+
+function very()
+{
+	return {name: "Very", value: state.infectious.valueList[C.INFECTIOUS.VERY]};
 }
 
 function setVery()
 {
-	state.level = new MakeVery();
+	state.level = very();
 	showLevel();
+}
+
+function exceedingly()
+{
+	return {name: "Exceedingly", value: state.infectious.valueList[C.INFECTIOUS.EXCEEDINGLY]};
 }
 
 function setExceedingly()
 {
-	state.level = new MakeExceedingly();
+	state.level = exceedingly();
 	showLevel();
 }
 
 function showLevel()
 {
 	const levelElement = document.getElementById('level');
-	levelElement.textContent = state.level.name();
+	levelElement.textContent = state.level.name;
 }
 
 function toggle()

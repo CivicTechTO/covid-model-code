@@ -87,7 +87,7 @@ class InfectState extends State
 	
 	initialize()
 	{
-		this.personList[0].infect(this.infectious.valueList[3]);
+		this.personList[0].infect(this.infectious.valueList[C.INFECTIOUS.EXCEEDINGLY]);
 		this.personList[0].progressIndex = C.PROGRESS.PEAK;
 		this.personList[0].church = this.churchList[0];
 
