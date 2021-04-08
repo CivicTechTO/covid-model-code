@@ -15,6 +15,11 @@
       width: 1500px;
     }
 
+    #records
+    {
+      display: none;
+    }
+
     .stats 
     {
       display: inline-block;
@@ -33,28 +38,22 @@
     <img id="star" src="../images/star.png">
   </div>
   
-  <div id="container">
-    <h1>Infect</h1>
-    <div>
-      Day number: <span id="day">1</span> &nbsp; <span id="name">Sunday</span> &nbsp; Time: <span id="hour">8</span>:<span id="minutes">00</span>
-    </div>
-
-    <div>
-      <table>
-        <tr> <th>Condition </th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
-        <tr> <td>Well </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
-        <tr> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
-        <tr> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
-        <tr> <td>Symptomatic </td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
-        <tr> <td>Recovered </td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
-        <tr> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
-        <tr> <td>Sick at home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
-        <tr> <td>Needs hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
-        <tr> <td>In hallway </td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
-        <tr> <td>Needs ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
-        <tr> <td>Dead </td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
-      </table>  
-    </div>
+  <div id="records">
+    <table>
+      <tr> <th>Condition </th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
+      <tr> <td>Well </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
+      <tr> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
+      <tr> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
+      <tr> <td>Symptomatic </td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
+      <tr> <td>Recovered </td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
+      <tr> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
+      <tr> <td>Sick at home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
+      <tr> <td>Needs hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
+      <tr> <td>In hallway </td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
+      <tr> <td>Needs ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
+      <tr> <td>Dead </td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
+    </table>  
+  </div>
 
   
   <div id="container">

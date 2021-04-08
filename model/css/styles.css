@@ -2,13 +2,13 @@
 
 body
 {
-	background-color: skyblue;
+	background-color: #67AECB;
 }
 
 #container
 {
 	margin-left: 1em;
-	width: 50em;
+	width: 1000px;
 }
 
 h1
@@ -19,4 +19,60 @@ h1
 #images
 {
 	display: none;
+}
+
+.picker
+{
+	display: inline-block;
+	padding-top: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+#displayChoice
+{
+	background-color: #87CEEB;
+}
+
+#controlsChoice
+{
+	background-color: #77BEDB;
+}
+
+#chartsChoice
+{
+	background-color: #77BEDB;
+}
+
+#display
+{
+	background-color: #87CEEB;
+}
+
+h4
+{
+	margin: 0;
+}
+
+#controls
+{
+	display: none;
+	background-color: #87CEEB;
+}
+
+.controls-contents
+{
+    display: grid;
+    grid-template-columns: 8em 8em auto;
+}
+
+#game-controls
+{
+	display: none;
+}
+
+#charts
+{
+	display: none;
+	background-color: #87CEEB;
 }

@@ -11,18 +11,6 @@ state.debugDraw = false;
 
 state.week[0].startShift();
 
-function start()
-{
-	state.run = true;
-
-	window.requestAnimationFrame(animate);
-}
-
-function stop() 
-{
-	state.run = false;
-}
-
 window.requestAnimationFrame(animate);
 
 // let context = canvas.getContext('2d');

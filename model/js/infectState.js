@@ -24,7 +24,7 @@ class InfectState extends State
 
 		this.fillImages(this.config);
 
-		this.run = true;
+		this.run = false;
 	}
 
 	makeMap(progression)

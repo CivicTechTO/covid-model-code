@@ -28,54 +28,175 @@
       Day number: <span id="day">1</span> &nbsp; <span id="name">Sunday</span> &nbsp; Time: <span id="hour">8</span>:<span id="minutes">00</span>
     </div>
 
-    <div>
-      <table>
-        <tr> <th>Condition </th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
-        <tr> <td>Well </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
-        <tr> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
-        <tr> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
-        <tr> <td>Symptomatic </td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
-        <tr> <td>Recovered </td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
-        <tr> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
-        <tr> <td>Sick at home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
-        <tr> <td>Needs hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
-        <tr> <td>In hallway </td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
-        <tr> <td>Needs ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
-        <tr> <td>Dead </td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
-      </table>  
+    <div id="choices">
+      <div id="displayChoice" class="picker"><button type="button" onclick="pickDisplay();">Display</button></div>
+      <div id="controlsChoice" class="picker"><button type="button" onclick="pickControls();">Controls</button></div>
+      <div id="chartsChoice" class="picker"><button type="button" onclick="pickCharts();">Charts</button></div>
+    </div>
+    <div id="display">
+      <div>
+        <table>
+          <tr> <th>Condition </th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
+          <tr> <td>Well </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
+          <tr> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
+          <tr> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
+          <tr> <td>Symptomatic </td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
+          <tr> <td>Recovered </td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
+          <tr> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
+          <tr> <td>Sick at home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
+          <tr> <td>Needs hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
+          <tr> <td>In hallway </td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
+          <tr> <td>Needs ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
+          <tr> <td>Dead </td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
+        </table>  
+      </div>
+
+  <!--     <div>
+         R<sub>0</sub>: <span id="r0">0</span>  R<sub>t</sub>: <span id="rt">0</span>
+      </div>
+   -->
+    	<canvas id="canvas" width=1000 height=505></canvas>      
     </div>
 
-<!--     <div>
-       R<sub>0</sub>: <span id="r0">0</span>  R<sub>t</sub>: <span id="rt">0</span>
+    <div id="controls">
+      <h4>General Controls</h4>
+      <div class="controls-contents">
+
+        <div class="control-title">Mode</div>
+        <div class="control-value" id="type">Exposition</div>
+        <div class="control-buttons">
+          <button type="button" onclick="setGame();">Game</button>
+          <button type="button" onclick="setExposition();">Exposition</button>
+        </div>  
+
+        <div class="control-title">Speed</div> 
+        <div class="control-value" id="steps">1</div>
+        <div class="control-buttons">
+          <button type="button" onclick="setSteps(1);">1</button>
+          <button type="button" onclick="setSteps(10);">10</button>
+          <button type="button" onclick="setSteps(100);">100</button>
+          <button type="button" onclick="setSteps(1000);">1000</button>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" onclick="stop();">Stop</button>
+        <button type="button" onclick="start();">Start</button>
+      </div>
+
+      <div id="game-controls">
+
+        <h4>Game Controls</h4>
+
+        <div class="controls-contents">
+       
+          <div class="control-title">Masks</div>
+          <div id="masks">None</div>
+          <div class="control-buttons">
+            <button type="button" onclick="noMasks();">None</button>
+            <button type="button" onclick="encourageMasks();">Encourage</button>
+            <button type="button" onclick="requireMasks();">Require</button>
+            <button type="button" onclick="enforceMasks();">Enforce</button>
+          </div>
+       
+          <div class="control-title">Test</div>
+          <div id="test">None</div>
+          <div class="control-buttons">
+            <button type="button" onclick="noTest();">None</button>
+            <button type="button" onclick="lightTest();">Light</button>
+            <button type="button" onclick="heavyTest();">Heavy</button>
+          </div>
+
+          <div class="control-title">Tracing</div>
+          <div id="trace">None</div>
+          <div class="control-buttons">
+            <button type="button" onclick="noTrace();">None</button>
+            <button type="button" onclick="forwardTrace();">Forward</button>
+            <button type="button" onclick="backwardTrace();">Backward</button>
+          </div>
+
+          <div class="control-title">Isolate</div>
+          <div id="isolate">None</div>
+          <div class="control-buttons">
+            <button type="button" onclick="noIsolate();">None</button>
+            <button type="button" onclick="homeIsolate();">At Home</button>
+            <button type="button" onclick="onePublic();">One Public</button>
+            <button type="button" onclick="twoPublic();">Two Public</button>
+          </div>
+        </div>
+
+        <div>
+          The following controls shut down or open up a category of rooms.
+        </div>
+
+        <div class="controls-contents">
+          <div class="control-title">House of Worship</div>
+          <div id="worship">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeWorship();">Close</button>
+            <button type="button" onclick="openWorship();">Open</button>
+          </div>
+
+          <div class="control-title">Restaurants</div>
+          <div id="restaurants">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeRestaurants();">Close</button>
+            <button type="button" onclick="openRestaurants();">Open</button>
+          </div>
+
+          <div class="control-title">Bars</div>
+          <div id="bars">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeBars();">Close</button>
+            <button type="button" onclick="openBars();">Open</button>
+          </div>
+
+          <div class="control-title">Clubs</div>
+          <div id="clubs">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeClubs();">Close</button>
+            <button type="button" onclick="openClubs();">Open</button>
+          </div>
+
+          <div class="control-title">Schools</div>
+          <div id="schools">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeSchools();">Close</button>
+            <button type="button" onclick="openSchools();">Open</button>
+          </div>
+
+          <div class="control-title">Offices</div>
+          <div id="offices">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeOffices();">Close</button>
+            <button type="button" onclick="openOffices();">Open</button>
+          </div>
+
+          <div class="control-title">Meat Packing</div>
+          <div id="meat">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeMeat();">Close</button>
+            <button type="button" onclick="openMeat();">Open</button>
+          </div>
+
+          <div class="control-title">Groceries</div>
+          <div id="groceries">Open</div>
+          <div class="control-buttons">
+            <button type="button" onclick="closeGroceries();">Close</button>
+            <button type="button" onclick="openGroceries();">Open</button>
+          </div>
+
+        </div>
+      </div>
     </div>
- -->
-  	<canvas id="canvas" width=1000 height=505></canvas>
-    <div><span>Speed </span><span id="steps"> </span></div>
-    <div>
-      <button type="button" onclick="setSteps(1);">1</button>
-      <button type="button" onclick="setSteps(2);">2</button>
-      <button type="button" onclick="setSteps(3);">3</button>
-      <button type="button" onclick="setSteps(4);">4</button>
-      <button type="button" onclick="setSteps(5);">5</button>
-      <button type="button" onclick="setSteps(10);">10</button>
-      <button type="button" onclick="setSteps(20);">20</button>
-      <button type="button" onclick="setSteps(30);">30</button>
-      <button type="button" onclick="setSteps(40);">40</button>
-      <button type="button" onclick="setSteps(50);">50</button>
-      <button type="button" onclick="setSteps(100);">100</button>
-      <button type="button" onclick="setSteps(200);">200</button>
-      <button type="button" onclick="setSteps(300);">300</button>
-      <button type="button" onclick="setSteps(400);">400</button>
-      <button type="button" onclick="setSteps(500);">500</button>
-      <button type="button" onclick="setSteps(1000);">1000</button>
-    </div>
-    <div>
-      <button type="button" onclick="stop();">Stop</button>
-      <button type="button" onclick="start();">Start</button>
+
+    <div id="charts">
+      This is where we put the charts
     </div>
   </div>
 
   <script src="../js/constants.js"></script>
+  <script src="../js/controls.js"></script>
   <script src="../js/record.js"></script>
   <script src="../js/manager.js"></script>
   <script src="../js/state.js"></script>
