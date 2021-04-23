@@ -9,8 +9,6 @@ class InfectState extends State
 		this.susceptible = this.config.susceptible;
 		this.infectious = this.config.infectious;
 		
-		this.infectConfig = this.config.infection;
-
 		this.ventilation = this.config.ventilation;
 		this.loudness = this.config.loudness;
 
@@ -101,7 +99,7 @@ class InfectState extends State
 
 		for (const person of this.personList)
 		{
-			person.decay();
+			person.initLoad();
 		}
 
 		for (const room of this.roomList)

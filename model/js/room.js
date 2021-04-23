@@ -20,11 +20,18 @@ class Room
 		this.loudness = 40;
 		
 		this.stats = false;
+
+		this.roomType = C.ROOMTYPE.OPEN;
 	}
 
 	equals(other)
 	{
 		return other && this.x === other.x && this.y === other.y;
+	}
+
+	isOpen()
+	{
+		return state.getRoomState(this.roomType);
 	}
 
 	getSpeed()
@@ -224,16 +231,16 @@ class Room
 	{ 
 		let dx = source.current.x - person.current.x;
 		let dy = source.current.y - person.current.y;
-		let distance = Math.max(1, dx * dx + dy * dy);
+		let distanceSquared = Math.max(1, dx * dx + dy * dy);
 
-		let increment = (source.load() * this.loudness) / (distance * this.ventilation);
+		let increment = (source.load() * this.loudness) / (distanceSquared * this.ventilation);
 
 		if (state.tuneFlag)
 		{
 			state.addIncrement(increment);
 		}
 
-		person.exposure += increment;
+		person.currentLoad += increment;
 
 	}
 }

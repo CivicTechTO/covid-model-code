@@ -3,7 +3,7 @@
 const canvas = document.getElementById('canvas');
 
 var C = makeConstants();
-var state = new TownState(makeConfig(), canvas.width, canvas.height);
+var state = new GameState(makeConfig(), canvas.width, canvas.height);
 state.fill();
 state.initialize();
 
@@ -11,7 +11,9 @@ state.debugDraw = false;
 
 state.week[0].startShift();
 
-window.requestAnimationFrame(animate);
+draw();
+
+// window.requestAnimationFrame(animate);
 
 // let context = canvas.getContext('2d');
 //draw(context);

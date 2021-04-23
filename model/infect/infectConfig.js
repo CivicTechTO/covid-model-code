@@ -28,6 +28,7 @@ function makeConfig()
 		, left:[30, 55, 30, 80, 65, 70, 80, 20, 65]
 		, right: [70, 30, 65, 75, 30, 90, 70, 65]
 		, workAllocation: [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
+		, workType: {meat: {start: 0, end: 3}, office: {start:4, end: 11}, school: {start: 12, end:16}}
 		, workScale:{maxAllocation: 20, ventilation: {min: 10, max: 20}, loudness: {min: 5, max: 10}}
 		, workStyle: "#C2C2C2"
 		, fillFactor: 1.25
@@ -120,11 +121,7 @@ function makeConfig()
 		, saturdayEve: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 1, 0, 1, 1]}}
 		, saturdayNight: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 5, 10, 1, 1]}}
 
-		, infection:
-			{
-				decay: 0.999, reset: 0.00001, maximum: 1610000
-				, which: 1, params: [{log: false,  pScale: 0.25}, {log: true,  pScale: 0.00025}]
-			}
+		, infection: {decay: 0.999, reset: 0.00001, pScale: 1610000, damping: 0.01}
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 		
@@ -477,6 +474,9 @@ function makeConfig()
 				  		}
 				}
 			]
+
+		, game: {update: 3}
+
 	}
 
 

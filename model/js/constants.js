@@ -23,6 +23,8 @@ function makeConstants()
 	result.FIXEDROOM = [result.SICKNESS.HOMESICK, result.SICKNESS.WARDSICK, result.SICKNESS.ICUSICK, result.SICKNESS.DEAD];
 
 	result.HALLWAY = [result.SICKNESS.WARDSICK, result.SICKNESS.ICUSICK];
-	
+
+	result.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9}
+
 	return result;	
 }

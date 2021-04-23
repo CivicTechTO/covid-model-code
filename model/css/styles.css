@@ -5,20 +5,63 @@ body
 	background-color: #67AECB;
 }
 
+h1
+{
+	text-align: center;
+}
+
+h4
+{
+	margin: 0;
+}
+
 #container
 {
 	margin-left: 1em;
 	width: 1000px;
 }
 
-h1
-{
-	text-align: center;
-}
-
 #images
 {
 	display: none;
+}
+
+#top-panel
+{
+    display: grid;
+    grid-template-columns: min-content auto;
+}
+
+#records
+{
+	background-color: #87CEEB;
+}
+
+#controls
+{
+	background-color: #87CEEB;
+}
+
+.controls-contents
+{
+    display: grid;
+    grid-template-columns: 5em 5em auto;
+}
+
+#game-controls
+{
+}
+
+.toggle-contents
+{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.toggle-room
+{
+	display: grid;
+	grid-template-columns: 5em 4em;
 }
 
 .picker
@@ -34,11 +77,6 @@ h1
 	background-color: #87CEEB;
 }
 
-#controlsChoice
-{
-	background-color: #77BEDB;
-}
-
 #chartsChoice
 {
 	background-color: #77BEDB;
@@ -47,28 +85,6 @@ h1
 #display
 {
 	background-color: #87CEEB;
-}
-
-h4
-{
-	margin: 0;
-}
-
-#controls
-{
-	display: none;
-	background-color: #87CEEB;
-}
-
-.controls-contents
-{
-    display: grid;
-    grid-template-columns: 8em 8em auto;
-}
-
-#game-controls
-{
-	display: none;
 }
 
 #charts

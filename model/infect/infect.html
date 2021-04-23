@@ -28,13 +28,9 @@
       Day number: <span id="day">1</span> &nbsp; <span id="name">Sunday</span> &nbsp; Time: <span id="hour">8</span>:<span id="minutes">00</span>
     </div>
 
-    <div id="choices">
-      <div id="displayChoice" class="picker"><button type="button" onclick="pickDisplay();">Display</button></div>
-      <div id="controlsChoice" class="picker"><button type="button" onclick="pickControls();">Controls</button></div>
-      <div id="chartsChoice" class="picker"><button type="button" onclick="pickCharts();">Charts</button></div>
-    </div>
-    <div id="display">
-      <div>
+    <div id="top-panel">
+
+      <div id="records">
         <table>
           <tr> <th>Condition </th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
           <tr> <td>Well </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
@@ -51,144 +47,142 @@
         </table>  
       </div>
 
+      <div id="controls">
+        <h4>General Controls</h4>
+
+        <div>
+          <button id="run" type="button" onclick="toggleRun();">Start</button>
+          <button type="button" id="mode" onclick="toggleMode();">Game</button>
+        </div>
+
+        <div class="controls-contents">
+          <div class="control-title">Speed</div> 
+          <div class="control-value" id="steps">1</div>
+          <div class="control-buttons">
+            <button type="button" onclick="setSteps(1);">1</button>
+            <button type="button" onclick="setSteps(30);">30</button>
+            <button type="button" onclick="setSteps(100);">100</button>
+          </div>
+        </div>
+
+        <div class="controls-contents">
+          <div class="control-title">Step size</div> 
+          <div class="control-value" id="stepsize">10</div>
+          <div class="control-buttons">
+            <button type="button" onclick="setStepsize(10);">10</button>
+            <button type="button" onclick="setStepsize(120);">120</button>
+            <button type="button" onclick="setStepsize(300);">300</button>
+          </div>
+        </div>
+
+        <fieldset id="game-controls" disabled="true">
+
+          <h4>Game Controls</h4>
+
+          <div class="controls-contents">
+         
+            <div class="control-title">Masks</div>
+            <div id="masks">None</div>
+            <div class="control-buttons">
+              <button type="button" onclick="noMasks();">None</button>
+              <button type="button" onclick="encourageMasks();">Encourage</button>
+              <button type="button" onclick="requireMasks();">Require</button>
+              <button type="button" onclick="enforceMasks();">Enforce</button>
+            </div>
+         
+            <div class="control-title">Test</div>
+            <div id="test">None</div>
+            <div class="control-buttons">
+              <button type="button" onclick="noTest();">None</button>
+              <button type="button" onclick="lightTest();">Light</button>
+              <button type="button" onclick="heavyTest();">Heavy</button>
+            </div>
+
+            <div class="control-title">Tracing</div>
+            <div id="trace">None</div>
+            <div class="control-buttons">
+              <button type="button" onclick="noTrace();">None</button>
+              <button type="button" onclick="forwardTrace();">Forward</button>
+              <button type="button" onclick="backwardTrace();">Backward</button>
+            </div>
+
+            <div class="control-title">Isolate</div>
+            <div id="isolate">None</div>
+            <div class="control-buttons">
+              <button type="button" onclick="noIsolate();">None</button>
+              <button type="button" onclick="homeIsolate();">At Home</button>
+              <button type="button" onclick="onePublic();">One Public</button>
+              <button type="button" onclick="twoPublic();">Two Public</button>
+            </div>
+          </div>
+
+          <div>
+            The following controls shut down or open up a category of rooms.
+          </div>
+
+          <div class="toggle-contents">
+            <div class="toggle-room">
+              <div class="toggle-title">Worship</div>
+              <button type="button" id="worship" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Restaurants</div>
+              <button type="button" id="restaurants" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Bars</div>
+              <button type="button" id="bars" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Clubs</div>
+              <button type="button" id="clubs" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Schools</div>
+              <button type="button" id="schools" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Offices</div>
+              <button type="button" id="offices" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Packing</div>
+              <button type="button" id="meat" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Groceries</div>
+              <button type="button" id="groceries" onclick="state.toggleRoomState(C.ROOMTYPE.GROCERIES);">Close</button>
+            </div>
+
+            <div class="toggle-room">
+              <div class="toggle-title">Parks</div>
+              <button type="button" id="outside" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </fieldset>
+    </div>
   <!--     <div>
          R<sub>0</sub>: <span id="r0">0</span>  R<sub>t</sub>: <span id="rt">0</span>
       </div>
    -->
+    <div id="choices">
+      <div id="displayChoice" class="picker"><button type="button" onclick="pickDisplay();">Display</button></div>
+      <div id="chartsChoice" class="picker"><button type="button" onclick="pickCharts();">Charts</button></div>
+    </div>
+
+    <div id="display">
     	<canvas id="canvas" width=1000 height=505></canvas>      
     </div>
 
-    <div id="controls">
-      <h4>General Controls</h4>
-      <div class="controls-contents">
-
-        <div class="control-title">Mode</div>
-        <div class="control-value" id="type">Exposition</div>
-        <div class="control-buttons">
-          <button type="button" onclick="setGame();">Game</button>
-          <button type="button" onclick="setExposition();">Exposition</button>
-        </div>  
-
-        <div class="control-title">Speed</div> 
-        <div class="control-value" id="steps">1</div>
-        <div class="control-buttons">
-          <button type="button" onclick="setSteps(1);">1</button>
-          <button type="button" onclick="setSteps(10);">10</button>
-          <button type="button" onclick="setSteps(100);">100</button>
-          <button type="button" onclick="setSteps(1000);">1000</button>
-        </div>
-      </div>
-
-      <div>
-        <button type="button" onclick="stop();">Stop</button>
-        <button type="button" onclick="start();">Start</button>
-      </div>
-
-      <div id="game-controls">
-
-        <h4>Game Controls</h4>
-
-        <div class="controls-contents">
-       
-          <div class="control-title">Masks</div>
-          <div id="masks">None</div>
-          <div class="control-buttons">
-            <button type="button" onclick="noMasks();">None</button>
-            <button type="button" onclick="encourageMasks();">Encourage</button>
-            <button type="button" onclick="requireMasks();">Require</button>
-            <button type="button" onclick="enforceMasks();">Enforce</button>
-          </div>
-       
-          <div class="control-title">Test</div>
-          <div id="test">None</div>
-          <div class="control-buttons">
-            <button type="button" onclick="noTest();">None</button>
-            <button type="button" onclick="lightTest();">Light</button>
-            <button type="button" onclick="heavyTest();">Heavy</button>
-          </div>
-
-          <div class="control-title">Tracing</div>
-          <div id="trace">None</div>
-          <div class="control-buttons">
-            <button type="button" onclick="noTrace();">None</button>
-            <button type="button" onclick="forwardTrace();">Forward</button>
-            <button type="button" onclick="backwardTrace();">Backward</button>
-          </div>
-
-          <div class="control-title">Isolate</div>
-          <div id="isolate">None</div>
-          <div class="control-buttons">
-            <button type="button" onclick="noIsolate();">None</button>
-            <button type="button" onclick="homeIsolate();">At Home</button>
-            <button type="button" onclick="onePublic();">One Public</button>
-            <button type="button" onclick="twoPublic();">Two Public</button>
-          </div>
-        </div>
-
-        <div>
-          The following controls shut down or open up a category of rooms.
-        </div>
-
-        <div class="controls-contents">
-          <div class="control-title">House of Worship</div>
-          <div id="worship">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeWorship();">Close</button>
-            <button type="button" onclick="openWorship();">Open</button>
-          </div>
-
-          <div class="control-title">Restaurants</div>
-          <div id="restaurants">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeRestaurants();">Close</button>
-            <button type="button" onclick="openRestaurants();">Open</button>
-          </div>
-
-          <div class="control-title">Bars</div>
-          <div id="bars">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeBars();">Close</button>
-            <button type="button" onclick="openBars();">Open</button>
-          </div>
-
-          <div class="control-title">Clubs</div>
-          <div id="clubs">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeClubs();">Close</button>
-            <button type="button" onclick="openClubs();">Open</button>
-          </div>
-
-          <div class="control-title">Schools</div>
-          <div id="schools">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeSchools();">Close</button>
-            <button type="button" onclick="openSchools();">Open</button>
-          </div>
-
-          <div class="control-title">Offices</div>
-          <div id="offices">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeOffices();">Close</button>
-            <button type="button" onclick="openOffices();">Open</button>
-          </div>
-
-          <div class="control-title">Meat Packing</div>
-          <div id="meat">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeMeat();">Close</button>
-            <button type="button" onclick="openMeat();">Open</button>
-          </div>
-
-          <div class="control-title">Groceries</div>
-          <div id="groceries">Open</div>
-          <div class="control-buttons">
-            <button type="button" onclick="closeGroceries();">Close</button>
-            <button type="button" onclick="openGroceries();">Open</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
     <div id="charts">
       This is where we put the charts
@@ -202,6 +196,7 @@
   <script src="../js/state.js"></script>
   <script src="../js/infectState.js"></script>
   <script src="../js/townState.js"></script>
+  <script src="../js/gameState.js"></script>
   <script src="../js/lib.js"></script>
   <script src="../js/shift.js"></script>
   <script src="../js/group.js"></script>

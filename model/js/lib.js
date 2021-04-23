@@ -48,23 +48,22 @@ function formatColours(red, green, blue)
 
 const FRAME = 1000 / 60;
 
-var past = null;
-
 function animate(timestamp)
 {
-	let deltaT = (past ? timestamp - past : FRAME);
-	past = timestamp;
-	stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
-
-	for (var i = 0; i < stepCount; i++) 
-	{
-		state.step();
-	}
-
-	draw();
-
 	if (state.run)
 	{
+		let deltaT = (state.past ? timestamp - state.past : FRAME);
+		state.past = timestamp;
+		stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+
+		for (var i = 0; i < stepCount; i++) 
+		{
+			state.step();
+		}
+
+
+		draw();
+
 		window.requestAnimationFrame(animate);
 	}
 }
@@ -75,11 +74,6 @@ function draw()
 	context.save();
 	state.draw(context);
 	context.restore();
-}
-
-function setSteps(steps) 
-{
-	state.stepsPerFrame = steps;
 }
 
 class Point

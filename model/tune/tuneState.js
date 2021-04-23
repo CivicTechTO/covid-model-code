@@ -227,7 +227,7 @@ class TuneState extends InfectState
 	
 		for (const person of this.personList)
 		{
-			person.decay();
+			person.initLoad();
 		}
 
 		for (const room of this.roomList)

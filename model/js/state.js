@@ -41,6 +41,8 @@ class State
 
 		this.debug = false;
 		this.tuneFlag = false;
+
+		this.past = null;
 	}
 
 	tickToSecond(tick)

@@ -8,6 +8,7 @@ class InfectablePerson extends Person
 		this.progressIndex = 0;
 		this.exposure = 0;
 		this.loadValue = 0.0;
+		this.currentLoad = 0.0;
 	}
 
 	canProgress()
@@ -98,54 +99,41 @@ class InfectablePerson extends Person
 		return this.inRoom && this.inRoom.equals(state.hallway); 
 	}
 
-	decay()
+	initLoad()
 	{
-		this.exposure = (this.exposure > state.infectConfig.reset ? this.exposure * state.infectConfig.decay : 0.0);
-	}
-
-	compress(maximum, log)
-	{
-		let result;
-
-		if (log)
-		{
-			result = Math.log(this.exposure) / Math.log(maximum);
-		}
-		else
-		{
-			result = this.exposure / maximum;
-		}
-		
-		if (this.stats)
-		{
-			state.addStat(0, result);
-		}
-
-		return result;
+		this.currentLoad = 0.0;
 	}
 
 	expose()
 	{
 		if (this.infectable())
 		{
-			const maximum = state.infectConfig.maximum;
-			const choices = state.infectConfig.params;
-			const config = choices[state.infectConfig.which];
-			let p = 1 - Math.pow(1 - this.compress(maximum, config.log), config.pScale);
+			const decay = state.config.infection.decay;
+			const increase = this.currentLoad * state.realTick / 2;
+			const cumulative = (this.exposure * (1 - Math.pow(decay, state.realTick))) / Math.log(state.realTick);
+			this.exposure = increase + cumulative;
+			if (this.exposure < state.config.infection.reset)
+			{
+				this.exposure = 0.0;
+			}
+			
+			const pRaw = this.exposure / state.config.infection.pScale;
+			let pDamped = 1 - Math.pow(1 - pRaw, 1 / state.config.infection.damping);
 			
 			if (this.stats)
 			{
-				state.addStat(1, p);
+				state.addStat(0, pRaw);
+				state.addStat(1, pDamped);
 			}
 
-			if (state.infecting && Math.random() < p)
+			if (state.infecting && Math.random() < pDamped)
 			{
+				this.infect(pick(state.infectious.pList, state.infectious.valueList));
+
 				if (this.stats)
 				{
 					setInfectedAt(state.clock);
 				}
-
-				this.infect(pick(state.infectious.pList, state.infectious.valueList));
 			}
 		}
 	}
@@ -181,7 +169,7 @@ class InfectablePerson extends Person
 
 	goToRoom(toRoom)
 	{
-		if (!C.FIXEDROOM.includes(this.sickness()))
+		if (!C.FIXEDROOM.includes(this.sickness()) && toRoom.isOpen())
 		{
 			this.setItinerary(toRoom);
 		}

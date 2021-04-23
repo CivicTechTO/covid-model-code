@@ -26,53 +26,65 @@ function hidePage(name)
 
 function setText(name, text) 
 {
-	const element = document.getElementById(name);
-	element.textContent = text;
+	document.getElementById(name).textContent = text;
 }
 
-function start()
+function toggleRun() 
 {
-	state.run = true;
+	if (state.run)
+	{
+		setText("run", "Start")
+		state.run = false;
+	}
+	else
+	{
+		setText("run", "Stop")
+		state.run = true;
+		state.past = null;
 
-	window.requestAnimationFrame(animate);
+		window.requestAnimationFrame(animate);
+	}
 }
 
-function stop() 
+function toggleMode() 
 {
-	state.run = false;
+	if (state.game)
+	{
+		state.setExposition();
+		document.getElementById("game-controls").disabled = true;
+		setText("mode", "Game");
+	}
+	else
+	{
+		state.setGame();
+		document.getElementById("game-controls").disabled = false;
+		setText("mode", "Exposition");
+	}
 }
+
+function setSteps(steps) 
+{
+	state.stepsPerFrame = steps;
+	setText("steps", state.stepsPerFrame.toString());
+}
+
+function setStepsize(seconds) 
+{
+	state.realTick = seconds;
+	setText("stepsize", state.realTick.toString());
+}
+
 
 function pickDisplay()
 {
-	hidePage("controls");
 	hidePage("charts");
 	showPage("display");
-}
-
-function pickControls() 
-{
-	hidePage("display");
-	hidePage("charts");
-	showPage("controls");
 }
 
 function pickCharts()
 {
 	hidePage("display");
-	hidePage("controls");
 	showPage("charts");
-}
-
-function setGame() 
-{
-	setText("type", "Game");
-	show("game-controls");
-}
-
-function setExposition() 
-{
-	setText("type", "Exposition");
-	hide("game-controls");
 }
 
 function noMasks() 
@@ -143,85 +155,5 @@ function onePublic()
 function twoPublic() 
 {
 	setText("isolate", "Two Public");
-}
-
-function closeWorship()
-{
-	setText("worship", "Closed");
-}
-
-function openWorship()
-{
-	setText("worship", "Open");
-}
-
-function closeRestaurants()
-{
-	setText("restaurants", "Closed");
-}
-
-function openRestaurants()
-{
-	setText("restaurants", "Open");
-}
-
-function closeBars()
-{
-	setText("bars", "Closed");
-}
-
-function openBars()
-{
-	setText("bars", "Open");
-}
-
-function closeClubs()
-{
-	setText("clubs", "Closed");
-}
-
-function openClubs()
-{
-	setText("clubs", "Open");
-}
-
-function closeSchools()
-{
-	setText("schools", "Closed");
-}
-
-function openSchools()
-{
-	setText("schools", "Open");
-}
-
-function closeOffices()
-{
-	setText("offices", "Closed");
-}
-
-function openOffices()
-{
-	setText("offices", "Open");
-}
-
-function closeMeat()
-{
-	setText("meat", "Closed");
-}
-
-function openMeat()
-{
-	setText("meat", "Open");
-}
-
-function closeGroceries()
-{
-	setText("groceries", "Closed");
-}
-
-function openGroceries()
-{
-	setText("groceries", "Open");
 }
 
