@@ -48,8 +48,7 @@ class Sit extends Event
 
 	action()
 	{
-		let speed = this.room.getSpeed();
-		this.room.change(new ChurchRules(speed, this.room, this.separation));
+		this.room.change(new ChurchSitRules(this.room, this.separation));
 	}
 }
 
@@ -64,9 +63,8 @@ class Millabout extends Event
 
 	action()
 	{
-		let speed = this.room.getSpeed();
 		let args = this.args;
-		this.room.change(new RandomRules(speed, args.halfEdge, args.start, args.pause));
+		this.room.change(new ChurchRandomRules(args.halfEdge));
 	}
 }
 

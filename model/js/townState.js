@@ -1,11 +1,11 @@
 
 class TownState extends InfectState
 {
-	constructor(config, width, height)
+	constructor(configuration, width, height)
 	{
-		super(config, width, height);
+		super(configuration, width, height);
 
-		this.count = this.config.count;
+		this.count = this.activeConfig.count;
 
 		this.oldSteps = 0;
 
@@ -20,9 +20,7 @@ class TownState extends InfectState
 		this.outsideList = [];
 		this.partyList =[];
 
-		this.week = [];
-
-		this.workBack = this.config.workBack;
+		this.workBack = this.activeConfig.workBack;
 
 		this.hosts = new Set();
 		this.notHosts = new Set();
@@ -39,7 +37,7 @@ class TownState extends InfectState
 
 		let crowd = [];
 
-		this.churchSpec = this.config.church;
+		this.churchSpec = this.activeConfig.church;
 
 		this.fillHome(this.dwellingList, crowd);
 		this.fillWork();
@@ -56,7 +54,7 @@ class TownState extends InfectState
 		this.setWeek();
 		this.setDays();
 
-		this.manager = new SicknessManager(this.config.hospital);
+		this.manager = new SicknessManager(this.activeConfig.hospital);
 	}
 
 	fillHome(dwellings, crowd)
@@ -67,62 +65,60 @@ class TownState extends InfectState
 
 	fillBunkHouses(dwellings, crowd)
 	{
-		let count = this.config.bunkHouse.count;
-		let width = this.config.bunkHouse.width;
-		let height = this.config.bunkHouse.height;
-		let speed = this.config.bunkHouse.speed;
+		let count = this.activeConfig.bunkHouse.count;
+		let width = this.activeConfig.bunkHouse.width;
+		let height = this.activeConfig.bunkHouse.height;
 
-		let offset = Math.round((this.config.road.space - width) / 2);
-		let x = (this.config.bunkHouse.road * this.config.road.space) + offset;
-		let top = (this.config.size.height - count * height) - this.config.bunkHouse.buffer;
+		let offset = Math.round((this.activeConfig.road.space - width) / 2);
+		let x = (this.activeConfig.bunkHouse.road * this.activeConfig.road.space) + offset;
+		let top = (this.activeConfig.size.height - count * height) - this.activeConfig.bunkHouse.buffer;
 
-		let bunkHouses = stack(count, x, top, width, height, speed);
+		let bunkHouses = stack(count, x, top, width, height);
 		
 		for (const room of bunkHouses) 
 		{
-			room.fillStyle = this.config.bunkHouse.style;
-			room.ventilation = computeLevel(this.config.bunkHouse.ventilation);
-			room.loudness = computeLevel(this.config.bunkHouse.loudness);
+			room.fillStyle = this.activeConfig.bunkHouse.style;
+			room.ventilation = computeLevel(this.activeConfig.bunkHouse.ventilation);
+			room.loudness = computeLevel(this.activeConfig.bunkHouse.loudness);
 			room.house = false;
 
 			this.roomList.push(room);
 			dwellings.push(room);
-			crowd.push(this.config.bunkHouse.crowd);
+			crowd.push(this.activeConfig.bunkHouse.crowd);
 		}
 	}
 
 	fillHouses(dwellings, crowd)
 	{
-		let count = this.config.house.count;
-		let width = this.config.house.width;
-		let height = this.config.house.height;
-		let speed = this.config.house.speed;
-		let offset = Math.round((this.config.road.space - 2 * width) / 2);
-		let top = (this.config.size.height - count * height) - this.config.house.buffer;
+		let count = this.activeConfig.house.count;
+		let width = this.activeConfig.house.width;
+		let height = this.activeConfig.house.height;
+		let offset = Math.round((this.activeConfig.road.space - 2 * width) / 2);
+		let top = (this.activeConfig.size.height - count * height) - this.activeConfig.house.buffer;
 
-		for (var road = this.config.house.startRoad; road <= this.config.house.endRoad; road++) 
+		for (var road = this.activeConfig.house.startRoad; road <= this.activeConfig.house.endRoad; road++) 
 		{
-			let x = road * this.config.road.space + offset;
-			let houses = twoStack(count, x, top, width, height, speed);
+			let x = road * this.activeConfig.road.space + offset;
+			let houses = twoStack(count, x, top, width, height);
 			
 			for (const room of houses) 
 			{
-				room.fillStyle = this.config.house.style;
-				room.ventilation = computeLevel(this.config.house.ventilation);
-				room.loudness = computeLevel(this.config.house.loudness);
+				room.fillStyle = this.activeConfig.house.style;
+				room.ventilation = computeLevel(this.activeConfig.house.ventilation);
+				room.loudness = computeLevel(this.activeConfig.house.loudness);
 				room.house = true;
 
 				this.houseList.push(room);
 				this.roomList.push(room);
 				dwellings.push(room);
-				crowd.push(this.config.house.crowd);
+				crowd.push(this.activeConfig.house.crowd);
 			}
 		}
 	}
 
 	fillWork()
 	{
-		let left = row(1, 1, this.config.depth, this.config.workSpeed, this.config.left);
+		let left = row(1, 1, this.activeConfig.depth, this.activeConfig.left);
 
 		for (const room of left)
 		{
@@ -130,8 +126,8 @@ class TownState extends InfectState
 			this.workList.push(room);
 		}
 
-		let x = this.config.size.width - (this.config.depth + 1);
-		let right = row(x, 1, this.config.depth, this.config.workSpeed, this.config.right);
+		let x = this.activeConfig.size.width - (this.activeConfig.depth + 1);
+		let right = row(x, 1, this.activeConfig.depth, this.activeConfig.right);
 
 		for (const room of right)
 		{
@@ -142,40 +138,40 @@ class TownState extends InfectState
 		let index = 0;
 		for (const room of this.workList)
 		{
-			const allocation = this.config.workAllocation[index++];
+			const allocation = this.activeConfig.workAllocation[index++];
 			const crowd = Math.floor(allocation / room.height);
-			room.change(new WorkRules(this.config.workSpeed, this.config.workBack, room, crowd));
+			room.change(new WorkRules(this.activeConfig.workBack, room, crowd));
 
-			const scale = allocation / this.config.workScale.maxAllocation;
+			const scale = allocation / this.activeConfig.workScale.maxAllocation;
 
-			room.fillStyle = this.config.workStyle;
+			room.fillStyle = this.activeConfig.workStyle;
 
-			const ventilationConfig = this.config.workScale.ventilation;
+			const ventilationConfig = this.activeConfig.workScale.ventilation;
 			room.ventilation = ventilationConfig.min + scale * (ventilationConfig.max - ventilationConfig.min);
 
-			const loudnessConfig = this.config.workScale.loudness;
+			const loudnessConfig = this.activeConfig.workScale.loudness;
 			room.loudness = loudnessConfig.min + scale * (loudnessConfig.max - loudnessConfig.min);
 		}
 	}
 
 	fillOther()
 	{
-		this.fillChurch(2 * this.config.road.space, this.config.church);
-		this.fillRestaurant(4 * this.config.road.space, this.config.restaurant);
-		this.fillPub(5 * this.config.road.space, this.config.pub);
-		this.fillClub(6 * this.config.road.space, this.config.club);
+		this.fillChurch(2 * this.activeConfig.road.space, this.activeConfig.church);
+		this.fillRestaurant(4 * this.activeConfig.road.space, this.activeConfig.restaurant);
+		this.fillPub(5 * this.activeConfig.road.space, this.activeConfig.pub);
+		this.fillClub(6 * this.activeConfig.road.space, this.activeConfig.club);
 
-		this.fillChurch(7 * this.config.road.space, this.config.church);
-		this.fillRestaurant(9 * this.config.road.space, this.config.restaurant);
-		this.fillPub(10 * this.config.road.space, this.config.pub);
-		this.fillClub(11 * this.config.road.space, this.config.club);
+		this.fillChurch(7 * this.activeConfig.road.space, this.activeConfig.church);
+		this.fillRestaurant(9 * this.activeConfig.road.space, this.activeConfig.restaurant);
+		this.fillPub(10 * this.activeConfig.road.space, this.activeConfig.pub);
+		this.fillClub(11 * this.activeConfig.road.space, this.activeConfig.club);
 		
-		this.fillChurch(12 * this.config.road.space, this.config.church);
-		this.fillRestaurant(14 * this.config.road.space, this.config.restaurant);
-		this.fillPub(15 * this.config.road.space, this.config.pub);
-		this.fillClub(16 * this.config.road.space, this.config.club);
+		this.fillChurch(12 * this.activeConfig.road.space, this.activeConfig.church);
+		this.fillRestaurant(14 * this.activeConfig.road.space, this.activeConfig.restaurant);
+		this.fillPub(15 * this.activeConfig.road.space, this.activeConfig.pub);
+		this.fillClub(16 * this.activeConfig.road.space, this.activeConfig.club);
 
-		this.fillOutside(this.config);
+		this.fillOutside(this.activeConfig);
 
 		this.fillHospital();
 		this.fillCemetary();
@@ -183,51 +179,49 @@ class TownState extends InfectState
 
 	fillCemetary()
 	{
-		let y = this.config.cemetary.y;
-		let x = (this.config.cemetary.road * this.config.road.space) + this.config.cemetary.offset;
-		let width = this.config.cemetary.width;
-		let speed = this.config.cemetary.speed;
+		let y = this.activeConfig.cemetary.y;
+		let x = (this.activeConfig.cemetary.road * this.activeConfig.road.space) + this.activeConfig.cemetary.offset;
+		let width = this.activeConfig.cemetary.width;
 
-		this.cemetary = new Room(x, y, width, this.config.cemetary.height, speed);
-		this.cemetary.rules = new SeatRules(speed);
-		this.cemetary.ventilation = this.config.ventilation.max;
+		this.cemetary = new Room(x, y, width, this.activeConfig.cemetary.height);
+		this.cemetary.rules = new CemetaryRules();
+		this.cemetary.ventilation = this.activeConfig.ventilation.max;
 		this.cemetary.loudness = 0;
-		this.cemetary.fillStyle = this.config.cemetary.style;
+		this.cemetary.fillStyle = this.activeConfig.cemetary.style;
 		this.roomList.push(this.cemetary);
 	}
 
 	fillHospital()
 	{
-		const x = (this.config.hospital.road * this.config.road.space) + this.config.hospital.offset;
-		const width = this.config.hospital.width;
-		const speed = this.config.hospital.speed;
-		const wardConfig = this.config.hospital.ward;
-		const icuConfig = this.config.hospital.icu;
-		const hallwayConfig = this.config.hospital.hallway;
+		const x = (this.activeConfig.hospital.road * this.activeConfig.road.space) + this.activeConfig.hospital.offset;
+		const width = this.activeConfig.hospital.width;
+		const wardConfig = this.activeConfig.hospital.ward;
+		const icuConfig = this.activeConfig.hospital.icu;
+		const hallwayConfig = this.activeConfig.hospital.hallway;
 
-		let y = this.config.hospital.y + icuConfig.height + wardConfig.height;
-		this.hallway = new Room(x, y, width, hallwayConfig.height, speed);
-		this.hallway.rules = new HallwayRules(speed);
-		this.hallway.ventilation = this.config.ventilation.max;
+		let y = this.activeConfig.hospital.y + icuConfig.height + wardConfig.height;
+		this.hallway = new Room(x, y, width, hallwayConfig.height);
+		this.hallway.rules = new HallwayRules();
+		this.hallway.ventilation = this.activeConfig.ventilation.max;
 		this.hallway.loudness = 0;
-		this.hallway.fillStyle = this.config.hospital.style;
+		this.hallway.fillStyle = this.activeConfig.hospital.style;
 		this.roomList.push(this.hallway);
 
-		y = this.config.hospital.y + icuConfig.height;
-		this.ward = new Room(x, y, width, wardConfig.height, speed);
-		this.ward.rules = new HospitalRules(speed);
-		this.ward.ventilation = this.config.ventilation.max;
+		y = this.activeConfig.hospital.y + icuConfig.height;
+		this.ward = new Room(x, y, width, wardConfig.height);
+		this.ward.rules = new HospitalRules();
+		this.ward.ventilation = this.activeConfig.ventilation.max;
 		this.ward.loudness = 0;
-		this.ward.fillStyle = this.config.hospital.style;
+		this.ward.fillStyle = this.activeConfig.hospital.style;
 
 		this.roomList.push(this.ward);
 
-		y = this.config.hospital.y;
-		this.icu = new Room(x, y, width, icuConfig.height, speed);
-		this.icu.rules = new HospitalRules(speed);
-		this.icu.ventilation = this.config.ventilation.max;
+		y = this.activeConfig.hospital.y;
+		this.icu = new Room(x, y, width, icuConfig.height);
+		this.icu.rules = new HospitalRules();
+		this.icu.ventilation = this.activeConfig.ventilation.max;
 		this.icu.loudness = 0;
-		this.icu.fillStyle = this.config.hospital.style;
+		this.icu.fillStyle = this.activeConfig.hospital.style;
 		this.roomList.push(this.icu);
 	}
 
@@ -236,21 +230,18 @@ class TownState extends InfectState
 		let actual = x + churchSpec.offset;
 		let width = churchSpec.width;
 		let height = churchSpec.height;
-		let speed = churchSpec.speed;
 		let halfEdge = churchSpec.halfEdge;
-		let start = churchSpec.start;
-		let pause = churchSpec.pause;
 		let separation = churchSpec.separation;
 
-		let churchList = stack(churchSpec.count, actual, 1, width, height, speed);
+		let churchList = stack(churchSpec.count, actual, 1, width, height);
 
 		for (const church of churchList)
 		{
-			church.fillStyle = this.config.church.style;
+			church.fillStyle = this.activeConfig.church.style;
 
 			this.roomList.push(church);
 			this.churchList.push(church);
-			church.rules = new ChurchRules(speed, church, separation);
+			church.rules = new ChurchSitRules(church, separation);
 		}
 	}
 
@@ -259,17 +250,16 @@ class TownState extends InfectState
 		let actual = x + clubSpec.offset;
 		let width = clubSpec.width;
 		let height = clubSpec.height;
-		let speed = clubSpec.speed;
 		let halfEdge = clubSpec.halfEdge;
 
-		let clubList = stack(clubSpec.count, actual, 1, width, height, speed);
+		let clubList = stack(clubSpec.count, actual, 1, width, height);
 
 		for (const club of clubList)
 		{
-			club.fillStyle = this.config.club.style;
+			club.fillStyle = this.activeConfig.club.style;
 			club.ventilation = computeLevel(clubSpec.ventilation);
 			club.loudness = computeLevel(clubSpec.loudness);
-			club.rules = new RandomRules(speed, halfEdge, 1, 1);
+			club.rules = new ClubRules(halfEdge);
 
 			this.roomList.push(club);
 			this.clubList.push(club);
@@ -279,7 +269,7 @@ class TownState extends InfectState
 	fillPub(x, pubSpec)
 	{
 		let actual = x + pubSpec.offset;
-		let pubStack = twoStack(pubSpec.count, actual, 1, pubSpec.width, pubSpec.height, pubSpec.speed);
+		let pubStack = twoStack(pubSpec.count, actual, 1, pubSpec.width, pubSpec.height);
 
 		for (const pub of pubStack)
 		{
@@ -294,20 +284,17 @@ class TownState extends InfectState
 
 	setPubs()
 	{
-		let speed = this.config.pub.speed;
-
 		for (const pub of this.pubList)
 		{
-			pub.rules = new PubRules(speed, this.pubList, pub);
+			pub.rules = new PubRules(this.pubList, pub);
 		}
 	}
 
 	fillRestaurant(x, resto)
 	{
 		let actual = x + resto.offset;
-		let speed = resto.speed;
 
-		let restaurantStack = twoStack(resto.count, actual, 1, resto.width, resto.height, speed);
+		let restaurantStack = twoStack(resto.count, actual, 1, resto.width, resto.height);
 
 		for (const restaurant of restaurantStack)
 		{
@@ -322,36 +309,32 @@ class TownState extends InfectState
 
 	setRestaurants()
 	{
-		let speed = this.config.restaurant.speed;
-		let separation = this.config.restaurant.separation;
+		let separation = this.activeConfig.restaurant.separation;
 
 		for (const restaurant of this.restaurantList)
 		{
-			restaurant.rules = new RestaurantRules(speed, this.restaurantList, restaurant, separation);
+			restaurant.rules = new RestaurantRules(this.restaurantList, restaurant, separation);
 		}
 	}
 
 	fillOutside()
 	{
-		let width = this.config.outside.width;
-		let height = this.config.outside.height;
-		let y = this.config.outside.y;
-		let speed = this.config.outside.speed;
-		let halfEdge = this.config.outside.halfEdge;
-		let start = this.config.outside.start;
-		let pause = this.config.outside.pause;
+		let width = this.activeConfig.outside.width;
+		let height = this.activeConfig.outside.height;
+		let y = this.activeConfig.outside.y;
+		let halfEdge = this.activeConfig.outside.halfEdge;
 
-		for (var i = this.config.outside.road ; i < this.config.outside.count; i++) 
+		for (var i = this.activeConfig.outside.road ; i < this.activeConfig.outside.count; i++) 
 		{
-			let x = i * this.config.road.space;
-			let outside = new Outside(x, y, width, height, speed, halfEdge, start, pause);
-			outside.fillStyle = this.config.outside.style;
+			let x = i * this.activeConfig.road.space;
+			let outside = new Outside(x, y, width, height, halfEdge);
+			outside.fillStyle = this.activeConfig.outside.style;
 
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 
-			outside = new Outside(x + width, y, width, height, speed, halfEdge, start, pause);
-			outside.fillStyle = this.config.outside.style;
+			outside = new Outside(x + width, y, width, height, halfEdge);
+			outside.fillStyle = this.activeConfig.outside.style;
 
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
@@ -361,7 +344,7 @@ class TownState extends InfectState
 
 	fillPersons()
 	{
-		for (var i = 0; i < this.config.count; i++) 
+		for (var i = 0; i < this.activeConfig.count; i++) 
 		{
 			let person = this.makePerson();
 			this.personList[i] = person;
@@ -372,7 +355,7 @@ class TownState extends InfectState
 	{
 		for (const dwelling of dwellingList)
 		{
-			dwelling.rules = new SeatRules(this.config.dwelling.speed);
+			dwelling.rules = new NightDwellingRules();
 		}
 
 		let choices = makeChoices(dwellingList, crowd);
@@ -381,7 +364,7 @@ class TownState extends InfectState
 		{
 			let person = this.personList[i];
 
-			if (i < Math.round(this.config.fillFactor * dwellingList.length))
+			if (i < Math.round(this.activeConfig.fillFactor * dwellingList.length))
 			{
 				person.home = dwellingList[i % dwellingList.length];
 			}
@@ -396,11 +379,11 @@ class TownState extends InfectState
 
 	setWork()
 	{
-		let choices = makeChoices(this.workList, this.config.workAllocation);
+		let choices = makeChoices(this.workList, this.activeConfig.workAllocation);
 
 		for (const person of this.personList)
 		{
-			if (person.home.house && Math.random() < this.config.weekday.home)
+			if (person.home.house && Math.random() < this.activeConfig.weekday.home)
 			{
 				person.work = person.home;
 			}
@@ -417,15 +400,15 @@ class TownState extends InfectState
 		{
 			let roll = Math.random();
 
-			if (roll < this.config.sundayMorning.home)
+			if (roll < this.activeConfig.sundayMorning.home)
 			{
 				person.church = person.home;
 			}
 			else
 			{
-				roll -= this.config.sundayMorning.home;
+				roll -= this.activeConfig.sundayMorning.home;
 
-				if (roll < this.config.sundayMorning.outside)
+				if (roll < this.activeConfig.sundayMorning.outside)
 				{
 					person.church = chooseOne(this.outsideList);
 				}
@@ -437,61 +420,12 @@ class TownState extends InfectState
 		}
 	}
 
-	setWeek()
-	{
-		this.week = [];
-
-		this.week.push(new Sunday(this.config.dwelling.start, this.config.dwelling.pause, this.config.church));
-
-		this.pushInitial(this.config.dwelling.start, this.config.dwelling.pause, this.config.sundayAfternoon.initial, this.config.sundayAfternoon.migrate);
-		this.pushMigrate(this.config.sundayEve.migrate);
-		this.pushMigrate(this.config.sundayNight.migrate);
-		this.week.push(new Night());
-		this.week.push(new Shift());
-		
-		for (let i = 0 ; i < 4 ; i++)
-		{
-			this.week.push(new Day(this.config.dwelling.start, this.config.dwelling.pause));
-			this.week.push(new Shift());
-			this.pushInitial(this.config.dwelling.start, this.config.dwelling.pause, this.config.weekdayEve.initial, this.config.weekdayEve.migrate);
-			this.pushMigrate(this.config.weekdayNight.migrate);
-			this.week.push(new Night());
-			this.week.push(new Shift());
-		}
-
-		this.week.push(new Day(this.config.dwelling.start, this.config.dwelling.pause));
-		this.week.push(new Shift());
-		this.pushInitial(this.config.dwelling.start, this.config.dwelling.pause, this.config.fridayEve.initial, this.config.fridayEve.migrate);
-		this.pushMigrate(this.config.fridayNight.migrate);
-		this.week.push(new Night());
-		this.week.push(new Shift());
-
-		this.pushInitial(this.config.dwelling.start, this.config.dwelling.pause, this.config.saturdayMorning.initial, this.config.saturdayMorning.migrate);
-		this.pushMigrate(this.config.saturdayAfternoon.migrate);
-		this.pushMigrate(this.config.saturdayEve.migrate);
-		this.pushMigrate(this.config.saturdayNight.migrate);
-		this.week.push(new Night());
-		this.week.push(new Shift());
-	}
-
-	pushInitial(start, pause, initialConfig, migrateConfig)
-	{
-		let chance = migrateConfig.chance;
-
-		this.week.push(new InitialShift(start, pause, initialConfig, migrateConfig));
-	}
-
-	pushMigrate(migrateConfig)
-	{
-		this.week.push(new MigrateShift(migrateConfig));
-	}
-
 	setDays()
 	{
 		this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 		this.currentDay = 0;
-		this.startHour = this.config.startHour;
-		this.currentHour = this.config.startHour;
+		this.startHour = this.activeConfig.startHour;
+		this.currentHour = this.activeConfig.startHour;
 		this.currentMinute = 0;
 	}
 

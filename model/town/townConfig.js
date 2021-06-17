@@ -3,7 +3,7 @@
 const config = {
 	  "size": {"height": 500, "width":1000}
 	, "stepsPerFrame": 1
-	, "realTick": 15
+	, "secondsPerTick": 15
 	, "startHour": 8
 	, "shiftLength": 960
 	, "offset": 4

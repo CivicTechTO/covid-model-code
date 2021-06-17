@@ -1,6 +1,6 @@
 class Room
 {
-	constructor(x, y, width, height, speed)
+	constructor(x, y, width, height)
 	{
 		this.x = x;
 		this.y = y;
@@ -10,7 +10,7 @@ class Room
 		this.fillStyle = 'lightGray';
 
 		this.personSet = new Set();
-		this.rules = new Rules(speed);
+		this.rules = new Rules();
 
 		this.eventList = [];
 		this.eventIndex = 0;
@@ -38,7 +38,7 @@ class Room
 	{
 		return this.rules.getSpeed();
 	}
-
+	
 	change(rules)
 	{
 		this.rules = rules;
@@ -247,19 +247,19 @@ class Room
 
 class RandomRoom extends Room
 {
-	constructor(x, y, width, height, speed, halfEdge, start, pause)
+	constructor(x, y, width, height, halfEdge)
 	{
-		super(x, y, width, height, speed);
-		this.rules = new RandomRules(speed, halfEdge, start, pause);
+		super(x, y, width, height);
+		this.rules = new RandomRules(halfEdge);
 	}
 }
 
 class Outside extends Room
 {
-	constructor(x, y, width, height, speed, start, pause)
+	constructor(x, y, width, height)
 	{
-		super(x, y, width, height, speed, start, pause);
-		this.rules = new TotalRandomRules(speed, start, pause);
+		super(x, y, width, height);
+		this.rules = new OutsideRules();
 	}
 
 	draw(context)

@@ -1,8 +1,8 @@
 class GameState extends TownState
 {
-	constructor(config, width, height)
+	constructor(configuration, width, height)
 	{
-		super(config, width, height);
+		super(configuration, width, height);
 
 		this.game = false;
 		this.scoreDate = -1;
@@ -40,9 +40,9 @@ class GameState extends TownState
 
 	fillWorkListType()
 	{
-		this.fillWorkType(this.config.workType.meat, C.ROOMTYPE.MEAT);
-		this.fillWorkType(this.config.workType.office, C.ROOMTYPE.OFFICES);
-		this.fillWorkType(this.config.workType.school, C.ROOMTYPE.SCHOOLS);
+		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT);
+		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES);
+		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS);
 	}
 
 	fillWorkType(config, type)
@@ -95,7 +95,7 @@ class GameState extends TownState
 		{
 			const now = this.tickToHour(this.clock);
 
-			if (this.config.game.update > now % 24)
+			if (this.activeConfig.game.update > now % 24)
 			{
 				this.scoreDate = today;
 console.log("It's 3 am do you know what the score is?");

@@ -32,7 +32,7 @@ class Night extends Shift
 	{
 		for(const dwelling of state.dwellingList)
 		{
-			dwelling.change(new SeatRules(dwelling.getSpeed()));
+			dwelling.change(new NightDwellingRules());
 		}
 
 		state.goHome();
@@ -52,7 +52,7 @@ class Daytime extends Shift
 	{
 		for (const dwelling of state.dwellingList)
 		{
-			dwelling.change(new TotalRandomRules(dwelling.getSpeed(), this.start, this.pause));
+			dwelling.change(new DayDwellingRules());
 		}
 	}
 }
@@ -92,7 +92,7 @@ class Sunday extends Daytime
 		for (const church of state.churchList)
 		{
 			church.clearEvents();
-			church.change(new RandomRules(speed, halfEdge, start, pause));
+			church.change(new ChurchRandomRules(halfEdge));
 			church.addEvent(new Sit(church, this.churchSpec.millingTime, this.churchSpec.separation));
 			church.addEvent(new Millabout(church, this.churchSpec.sitTime, this.churchSpec));
 		}
@@ -176,7 +176,7 @@ class InitialShift extends MigrateShift
 
 		for (const dwelling of state.dwellingList)
 		{
-			dwelling.change(new TotalRandomRules(dwelling.getSpeed(), this.start, this.pause));
+			dwelling.change(new DayDwellingRules());
 		}
 	}
 

@@ -1,7 +1,7 @@
 class Group
 {
 	constructor(room, deltaX, deltaY, columnCount, rowCount)
-	{	
+	{
 		this.room = room;
 		this.deltaX = deltaX;
 		this.deltaY = deltaY;

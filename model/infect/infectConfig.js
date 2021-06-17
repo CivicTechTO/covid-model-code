@@ -2,11 +2,11 @@
 
 function makeConfig()
 {
-	const config = {
+	const configuration = {
 		  size: {height: 505, width:1000}
 		, background: "#ADD8E6"
 		, stepsPerFrame: 1
-		, realTick: 120
+		, secondsPerTick: 30
 		, startHour: 8
 		, shiftLength: 4
 		, offset: 4
@@ -63,12 +63,12 @@ function makeConfig()
 			}
 		, club: 
 			{
-				style: "#C2C2C2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075, halfEdge: 5
-				, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
+				style: "#C2C2C2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
+				, halfEdge: 5, start:1, pause: 1, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
 			}
 		, outside: 
 			{
-				style: "#80FF80", y: 180, road: 2, count: 16, width: 25, height: 100, crowd: 1
+				style: "#80FF80", y: 180, road: 2, count: 17, width: 25, height: 100, crowd: 1
 				, halfEdge: 12, start:1, pause: 1, speed: 0.05, ventilation: 100
 			}
 
@@ -480,5 +480,5 @@ function makeConfig()
 	}
 
 
-	return config;
+	return configuration;
 }

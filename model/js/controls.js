@@ -41,6 +41,7 @@ function toggleRun()
 		setText("run", "Stop")
 		state.run = true;
 		state.past = null;
+		document.getElementById("stepsize-controls").disabled = true;
 
 		window.requestAnimationFrame(animate);
 	}
@@ -66,14 +67,15 @@ function setSteps(steps)
 {
 	state.stepsPerFrame = steps;
 	setText("steps", state.stepsPerFrame.toString());
+	state.setSteps(steps);
 }
 
 function setStepsize(seconds) 
 {
-	state.realTick = seconds;
-	setText("stepsize", state.realTick.toString());
+	state.secondsPerTick = seconds;
+	setText("stepsize", state.secondsPerTick.toString());
+	state.setStepsize(seconds);
 }
-
 
 function pickDisplay()
 {

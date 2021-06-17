@@ -1,3 +1,24 @@
+function deepCopy(inObject)
+{
+	let outObject, value, key
+
+	if (typeof inObject !== "object" || inObject === null) 
+	{
+		return inObject // Return the value if inObject is not an object
+	}
+
+	outObject = Array.isArray(inObject) ? [] : {}
+
+	for (key in inObject) 
+	{
+		value = inObject[key]
+		outObject[key] = deepCopy(value)
+	}
+
+	return outObject
+}
+
+
 function rand(end)
 {
 	return Math.floor(end * Math.random());

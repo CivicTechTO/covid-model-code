@@ -2,14 +2,13 @@
 
 class Rules
 {
-	constructor(speed)
+	constructor()
 	{
-		this.speed = speed;
 	}
 
 	getSpeed()
 	{
-		return this.speed;
+		throw "Undefined speed";
 	}
 	
 	insert(room, person)
@@ -66,11 +65,6 @@ function seat(room, person, which)
 
 class SeatRules extends Rules
 {
-	constructor(speed)
-	{
-		super(speed);
-	}
-
 	insert(room, person)
 	{
 		person.setNewCurrent(seat(room, person, room.personSet.size));
@@ -78,7 +72,7 @@ class SeatRules extends Rules
 
 	arrive(room, person)
 	{
-		person.moveTo(seat(room, person, room.personSet.size), this.speed);
+		person.moveTo(seat(room, person, room.personSet.size), this.getSpeed());
 		return true;
 	}
 
@@ -87,20 +81,13 @@ class SeatRules extends Rules
 		let i = 0;
 		for (const person of room.personSet)
 		{
-			person.moveTo(seat(room, person, i++), this.speed);
+			person.moveTo(seat(room, person, i++), this.getSpeed());
 		}
 	}
 }
 
 class RandomRulesBase extends Rules
 {
-	constructor(speed, start, pause)
-	{
-		super(speed);
-		this.pause = pause;
-		this.start = start;
-	}
-
 	insert(room, person)
 	{
 		let x = getRandom(room.x + 1, room.width - 1);
@@ -108,6 +95,16 @@ class RandomRulesBase extends Rules
 		person.setCurrent(x, y);
 		person.setDest(x,y);
 		person.pause = this.newPause();
+	}
+
+	getPause()
+	{
+		throw "Undefined pause";
+	}
+
+	getStart()
+	{
+		throw "Undefined start";
 	}
 
 	transition(room)
@@ -121,26 +118,26 @@ class RandomRulesBase extends Rules
 
 	newPause()
 	{
-		return 1 + rand(this.pause);
+		return 1 + rand(this.getPause());
 	}
 
 	newStart()
 	{
-		return 1 + rand(this.start);
+		return 1 + rand(this.getStart());
 	}
 }
 
 class RandomRules extends RandomRulesBase
 {
-	constructor(speed, halfEdge, start, pause)
+	constructor(halfEdge)
 	{
-		super(speed, start, pause);
+		super();
 		this.halfEdge = halfEdge;
 	}
 
 	arrive(room, person)
 	{
-		person.moveTo(this.findRandom(room, person, this.halfEdge), this.speed);
+		person.moveTo(this.findRandom(room, person, this.halfEdge), this.getSpeed());
 		person.pause = 0;
 		return true;
 	}
@@ -155,7 +152,7 @@ class RandomRules extends RandomRulesBase
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
-					person.moveTo(this.findRandom(room, person, this.halfEdge), this.speed);
+					person.moveTo(this.findRandom(room, person, this.halfEdge), this.getSpeed());
 				}
 			}
 		}
@@ -172,14 +169,9 @@ class RandomRules extends RandomRulesBase
 
 class TotalRandomRules extends RandomRulesBase
 {
-	constructor(speed, start, pause)
-	{
-		super(speed, start, pause);
-	}
-
 	arrive(room, person)
 	{
-		person.moveTo(findRandom(room), this.speed);
+		person.moveTo(findRandom(room), this.getSpeed());
 		person.pause = 0;
 
 		return true;
@@ -195,7 +187,7 @@ class TotalRandomRules extends RandomRulesBase
 				if (0 >= person.pause)
 				{
 					person.pause = this.newPause();
-					person.moveTo(findRandom(room), this.speed);
+					person.moveTo(findRandom(room), this.getSpeed());
 				}
 			}
 		}
@@ -226,9 +218,9 @@ function centredRandom(lower, limit, current, halfEdge)
 
 class FullRules extends Rules
 {
-	constructor(speed, otherList)
+	constructor(otherList)
 	{
-		super(speed);
+		super();
 		this.tableList = [];
 		this.otherList = otherList;
 	}
@@ -273,11 +265,11 @@ class FullRules extends Rules
 	}
 }
 
-class ChurchRules extends Rules
+class ChurchSitRules extends Rules
 {
-	constructor(speed, room, separation)
+	constructor(room, separation)
 	{
-		super(speed);
+		super();
 
 		this.pewList = [];
 
@@ -285,7 +277,7 @@ class ChurchRules extends Rules
 		let pewSpace = 2 * spacing + separation;
 		let across =  Math.floor(room.width / (2 * (spacing + 1)));
 		let width = across * spacing;
-		let down = Math.floor(room.height / (spacing + 2));
+		let down = Math.floor(room.height / spacing);
 
 		this.pewList.push(new Group(room, spacing, pewSpace, across, down))
 		this.pewList.push(new Group(room, 2 * spacing + width, pewSpace, across, down))
@@ -299,13 +291,47 @@ class ChurchRules extends Rules
 			this.pewList[i++ % 2].add(person);
 		}
 	}
+
+	arrive(room, person)
+	{
+		return this.pewList[1].add(person);
+;
+	}
+
+	getSpeed()
+	{
+		return state.activeConfig.church.speed;
+	}
+}
+
+class ChurchRandomRules extends RandomRules
+{
+	constructor(halfEdge)
+	{
+		super(halfEdge);
+	}
+
+	getSpeed()
+	{
+		return state.activeConfig.church.speed;
+	}
+
+	getStart()
+	{
+		return state.activeConfig.church.start;
+	}
+
+	getPause()
+	{
+		return state.activeConfig.church.pause;
+	}
 }
 
 class RestaurantRules extends FullRules
 {
-	constructor(speed, otherList, room, separation)
+	constructor(otherList, room, separation)
 	{
-		super(speed, otherList);
+		super(otherList);
 		let spacing = state.spacing;
 		let tableSpace = 2 * spacing + separation;
 		let across = Math.floor(room.width / (spacing + 2));
@@ -324,13 +350,18 @@ class RestaurantRules extends FullRules
 			shift.migrate(table.personSet);
 		}
 	}
+
+	getSpeed()
+	{
+		return state.activeConfig.restaurant.speed;
+	}
 }
 
 class PubRules extends FullRules
 {
-	constructor(speed, otherList, room)
+	constructor(otherList, room)
 	{
-		super(speed, otherList);
+		super(otherList);
 		let spacing = state.spacing;
 		let down = Math.floor(room.height / (spacing + 2));
 
@@ -341,30 +372,52 @@ class PubRules extends FullRules
 		}
 	}
 
+	getSpeed()
+	{
+		return state.activeConfig.pub.speed;
+	}
+}
+
+class ClubRules extends RandomRules
+{
+	constructor(halfEdge)
+	{
+		super(halfEdge);
+	}
+
+	getSpeed()
+	{
+		return state.activeConfig.club.speed;
+	}
+
+	getStart()
+	{
+		return state.activeConfig.club.start;
+	}
+
+	getPause()
+	{
+		return state.activeConfig.club.pause;
+	}
 }
 
 class HospitalRules extends SeatRules
 {
-	constructor(speed)
-	{
-		super(speed);
-	}
-
 	depart(room, person)
 	{
 		super.depart(room, person);
 
 		this.transition(room);
 	}
+
+	getSpeed()
+	{
+		return state.activeConfig.hospital.speed;
+	}
 }
 
 class HallwayRules extends HospitalRules
 {
-	constructor(speed)
-	{
-		super(speed);
-	}
-
 	arrive(room, person)
 	{
 		let result = super.arrive(room, person);
@@ -381,71 +434,11 @@ class HallwayRules extends HospitalRules
 	}
 }
 
-// class HospitalRules extends Rules
-// {
-// 	constructor(speed, room, count)
-// 	{
-// 		super(speed);
-// 		this.beds = [];
-
-// 		let spacing = state.spacing;
-
-// 		for (let i = 0 ; i < count ; i++)
-// 		{
-// 			this.beds.push(new Group(room, i * spacing, 0, 1, 1));
-// 		}
-// 	}
-
-
-// 	migrate(room, shift)
-// 	{
-// 	}
-
-// 	depart(room, person)
-// 	{
-// 		for (let bed of this.beds)
-// 		{
-// 			if (bed.delete(person))
-// 			{
-// 				if (person.sickness() === C.DEAD)
-// 				{
-// 					state.wardPool.delete(person);
-// 					state.icuPool.delete(person);
-// 				}
-
-// 				const admittee = nextInPool(this.pool);
-// 				if (admittee)
-// 				{
-// 					admittee.goToRoom(room);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 	}
-
-// 	isFull()
-// 	{
-// 		let result = true;
-
-// 		for (const bed of this.beds)
-// 		{
-// 			if (!bed.isFull())
-// 			{
-// 				result = false;
-// 				break;
-// 			}
-// 		}
-
-// 		return result;
-// 	}
-// }
-
-
 class WorkRules extends Rules
 {
-	constructor(speed, chance, room, crowd)
+	constructor(chance, room, crowd)
 	{
-		super(speed);
+		super();
 		this.chance = chance;
 		this.tableList = [];
 		
@@ -484,7 +477,7 @@ class WorkRules extends Rules
 			{
 				if (Math.random() < this.chance)
 				{
-					person.andBack(findRandom(room), room.getSpeed());
+					person.andBack(findRandom(room), this.getSpeed());
 				}
 			}
 		}
@@ -497,4 +490,62 @@ class WorkRules extends Rules
 			table.delete(person);
 		}
 	}
+
+	getSpeed()
+	{
+		return state.activeConfig.workSpeed;
+	}
 }
+
+class OutsideRules extends TotalRandomRules
+{
+	getSpeed()
+	{
+		return state.activeConfig.outside.speed;
+	}
+
+	getStart()
+	{
+		return state.activeConfig.outside.start;
+	}
+
+	getPause()
+	{
+		return state.activeConfig.outside.pause;
+	}
+}
+
+class NightDwellingRules extends SeatRules
+{
+	getSpeed()
+	{
+		return state.activeConfig.dwelling.speed;
+	}
+}
+
+class DayDwellingRules extends TotalRandomRules
+{
+	getSpeed()
+	{
+		return state.activeConfig.dwelling.speed;
+	}
+
+	getStart()
+	{
+		return state.activeConfig.dwelling.start;
+	}
+
+	getPause()
+	{
+		return state.activeConfig.dwelling.pause;
+	}
+}
+
+class CemetaryRules extends SeatRules
+{
+	getSpeed()
+	{
+		return state.activeConfig.cemetary.speed;
+	}
+}
+

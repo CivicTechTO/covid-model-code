@@ -1,24 +1,22 @@
 class TuneState extends InfectState
 {
-	constructor(config, width, height)
+	constructor(configuration, width, height)
 	{
-		super(config, width, height);
+		super(configuration, width, height);
 
-		this.config = config;
+		this.susceptible = this.activeConfig.susceptible;
+		this.infectious = this.activeConfig.infectious;
 
-		this.susceptible = config.susceptible;
-		this.infectious = config.infectious;
-
-		this.reset = config.reset;
-		this.decay = config.decay;
-		this.base = config.base;
-		this.logCount = config.logCount;
-		this.pScale = config.pScale;
+		this.reset = this.activeConfig.reset;
+		this.decay = this.activeConfig.decay;
+		this.base = this.activeConfig.base;
+		this.logCount = this.activeConfig.logCount;
+		this.pScale = this.activeConfig.pScale;
 		
 		this.distance = 1;
 
-		this.ventilation = config.ventilation;
-		this.loudness = config.loudness;
+		this.ventilation = this.activeConfig.ventilation;
+		this.loudness = this.activeConfig.loudness;
 
 		this.tune = {ventilation: 1, loud: 40}
 
@@ -36,7 +34,7 @@ class TuneState extends InfectState
 	
 	fill()
 	{
-		this.setDays(this.config);
+		this.setDays(this.activeConfig);
 
 		this.level = exceedingly();
 

@@ -83,7 +83,7 @@ class Person
 	fromRoom(toRoom, toDoor, toRoad)
 	{
 		this.toRoom = toRoom;
-		this.speed = state.leaveSpeed;
+		this.speed = state.activeConfig.leaveSpeed;
 
 		let dest = this.inRoom.door();
 		this.dest = dest;
@@ -107,7 +107,7 @@ class Person
 	{
 		this.toRoom = toRoom;
 		let fromRoad = state.findRoad(this.current.x);
-		this.speed = state.travelSpeed + rand(state.travelVariation);
+		this.speed = this.getTravelSpeed();
 
 		if (this.current.x !== fromRoad && this.current.y !== state.main)
 		{
@@ -145,7 +145,7 @@ class Person
 			{
 				if (this.sickness() === C.DEAD)
 				{
-					this.speed = state.deadSpeed;
+					this.speed = state.activeConfig.deadSpeed;
 				}
 				
 				this.current.x = closer(this.dest.x, this.current.x, this.speed);
@@ -179,13 +179,13 @@ class Person
 				this.inRoom = null;
 			}
 
-			this.speed = 1 + rand(state.travelSpeed);
+			this.speed = this.getTravelSpeed();
 		}
 		else
 		{
 			if (1 === this.index)
 			{
-				this.speed = state.travelSpeed + rand(state.travelVariation);
+				this.speed = this.getTravelSpeed();
 			}
 		}
 
@@ -201,6 +201,11 @@ class Person
 		{
 			this.dest = this.itinerary[this.index++];
 		}
+	}
+
+	getTravelSpeed()
+	{
+		return state.activeConfig.travelSpeed + rand(state.activeConfig.travelVariation);
 	}
 
 	goHome()

@@ -1,14 +1,14 @@
 class TestbedState extends TownState
 {
-	constructor(config, width, height)
+	constructor(configuration, width, height)
 	{
-		config.count = 10;
-		super(config, width, height);
+		configuration.count = 10;
+		super(configuration, width, height);
 	}
 
 	initialize()
 	{
-		this.stepsPerFrame = 1;
+		this.setSteps(1);
 
 		// this.progression[2].alt.p = 1.0;
 		// this.progression[6].alt.p = 1.0;
