@@ -53,13 +53,24 @@ function toggleMode()
 	{
 		state.setExposition();
 		document.getElementById("game-controls").disabled = true;
+		gameHide(false);
 		setText("mode", "Game");
 	}
 	else
 	{
 		state.setGame();
 		document.getElementById("game-controls").disabled = false;
+		gameHide(true);
 		setText("mode", "Exposition");
+	}
+}
+
+function gameHide(show)
+{
+	const hideList = document.getElementsByClassName("game-hide");
+	for (element of hideList)
+	{
+		element.hidden = show;
 	}
 }
 
