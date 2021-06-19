@@ -121,7 +121,7 @@ function makeConfig()
 		, saturdayEve: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 1, 0, 1, 1]}}
 		, saturdayNight: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 5, 10, 1, 1]}}
 
-		, infection: {decay: 0.999, reset: 0.00001, pScale: 1610000, damping: 0.01}
+		, infection: {decay: 0.99999999999, reset: 0.00001, pScale: 1610000, damping: .05}
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 		
