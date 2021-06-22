@@ -124,6 +124,8 @@ function makeConfig()
 		, infection: {decay: 0.99999999999, reset: 0.00001, pScale: 1610000, damping: .05}
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
+
+		, mask: {factor: {infector: 0.35, infectee: 0.65}, chance: [0.0, 0.5, 0.8, 0.9]}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
 		, pop: {scale: 4, decay: 30}

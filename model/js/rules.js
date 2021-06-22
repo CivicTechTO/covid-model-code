@@ -422,7 +422,7 @@ class HallwayRules extends HospitalRules
 	{
 		let result = super.arrive(room, person);
 
-		increment(C.RECORD.HALLWAY);
+		recordIncrement(C.RECORD.HALLWAY);
 
 		return result;
 	}
@@ -430,7 +430,7 @@ class HallwayRules extends HospitalRules
 	leave(room, person)
 	{
 		super.leave(room, person);
-		decrement(C.RECORD.HALLWAY);
+		recordDecrement(C.RECORD.HALLWAY);
 	}
 }
 

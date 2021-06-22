@@ -42,6 +42,9 @@ class InfectState extends State
 				, dead: new Record()
 				, recovered: new Record()
 				, well: new Record() 
+				, masks: new Record() 
+				, infector: new Record() 
+				, infectee: new Record() 
 			}
 	}
 
@@ -75,8 +78,8 @@ class InfectState extends State
 		this.personList[0].progressIndex = C.PROGRESS.PEAK;
 		this.personList[0].church = this.churchList[0];
 
-		increment(C.RECORD.INFECTIOUS | C.RECORD.SICK);
-		decrement(C.RECORD.INCUBATING);
+		recordIncrement(C.RECORD.INFECTIOUS | C.RECORD.SICK);
+		recordDecrement(C.RECORD.INCUBATING);
 	}
 
 	step()
@@ -114,6 +117,9 @@ class InfectState extends State
 		this.drawARecord("Recovered", this.record.recovered);
 		this.drawARecord("Well", this.record.well);
 		this.drawARecord("Dead", this.record.dead);
+		this.drawARecord("Masks", this.record.masks);
+		this.drawARecord("Infector", this.record.infector);
+		this.drawARecord("Infectee", this.record.infectee);
 
 			// const r = computeR();
 			// const r0Element = document.getElementById('r0');

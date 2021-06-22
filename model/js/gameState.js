@@ -8,18 +8,26 @@ class GameState extends TownState
 		this.scoreDate = -1;
 		this.roomState = [];
 		this.useRoomState = [];
+		this.maskLevel = C.MASKLEVEL.NONE;
 	}
 
 	setGame()
 	{
 		this.game = true;
+		this.mode = 1;
 	}
 
 	setExposition()
 	{
 		this.game = false;
+		this.mode = 0;
 	}
 	
+	setMaskLevel(level)
+	{
+		this.maskLevel = level;
+	}
+
 	fill()
 	{
 		super.fill();
@@ -77,14 +85,6 @@ class GameState extends TownState
 		this.copyRoomState();
 	}
 
-	copyRoomState()
-	{
-		for (var i = this.roomState.length - 1; i >= 0; i--) 
-		{
-			this.useRoomState[i] = this.roomState[i];
-		}
-	}
-
 	step()
 	{
 		super.step();
@@ -100,9 +100,18 @@ class GameState extends TownState
 				this.scoreDate = today;
 console.log("It's 3 am do you know what the score is?");
 				this.copyRoomState();
+				this.setMasks();
 			}
 		}
 
+	}
+
+	copyRoomState()
+	{
+		for (var i = this.roomState.length - 1; i >= 0; i--) 
+		{
+			this.useRoomState[i] = this.roomState[i];
+		}
 	}
 
 	getRoomState(roomType)
@@ -121,6 +130,20 @@ console.log("It's 3 am do you know what the score is?");
 			this.roomState[roomType] = true;
 		}
 		this.drawRoomstates();
+	}
+
+	setMasks()
+	{
+		recordReset(C.RECORD.MASKS | C.RECORD.INFECTOR | C.RECORD.INFECTEE);
+
+		for (const person of this.personList)
+		{
+			person.mask = Math.random() < this.activeConfig.mask.chance[this.maskLevel];
+			if (person.mask)
+			{
+				recordIncrement(C.RECORD.MASKS);
+			}
+		}
 	}
 
 	drawState(elementName, roomType)

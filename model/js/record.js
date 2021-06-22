@@ -7,6 +7,11 @@ class Record
 		this.total = 0;
 	}
 
+	reset()
+	{
+		this.current = 0;
+	}
+	
 	increment()
 	{
 		this.current++;

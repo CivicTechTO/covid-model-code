@@ -9,6 +9,7 @@ class InfectablePerson extends Person
 		this.exposure = 0;
 		this.loadValue = 0.0;
 		this.currentLoad = 0.0;
+		this.mask = false;
 	}
 
 	canProgress()
@@ -51,8 +52,8 @@ class InfectablePerson extends Person
 		}
 
 		progression = state.getProgression(this.progressIndex);
-		increment(progression.increment);
-		decrement(progression.decrement);
+		recordIncrement(progression.increment);
+		recordDecrement(progression.decrement);
 	}
 
 	factor() 
@@ -144,8 +145,8 @@ class InfectablePerson extends Person
 		this.at = state.clock;
 		this.progressIndex = C.PROGRESS.INFECTED;
 
-		increment(C.RECORD.INFECTED | C.RECORD.INCUBATING);
-		decrement(C.RECORD.WELL);
+		recordIncrement(C.RECORD.INFECTED | C.RECORD.INCUBATING);
+		recordDecrement(C.RECORD.WELL);
 	}
 
 	step()

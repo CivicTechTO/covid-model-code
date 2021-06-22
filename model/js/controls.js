@@ -53,22 +53,24 @@ function toggleMode()
 	{
 		state.setExposition();
 		document.getElementById("game-controls").disabled = true;
-		gameHide(false);
+		gameHide("game-hide", false);
+		gameHide("game-show", true);
 		setText("mode", "Game");
 	}
 	else
 	{
 		state.setGame();
 		document.getElementById("game-controls").disabled = false;
-		gameHide(true);
+		gameHide("game-hide", true);
+		gameHide("game-show", false);
 		setText("mode", "Exposition");
 	}
 }
 
-function gameHide(show)
+function gameHide(which, show)
 {
-	const hideList = document.getElementsByClassName("game-hide");
-	for (element of hideList)
+	const hideList = document.getElementsByClassName(which);
+	for (const element of hideList)
 	{
 		element.hidden = show;
 	}
@@ -103,21 +105,25 @@ function pickCharts()
 function noMasks() 
 {
 	setText("masks", "None");
+	state.setMaskLevel(C.MASKLEVEL.NONE);
 }
 
 function encourageMasks() 
 {
 	setText("masks", "Encourage");
+	state.setMaskLevel(C.MASKLEVEL.ENCOURAGE);
 }
 
 function requireMasks() 
 {
 	setText("masks", "Require");
+	state.setMaskLevel(C.MASKLEVEL.REQUIRE);
 }
 
 function enforceMasks() 
 {
 	setText("masks", "Enforce");
+	state.setMaskLevel(C.MASKLEVEL.ENFORCE);
 }
 
 function noTest() 

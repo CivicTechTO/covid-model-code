@@ -138,7 +138,7 @@ function makeChoices(optionList, weightList)
 	return result;
 }
 
-function increment(which)
+function recordIncrement(which)
 {
 	if (0 !== (which & C.RECORD.INFECTED)) {state.record.infected.increment();}		
 	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.record.infectious.increment();}
@@ -151,6 +151,9 @@ function increment(which)
 	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.increment();}
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.increment();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.increment();}
+	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.increment();}
+	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.increment();}
+	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.increment();}
 
 	if (which !== 0)
 	{
@@ -158,7 +161,7 @@ function increment(which)
 	}
 }
 
-function decrement(which)
+function recordDecrement(which)
 {
 	if (0 !== (which & C.RECORD.INFECTED)) {state.record.infected.decrement();}
 	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.record.infectious.decrement();}
@@ -171,6 +174,32 @@ function decrement(which)
 	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.decrement();}
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.decrement();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.decrement();}
+	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.decrement();}
+	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.decrement();}
+	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.decrement();}
+
+	if (which !== 0)
+	{
+		state.drawAllRecords();
+	}
+}
+
+function recordReset(which)
+{
+	if (0 !== (which & C.RECORD.INFECTED)) {state.record.infected.reset();}
+	if (0 !== (which & C.RECORD.INFECTIOUS)) {state.record.infectious.reset();}
+	if (0 !== (which & C.RECORD.SICK)) {state.record.symptoms.reset();}
+	if (0 !== (which & C.RECORD.HOMESICK)) {state.record.homeSick.reset();}
+	if (0 !== (which & C.RECORD.WARDSICK)) {state.record.wardSick.reset();}
+	if (0 !== (which & C.RECORD.ICUSICK)) {state.record.icuSick.reset();}
+	if (0 !== (which & C.RECORD.DEAD)) {state.record.dead.reset();}
+	if (0 !== (which & C.RECORD.HALLWAY)) {state.record.hallway.reset();}
+	if (0 !== (which & C.RECORD.RECOVERED)) {state.record.recovered.reset();}
+	if (0 !== (which & C.RECORD.WELL)) {state.record.well.reset();}
+	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.reset();}
+	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.reset();}
+	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.reset();}
+	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.reset();}
 
 	if (which !== 0)
 	{

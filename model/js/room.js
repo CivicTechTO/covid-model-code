@@ -233,15 +233,24 @@ class Room
 		let dy = source.current.y - person.current.y;
 		let distanceSquared = Math.max(1, dx * dx + dy * dy);
 
-		let increment = (source.load() * this.loudness) / (distanceSquared * this.ventilation);
+		let delta = (source.load() * this.loudness) / (distanceSquared * this.ventilation);
+
+		if (source.mask)
+		{
+			delta *= state.activeConfig.mask.factor.infector;
+		}
+
+		if (person.mask)
+		{
+			delta *= state.activeConfig.mask.factor.infectee;
+		}
 
 		if (state.tuneFlag)
 		{
-			state.addIncrement(increment);
+			state.addIncrement(delta);
 		}
 
-		person.currentLoad += increment;
-
+		person.currentLoad += delta;
 	}
 }
 
