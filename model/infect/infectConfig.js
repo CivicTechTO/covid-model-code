@@ -128,8 +128,16 @@ function makeConfig()
 		, mask: {factor: {infector: 0.35, infectee: 0.65}, chance: [0.0, 0.5, 0.8, 0.9]}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
-		, pop: {scale: 4, decay: 30}
+	    , pop: {scale: 4, decay: 60}
 
+	    , damage:
+	    	{
+	    		opportunity: {amount: 1000, exponent: 1.5}
+	    		, out: [0, 0, 1, 10, 100, 1000, 0, 0]
+	    		, ward: [0, 0, 0, 0, 100, 10000, 0, 0]
+	    		, icu: [0, 0, 0, 0, 0, 1000, 0, 0]
+	    		, hallway: [0, 0, 0, 0, 1000, 100000, 0, 0]
+	    	}   
 		, progression:
 			[
 				{
@@ -138,6 +146,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.WELL}, {pop: false, image: C.IMAGE.WELL}], time: undefined
 				  			, next: 0, alt: {p: 0.0, next: 0}, start: 0.0, end: 0.0, sick: C.SICKNESS.WELL
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				
@@ -147,6 +156,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.RECOVERED}], time: undefined
 				  			, next: 10, alt: {p: 0.0, next: 10}, start: 0.0, end: 0.0, sick: C.SICKNESS.RECOVERED
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -155,6 +165,7 @@ function makeConfig()
 				  			  display : [{pop: false, image: C.IMAGE.CROSS}, {pop: false, image: C.IMAGE.CROSS}], time: undefined
 				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -163,6 +174,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.CRESCENT}, {pop: false, image: C.IMAGE.CRESCENT}], time: undefined
 				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -171,6 +183,7 @@ function makeConfig()
 				  			  display : [{pop: false, image: C.IMAGE.STAR}, {pop: false, image: C.IMAGE.STAR}], time: undefined
 				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 
@@ -180,6 +193,7 @@ function makeConfig()
 				  			  display: [{pop: true, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.WELL}], time: 96
 				  			, next: 1010, alt: {p: 0.0, next: 1010}, start: 0.0, end: 0.0, sick: C.SICKNESS.ASYMPTOMATIC
 				  			, increment: C.RECORD.INFECTED | C.RECORD.INCUBATING, decrement: C.RECORD.WELL
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -188,6 +202,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.WELL}], time: 48
 				  			, next: 1020, alt: {p: 0.0, next: 1020}, start: 0.0, end: 1.0, sick: C.SICKNESS.ASYMPTOMATIC
 				  			, increment: C.RECORD.INFECTIOUS, decrement: C.RECORD.INCUBATING
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -196,6 +211,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
 				  			, next: 1030, alt: {p: 0.3, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
 				  			, increment: C.RECORD.SICK, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -204,6 +220,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 36
 						  	, next: 1040, alt: {p: 0.0, next: 1040}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
 						  	, increment: 0, decrement: 0
+				  			, score: 0
 						}
 				}
 				, {
@@ -212,6 +229,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 1050, alt: {p: 0.0, next: 1050}, start: 1.0, end: 0.0, sick: C.SICKNESS.SICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -220,6 +238,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 1060, alt: {p: 0.0, next: 1060}, start: 0.0, end: 0.0, sick: C.SICKNESS.SICK
 				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -228,6 +247,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.RECOVERED}], time: 1
 				  			, next: 10, alt: {p: 0.0, next: 10}, start: 0.0, end: 0.0, sick: C.SICKNESS.RECOVERED
 				  			, increment: C.RECORD.RECOVERED, decrement: C.RECORD.INFECTED | C.RECORD.SICK
+				  			, score: 0
 				  		}
 				}
 
@@ -239,6 +259,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
 				  			, next: 2010, alt: {p: 0.3, next: 3000}, start: 1.0, end: 1.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: C.RECORD.HOMESICK, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -247,6 +268,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 36
 				  			, next: 2020, alt: {p: 0.0, next: 2020}, start: 1.0, end: 1.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -255,6 +277,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 2030, alt: {p: 0.0, next: 2030}, start: 1.0, end: 0.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -263,6 +286,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 2040, alt: {p: 0.0, next: 2040}, start: 0.0, end: 0.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -271,6 +295,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 24
 				  			, next: 2050, alt: {p: 0.0, next: 2050}, start: 0.0, end: 0.0, sick: C.SICKNESS.SICK
 				  			, increment: 0, decrement: 8 
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -279,6 +304,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.RECOVERED}], time: 1
 				  			, next: 10, alt: {p: 0.0, next: 10}, start: 0.0, end: 0.0, sick: C.SICKNESS.RECOVERED
 				  			, increment: C.RECORD.RECOVERED, decrement: C.RECORD.INFECTED | C.RECORD.SICK
+				  			, score: 0
 				  		}
 				}
 
@@ -290,6 +316,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
 				  			, next: 3010, alt: {p: 0.4, next: 4000}, start: 1.0, end: 1.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: C.RECORD.WARDSICK, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -298,6 +325,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 36
 				  			, next: 3020, alt: {p: 0.0, next: 3020}, start: 1.0, end: 1.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -306,6 +334,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 3030, alt: {p: 0.0, next: 3030}, start: 1.0, end: 0.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -314,6 +343,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 100
 				  			, next: 3040, alt: {p: 0.0, next: 3040}, start: 0.0, end: 0.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -322,6 +352,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 40
 				  			, next: 3050, alt: {p: 0.0, next: 3050}, start: 0.0, end: 0.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: 0, decrement: C.RECORD.WARDSICK
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -330,6 +361,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 24
 				  			, next: 3060, alt: {p: 0.0, next: 3060}, start: 0.0, end: 0.0, sick: C.SICKNESS.SICK
 				  			, increment: 0, decrement: C.RECORD.HOMESICK 
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -338,6 +370,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.RECOVERED}], time: 1
 				  			, next: 10, alt: {p: 0.0, next: 10}, start: 0.0, end: 0.0, sick: C.SICKNESS.RECOVERED
 				  			, increment: C.RECORD.RECOVERED, decrement: C.RECORD.INFECTED | C.RECORD.SICK
+				  			, score: 0
 				  		}
 				}
 
@@ -349,6 +382,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
 				  			, next: 4010, alt: {p: 0.7, next: 5000}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: C.RECORD.ICUSICK, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -357,6 +391,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 36
 				  			, next: 4020, alt: {p: 0.0, next: 4020}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -365,6 +400,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 120
 				  			, next: 4030, alt: {p: 0.0, next: 4030}, start: 1.0, end: 0.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: 0, decrement: C.RECORD.ICUSICK
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -373,6 +409,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 100
 				  			, next: 3040, alt: {p: 0.0, next: 3040}, start: 0.0, end: 0.0, sick: C.SICKNESS.WARDSICK
 				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -381,6 +418,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 40
 				  			, next: 4050, alt: {p: 0.0, next: 4050}, start: 0.0, end: 0.0, sick: C.SICKNESS.HOMESICK
 				  			, increment: 0, decrement: C.RECORD.WARDSICK
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -389,6 +427,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.SICK}], time: 24
 				  			, next: 4060, alt: {p: 0.0, next: 4060}, start: 0.0, end: 0.0, sick: C.SICKNESS.SICK
 				  			, increment: 0, decrement: C.RECORD.HOMESICK 
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -397,6 +436,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.RECOVERED}, {pop: false, image: C.IMAGE.RECOVERED}], time: 1
 				  			, next: 10, alt: {p: 0.0, next: 10}, start: 0.0, end: 0.0, sick: C.SICKNESS.RECOVERED
 				  			, increment: C.RECORD.RECOVERED, decrement: C.RECORD.INFECTED | C.RECORD.SICK
+				  			, score: 0
 				  		}
 				}
 
@@ -408,6 +448,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 10
 				  			, next: 5010, alt: {p: 0.0, next: 5010}, start: 1.0, end: 1.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -416,6 +457,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 20
 				  			, next: 5020, alt: {p: 0.0, next: 5020}, start: 1.0, end: 0.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -424,6 +466,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 30
 				  			, next: 5030, alt: {p: 0.0, next: 5030}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: C.RECORD.INFECTIOUS
+				  			, score: 0
 				  		}
 				}
 
@@ -435,6 +478,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 1
 				  			, next: 5060, alt: {p: 0.2, next: 5040}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 				, {
@@ -443,6 +487,7 @@ function makeConfig()
 				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 1
 				  			, next: 5070, alt: {p: 0.5, next: 5080}, start: 0.0, end: 0.0, sick: C.SICKNESS.ICUSICK
 				  			, increment: 0, decrement: 0
+				  			, score: 0
 				  		}
 				}
 
@@ -455,6 +500,7 @@ function makeConfig()
 				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  			, score: 1000000
 				  		}
 				}
 				, {
@@ -464,6 +510,7 @@ function makeConfig()
 				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  			, score: 1000000
 				  		}
 				}
 				, {
@@ -473,6 +520,7 @@ function makeConfig()
 				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
+				  			, score: 1000000
 				  		}
 				}
 			]

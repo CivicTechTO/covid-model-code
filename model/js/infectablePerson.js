@@ -163,6 +163,7 @@ class InfectablePerson extends Person
 				{
 					let progression = state.getProgression(this.progressIndex);
 					state.manager.transition(this, progression.increment, progression.decrement);
+					state.score += adjustDamage(progression.score);
 				}
 			}
 		}
@@ -170,9 +171,19 @@ class InfectablePerson extends Person
 
 	goToRoom(toRoom)
 	{
-		if (!C.FIXEDROOM.includes(this.sickness()) && toRoom.isOpen())
+		if (!C.FIXEDROOM.includes(this.sickness()))
 		{
-			this.setItinerary(toRoom);
+			if (toRoom.isOpen())
+			{
+				this.setItinerary(toRoom);
+			}
+			else
+			{
+				if (!toRoom.equals(this.home))
+				{
+					this.setItinerary(this.home);					
+				}
+			}
 		}
 	}
 

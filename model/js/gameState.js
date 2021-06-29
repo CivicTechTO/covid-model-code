@@ -5,6 +5,8 @@ class GameState extends TownState
 		super(configuration, width, height);
 
 		this.game = false;
+		this.score = 0;
+		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
 		this.roomState = [];
 		this.useRoomState = [];
@@ -98,12 +100,71 @@ class GameState extends TownState
 			if (this.activeConfig.game.update > now % 24)
 			{
 				this.scoreDate = today;
-console.log("It's 3 am do you know what the score is?");
-				this.copyRoomState();
-				this.setMasks();
+				this.setInterventions();
+				
+				this.score += adjustDamage(this.opportunityScore());
+				this.score += adjustDamage(this.damageScore());
+				this.score += adjustIntervention(this.interventionScore());
+				
+				this.showScore();
 			}
 		}
 
+	}
+
+	opportunityScore()
+	{
+		const opportunity = this.activeConfig.damage.opportunity;
+		return Math.pow(this.record.hallway.current * opportunity.amount, opportunity.exponent);
+	}
+
+	damageScore()
+	{
+		const out = this.activeConfig.damage.out;
+		const hallway = this.activeConfig.damage.hallway;
+		const icu = this.activeConfig.damage.icu;
+		const ward = this.activeConfig.damage.ward;
+		
+		let result = 0;
+
+		for (const person of this.personList)
+		{
+			if (person.inICU())
+			{
+				result += icu[person.sickness()];
+			}
+			else
+			{
+				if (person.inWard())
+				{
+					result += ward[person.sickness()];
+				}
+				else
+				{
+					if (person.inHallway())
+					{
+						result += hallway[person.sickness()];
+					}
+					else
+					{
+						result += out[person.sickness()];
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	interventionScore()
+	{
+		return 0;
+	}
+	
+	setInterventions()
+	{
+		this.copyRoomState();
+		this.setMasks();
 	}
 
 	copyRoomState()
@@ -167,7 +228,13 @@ console.log("It's 3 am do you know what the score is?");
 		this.drawState("schools", C.ROOMTYPE.SCHOOLS);
 		this.drawState("offices", C.ROOMTYPE.OFFICES);
 		this.drawState("meat", C.ROOMTYPE.MEAT);
-		this.drawState("groceries", C.ROOMTYPE.GROCERIES);
+//		this.drawState("groceries", C.ROOMTYPE.GROCERIES);
 		this.drawState("outside", C.ROOMTYPE.OUTSIDE);
 	}
+
+	showScore()
+	{
+		setText("score", this.scoreFormat.format(this.score));
+	}
 }
+

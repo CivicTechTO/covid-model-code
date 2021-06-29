@@ -207,6 +207,30 @@ function recordReset(which)
 	}
 }
 
+function adjustDamage(cost)
+{
+	let result = 0;
+
+	if (state.game)
+	{
+		result = cost;
+	}
+
+	return result;
+}
+
+function adjustIntervention(cost)
+{
+	let result = 0;
+
+	if (state.game)
+	{
+		result = cost;
+	}
+
+	return result;
+}
+
 function computeR()
 {
 // EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))

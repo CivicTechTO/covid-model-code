@@ -32,6 +32,24 @@ h4
     grid-template-columns: min-content auto;
 }
 
+#day-block
+{
+	display: inline-block;
+	width: 20em;
+}
+
+#time-block
+{
+	display: inline-block;
+	width: 10em;
+}
+
+#score-block
+{
+	display: inline-block;
+	width: 10em;
+}
+
 #records
 {
 	background-color: #87CEEB;
