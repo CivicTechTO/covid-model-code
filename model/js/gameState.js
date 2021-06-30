@@ -234,6 +234,7 @@ class GameState extends TownState
 		this.drawState("meat", C.ROOMTYPE.MEAT);
 //		this.drawState("groceries", C.ROOMTYPE.GROCERIES);
 		this.drawState("outside", C.ROOMTYPE.OUTSIDE);
+		this.drawState("parties", C.ROOMTYPE.PARTIES);
 	}
 
 	showScore()

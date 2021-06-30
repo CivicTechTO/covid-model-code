@@ -319,3 +319,7 @@ function debug(argument)
 // }
 
 
+function atNewDay()
+{
+
+}
