@@ -462,7 +462,7 @@ class TownState extends InfectState
 			this.currentHour = hour;
 
 			const hourElement = document.getElementById('hour');
-			hourElement.textContent = hour.toString();
+			hourElement.textContent = hour.toString().padStart(2, "0");
 		}
 
 		let minute = Math.floor(this.tickToMinute(this.clock)) % 60;

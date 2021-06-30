@@ -39,6 +39,7 @@ class GameState extends TownState
 
 	fillRoomTypes()
 	{
+		this.fillAType(this.dwellingList, C.ROOMTYPE.PARTIES);
 		this.fillAType(this.churchList, C.ROOMTYPE.WORSHIP);
 		this.fillAType(this.restaurantList, C.ROOMTYPE.RESTAURANTS);
 		this.fillAType(this.pubList, C.ROOMTYPE.BARS);
@@ -83,6 +84,7 @@ class GameState extends TownState
 		this.roomState[C.ROOMTYPE.MEAT] = true;
 		this.roomState[C.ROOMTYPE.GROCERIES] = true;
 		this.roomState[C.ROOMTYPE.OUTSIDE] = true;
+		this.roomState[C.ROOMTYPE.PARTIES] = true;
 
 		this.copyRoomState();
 	}
@@ -107,6 +109,8 @@ class GameState extends TownState
 				this.score += adjustIntervention(this.interventionScore());
 				
 				this.showScore();
+
+				atNewDay();
 			}
 		}
 
