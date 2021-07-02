@@ -162,9 +162,44 @@ class GameState extends TownState
 
 	interventionScore()
 	{
-		return 0;
+		let result = 0;
+
+		result += this.scoreRoomState();
+		result += this.scoreOthers();
+
+		return result;
+	}
+
+	scoreOthers()
+	{
+		const intervention = state.activeConfig.intervention;
+		let result = 0;
+
+		result += intervention.mask[this.maskLevel];
+
+		return result;
 	}
 	
+	scoreRoomState()
+	{
+		let result = 0;
+		const scoreArray = state.activeConfig.intervention.room;
+
+		result += !this.roomState[C.ROOMTYPE.OPEN] ? scoreArray[C.ROOMTYPE.OPEN] : 0;
+		result += !this.roomState[C.ROOMTYPE.WORSHIP] ? scoreArray[C.ROOMTYPE.WORSHIP] : 0;
+		result += !this.roomState[C.ROOMTYPE.RESTAURANTS] ? scoreArray[C.ROOMTYPE.RESTAURANTS] : 0;
+		result += !this.roomState[C.ROOMTYPE.BARS] ? scoreArray[C.ROOMTYPE.BARS] : 0;
+		result += !this.roomState[C.ROOMTYPE.CLUBS] ? scoreArray[C.ROOMTYPE.CLUBS] : 0;
+		result += !this.roomState[C.ROOMTYPE.SCHOOLS] ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
+		result += !this.roomState[C.ROOMTYPE.OFFICES] ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
+		result += !this.roomState[C.ROOMTYPE.MEAT] ? scoreArray[C.ROOMTYPE.MEAT] : 0;
+		result += !this.roomState[C.ROOMTYPE.GROCERIES] ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
+		result += !this.roomState[C.ROOMTYPE.OUTSIDE] ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
+		result += !this.roomState[C.ROOMTYPE.PARTIES] ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
+
+		return result;
+	}
+
 	setInterventions()
 	{
 		this.copyRoomState();

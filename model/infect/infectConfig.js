@@ -130,6 +130,9 @@ function makeConfig()
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
 	    , pop: {scale: 4, decay: 60}
 
+// out, ward, icu, and hallway are indexed by 
+// C.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
+
 	    , damage:
 	    	{
 	    		opportunity: {amount: 1000, exponent: 1.5}
@@ -138,6 +141,19 @@ function makeConfig()
 	    		, icu: [0, 0, 0, 0, 0, 1000, 0, 0]
 	    		, hallway: [0, 0, 0, 0, 1000, 100000, 0, 0]
 	    	}   
+
+	    , intervention:
+	        {
+// room is indexed by
+// C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
+	            room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 11000, 5000, 5000]
+
+// mask is indexed by
+// 	C.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
+	            , mask: [0, 2500, 5000, 10000]
+
+	        }
+
 		, progression:
 			[
 				{
