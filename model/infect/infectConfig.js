@@ -135,7 +135,8 @@ function makeConfig()
 
 	    , damage:
 	    	{
-	    		opportunity: {amount: 1000, exponent: 1.5}
+	    		scale: 0.5
+	    		, opportunity: {amount: 1000, exponent: 1.5}
 	    		, out: [0, 0, 1, 10, 100, 1000, 0, 0]
 	    		, ward: [0, 0, 0, 0, 100, 10000, 0, 0]
 	    		, icu: [0, 0, 0, 0, 0, 1000, 0, 0]
@@ -144,9 +145,10 @@ function makeConfig()
 
 	    , intervention:
 	        {
+	        	scale: 0.5
 // room is indexed by
 // C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
-	            room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 11000, 5000, 5000]
+	            , room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 0, 5000, 5000]
 
 // mask is indexed by
 // 	C.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};

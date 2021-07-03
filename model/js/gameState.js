@@ -11,6 +11,8 @@ class GameState extends TownState
 		this.roomState = [];
 		this.useRoomState = [];
 		this.maskLevel = C.MASKLEVEL.NONE;
+
+		this.interventionMaxScore = this.computeInterventionMaxScore();
 	}
 
 	setGame()
@@ -160,6 +162,16 @@ class GameState extends TownState
 		return result;
 	}
 
+	computeInterventionMaxScore()
+	{
+		let result = 0;
+
+		result += this.maxScoreRoomState();
+		result += this.maxScoreOthers();
+
+		return result;
+	}
+
 	interventionScore()
 	{
 		let result = 0;
@@ -180,10 +192,20 @@ class GameState extends TownState
 		return result;
 	}
 	
+	maxScoreOthers()
+	{
+		const intervention = this.activeConfig.intervention;
+		let result = 0;
+
+		result += Math.max(... intervention.mask);
+
+		return result;
+	}
+	
 	scoreRoomState()
 	{
 		let result = 0;
-		const scoreArray = state.activeConfig.intervention.room;
+		const scoreArray = this.activeConfig.intervention.room;
 
 		result += !this.roomState[C.ROOMTYPE.OPEN] ? scoreArray[C.ROOMTYPE.OPEN] : 0;
 		result += !this.roomState[C.ROOMTYPE.WORSHIP] ? scoreArray[C.ROOMTYPE.WORSHIP] : 0;
@@ -198,6 +220,14 @@ class GameState extends TownState
 		result += !this.roomState[C.ROOMTYPE.PARTIES] ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
 
 		return result;
+	}
+
+	maxScoreRoomState()
+	{
+		const scoreArray = this.activeConfig.intervention.room;
+		const sum = (accumulator, currentValue) => accumulator + currentValue;
+
+		return scoreArray.reduce(sum);
 	}
 
 	setInterventions()

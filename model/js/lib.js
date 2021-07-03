@@ -213,7 +213,7 @@ function adjustDamage(cost)
 
 	if (state.game)
 	{
-		result = cost;
+		result = cost * (1 - (state.interventionScore() / state.interventionMaxScore) * state.activeConfig.damage.scale);
 	}
 
 	return result;
@@ -225,7 +225,9 @@ function adjustIntervention(cost)
 
 	if (state.game)
 	{
-		result = cost;
+		const total = state.record.symptoms.total;
+		const factor = 1 - ((total / state.count) * state.activeConfig.intervention.scale);
+		result = cost * factor;
 	}
 
 	return result;
