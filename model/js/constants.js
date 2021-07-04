@@ -27,6 +27,8 @@ function makeConstants()
 
 	result.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 
+	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+
 	result.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
 
 	return result;	

@@ -144,7 +144,7 @@ class TownState extends InfectState
 
 			const scale = allocation / this.activeConfig.workScale.maxAllocation;
 
-			room.fillStyle = this.activeConfig.workStyle;
+//			room.fillStyle = this.activeConfig.workStyle;
 
 			const ventilationConfig = this.activeConfig.workScale.ventilation;
 			room.ventilation = ventilationConfig.min + scale * (ventilationConfig.max - ventilationConfig.min);
@@ -204,7 +204,7 @@ class TownState extends InfectState
 		this.hallway.rules = new HallwayRules();
 		this.hallway.ventilation = this.activeConfig.ventilation.max;
 		this.hallway.loudness = 0;
-		this.hallway.fillStyle = this.activeConfig.hospital.style;
+		this.hallway.fillStyle = this.activeConfig.hospital.style.hallway;
 		this.roomList.push(this.hallway);
 
 		y = this.activeConfig.hospital.y + icuConfig.height;
@@ -212,7 +212,7 @@ class TownState extends InfectState
 		this.ward.rules = new HospitalRules();
 		this.ward.ventilation = this.activeConfig.ventilation.max;
 		this.ward.loudness = 0;
-		this.ward.fillStyle = this.activeConfig.hospital.style;
+		this.ward.fillStyle = this.activeConfig.hospital.style.ward;
 
 		this.roomList.push(this.ward);
 
@@ -221,7 +221,7 @@ class TownState extends InfectState
 		this.icu.rules = new HospitalRules();
 		this.icu.ventilation = this.activeConfig.ventilation.max;
 		this.icu.loudness = 0;
-		this.icu.fillStyle = this.activeConfig.hospital.style;
+		this.icu.fillStyle = this.activeConfig.hospital.style.icu;
 		this.roomList.push(this.icu);
 	}
 

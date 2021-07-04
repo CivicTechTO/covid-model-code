@@ -30,12 +30,12 @@ function makeConfig()
 		, workAllocation: [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
 		, workType: {meat: {start: 0, end: 3}, office: {start:4, end: 11}, school: {start: 12, end:16}}
 		, workScale:{maxAllocation: 20, ventilation: {min: 10, max: 20}, loudness: {min: 5, max: 10}}
-		, workStyle: "#C2C2C2"
+		, workStyle: ["#FFC2FF", "#E8C2E8", "#D0C2D0"] 
 		, fillFactor: 1.25
 		, dwelling: {start: 10, pause: 5, speed: 0.025}
 		, bunkHouse: 
 			{
-				style: "#C2C2C2", count: 20, width: 40, height: 10, crowd: 4, road: 2, buffer: 5
+				style: "#A2A2A2", count: 20, width: 40, height: 10, crowd: 4, road: 2, buffer: 5
 				, ventilation: {low: 1, high: 2}, loudness:{low:2, high: 5}
 			}
 		, house: 
@@ -45,42 +45,43 @@ function makeConfig()
 			}
 		, church: 
 			{
-				style: "#C2C2C2", count: 2, width: 80, height: 80, crowd: 24, offset: 10, speed: 0.05
+				style: "#A8BAF2", count: 2, width: 80, height: 80, crowd: 24, offset: 10, speed: 0.05
 				, halfEdge: 20, start: 10, pause: 10, millingTime: 60, sitTime: 120
 				, separation: 1
 				, ventilation: [6, 11, 14, 9, 8, 15], loudness: [40, 38, 37, 40, 37, 36]
 			}
 		, restaurant: 
 			{
-				style: "#C2C2C2", count: 4, width: 20, height: 40, crowd: 2, offset: 4, speed: 0.05
+				style: "#9ABAF2", count: 4, width: 20, height: 40, crowd: 2, offset: 4, speed: 0.05
 				, separation: 1
 				, ventilation: {low: 8, high: 12}, loudness:{low:5, high: 15}
 			}
 		, pub: 
 			{
-				style: "#C2C2C2", count: 4, width: 20, height: 40, crowd: 1, offset: 4, speed: 0.025
+				style: "#8CBAF2", count: 4, width: 20, height: 40, crowd: 1, offset: 4, speed: 0.025
 				, ventilation: {low: 20, high: 30}, loudness:{low:15, high: 30}
 			}
 		, club: 
 			{
-				style: "#C2C2C2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
+				style: "#80BAF2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
 				, halfEdge: 5, start:1, pause: 1, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
 			}
 		, outside: 
 			{
-				style: "#80FF80", y: 180, road: 2, count: 17, width: 25, height: 100, crowd: 1
+				style: "#008800", y: 180, road: 2, count: 17, width: 25, height: 100, crowd: 1
 				, halfEdge: 12, start:1, pause: 1, speed: 0.05, ventilation: 100
 			}
 
 		, hospital: 
 			{
-				style: "#C2C2C2", y: 1, road: 17, offset: 8, width: 35, speed: 0.1
+				style: {icu: "#F2F2C2", ward: "#E2E2C2", hallway: "#D2D2C2"}
+				, y: 1, road: 17, offset: 8, width: 35, speed: 0.1
 				,icu: {height: 10, count: 1}
 				, ward: {height: 10, count: 5}
 				, hallway: {height: 140}
 			}
 
-		, cemetary: {style: "#008800", y: 180, road: 17, offset: 8, width: 35, height: 100, speed: 0.01}
+		, cemetary: {style: "#40D040", y: 180, road: 17, offset: 8, width: 35, height: 100, speed: 0.01}
 
 		, ventilation: {width: 2, max:40, colours: {low: {r: 127, g: 127, b: 255}, high: {r: 0, g: 0, b: 255}}}
 		, loudness: {width: 2, max:40, colours: {low: {r: 255, g: 127, b: 127}, high: {r: 255, g: 0, b: 0}}}

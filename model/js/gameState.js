@@ -53,16 +53,17 @@ class GameState extends TownState
 
 	fillWorkListType()
 	{
-		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT);
-		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES);
-		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS);
+		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT);
+		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES);
+		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS);
 	}
 
-	fillWorkType(config, type)
+	fillWorkType(config, type, workType)
 	{
 		for (var i = config.start; i <= config.end; i++) 
 		{
 			this.workList[i].roomType = type;
+			this.workList[i].fillStyle = state.activeConfig.workStyle[workType];
 		}
 	}
 
