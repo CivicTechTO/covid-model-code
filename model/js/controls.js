@@ -29,19 +29,41 @@ function setText(name, text)
 	document.getElementById(name).textContent = text;
 }
 
+function setColour(name, colour) 
+{
+	document.getElementById(name).style.backgroundColor = colour;
+}
+
+function copyColour(toElement, fromElement) 
+{
+console.log("copyColour")
+console.log(fromElement, toElement);
+const element =document.getElementById(fromElement);
+	const colour = document.getElementById(fromElement).style.backgroundColor;
+console.log(fromElement, toElement, colour);
+	document.getElementById(toElement).style.backgroundColor = colour;
+console.log(fromElement, toElement, colour);
+}
+
 function toggleRun() 
 {
 	if (state.run)
 	{
-		setText("run", "Start")
 		state.run = false;
+
+		setText("run", "Start");
+		setColour("run", state.activeConfig.coldColour);
 	}
 	else
 	{
-		setText("run", "Stop")
 		state.run = true;
 		state.past = null;
+
+		setText("run", "Stop");
+		setColour("run", state.activeConfig.hotColour);
+
 		document.getElementById("stepsize-controls").disabled = true;
+		document.getElementById("mode").disabled = true;
 
 		window.requestAnimationFrame(animate);
 	}
@@ -52,18 +74,22 @@ function toggleMode()
 	if (state.game)
 	{
 		state.setExposition();
+
 		document.getElementById("game-controls").disabled = true;
 		gameHide("game-hide", false);
 		gameHide("game-show", true);
 		setText("mode", "Game");
+		setColour("mode", state.activeConfig.coldColour);
 	}
 	else
 	{
 		state.setGame();
+		
 		document.getElementById("game-controls").disabled = false;
 		gameHide("game-hide", true);
 		gameHide("game-show", false);
 		setText("mode", "Exposition");
+		setColour("mode", state.activeConfig.hotColour);
 	}
 }
 
@@ -105,24 +131,28 @@ function pickCharts()
 function noMasks() 
 {
 	setText("masks", "None");
+	setColour("masks", state.activeConfig.mask.colour.none);
 	state.setMaskLevel(C.MASKLEVEL.NONE);
 }
 
 function encourageMasks() 
 {
 	setText("masks", "Encourage");
+	setColour("masks", state.activeConfig.mask.colour.encourage);
 	state.setMaskLevel(C.MASKLEVEL.ENCOURAGE);
 }
 
 function requireMasks() 
 {
 	setText("masks", "Require");
+	setColour("masks", state.activeConfig.mask.colour.require);
 	state.setMaskLevel(C.MASKLEVEL.REQUIRE);
 }
 
 function enforceMasks() 
 {
 	setText("masks", "Enforce");
+	setColour("masks", state.activeConfig.mask.colour.enforce);
 	state.setMaskLevel(C.MASKLEVEL.ENFORCE);
 }
 

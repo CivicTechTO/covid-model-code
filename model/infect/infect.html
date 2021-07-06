@@ -56,8 +56,8 @@
         <h4>General Controls</h4>
 
         <div>
-          <button id="run" type="button" onclick="toggleRun();">Start</button>
-          <button type="button" id="mode" onclick="toggleMode();">Game</button>
+          <button id="run" type="button" class="cold-colour" onclick="toggleRun();">Start</button>
+          <button type="button" id="mode" class="cold-colour" onclick="toggleMode();">Game</button>
         </div>
 
         <div class="controls-contents">
@@ -102,10 +102,10 @@
             <div class="control-title">Masks</div>
             <div id="masks">None</div>
             <div class="control-buttons">
-              <button type="button" onclick="noMasks();">None</button>
-              <button type="button" onclick="encourageMasks();">Encourage</button>
-              <button type="button" onclick="requireMasks();">Require</button>
-              <button type="button" onclick="enforceMasks();">Enforce</button>
+              <button id="no-masks" type="button" onclick="noMasks();">None</button>
+              <button id="encourage-masks" type="button" onclick="encourageMasks();">Encourage</button>
+              <button id="require-masks" type="button" onclick="requireMasks();">Require</button>
+              <button id="enforce-masks" type="button" onclick="enforceMasks();">Enforce</button>
             </div>
          
 <!--             <div class="control-title">Test</div>
@@ -141,37 +141,37 @@
           <div class="toggle-contents">
             <div class="toggle-room">
               <div class="toggle-title">Worship</div>
-              <button type="button" id="worship" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+              <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Restaurants</div>
-              <button type="button" id="restaurants" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+              <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Bars</div>
-              <button type="button" id="bars" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
+              <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Clubs</div>
-              <button type="button" id="clubs" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
+              <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Schools</div>
-              <button type="button" id="schools" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
+              <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Offices</div>
-              <button type="button" id="offices" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
+              <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
             </div>
 
             <div class="toggle-room">
               <div class="toggle-title">Packing</div>
-              <button type="button" id="meat" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
+              <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
             </div>
 
 <!--             
@@ -184,12 +184,12 @@
 
              <div class="toggle-room">
               <div class="toggle-title">Parks</div>
-              <button type="button" id="outside" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
+              <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
             </div>
 
              <div class="toggle-room">
               <div class="toggle-title">House parties</div>
-              <button type="button" id="parties" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
+              <button type="button" id="parties" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
             </div>
           </div>
         </div>

@@ -282,10 +282,12 @@ class GameState extends TownState
 		if (this.roomState[roomType])
 		{
 			setText(elementName, "Close");
+			setColour(elementName, state.activeConfig.closedColour);
 		}
 		else
 		{
 			setText(elementName, "Open");
+			setColour(elementName, state.activeConfig.openColour);
 		}
 	}
 

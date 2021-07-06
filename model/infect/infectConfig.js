@@ -5,6 +5,10 @@ function makeConfig()
 	const configuration = {
 		  size: {height: 505, width:1000}
 		, background: "#ADD8E6"
+		, coldColour: "#2C7BB6"
+		, hotColour: "#D7191C"
+		, openColour: "#D01C8B"
+		, closedColour: "#4DAC26"
 		, stepsPerFrame: 1
 		, secondsPerTick: 30
 		, startHour: 8
@@ -30,7 +34,13 @@ function makeConfig()
 		, workAllocation: [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
 		, workType: {meat: {start: 0, end: 3}, office: {start:4, end: 11}, school: {start: 12, end:16}}
 		, workScale:{maxAllocation: 20, ventilation: {min: 10, max: 20}, loudness: {min: 5, max: 10}}
-		, workStyle: ["#FFC2FF", "#E8C2E8", "#D0C2D0"] 
+
+
+// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+
+		, workStyle: ["#FFC2FF", "#E8C2E8", "#D0C2D0"]
+
+		 
 		, fillFactor: 1.25
 		, dwelling: {start: 10, pause: 5, speed: 0.025}
 		, bunkHouse: 
@@ -126,7 +136,12 @@ function makeConfig()
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 
-		, mask: {factor: {infector: 0.35, infectee: 0.65}, chance: [0.0, 0.5, 0.8, 0.9]}
+		, mask: 
+			{
+				factor: {infector: 0.35, infectee: 0.65}
+				, chance: [0.0, 0.5, 0.8, 0.9]
+				, colour: {none: "#2C7BB6", encourage: "#655A83", require: "#9E3A4F", enforce: "#D7191C"}
+			}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
 	    , pop: {scale: 4, decay: 60}

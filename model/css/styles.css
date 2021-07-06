@@ -116,3 +116,49 @@ h4
 	display: none;
 	background-color: #87CEEB;
 }
+
+.cold-colour
+{
+	background-color: #2C7BB6;
+}
+
+.hot-colour
+{
+	background-color: #D7191C;
+}
+
+.open-state
+{
+	background-color: #4DAC26;
+}
+
+.closed-state
+{
+	background-color: #D01C8B;
+}
+
+#masks
+{
+	margin-right: 10px;
+	background-color: #2C7BB6;
+}
+
+#no-masks
+{
+	background-color: #2C7BB6;
+}
+
+#encourage-masks
+{
+	background-color: #655A83;
+}
+
+#require-masks
+{
+	background-color: #9E3A4F;
+}
+
+#enforce-masks
+{
+	background-color: #D7191C;
+}
