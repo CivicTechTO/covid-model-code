@@ -7,8 +7,6 @@ class TownState extends InfectState
 
 		this.count = this.activeConfig.count;
 
-		this.oldSteps = 0;
-
 		this.workList = [];
 		this.houseList = [];
 		this.dwellingList = [];
@@ -472,14 +470,6 @@ class TownState extends InfectState
 
 			const minuteElement = document.getElementById('minutes');
 			minuteElement.textContent = minute.toString().padStart(2, '0');
-		}
-
-		if (this.oldSteps !== this.stepsPerFrame)
-		{
-			this.oldSteps = this.stepsPerFrame;
-
-			const stepElement = document.getElementById('steps');
-			stepElement.textContent = this.stepsPerFrame.toString();
 		}
 	}
 }
