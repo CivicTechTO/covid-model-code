@@ -52,12 +52,17 @@ h4
 
 #records
 {
+	margin-right: 0.5em;
+	padding-right: 0.5em;
 	background-color: #87CEEB;
 }
 
 #controls
 {
 	background-color: #87CEEB;
+	padding-top: 0.1em;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
 }
 
 .controls-contents
@@ -79,13 +84,13 @@ h4
 .toggle-contents
 {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 }
 
 .toggle-room
 {
 	display: grid;
-	grid-template-columns: 5em 4em;
+	grid-template-columns: 6em 4em;
 }
 
 .picker

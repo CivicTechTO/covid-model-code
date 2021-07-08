@@ -117,9 +117,9 @@ class InfectState extends State
 		this.drawARecord("Recovered", this.record.recovered);
 		this.drawARecord("Well", this.record.well);
 		this.drawARecord("Dead", this.record.dead);
-		this.drawARecord("Masks", this.record.masks);
-		this.drawARecord("Infector", this.record.infector);
-		this.drawARecord("Infectee", this.record.infectee);
+		// this.drawARecord("Masks", this.record.masks);
+		// this.drawARecord("Infector", this.record.infector);
+		// this.drawARecord("Infectee", this.record.infectee);
 
 			// const r = computeR();
 			// const r0Element = document.getElementById('r0');

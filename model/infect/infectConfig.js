@@ -140,7 +140,7 @@ function makeConfig()
 			{
 				factor: {infector: 0.35, infectee: 0.65}
 				, chance: [0.0, 0.5, 0.8, 0.9]
-				, colour: {none: "#2C7BB6", encourage: "#655A83", require: "#9E3A4F", enforce: "#D7191C"}
+				, colour: {none: "#2C7BB6", encourage: "#857AA3", require: "#BE5A6F", enforce: "#D7191C"}
 			}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
