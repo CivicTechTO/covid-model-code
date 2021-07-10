@@ -148,22 +148,17 @@ h4
 	background-color: #2C7BB6;
 }
 
-#no-masks
+.swatch
 {
-	background-color: #2C7BB6;
+	display: inline-block;
+	height: 0.8em;
+	width: 1em;
+	margin-top: 0.2em;
+	margin-left: 0.3em;
 }
 
-#encourage-masks
+.spaced
 {
-	background-color: #655A83;
-}
-
-#require-masks
-{
-	background-color: #9E3A4F;
-}
-
-#enforce-masks
-{
-	background-color: #D7191C;
+	display: inline-block;
+	margin-left: 0.3em;
 }

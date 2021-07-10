@@ -38,7 +38,7 @@ function makeConfig()
 
 // workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
 
-		, workStyle: ["#FFC2FF", "#E8C2E8", "#D0C2D0"]
+		, workStyle: ["#FFC2FF", "#D8C2D8", "#B0C2B0"]
 
 		 
 		, fillFactor: 1.25
