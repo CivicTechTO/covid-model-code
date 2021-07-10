@@ -36,13 +36,8 @@ function setColour(name, colour)
 
 function copyColour(toElement, fromElement) 
 {
-console.log("copyColour")
-console.log(fromElement, toElement);
-const element =document.getElementById(fromElement);
 	const colour = document.getElementById(fromElement).style.backgroundColor;
-console.log(fromElement, toElement, colour);
 	document.getElementById(toElement).style.backgroundColor = colour;
-console.log(fromElement, toElement, colour);
 }
 
 function toggleRun() 
@@ -62,7 +57,7 @@ function toggleRun()
 		setText("run", "Stop");
 		setColour("run", state.activeConfig.hotColour);
 
-		document.getElementById("stepsize-controls").disabled = true;
+		document.getElementById("stepsize").disabled = true;
 		document.getElementById("mode").disabled = true;
 
 		window.requestAnimationFrame(animate);
@@ -93,6 +88,42 @@ function toggleMode()
 	}
 }
 
+function toggleSpeed() 
+{
+	const choices = state.activeConfig.stepsPerFrame;
+
+	if (state.stepsPerFrame === choices.slow)
+	{
+		setText("speed", "Slow");
+		setColour("speed", state.activeConfig.hotColour);
+		state.setSteps(choices.fast);
+	}
+	else
+	{
+		setText("speed", "Fast");
+		setColour("speed", state.activeConfig.coldColour);
+		state.setSteps(choices.slow);
+	}
+}
+
+function toggleStep() 
+{
+	const choices = state.activeConfig.secondsPerTick;
+
+	if (state.secondsPerTick === choices.small)
+	{
+		setText("stepsize", "Small");
+		setColour("stepsize", state.activeConfig.hotColour);
+		state.setStepsize(choices.large);
+	}
+	else
+	{
+		setText("stepsize", "Large");
+		setColour("stepsize", state.activeConfig.coldColour);
+		state.setStepsize(choices.slow);
+	}
+}
+
 function gameHide(which, show)
 {
 	const hideList = document.getElementsByClassName(which);
@@ -102,19 +133,19 @@ function gameHide(which, show)
 	}
 }
 
-function setSteps(steps) 
-{
-	state.stepsPerFrame = steps;
-	setText("steps", state.stepsPerFrame.toString());
-	state.setSteps(steps);
-}
+// function setSteps(steps) 
+// {
+// 	state.stepsPerFrame = steps;
+// 	setText("steps", state.stepsPerFrame.toString());
+// 	state.setSteps(steps);
+// }
 
-function setStepsize(seconds) 
-{
-	state.secondsPerTick = seconds;
-	setText("stepsize", state.secondsPerTick.toString());
-	state.setStepsize(seconds);
-}
+// function setStepsize(seconds) 
+// {
+// 	state.secondsPerTick = seconds;
+// 	setText("stepsize", state.secondsPerTick.toString());
+// 	state.setStepsize(seconds);
+// }
 
 function pickDisplay()
 {
