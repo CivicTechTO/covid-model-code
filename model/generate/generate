@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat ../js/constants.js ../infect/infectConfig.js generate.js > combine.js
+node combine.js /home/jrootham/dev/civictech/covid-model-code/model/
+rm combine.js
+
