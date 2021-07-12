@@ -1,0 +1,82 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>Animated Covid Model/Game</title>
+	<meta name="description" content="Covid models root">
+
+	<link rel="stylesheet" href="../css/styles.css">
+	<link rel="stylesheet" href="../css/generated.css">
+
+</head>
+
+<body>
+	<div id="container">
+		<a href="index.html"><h1>Animated Covid Model/Game</h1></a>
+		<h2>Rooms</h2>
+						
+			<p>			
+				Rooms are where infections occur. Room environments affect infection rates.  The blue bars on the left show ventilation (higher is worse), red bars on the right show speaking loudness.  
+			</p>
+						
+			<p>
+				People move into rooms depending on the time of day (and day of week).
+				People's motion inside rooms depend on the type of room and (for some rooms) on the time.
+			</p>
+
+			<ul>
+				<li>Weekday</li>
+					<ul>
+						<li>Schools<div class="swatch school-colour"></div></li>
+						<li>Offices<div class="swatch office-colour"></div></li>
+						<li>Meat packing<div class="swatch meat-colour"></div></li>
+					</ul>
+				<li>Dwellings</li>
+
+					<div>
+						Dwellings are where people sleep.
+					</div>
+								
+					<ul>
+						<li>Houses<div class="swatch house-colour"></div></li>
+							<div>
+								Some people in houses stay home during weekdays.  There are also occasional house parties.
+							</div>
+
+						<li>Bunkhouses<div class="swatch bunkhouse-colour"></div></li>
+							<div>
+								Bunkhouses have more residents, which increases infection risk.
+							</div>
+								</ul>
+				<li>Other</li>
+					<div>
+						These are the places people go on evenings and weekends.
+					</div>
+						
+					<ul>
+						<li>Houses of worship<div class="swatch church-colour"></div></li>
+						<li>Restaurants<div class="swatch restaurant-colour"></div></li>
+						<li>Bars<div class="swatch bar-colour"></div></li>
+						<li>Clubs<div class="swatch club-colour"></div></li>
+					</ul>
+				<li>Parks<div class="swatch outside-colour"></div></li>
+					<div>
+						It is possible to get infected in parks, but the ventilation is very good.
+					</div>
+				<li>Cemetary<div class="swatch cemetary-colour"></div></li>
+				<li>Hospital</li>
+					<ul>
+						<li>Intensive care<div class="swatch icu-colour"></div></li>
+						<li>Hospital ward<div class="swatch ward-colour"></div></li>
+						<li>Hospital hallway<div class="swatch hallway-colour"></div></li>
+					</ul>
+			</ul>			
+		</ul>
+		<div>
+			<img src="../images/display.png" alt="The animated image">
+		</div>		
+	</div>
+</body>
+</html>

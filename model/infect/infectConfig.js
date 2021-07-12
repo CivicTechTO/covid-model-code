@@ -23,7 +23,7 @@ function makeConfig()
 		, travelVariation: 0.2
 		, count: 1000
 		, main: 170
-		, road : {style: "#7777FF", width: 4, space: 50, first: 2, last:18} 
+		, road : {style: "#333300", width: 4, space: 50, first: 2, last:18} 
 		, churchRoads: [3, 8,13]
 		, spacing: 5
 		, depth: 80
@@ -38,7 +38,7 @@ function makeConfig()
 
 // workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
 
-		, workStyle: ["#FFC2FF", "#D8C2D8", "#B0C2B0"]
+		, workStyle: ["#FFC2FF", "#C8C2C8", "#90C290"]
 
 		 
 		, fillFactor: 1.25
@@ -62,18 +62,18 @@ function makeConfig()
 			}
 		, restaurant: 
 			{
-				style: "#9ABAF2", count: 4, width: 20, height: 40, crowd: 2, offset: 4, speed: 0.05
+				style: "#8ABAF2", count: 4, width: 20, height: 40, crowd: 2, offset: 4, speed: 0.05
 				, separation: 1
 				, ventilation: {low: 8, high: 12}, loudness:{low:5, high: 15}
 			}
 		, pub: 
 			{
-				style: "#8CBAF2", count: 4, width: 20, height: 40, crowd: 1, offset: 4, speed: 0.025
+				style: "#6CBAF2", count: 4, width: 20, height: 40, crowd: 1, offset: 4, speed: 0.025
 				, ventilation: {low: 20, high: 30}, loudness:{low:15, high: 30}
 			}
 		, club: 
 			{
-				style: "#80BAF2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
+				style: "#40BAF2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
 				, halfEdge: 5, start:1, pause: 1, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
 			}
 		, outside: 

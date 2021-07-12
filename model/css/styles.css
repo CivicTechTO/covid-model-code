@@ -84,13 +84,13 @@ h4
 .toggle-contents
 {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .toggle-room
 {
 	display: grid;
-	grid-template-columns: 6em 4em;
+	grid-template-columns: 7.5em 4em;
 }
 
 .picker
@@ -161,4 +161,9 @@ h4
 {
 	display: inline-block;
 	margin-left: 0.3em;
+}
+
+.indented
+{
+	margin-left: 2em;
 }
