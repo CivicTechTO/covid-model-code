@@ -71,7 +71,7 @@ const FRAME = 1000 / 60;
 
 function animate(timestamp)
 {
-	if (state.run)
+	if (state.run && ((!state.game) || state.clock < state.activeConfig.limit))
 	{
 		let deltaT = (state.past ? timestamp - state.past : FRAME);
 		state.past = timestamp;

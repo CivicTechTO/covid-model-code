@@ -2,7 +2,8 @@
 
 function makeConfig()
 {
-	const configuration = {
+	const configuration = 
+	{
 		  size: {height: 505, width:1000}
 		, background: "#ADD8E6"
 		, coldColour: "#2C7BB6"
@@ -11,6 +12,7 @@ function makeConfig()
 		, closedColour: "#4DAC26"
 		, stepsPerFrame: {slow: 1, fast: 100}
 		, secondsPerTick: {small: 30, large: 300}
+		, limit: 400
 		, startHour: 8
 		, shiftLength: 4
 		, offset: 4

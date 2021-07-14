@@ -4,6 +4,12 @@ function show(name)
 	element.style.display = "block";
 }
 
+function showInline(name) 
+{
+	const element = document.getElementById(name);
+	element.style.display = "inline-block";
+}
+
 function hide(name) 
 {
 	const element = document.getElementById(name);
@@ -75,6 +81,8 @@ function toggleMode()
 		gameHide("game-show", true);
 		setText("mode", "Game");
 		setColour("mode", state.activeConfig.coldColour);
+
+		hide("limit");
 	}
 	else
 	{
@@ -85,6 +93,9 @@ function toggleMode()
 		gameHide("game-show", false);
 		setText("mode", "Exposition");
 		setColour("mode", state.activeConfig.hotColour);
+
+		setText("limit", "/" + state.savedConfig.limit.toString());
+		showInline("limit");
 	}
 }
 

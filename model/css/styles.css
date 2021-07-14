@@ -38,6 +38,21 @@ h4
 	width: 20em;
 }
 
+#day
+{
+	display: inline-block;
+}
+
+#limit
+{
+	display: none;
+}
+
+#name
+{
+	display: inline-block;
+}
+
 #time-block
 {
 	display: inline-block;

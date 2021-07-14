@@ -81,6 +81,8 @@ class State
 
 	scaleTime()
 	{
+		this.activeConfig.limit = this.dayToTick(this.savedConfig.limit - 1);
+
 		this.activeConfig.shiftLength = this.hourToTick(this.savedConfig.shiftLength);
 
 		this.activeConfig.moveSpeed = this.perSecondToPerTick(this.savedConfig.moveSpeed);
