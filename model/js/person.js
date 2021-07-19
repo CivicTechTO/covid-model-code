@@ -143,7 +143,7 @@ class Person
 		{
 			if (!this.current.equals(this.dest))
 			{
-				if (this.sickness() === C.DEAD)
+				if (this.sickness() === C.SICKNESS.DEAD)
 				{
 					this.speed = state.activeConfig.deadSpeed;
 				}
@@ -205,7 +205,14 @@ class Person
 
 	getTravelSpeed()
 	{
-		return state.activeConfig.travelSpeed + rand(state.activeConfig.travelVariation);
+		let result = state.activeConfig.travelSpeed + rand(state.activeConfig.travelVariation);
+
+		if (this.sickness() === C.SICKNESS.DEAD)
+		{
+			result = state.activeConfig.deadSpeed;
+		}
+				
+		return result;
 	}
 
 	goHome()

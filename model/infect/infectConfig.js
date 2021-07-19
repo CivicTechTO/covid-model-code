@@ -146,7 +146,7 @@ function makeConfig()
 			}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
-	    , pop: {scale: 4, decay: 60}
+	    , pop: {scale: 10, decay: 1200}
 
 // out, ward, icu, and hallway are indexed by 
 // C.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
