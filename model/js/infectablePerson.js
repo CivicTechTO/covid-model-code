@@ -216,7 +216,7 @@ class InfectablePerson extends Person
 		
 		if (pop && time > 1)
 		{
-			return Math.round(state.pop.scale * Math.log2(1 + (time / decay)));
+			return state.pop.scale * Math.log2(1 + (time / decay));
 		}
 		else
 		{

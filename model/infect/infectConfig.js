@@ -81,7 +81,7 @@ function makeConfig()
 		, outside: 
 			{
 				style: "#008800", y: 180, road: 2, count: 17, width: 25, height: 100, crowd: 1
-				, halfEdge: 12, start:1, pause: 1, speed: 0.05, ventilation: 100
+				, halfEdge: 12, start:1, pause: 1, speed: 0.05, ventilation: 1000
 			}
 
 		, hospital: 
