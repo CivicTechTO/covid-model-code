@@ -229,9 +229,10 @@ class Room
 
 	load(source, person)
 	{ 
-		let dx = source.current.x - person.current.x;
-		let dy = source.current.y - person.current.y;
-		let distanceSquared = Math.max(1, dx * dx + dy * dy);
+		const spacing = state.activeConfig.spacing;
+		let dx = (source.current.x - person.current.x) / spacing;
+		let dy = (source.current.y - person.current.y) / spacing;
+		let distanceSquared = Math.max(1 / spacing, dx * dx + dy * dy);
 
 		let delta = (source.load() * this.loudness) / (distanceSquared * this.ventilation);
 
