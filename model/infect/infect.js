@@ -9,6 +9,7 @@ state.initialize();
 
 state.debugDraw = false;
 state.countDraw = false;
+state.debugCount = 0;
 
 state.week[0].startShift();
 

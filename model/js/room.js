@@ -22,6 +22,8 @@ class Room
 		this.stats = false;
 
 		this.roomType = C.ROOMTYPE.OPEN;
+
+		this.house = false;
 	}
 
 	equals(other)
