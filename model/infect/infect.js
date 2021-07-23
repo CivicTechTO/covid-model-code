@@ -8,6 +8,7 @@ state.fill();
 state.initialize();
 
 state.debugDraw = false;
+state.countDraw = false;
 
 state.week[0].startShift();
 

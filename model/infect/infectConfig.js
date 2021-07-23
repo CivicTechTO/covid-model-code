@@ -134,7 +134,7 @@ function makeConfig()
 		, saturdayEve: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 1, 0, 1, 1]}}
 		, saturdayNight: {migrate: {chance: 0.001, home: 0.1, other: [0, 1, 5, 10, 1, 1]}}
 
-		, infection: {decay: 0.99999999999, reset: 0.00001, pScale: 1610000, damping: .05}
+		, infection: {decay: 0.99999999999, reset: 0.00001, pScale: 1610000, damping: .25}
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 
@@ -146,7 +146,7 @@ function makeConfig()
 			}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
-	    , pop: {scale: 10, decay: 1200}
+	    , pop: {scale: 5, decay: 300}
 
 // out, ward, icu, and hallway are indexed by 
 // C.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}

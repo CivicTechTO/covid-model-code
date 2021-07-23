@@ -179,10 +179,7 @@ class InfectablePerson extends Person
 			}
 			else
 			{
-				if (!toRoom.equals(this.home))
-				{
-					this.setItinerary(this.home);					
-				}
+				this.setItinerary(this.home);					
 			}
 		}
 	}
@@ -196,6 +193,12 @@ class InfectablePerson extends Person
 			const colours =["#FF0000", "#00FF00","#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#000000", "#FFFFFF"];
 			context.fillStyle = colours[this.sickness()];
 			context.fillRect(this.current.x - size, this.current.y - size, size, size);
+
+			if (state.countDraw)
+			{
+
+			}
+			
 		}
 		else
 		{
