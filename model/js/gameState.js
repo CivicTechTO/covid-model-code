@@ -13,6 +13,7 @@ class GameState extends TownState
 		this.maskLevel = C.MASKLEVEL.NONE;
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
+		this.chartList = initializeCharts ()
 	}
 
 	setGame()

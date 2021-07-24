@@ -2,6 +2,10 @@ function makeConstants()
 {
 	let result = {};
 
+    result.CHART_IDS = [ "symptomatic", "at-home", "hospital", "hallway" ],
+   
+    result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for a Bed" ],
+
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 
 	result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}

@@ -38,21 +38,6 @@ h4
 	width: 20em;
 }
 
-#day
-{
-	display: inline-block;
-}
-
-#limit
-{
-	display: none;
-}
-
-#name
-{
-	display: inline-block;
-}
-
 #time-block
 {
 	display: inline-block;
@@ -135,6 +120,12 @@ h4
 {
 	display: none;
 	background-color: #87CEEB;
+}
+
+.chartx {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
 }
 
 .cold-colour
