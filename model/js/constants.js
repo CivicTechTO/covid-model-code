@@ -4,7 +4,7 @@ function makeConstants()
 
     result.CHART_IDS = [ "symptomatic", "at-home", "hospital", "hallway" ],
    
-    result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for a Bed" ],
+    result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for Bed" ],
 
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 
