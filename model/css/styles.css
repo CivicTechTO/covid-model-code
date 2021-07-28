@@ -46,8 +46,8 @@ h4
 
 #score-block
 {
-	display: inline-block;
-	width: 10em;
+	display: none;
+	width: 20em;
 }
 
 #records

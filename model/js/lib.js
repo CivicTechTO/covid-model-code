@@ -71,7 +71,8 @@ const FRAME = 1000 / 60;
 
 function animate(timestamp)
 {
-	if (state.run && ((!state.game) || state.clock < state.activeConfig.limit))
+console.log("netScore", state.netScore);
+	if (state.run && ((!state.game) || (state.clock < state.activeConfig.limit && state.netScore > 0)))
 	{
 		let deltaT = (state.past ? timestamp - state.past : FRAME);
 		state.past = timestamp;
@@ -321,7 +322,3 @@ function debug(argument)
 // }
 
 
-function atNewDay()
-{
-
-}

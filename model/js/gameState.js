@@ -6,6 +6,8 @@ class GameState extends TownState
 
 		this.game = false;
 		this.score = 0;
+		this.netScore = this.activeConfig.startScore;
+console.log("init", this.netScore);
 		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
 		this.roomState = [];
@@ -111,6 +113,9 @@ class GameState extends TownState
 				this.score += adjustDamage(this.opportunityScore());
 				this.score += adjustDamage(this.damageScore());
 				this.score += adjustIntervention(this.interventionScore());
+				
+				this.netScore = this.activeConfig.startScore - this.score;
+console.log("update", this.netScore);
 				
 				this.showScore();
 
@@ -308,7 +313,11 @@ class GameState extends TownState
 
 	showScore()
 	{
-		setText("score", this.scoreFormat.format(this.score));
+		if (this.game)
+		{
+			setText("score", this.scoreFormat.format(this.netScore));		
+			showInline("score-block");	
+		}
 	}
 }
 

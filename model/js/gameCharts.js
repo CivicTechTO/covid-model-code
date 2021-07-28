@@ -36,7 +36,7 @@ function addItemToChart (value, i)
 }
 
 
-function atNewDay (statistics) 
+function atNewDay () 
 {
    addItemToChart (state.record.symptoms.current, 0); // "symptomatic"
    addItemToChart (state.record.homeSick.current, 1); // "at-home"

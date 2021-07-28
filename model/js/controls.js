@@ -96,6 +96,7 @@ function toggleMode()
 
 		setText("limit", "/" + state.savedConfig.limit.toString());
 		showInline("limit");
+		showInline("score-block");		
 	}
 }
 

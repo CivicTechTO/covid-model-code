@@ -10,8 +10,9 @@ function makeConfig()
 		, hotColour: "#D7191C"
 		, openColour: "#D01C8B"
 		, closedColour: "#4DAC26"
-		, stepsPerFrame: {slow: 1, fast: 100}
+		, stepsPerFrame: {slow: 1, fast: 120}
 		, secondsPerTick: {small: 30, large: 300}
+		, startScore: 50000000
 		, limit: 400
 		, startHour: 8
 		, shiftLength: 4
