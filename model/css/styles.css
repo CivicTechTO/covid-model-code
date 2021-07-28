@@ -93,6 +93,26 @@ h4
 	grid-template-columns: 7.5em 4em;
 }
 
+.toggle-title
+{
+	display: inline-block;
+	padding-left: 0.1em;
+	width: 8em;
+}
+
+#other-group
+{
+	margin: 0.3em;
+}
+
+.other-title
+{
+	display: inline-block;
+	width: 8em;
+	margin-right: 1em;
+	padding: 0.1em;
+}
+
 .picker
 {
 	display: inline-block;
