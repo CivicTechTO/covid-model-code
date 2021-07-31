@@ -17,8 +17,19 @@ h4
 
 #container
 {
+    display: grid;
+    grid-template-columns: min-content auto;
+}
+
+#left
+{
 	margin-left: 1em;
 	width: 1000px;
+}
+
+#right
+{
+	margin-left: 1em;
 }
 
 #images
@@ -138,14 +149,14 @@ h4
 
 #charts
 {
-	display: none;
 	background-color: #87CEEB;
 }
 
-.chartx {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 10px;
+.chartx 
+{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); 
+	gap: 10px;
 }
 
 .cold-colour
