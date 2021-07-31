@@ -99,11 +99,12 @@ function runModel(timestamp)
 {
 	let deltaT = (state.past ? timestamp - state.past : FRAME);
 	state.past = timestamp;
-	stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+	let stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
 
-	for (var i = 0; i < stepCount; i++) 
+	while (state.run && stepCount-- > 0)
 	{
 		state.step();
+		state.run = state.run && state.clock < state.activeConfig.limit && state.netScore > 0;
 	}
 
 	draw();
@@ -111,7 +112,7 @@ function runModel(timestamp)
 
 function gameAnimate(timestamp)
 {
-	if (state.run && state.clock < state.activeConfig.limit && state.netScore > 0)
+	if (state.run)
 	{
 		runModel(timestamp);
 
