@@ -71,24 +71,71 @@ const FRAME = 1000 / 60;
 
 function animate(timestamp)
 {
-console.log("netScore", state.netScore);
-	if (state.run && ((!state.game) || (state.clock < state.activeConfig.limit && state.netScore > 0)))
+	if (state.run)
 	{
-		let deltaT = (state.past ? timestamp - state.past : FRAME);
-		state.past = timestamp;
-		stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+		runModel(timestamp);
 
-		for (var i = 0; i < stepCount; i++) 
+		if (state.game)
 		{
-			state.step();
+			runGame();
 		}
-
-
-		draw();
-
-		window.requestAnimationFrame(animate);
+		else
+		{
+			window.requestAnimationFrame(animate);
+		}
 	}
 }
+
+function runGame()
+{
+	destroyCharts();
+	showSlow();
+	startRunning();
+	startup(true);
+	window.requestAnimationFrame(gameAnimate);
+}
+
+function runModel(timestamp)
+{
+	let deltaT = (state.past ? timestamp - state.past : FRAME);
+	state.past = timestamp;
+	stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+
+	for (var i = 0; i < stepCount; i++) 
+	{
+		state.step();
+	}
+
+	draw();
+}
+
+function gameAnimate(timestamp)
+{
+	if (state.run && state.clock < state.activeConfig.limit && state.netScore > 0)
+	{
+		runModel(timestamp);
+
+		window.requestAnimationFrame(gameAnimate);
+	}
+}
+
+function startup(playGame)
+{
+	const canvas = document.getElementById('canvas');
+
+	state = new GameState(makeConfig(), canvas.width, canvas.height, playGame);
+	state.fill();
+	state.initialize();
+
+	state.debugDraw = false;
+	state.countDraw = false;
+	state.debugCount = 0;
+
+	state.week[0].startShift();
+
+	draw();
+}
+
 
 function draw() 
 {

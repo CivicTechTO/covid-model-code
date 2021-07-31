@@ -1,21 +1,10 @@
 
-
-const canvas = document.getElementById('canvas');
-
 var C = makeConstants();
-var state = new GameState(makeConfig(), canvas.width, canvas.height);
-state.fill();
-state.initialize();
+var state;
 
-state.debugDraw = false;
-state.countDraw = false;
-state.debugCount = 0;
+startup(false);
 
-state.week[0].startShift();
-
-draw();
-
-// window.requestAnimationFrame(animate);
+window.requestAnimationFrame(animate);
 
 // let context = canvas.getContext('2d');
 //draw(context);

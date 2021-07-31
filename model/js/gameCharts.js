@@ -43,3 +43,11 @@ function atNewDay ()
    addItemToChart (state.record.wardSick.current, 2); // "hospital"
    addItemToChart (state.record.hallway.current, 3);  // "hallway"
 }
+
+function destroyCharts() 
+{
+    for (let chart of state.chartList)
+    {
+        chart.destroy();
+    }
+}

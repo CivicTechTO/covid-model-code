@@ -1,13 +1,12 @@
 class GameState extends TownState
 {
-	constructor(configuration, width, height)
+	constructor(configuration, width, height, playGame)
 	{
 		super(configuration, width, height);
 
 		this.game = false;
 		this.score = 0;
 		this.netScore = this.activeConfig.startScore;
-console.log("init", this.netScore);
 		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
 		this.roomState = [];
@@ -16,12 +15,32 @@ console.log("init", this.netScore);
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
 		this.chartList = initializeCharts ()
+
+		this.run = true;
+		this.past = null;
+		this.animate = animate;
+
+		if (playGame)
+		{
+			this.setGame();
+		}
 	}
 
 	setGame()
 	{
 		this.game = true;
 		this.mode = 1;
+		this.animate = gameAnimate;
+
+		this.setStepsize(this.activeConfig.secondsPerTick.large);
+
+		document.getElementById("game-controls").disabled = false;
+		gameHide("game-hide", true);
+		gameHide("game-show", false);
+
+		setText("limit", "/" + state.savedConfig.limit.toString());
+		showInline("limit");
+		showInline("score-block");		
 	}
 
 	setExposition()
@@ -115,7 +134,6 @@ console.log("init", this.netScore);
 				this.score += adjustIntervention(this.interventionScore());
 				
 				this.netScore = this.activeConfig.startScore - this.score;
-console.log("update", this.netScore);
 				
 				this.showScore();
 

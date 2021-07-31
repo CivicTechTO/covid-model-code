@@ -46,28 +46,46 @@ function copyColour(toElement, fromElement)
 	document.getElementById(toElement).style.backgroundColor = colour;
 }
 
+function startGame() 
+{
+	state.game = true;
+	document.getElementById("start-game").disabled = true;
+
+	if (!state.run)
+	{
+		runGame();
+	}
+}
+
 function toggleRun() 
 {
 	if (state.run)
 	{
-		state.run = false;
-
-		setText("run", "Start");
-		setColour("run", state.activeConfig.coldColour);
+		stopRunning();
 	}
 	else
 	{
-		state.run = true;
-		state.past = null;
-
-		setText("run", "Stop");
-		setColour("run", state.activeConfig.hotColour);
-
-		document.getElementById("stepsize").disabled = true;
-		document.getElementById("mode").disabled = true;
-
-		window.requestAnimationFrame(animate);
+		startRunning();
 	}
+}
+
+function stopRunning()
+{
+	state.run = false;
+
+	setText("run", "Run");
+	setColour("run", state.activeConfig.coldColour);
+}
+
+function startRunning()
+{
+	state.run = true;
+	state.past = null;
+
+	setText("run", "Pause");
+	setColour("run", state.activeConfig.hotColour);
+
+	window.requestAnimationFrame(state.animate);
 }
 
 function toggleMode() 
@@ -106,16 +124,26 @@ function toggleSpeed()
 
 	if (state.stepsPerFrame === choices.slow)
 	{
-		setText("speed", "Slow");
-		setColour("speed", state.activeConfig.hotColour);
+		showFast();
 		state.setSteps(choices.fast);
 	}
 	else
 	{
-		setText("speed", "Fast");
-		setColour("speed", state.activeConfig.coldColour);
+		showSlow();
 		state.setSteps(choices.slow);
 	}
+}
+
+function showFast() 
+{
+	setText("speed", "Slow");
+	setColour("speed", state.activeConfig.hotColour);
+}
+
+function showSlow() 
+{
+	setText("speed", "Fast");
+	setColour("speed", state.activeConfig.coldColour);
 }
 
 function toggleStep() 
