@@ -14,6 +14,7 @@ function makeConfig()
 		, secondsPerTick: {small: 30, large: 300}
 		, startScore: 50000000
 		, limit: 400
+		, randomInfected: 100
 		, startHour: 8
 		, shiftLength: 4
 		, offset: 4
