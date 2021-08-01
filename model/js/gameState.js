@@ -333,7 +333,7 @@ class GameState extends TownState
 	{
 		if (this.game)
 		{
-			setText("score", this.scoreFormat.format(this.netScore));		
+			setText("score", this.scoreFormat.format(Math.max(0, this.netScore)));		
 			showInline("score-block");	
 		}
 	}
