@@ -17,6 +17,12 @@ h4
 
 #container
 {
+	margin-left: 1em;
+	width: 1000px;
+}
+
+#infect-container
+{
     display: grid;
     grid-template-columns: min-content auto;
 }

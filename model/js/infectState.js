@@ -88,6 +88,14 @@ class InfectState extends State
 
 		for (const person of this.personList)
 		{
+			if (person.infectable() && this.activeConfig.infectProbability > Math.random())
+			{
+				person.infect(pick(this.infectious.pList, this.infectious.valueList));
+			}
+		}
+
+		for (const person of this.personList)
+		{
 			person.initLoad();
 		}
 

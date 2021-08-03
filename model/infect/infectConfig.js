@@ -147,7 +147,7 @@ function makeConfig()
 				, colour: {none: "#2C7BB6", encourage: "#857AA3", require: "#BE5A6F", enforce: "#D7191C"}
 			}
 		
-		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
+		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}
 
 // out, ward, icu, and hallway are indexed by 
@@ -534,7 +534,7 @@ function makeConfig()
 				, {
 				  	index: 5060, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.CROSS}, {pop: true, image: C.IMAGE.CROSS}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CROSS}, {pop: true, image: C.IMAGE.CROSS}], time: 10
 				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -544,7 +544,7 @@ function makeConfig()
 				, {
 				  	index: 5070, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.CRESCENT}, {pop: true, image: C.IMAGE.CRESCENT}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CRESCENT}, {pop: true, image: C.IMAGE.CRESCENT}], time: 10
 				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -554,7 +554,7 @@ function makeConfig()
 				, {
 				  	index: 5080, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.STAR}, {pop: true, image: C.IMAGE.STAR}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.STAR}, {pop: true, image: C.IMAGE.STAR}], time: 10
 				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED

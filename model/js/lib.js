@@ -73,7 +73,7 @@ function animate(timestamp)
 {
 	if (state.run)
 	{
-		runModel(timestamp);
+		runModel(timestamp)
 
 		if (state.game)
 		{
@@ -90,9 +90,8 @@ function runGame()
 {
 	destroyCharts();
 	showSlow();
-	startRunning();
 	startup(true);
-	window.requestAnimationFrame(gameAnimate);
+	startRunning();
 }
 
 function runModel(timestamp)
@@ -104,19 +103,72 @@ function runModel(timestamp)
 	while (state.run && stepCount-- > 0)
 	{
 		state.step();
-		state.run = state.run && state.clock < state.activeConfig.limit && state.netScore > 0;
+		state.run = state.run && !won() && !lost();
 	}
 
 	draw();
+}
+
+function won()
+{
+	return state.clock >= state.activeConfig.limit
+}
+
+function lost()
+{
+	return state.netScore <= 0;
 }
 
 function gameAnimate(timestamp)
 {
 	if (state.run)
 	{
-		runModel(timestamp);
+		runModel();
 
-		window.requestAnimationFrame(gameAnimate);
+		if (state.run)
+		{
+			window.requestAnimationFrame(gameAnimate);
+		}
+		else
+		{
+			draw();
+			
+			if (lost())
+			{
+				announceLost();
+			}
+			else
+			{
+				if (won())
+				{
+					announceWon();
+				}
+			}
+		}
+	}
+	else
+	{
+		console.log("gameAnimate called when not running");
+	}
+
+
+}
+
+function announceLost()
+{
+	announce("You have lost");
+}
+
+function announceWon() 
+{
+	announce("You have survived");
+}
+
+function announce(announcement) 
+{
+	if (window.confirm(announcement + "\nPlay again?"))
+	{
+		runGame();
 	}
 }
 
