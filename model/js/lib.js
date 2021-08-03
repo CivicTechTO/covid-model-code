@@ -334,6 +334,11 @@ function adjustIntervention(cost)
 	return result;
 }
 
+function formatScore()
+{
+	return state.scoreFormat.format(Math.max(0, state.netScore));
+}
+
 function computeR()
 {
 // EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))
