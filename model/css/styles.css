@@ -30,7 +30,7 @@ h4
 #left
 {
 	margin-left: 1em;
-	width: 1000px;
+	width: 800px;
 }
 
 #right
@@ -53,6 +53,7 @@ h4
 {
 	display: inline-block;
 	width: 20em;
+	margin-left: 1em;
 }
 
 #time-block
@@ -101,7 +102,7 @@ h4
 .toggle-contents
 {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 }
 
 .toggle-room
