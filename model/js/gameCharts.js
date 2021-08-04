@@ -1,8 +1,8 @@
 function initializeCharts ()
 {
-   let chartList = new Array ();
+   let chartList = new Array (), dataList = Array ();
 
-   for (n = 0; n < C.CHART_IDS.length; n++)
+/**   for (n = 0; n < C.CHART_IDS.length; n++)
    {
        let ctx = document.getElementById(C.CHART_IDS [n]),
            desc = {
@@ -21,7 +21,32 @@ function initializeCharts ()
 		// console.log (chart.data);
         chartList.push (chart);
         		
-   }
+   } */
+
+   for (i = 0; i < CHART_IDS.length; i++) 
+   {	   
+       for (j = 0; j < C.CHART_LABELS.length; j++)
+       {
+	      let entry = {
+                         label: C.CHART_LABELS [j],
+                          data: new Array (),
+                          fill : false,
+                          borderColor : C.CHART_COLOURS [j].BORDER,
+                          backgroundColor : C.CHART_COLOURS [j].FILL,
+			     		  pointStyle : C.CHART_ICONS [j],
+				    	  radius : 4
+                      }
+       }
+   
+       let ctx = document.getElementById(C.CHART_IDS [n]),
+           desc = {
+                    type: 'scatter',
+                    data: { labels : new Array (), datasets: dataList; }
+                  };
+        let chart = new Chart(ctx, desc);
+		
+        chartList.push (chart);
+        		   
    // console.log (chartList);
    return chartList;
 }
