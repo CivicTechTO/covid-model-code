@@ -34,6 +34,10 @@
     <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span> &nbsp; </div>
     <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
     <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
+    <div id="screen-pick">
+      <button type="button" onclick="leftScreen();">Left Screen</button>
+      <button type="button" onclick="rightScreen();">Right Screen</button>
+    </div>
   </div>
 
   <div id="infect-container">
@@ -165,24 +169,26 @@
     </div>
   </div>  
 
-  <div id="announce-lose" class="announce">
-    <div class="announce-text">GAME RESULTS</div>
-    <div class="announce-text">You have lost.</div>
-    <div id="score-text-lose" class="announce-text">You survived 45 days.</div>
-    <div class="button-group">
-      <button type="button" class="announce-button" onclick="quit();">Quit</button>
-      <button type="button" class="announce-button" onclick="play();">Play again</button>
+  <div id="announce-outer">
+    <div id="announce-lose" class="announce">
+      <div class="announce-text">GAME RESULTS</div>
+      <div class="announce-text">You have lost.</div>
+      <div id="score-text-lose" class="announce-text">You survived 45 days.</div>
+      <div class="button-group">
+        <button type="button" class="announce-button" onclick="quit();">Quit</button>
+        <button type="button" class="announce-button" onclick="play();">Play again</button>
+      </div>
     </div>
-  </div>
 
-  <div id="announce-win" class="announce">
-    <div class="announce-text">GAME RESULTS</div>
-    <div class="announce-text">You have survived.</div>
-    <div id="score-text-win" class="announce-text">You have 10,000,000 political points remaining.</div>
-    <div class="button-group">
-      <button type="button" class="announce-button" onclick="quit();">Quit</button>
-      <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
-    </div>
+    <div id="announce-win" class="announce">
+      <div class="announce-text">GAME RESULTS</div>
+      <div class="announce-text">You have survived.</div>
+      <div id="score-text-win" class="announce-text">You have 10,000,000 political points remaining.</div>
+      <div class="button-group">
+        <button type="button" class="announce-button" onclick="quit();">Quit</button>
+        <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
+      </div>
+    </div>    
   </div>
 
   <script src="../js/constants.js"></script>

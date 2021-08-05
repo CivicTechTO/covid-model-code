@@ -27,6 +27,11 @@ h4
     grid-template-columns: min-content auto;
 }
 
+#screen-pick
+{
+	display: none;
+}
+
 #left
 {
 	margin-left: 1em;
@@ -52,20 +57,19 @@ h4
 #day-block
 {
 	display: inline-block;
-	width: 20em;
+	width: 15em;
 	margin-left: 1em;
 }
 
 #time-block
 {
 	display: inline-block;
-	width: 10em;
 }
 
 #score-block
 {
 	display: none;
-	width: 20em;
+	width: 17em;
 }
 
 #records
@@ -218,14 +222,24 @@ h4
 	margin-left: 0.2em;
 }
 
+#announce-outer
+{
+	display: none;
+	background-color: rgba(0, 0, 0, 0,0);
+
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+
+	justify-content: center;
+	align-content: center;
+}
+
 .announce
 {
 	border: .2em solid black;
-	position: absolute;
-	top: 35%;
-	left: 35%;
-	width: 30%;
-	height: 30%;
 
 	align-content: center;
 	justify-content: center;
@@ -264,3 +278,35 @@ h4
 {
 	font-size: large;
 }
+
+@media screen and (max-width: 1800px) 
+{
+	#screen-pick
+	{
+		display: inline-block;
+	}
+
+	#right
+	{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1801px) 
+{
+	#screen-pick
+	{
+		display: none;
+	}
+
+	#right
+	{
+		display: block;
+	}
+
+	#left
+	{
+		display: block;
+	}
+}
+
