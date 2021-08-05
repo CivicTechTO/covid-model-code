@@ -146,30 +146,6 @@ function gameAnimate(timestamp)
 			}
 		}
 	}
-	else
-	{
-		console.log("gameAnimate called when not running");
-	}
-
-
-}
-
-function announceLost()
-{
-	announce("You have lost");
-}
-
-function announceWon() 
-{
-	announce("You have survived");
-}
-
-function announce(announcement) 
-{
-	if (window.confirm(announcement + "\nPlay again?"))
-	{
-		runGame();
-	}
 }
 
 function startup(playGame)

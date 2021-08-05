@@ -59,82 +59,84 @@
         </div>
 
         <div id="controls">
-          <h4>General Controls</h4>
+          <fieldset id="all-controls">
+            <h4>General Controls</h4>
 
-          <div>
-            <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
-            <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
-            Speed <button type="button" id="speed" class="cold-colour" onclick="toggleSpeed();">Fast</button>
-          </div>
-
-          <fieldset id="game-controls" disabled="true">
-
-            <h4>Game Controls</h4>
-
-            <div class="controls-contents">
-           
-              <div class="control-title">Masks</div>
-              <div id="masks">None</div>
-              <div class="control-buttons">
-                <button id="no-masks" type="button" onclick="noMasks();">None</button>
-                <button id="encourage-masks" type="button" onclick="encourageMasks();">Encourage</button>
-                <button id="require-masks" type="button" onclick="requireMasks();">Require</button>
-                <button id="enforce-masks" type="button" onclick="enforceMasks();">Enforce</button>
-              </div>
-           
-        </div>
             <div>
-              The following controls shut down or open up a category of rooms.
+              <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
+              <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
+              Speed <button type="button" id="speed" class="cold-colour" onclick="toggleSpeed();">Fast</button>
             </div>
 
-            <div class="toggle-contents">
-              <div class="toggle-room">
-                <div class="toggle-title church-colour">Worship</div>
-                <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
-              </div>
+            <fieldset id="game-controls" disabled="true">
 
-              <div class="toggle-room">
-                <div class="toggle-title restaurant-colour">Restaurants</div>
-                <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
-              </div>
+              <h4>Game Controls</h4>
 
-              <div class="toggle-room">
-                <div class="toggle-title bar-colour">Bars</div>
-                <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
-              </div>
-
-              <div class="toggle-room">
-                <div class="toggle-title club-colour">Clubs</div>
-                <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
-              </div>
-
-              <div class="toggle-room">
-                <div class="toggle-title school-colour">Schools</div>
-                <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
-              </div>
-
-              <div class="toggle-room">
-                <div class="toggle-title office-colour">Offices</div>
-                <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
-              </div>
-
-              <div class="toggle-room">
-                <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
-              </div>
-
-               <div class="toggle-room">
-                <div class="toggle-title outside-colour">Parks</div>
-                <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
-              </div>
-
-               <div class="toggle-room">
-                <div class="toggle-title house-colour">House&nbsp;parties</div>
-                <button type="button" id="parties" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
-              </div>
-            </div>
+              <div class="controls-contents">
+             
+                <div class="control-title">Masks</div>
+                <div id="masks">None</div>
+                <div class="control-buttons">
+                  <button id="no-masks" type="button" onclick="noMasks();">None</button>
+                  <button id="encourage-masks" type="button" onclick="encourageMasks();">Encourage</button>
+                  <button id="require-masks" type="button" onclick="requireMasks();">Require</button>
+                  <button id="enforce-masks" type="button" onclick="enforceMasks();">Enforce</button>
+                </div>
+             
           </div>
-        </fieldset>
+              <div>
+                The following controls shut down or open up a category of rooms.
+              </div>
+
+              <div class="toggle-contents">
+                <div class="toggle-room">
+                  <div class="toggle-title church-colour">Worship</div>
+                  <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title restaurant-colour">Restaurants</div>
+                  <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title bar-colour">Bars</div>
+                  <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title club-colour">Clubs</div>
+                  <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title school-colour">Schools</div>
+                  <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title office-colour">Offices</div>
+                  <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
+                </div>
+
+                <div class="toggle-room">
+                  <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
+                  <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
+                </div>
+
+                 <div class="toggle-room">
+                  <div class="toggle-title outside-colour">Parks</div>
+                  <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
+                </div>
+
+                 <div class="toggle-room">
+                  <div class="toggle-title house-colour">House&nbsp;parties</div>
+                  <button type="button" id="parties" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+      </fieldset>
       </div>
 
       <div id="other-group">
@@ -162,6 +164,26 @@
       </div>
     </div>
   </div>  
+
+  <div id="announce-lose" class="announce">
+    <div class="announce-text">GAME RESULTS</div>
+    <div class="announce-text">You have lost.</div>
+    <div id="score-text-lose" class="announce-text">You survived 45 days.</div>
+    <div class="button-group">
+      <button type="button" class="announce-button" onclick="quit();">Quit</button>
+      <button type="button" class="announce-button" onclick="play();">Play again</button>
+    </div>
+  </div>
+
+  <div id="announce-win" class="announce">
+    <div class="announce-text">GAME RESULTS</div>
+    <div class="announce-text">You have survived.</div>
+    <div id="score-text-win" class="announce-text">You have 10,000,000 political points remaining.</div>
+    <div class="button-group">
+      <button type="button" class="announce-button" onclick="quit();">Quit</button>
+      <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
+    </div>
+  </div>
 
   <script src="../js/constants.js"></script>
   <script src="../js/controls.js"></script>
