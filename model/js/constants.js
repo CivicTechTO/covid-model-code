@@ -4,17 +4,15 @@ function makeConstants()
 
     result.CHART_IDS =  ['overview', 'moving' ], // [ "symptomatic", "at-home", "hospital", "hallway" ],
 	
-	result.CHART_TYPES = [ 'line', 'scatter' ],
-   
     result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for Bed" ],
 	
-	result.CHART_COLOURS = [ { BORDER : 'rgb(80, 200, 30)', FILL : 'rgb(100, 240, 150)' },
-                             { BORDER : 'rgb(0, 0, 180)', FILL : 'rgb(0, 0, 240)' },
-						     { BORDER : 'rgb(240, 20, 20)', FILL : 'rgb(240, 150, 150)' },
-						     { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(120, 120, 120)' } ],
+	result.CHART_COLOURS = [ { BORDER : 'rgb(100, 240, 150)', FILL : 'rgb(100, 240, 150)' },
+                             { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' },
+						     { BORDER : 'rgb(240, 150, 150)', FILL : 'rgb(240, 150, 150)' },
+						     { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(0, 0, 0)' } ],
+							 
+	result.MOVING_CHART_WINDOW = 30,
 						   
-	result.CHART_ICONS = [ 'circle', 'rect', 'star', 'triangle' ],
-
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 
 	result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}

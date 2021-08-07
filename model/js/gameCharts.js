@@ -1,76 +1,95 @@
-function initializeCharts ()
+// Base class: ontains the basic definition for creating charts, but never adds data
+class GameChart
 {
-   let chartList = new Array ();
-
-/**   for (n = 0; n < C.CHART_IDS.length; n++)
-   {
-       let ctx = document.getElementById(C.CHART_IDS [n]),
-           desc = {
-                type: 'line',
-                data: 
-                {
-                    labels : new Array (),
-                    datasets: 
-                    [{
-                        label: C.CHART_LABELS [n],
-                        data: new Array ()                    
-                     }]
-                }
-           };
-        let chart = new Chart(ctx, desc);
-		// console.log (chart.data);
-        chartList.push (chart);
-        		
-   } */
-
-   for (i = 0; i < CHART_IDS.length; i++) 
-   {
-	   let dataList = Array ();
+	constructor (id)
+    {
+	   let dataList = []; // Array ();
+       this.next = []; // Array ();
 	   
-       for (j = 0; j < C.CHART_LABELS.length; j++)
+       for (let j = 0; j <  C.CHART_LABELS.length; j++)
        {
 	      let entry = {
                           label: C.CHART_LABELS [j],
-                          data: new Array (),
-                          fill : false,
+                          data: [],
                           borderColor : C.CHART_COLOURS [j].BORDER,
-                          backgroundColor : C.CHART_COLOURS [j].FILL,
-			     		  pointStyle : C.CHART_ICONS [j],
-				    	  radius : 4
+                          backgroundColor : C.CHART_COLOURS [j].FILL
                       }
-		  dataList.push (entry); 
+		  dataList.push (entry);
+		  this.next.push (0);
        }
    
-       let ctx = document.getElementById(C.CHART_IDS [n]),
+       let ctx = document.getElementById(id),
            desc = {
-                    type: C.CHART_TYPES [i],
-                    data: { labels : new Array (), datasets: dataList; },				
+                    type: 'scatter',
+                    data: { labels : [], datasets: dataList }		
                   };
-	   if (C.CHART_TYPES [i] === 'line')
-	   {
-		  let lineOpt = { plugins: { decimation: {enabled: false, algorithm: 'lttb' } } };
-		  desc.options = lineOpt;
-	   }
-				  
-        
-        let chart = new Chart(ctx, desc);
-		
-        chartList.push (chart);
+        this.chart = new Chart(ctx, desc);
+    }
 
-   return chartList;
+    addToList (toPush)
+	{
+		// this.chart.data.datasets [index].data.push (value);
+	}
+
+    update (index, added)
+	{
+	   let tuple =  { x : ++(this.next [index]), y : added };
+       this.addToList (tuple);
+       this.chart.data.labels.push (this.next [index]);
+       this.chart.update ();
+	}
+	
+	destroy ()
+	{
+		this.chart.destroy ();
+	}
 }
 
-function addItemToChart (value, j)
+// Create a chart based on GameChart, which simply creates an overview of the input
+// data as specified in the constants definition
+class OverviewChart extends GameChart
+{
+	constructor ()
+    {
+		super (C.CHART_IDS [0]);
+    }
+
+    addToList (toPush)
+	{
+		this.chart.data.datasets [index].data.push (value);
+	}
+}
+
+// Create a chart based on GameChart, which creates a moving window into the 
+// data, giving a clear picture of the recent past.
+class WindowChart extends GameChart
+{
+	constructor ()
+    {
+		super (C.CHART_IDS [0]);
+		this.limit = MOVING_CHART_WINDOW;
+    }
+
+    addToList (toPush)
+	{
+		this.chart.data.datasets [index].data.push (value);
+		if (this.chart.data.datasets [index].data.length > this.limit)
+			this.chart.data.datasets [index].data.shift ();
+	}
+}
+
+function initializeCharts ()
+{
+   return [ new OverviewChart (), new WindowChart () ];
+}
+
+function addItemToChart (value, timeSeries)
 {
    // console.log (state.chartList [i].data);
    // console.log (value);
-   
-   for i = 0; i < CHART_IDS.length; i++)
-   state.chartList [i].data.datasets [j].data.push (value);
-   state.chartList [i].data.labels.push (state.chartList [i].data.datasets [0].data.length);
-   state.chartList [i].update ();
+   for (i = 0; i < C.CHART_IDS.length; i++)
+	   state.chartList [i].update (timeSeries, value);
 }
-
 
 function atNewDay () 
 {
