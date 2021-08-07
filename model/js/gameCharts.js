@@ -1,6 +1,6 @@
 function initializeCharts ()
 {
-   let chartList = new Array (), dataList = Array ();
+   let chartList = new Array ();
 
 /**   for (n = 0; n < C.CHART_IDS.length; n++)
    {
@@ -24,11 +24,13 @@ function initializeCharts ()
    } */
 
    for (i = 0; i < CHART_IDS.length; i++) 
-   {	   
+   {
+	   let dataList = Array ();
+	   
        for (j = 0; j < C.CHART_LABELS.length; j++)
        {
 	      let entry = {
-                         label: C.CHART_LABELS [j],
+                          label: C.CHART_LABELS [j],
                           data: new Array (),
                           fill : false,
                           borderColor : C.CHART_COLOURS [j].BORDER,
@@ -36,26 +38,35 @@ function initializeCharts ()
 			     		  pointStyle : C.CHART_ICONS [j],
 				    	  radius : 4
                       }
+		  dataList.push (entry); 
        }
    
        let ctx = document.getElementById(C.CHART_IDS [n]),
            desc = {
-                    type: 'scatter',
-                    data: { labels : new Array (), datasets: dataList; }
+                    type: C.CHART_TYPES [i],
+                    data: { labels : new Array (), datasets: dataList; },				
                   };
+	   if (C.CHART_TYPES [i] === 'line')
+	   {
+		  let lineOpt = { plugins: { decimation: {enabled: false, algorithm: 'lttb' } } };
+		  desc.options = lineOpt;
+	   }
+				  
+        
         let chart = new Chart(ctx, desc);
 		
         chartList.push (chart);
-        		   
-   // console.log (chartList);
+
    return chartList;
 }
 
-function addItemToChart (value, i)
+function addItemToChart (value, j)
 {
    // console.log (state.chartList [i].data);
    // console.log (value);
-   state.chartList [i].data.datasets [0].data.push (value);
+   
+   for i = 0; i < CHART_IDS.length; i++)
+   state.chartList [i].data.datasets [j].data.push (value);
    state.chartList [i].data.labels.push (state.chartList [i].data.datasets [0].data.length);
    state.chartList [i].update ();
 }
