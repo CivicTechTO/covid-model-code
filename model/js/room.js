@@ -21,6 +21,8 @@ class Room
 		
 		this.stats = false;
 
+		this.infected = 0;
+
 		this.roomType = C.ROOMTYPE.OPEN;
 
 		this.house = false;

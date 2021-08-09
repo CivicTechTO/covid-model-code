@@ -131,6 +131,11 @@ class InfectablePerson extends Person
 			{
 				this.infect(pick(state.infectious.pList, state.infectious.valueList));
 
+				if (this.inRoom)
+				{
+					this.inRoom.infected++;
+				}
+
 				if (this.stats)
 				{
 					setInfectedAt(state.clock);

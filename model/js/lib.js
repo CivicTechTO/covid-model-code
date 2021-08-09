@@ -133,6 +133,8 @@ function gameAnimate(timestamp)
 		{
 			draw();
 			
+			reportInfected();
+
 			if (lost())
 			{
 				announceLost();
@@ -146,6 +148,38 @@ function gameAnimate(timestamp)
 			}
 		}
 	}
+}
+
+function reportInfected()
+{
+	reportRooms("Work", state.workList);
+	reportRooms("Meat packing", state.meatList);
+	reportRooms("Office", state.officeList);
+	reportRooms("School", state.schoolList);
+	reportRooms("House", state.houseList);
+	reportRooms("Bunkhouse", state.bunkHouseList);
+	reportRooms("Church", state.churchList);
+	reportRooms("Restaurant", state.restaurantList);
+	reportRooms("Pub", state.pubList);
+	reportRooms("Club", state.clubList);
+	reportRooms("Park", state.outsideList);
+}
+
+function reportRooms(name, list)
+{
+	console.log(name, sumInfected(list));
+}
+
+function sumInfected(list) 
+{
+	let result = 0;
+
+	for (const room of list)
+	{
+		result += room.infected;
+	}
+
+	return result;
 }
 
 function startup(playGame)
