@@ -21,20 +21,26 @@ class GameChart
        let ctx = document.getElementById(id),
            desc = {
                     type: 'scatter',
-                    data: { labels : [], datasets: dataList }		
+                    data: { labels : [], datasets: dataList },
+                    scales: { y : { min : 0 }}					
                   };
         this.chart = new Chart(ctx, desc);
     }
 
-    addToList (toPush)
+    addToList (index, toPush)
 	{
 		// this.chart.data.datasets [index].data.push (value);
 	}
 
     update (index, added)
 	{
+	   if (added < 0)
+	   {
+		   console.log ('Bad value for added: ' + added);
+		   aded = 0;
+	   }
 	   let tuple =  { x : ++(this.next [index]), y : added };
-       this.addToList (tuple);
+       this.addToList (index, tuple);
        this.chart.data.labels.push (this.next [index]);
        this.chart.update ();
 	}
@@ -54,9 +60,9 @@ class OverviewChart extends GameChart
 		super (C.CHART_IDS [0]);
     }
 
-    addToList (toPush)
+    addToList (index, toPush)
 	{
-		this.chart.data.datasets [index].data.push (value);
+		this.chart.data.datasets [index].data.push (toPush);
 	}
 }
 
@@ -66,13 +72,13 @@ class WindowChart extends GameChart
 {
 	constructor ()
     {
-		super (C.CHART_IDS [0]);
-		this.limit = MOVING_CHART_WINDOW;
+		super (C.CHART_IDS [1]);
+		this.limit = C.MOVING_CHART_WINDOW;
     }
 
-    addToList (toPush)
+    addToList (index, toPush)
 	{
-		this.chart.data.datasets [index].data.push (value);
+		this.chart.data.datasets [index].data.push (toPush);
 		if (this.chart.data.datasets [index].data.length > this.limit)
 			this.chart.data.datasets [index].data.shift ();
 	}
@@ -93,10 +99,10 @@ function addItemToChart (value, timeSeries)
 
 function atNewDay () 
 {
-   addItemToChart (state.record.symptoms.current, 0); // "symptomatic"
-   addItemToChart (state.record.homeSick.current, 1); // "at-home"
-   addItemToChart (state.record.wardSick.current, 2); // "hospital"
-   addItemToChart (state.record.hallway.current, 3);  // "hallway"
+  // addItemToChart (state.record.symptoms.current, 0); // "symptomatic"
+  // addItemToChart (state.record.homeSick.current, 1); // "at-home"
+  // addItemToChart (state.record.wardSick.current, 2); // "hospital"
+  // addItemToChart (state.record.hallway.current, 3);  // "hallway"
 }
 
 function destroyCharts() 
