@@ -2,7 +2,7 @@
 
 body
 {
-	background-color: #67AECB;
+	background-color: #87CEEB;
 }
 
 h1
@@ -17,14 +17,25 @@ h4
 
 #container
 {
+	margin-left: 1em;
+	width: 1000px;
+}
+
+#infect-container
+{
     display: grid;
     grid-template-columns: min-content auto;
+}
+
+#screen-pick
+{
+	display: none;
 }
 
 #left
 {
 	margin-left: 1em;
-	width: 1000px;
+	width: 800px;
 }
 
 #right
@@ -46,19 +57,19 @@ h4
 #day-block
 {
 	display: inline-block;
-	width: 20em;
+	width: 15em;
+	margin-left: 1em;
 }
 
 #time-block
 {
 	display: inline-block;
-	width: 10em;
 }
 
 #score-block
 {
 	display: none;
-	width: 20em;
+	width: 17em;
 }
 
 #records
@@ -95,7 +106,7 @@ h4
 .toggle-contents
 {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
 }
 
 .toggle-room
@@ -119,7 +130,7 @@ h4
 .other-title
 {
 	display: inline-block;
-	width: 8em;
+	width: 6em;
 	margin-right: 1em;
 	padding: 0.1em;
 }
@@ -209,3 +220,92 @@ h4
 	margin-top: 1em;
 	margin-left: 0.2em;
 }
+
+#announce-outer
+{
+	display: none;
+	background-color: rgba(0, 0, 0, 0,0);
+
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+
+	justify-content: center;
+	align-content: center;
+}
+
+.announce
+{
+	border: .2em solid black;
+
+	align-content: center;
+	justify-content: center;
+}
+
+#announce-win
+{
+	display: none;
+
+	background-color: #3030FF;
+
+}
+
+#announce-lose
+{
+	display: none;
+
+	background-color: gray;
+}
+
+.announce-text
+{
+	font-size: xxx-large;
+	text-align: center;
+}
+
+.button-group
+{
+	margin-top: 2em;
+	display: grid;
+	grid-template-columns: max-content max-content;
+	justify-content: space-evenly;
+}
+
+.announce-button
+{
+	font-size: large;
+}
+
+@media screen and (max-width: 1800px) 
+{
+	#screen-pick
+	{
+		display: inline-block;
+	}
+
+	#right
+	{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1801px) 
+{
+	#screen-pick
+	{
+		display: none;
+	}
+
+	#right
+	{
+		display: block;
+	}
+
+	#left
+	{
+		display: block;
+	}
+}
+

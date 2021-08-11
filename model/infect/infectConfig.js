@@ -82,8 +82,8 @@ function makeConfig()
 			}
 		, outside: 
 			{
-				style: "#008800", y: 180, road: 2, count: 17, width: 25, height: 100, crowd: 1
-				, halfEdge: 12, start:1, pause: 1, speed: 0.05, ventilation: 1000
+				style: "#008800", y: 180, road: 2, count: 16, width: 50, height: 100, crowd: 1
+				, halfEdge: 12, start:1, pause: 1, speed: 0.05, loudness: 40, ventilation: 100
 			}
 
 		, hospital: 
@@ -94,6 +94,8 @@ function makeConfig()
 				, ward: {height: 10, count: 5}
 				, hallway: {height: 140}
 			}
+
+		, isolation: {style: "#828282", count:10, road: 16, top: 180}
 
 		, cemetary: {style: "#40D040", y: 180, road: 17, offset: 8, width: 35, height: 100, speed: 0.01}
 
@@ -147,7 +149,7 @@ function makeConfig()
 				, colour: {none: "#2C7BB6", encourage: "#857AA3", require: "#BE5A6F", enforce: "#D7191C"}
 			}
 		
-		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
+		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}
 
 // out, ward, icu, and hallway are indexed by 
@@ -534,7 +536,7 @@ function makeConfig()
 				, {
 				  	index: 5060, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.CROSS}, {pop: true, image: C.IMAGE.CROSS}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CROSS}, {pop: true, image: C.IMAGE.CROSS}], time: 10
 				  			, next: 20, alt: {p: 0.0, next: 20}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -544,7 +546,7 @@ function makeConfig()
 				, {
 				  	index: 5070, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.CRESCENT}, {pop: true, image: C.IMAGE.CRESCENT}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.CRESCENT}, {pop: true, image: C.IMAGE.CRESCENT}], time: 10
 				  			, next: 30, alt: {p: 0.0, next: 30}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED
@@ -554,7 +556,7 @@ function makeConfig()
 				, {
 				  	index: 5080, data: 
 				  		{
-				  			  display: [{pop: true, image: C.IMAGE.STAR}, {pop: true, image: C.IMAGE.STAR}], time: 1
+				  			  display: [{pop: true, image: C.IMAGE.STAR}, {pop: true, image: C.IMAGE.STAR}], time: 10
 				  			, next: 40, alt: {p: 0.0, next: 40}, start: 0.0, end: 0.0, sick: C.SICKNESS.DEAD
 				  			, increment: C.RECORD.DEAD
 				  			, decrement: C.RECORD.ICUSICK | C.RECORD.WARDSICK | C.RECORD.HOMESICK | C.RECORD.SICK | C.RECORD.INFECTED

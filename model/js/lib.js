@@ -73,7 +73,7 @@ function animate(timestamp)
 {
 	if (state.run)
 	{
-		runModel(timestamp);
+		runModel(timestamp)
 
 		if (state.game)
 		{
@@ -90,9 +90,8 @@ function runGame()
 {
 	destroyCharts();
 	showSlow();
-	startRunning();
 	startup(true);
-	window.requestAnimationFrame(gameAnimate);
+	startRunning();
 }
 
 function runModel(timestamp)
@@ -104,20 +103,83 @@ function runModel(timestamp)
 	while (state.run && stepCount-- > 0)
 	{
 		state.step();
-		state.run = state.run && state.clock < state.activeConfig.limit && state.netScore > 0;
+		state.run = state.run && !won() && !lost();
 	}
 
 	draw();
+}
+
+function won()
+{
+	return state.clock >= state.activeConfig.limit
+}
+
+function lost()
+{
+	return state.netScore <= 0;
 }
 
 function gameAnimate(timestamp)
 {
 	if (state.run)
 	{
-		runModel(timestamp);
+		runModel();
 
-		window.requestAnimationFrame(gameAnimate);
+		if (state.run)
+		{
+			window.requestAnimationFrame(gameAnimate);
+		}
+		else
+		{
+			draw();
+			
+			reportInfected();
+
+			if (lost())
+			{
+				announceLost();
+			}
+			else
+			{
+				if (won())
+				{
+					announceWon();
+				}
+			}
+		}
 	}
+}
+
+function reportInfected()
+{
+	reportRooms("Work", state.workList);
+	reportRooms("Meat packing", state.meatList);
+	reportRooms("Office", state.officeList);
+	reportRooms("School", state.schoolList);
+	reportRooms("House", state.houseList);
+	reportRooms("Bunkhouse", state.bunkHouseList);
+	reportRooms("Church", state.churchList);
+	reportRooms("Restaurant", state.restaurantList);
+	reportRooms("Pub", state.pubList);
+	reportRooms("Club", state.clubList);
+	reportRooms("Park", state.outsideList);
+}
+
+function reportRooms(name, list)
+{
+	console.log(name, sumInfected(list));
+}
+
+function sumInfected(list) 
+{
+	let result = 0;
+
+	for (const room of list)
+	{
+		result += room.infected;
+	}
+
+	return result;
 }
 
 function startup(playGame)
@@ -280,6 +342,11 @@ function adjustIntervention(cost)
 	}
 
 	return result;
+}
+
+function formatScore()
+{
+	return state.scoreFormat.format(Math.max(0, state.netScore));
 }
 
 function computeR()

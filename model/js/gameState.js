@@ -11,7 +11,7 @@ class GameState extends TownState
 		this.scoreDate = -1;
 		this.roomState = [];
 		this.useRoomState = [];
-		this.maskLevel = C.MASKLEVEL.NONE;
+//		this.maskLevel = C.MASKLEVEL.NONE;
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
 		this.chartList = initializeCharts ()
@@ -59,6 +59,9 @@ class GameState extends TownState
 		super.fill();
 		this.fillRoomTypes();
 		this.fillRoomState();
+
+		this.drawRoomstates();
+		noMasks();
 	}
 
 	fillRoomTypes()
@@ -75,17 +78,19 @@ class GameState extends TownState
 
 	fillWorkListType()
 	{
-		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT);
-		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES);
-		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS);
+		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT, this.meatList);
+		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES, this.officeList);
+		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS, this.schoolList);
 	}
 
-	fillWorkType(config, type, workType)
+	fillWorkType(config, type, workType, list)
 	{
 		for (var i = config.start; i <= config.end; i++) 
 		{
-			this.workList[i].roomType = type;
-			this.workList[i].fillStyle = state.activeConfig.workStyle[workType];
+			let room = this.workList[i];
+			room.roomType = type;
+			room.fillStyle = state.activeConfig.workStyle[workType];
+			list.push(room);
 		}
 	}
 
@@ -333,7 +338,7 @@ class GameState extends TownState
 	{
 		if (this.game)
 		{
-			setText("score", this.scoreFormat.format(Math.max(0, this.netScore)));		
+			setText("score", formatScore());		
 			showInline("score-block");	
 		}
 	}

@@ -10,6 +10,12 @@ function showInline(name)
 	element.style.display = "inline-block";
 }
 
+function showGrid(name) 
+{
+	const element = document.getElementById(name);
+	element.style.display = "grid";
+}
+
 function hide(name) 
 {
 	const element = document.getElementById(name);
@@ -277,3 +283,48 @@ function twoPublic()
 	setText("isolate", "Two Public");
 }
 
+function announceLost()
+{
+	state.announce = "announce-lose";
+	setText("score-text-lose", "You survived " + state.tickToDay(state.clock) + " days.");
+	showGrid("announce-outer");
+	showGrid("announce-lose");
+	document.getElementById("all-controls").disabled = true;
+}
+
+function announceWon() 
+{
+	state.announce = "announce-win";
+	setText("score-text-win", "You have " + formatScore() + " political points remaining.");
+	showGrid("announce-outer");
+	showGrid("announce-win");
+	document.getElementById("all-controls").disabled = true;
+}
+
+function quit()
+{
+	hide(state.announce);
+	hide("announce-outer");
+	document.getElementById("all-controls").disabled = false;
+}
+
+function play()
+{
+	hide(state.announce);
+	hide("announce-outer");
+	document.getElementById("all-controls").disabled = false;
+	runGame();
+}
+
+
+function leftScreen()
+{
+	show("left");
+	hide("right");
+}
+
+function rightScreen()
+{
+	show("right");
+	hide("left");
+}

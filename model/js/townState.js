@@ -8,8 +8,15 @@ class TownState extends InfectState
 		this.count = this.activeConfig.count;
 
 		this.workList = [];
+		this.schoolList = [];
+		this.meatList = [];
+		this.officeList = [];
+
 		this.houseList = [];
+		this.bunkHouseList = [];
 		this.dwellingList = [];
+
+		this.isolationList = [];
 
 		this.churchList = [];
 		this.restaurantList = [];
@@ -38,6 +45,7 @@ class TownState extends InfectState
 		this.churchSpec = this.activeConfig.church;
 
 		this.fillHome(this.dwellingList, crowd);
+		this.fillIsolation();
 		this.fillWork();
 		this.fillOther();
 
@@ -82,6 +90,8 @@ class TownState extends InfectState
 
 			this.roomList.push(room);
 			dwellings.push(room);
+			this.bunkHouseList.push(room);
+
 			crowd.push(this.activeConfig.bunkHouse.crowd);
 		}
 	}
@@ -111,6 +121,23 @@ class TownState extends InfectState
 				dwellings.push(room);
 				crowd.push(this.activeConfig.house.crowd);
 			}
+		}
+	}
+
+	fillIsolation()
+	{
+		const count = this.activeConfig.isolation.count;
+		const width = this.activeConfig.house.width;
+		const height = this.activeConfig.house.height;
+		const offset = Math.round((this.activeConfig.road.space - 2 * width) / 2);
+		const x = this.activeConfig.isolation.road * this.activeConfig.road.space + offset;
+		const top = this.activeConfig.isolation.top;
+
+		this.isolationList = twoStack(count, x, top, width, height);
+
+		for (const room of this.isolationList)
+		{
+			this.roomList.push(room);
 		}
 	}
 
@@ -326,16 +353,20 @@ class TownState extends InfectState
 		{
 			let x = i * this.activeConfig.road.space;
 			let outside = new Outside(x, y, width, height, halfEdge);
+
+			outside.loudness = this.activeConfig.outside.loudness;
+			outside.ventilation = this.activeConfig.outside.ventilation;
+
 			outside.fillStyle = this.activeConfig.outside.style;
 
 			this.roomList.push(outside);
 			this.outsideList.push(outside);
 
-			outside = new Outside(x + width, y, width, height, halfEdge);
-			outside.fillStyle = this.activeConfig.outside.style;
+			// outside = new Outside(x + width, y, width, height, halfEdge);
+			// outside.fillStyle = this.activeConfig.outside.style;
 
-			this.roomList.push(outside);
-			this.outsideList.push(outside);
+			// this.roomList.push(outside);
+			// this.outsideList.push(outside);
 		}
 
 	}

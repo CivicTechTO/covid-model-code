@@ -83,6 +83,9 @@ class State
 	{
 		this.activeConfig.limit = this.dayToTick(this.savedConfig.limit - 1);
 
+		const limit = this.dayToTick(this.savedConfig.limit);
+		this.activeConfig.infectProbability = this.savedConfig.randomInfected / (this.savedConfig.count * limit);
+
 		this.activeConfig.shiftLength = this.hourToTick(this.savedConfig.shiftLength);
 
 		this.activeConfig.moveSpeed = this.perSecondToPerTick(this.savedConfig.moveSpeed);
