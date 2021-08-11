@@ -11,10 +11,14 @@ class GameState extends TownState
 		this.scoreDate = -1;
 		this.roomState = [];
 		this.useRoomState = [];
-//		this.maskLevel = C.MASKLEVEL.NONE;
+
+		this.maskLevel = C.MASKLEVEL.NONE;
+		this.test = C.TESTLEVEL.NONE;
+		this.trace = C.TRACE.NONE;
+		this.isolate = false;
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
-		this.chartList = initializeCharts ()
+		this.chartList = initializeCharts ();
 
 		this.run = true;
 		this.past = null;
@@ -52,6 +56,21 @@ class GameState extends TownState
 	setMaskLevel(level)
 	{
 		this.maskLevel = level;
+	}
+
+	setTest(test)
+	{
+
+	}
+
+	setTrace(trace)
+	{
+
+	}
+
+	setIsolate(isolate)
+	{
+
 	}
 
 	fill()

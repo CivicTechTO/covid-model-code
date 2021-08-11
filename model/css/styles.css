@@ -130,8 +130,8 @@ h4
 .other-title
 {
 	display: inline-block;
-	width: 5em;
-	margin-right: 1em;
+	width: 6em;
+	margin-right: 0.5em;
 	padding: 0.1em;
 }
 
@@ -201,6 +201,11 @@ h4
 
 #masks
 {
+}
+
+#isolate
+{
+	
 }
 
 .swatch

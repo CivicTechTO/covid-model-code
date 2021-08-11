@@ -94,36 +94,6 @@ function startRunning()
 	window.requestAnimationFrame(state.animate);
 }
 
-function toggleMode() 
-{
-	if (state.game)
-	{
-		state.setExposition();
-
-		document.getElementById("game-controls").disabled = true;
-		gameHide("game-hide", false);
-		gameHide("game-show", true);
-		setText("mode", "Game");
-		setColour("mode", state.activeConfig.coldColour);
-
-		hide("limit");
-	}
-	else
-	{
-		state.setGame();
-		
-		document.getElementById("game-controls").disabled = false;
-		gameHide("game-hide", true);
-		gameHide("game-show", false);
-		setText("mode", "Exposition");
-		setColour("mode", state.activeConfig.hotColour);
-
-		setText("limit", "/" + state.savedConfig.limit.toString());
-		showInline("limit");
-		showInline("score-block");		
-	}
-}
-
 function toggleSpeed() 
 {
 	const choices = state.activeConfig.stepsPerFrame;
@@ -152,24 +122,6 @@ function showSlow()
 	setColour("speed", state.activeConfig.coldColour);
 }
 
-function toggleStep() 
-{
-	const choices = state.activeConfig.secondsPerTick;
-
-	if (state.secondsPerTick === choices.small)
-	{
-		setText("stepsize", "Small");
-		setColour("stepsize", state.activeConfig.hotColour);
-		state.setStepsize(choices.large);
-	}
-	else
-	{
-		setText("stepsize", "Large");
-		setColour("stepsize", state.activeConfig.coldColour);
-		state.setStepsize(choices.slow);
-	}
-}
-
 function gameHide(which, show)
 {
 	const hideList = document.getElementsByClassName(which);
@@ -178,20 +130,6 @@ function gameHide(which, show)
 		element.hidden = show;
 	}
 }
-
-// function setSteps(steps) 
-// {
-// 	state.stepsPerFrame = steps;
-// 	setText("steps", state.stepsPerFrame.toString());
-// 	state.setSteps(steps);
-// }
-
-// function setStepsize(seconds) 
-// {
-// 	state.secondsPerTick = seconds;
-// 	setText("stepsize", state.secondsPerTick.toString());
-// 	state.setStepsize(seconds);
-// }
 
 function pickDisplay()
 {
@@ -236,51 +174,59 @@ function enforceMasks()
 function noTest() 
 {
 	setText("test", "None");
+	setColour("test", state.activeConfig.test.colour.none);
+	state.setTest(C.TESTLEVEL.NONE);
 }
 
 function lightTest() 
 {
 	setText("test", "Light");
+	setColour("test", state.activeConfig.test.colour.light);
+	state.setTest(C.TESTLEVEL.LIGHT);
 }
 
 function heavyTest() 
 {
 	setText("test", "Heavy");
+	setColour("test", state.activeConfig.test.colour.heavy);
+	state.setTest(C.TESTLEVEL.HEAVY);
 }
 
 function noTrace() 
 {
 	setText("trace", "None");
+	setColour("trace", state.activeConfig.trace.colour.none);
+	state.setTrace(C.TRACE.NONE);
 }
 
 function forwardTrace() 
 {
 	setText("trace", "Forward");
+	setColour("trace", state.activeConfig.trace.colour.forward);
+	state.setTrace(C.TRACE.FORWARD);
 }
 
 function backwardTrace() 
 {
 	setText("trace", "Backward");
+	setColour("trace", state.activeConfig.trace.colour.backward);
+	state.setTrace(C.TRACE.BACKWARD);
 }
 
-function noIsolate() 
+function toggleIsolate() 
 {
-	setText("isolate", "None");
-}
-
-function homeIsolate() 
-{
-	setText("isolate", "At Home");
-}
-
-function onePublic() 
-{
-	setText("isolate", "One Public");
-}
-
-function twoPublic() 
-{
-	setText("isolate", "Two Public");
+	if (state.isolate)
+	{
+		state.isolate = false;
+		setText("isolate", "None");
+		setColour("isolate", state.activeConfig.hotColour)
+	}
+	else
+	{
+		state.isolate = true;
+		setText("isolate", "Isolating");
+		setColour("isolate", state.activeConfig.coldColour)
+	}
 }
 
 function announceLost()

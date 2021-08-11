@@ -35,5 +35,9 @@ function makeConstants()
 
 	result.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
 
+	result.TESTLEVEL = {NONE: 0, LIGHT: 1, HEAVY: 2};
+
+	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
+
 	return result;	
 }

@@ -15,6 +15,17 @@ stream.write("#encourage-masks{background-color: " + config.mask.colour.encourag
 stream.write("#require-masks{background-color: " + config.mask.colour.require + ";}\n");
 stream.write("#enforce-masks{background-color: " + config.mask.colour.enforce + ";}\n");
 
+
+stream.write("#no-test{background-color: " + config.test.colour.none + ";}\n");
+stream.write("#light-test{background-color: " + config.test.colour.light + ";}\n");
+stream.write("#heavy-test{background-color: " + config.test.colour.heavy + ";}\n");
+
+stream.write("#no-trace{background-color: " + config.trace.colour.none + ";}\n");
+stream.write("#forward-trace{background-color: " + config.trace.colour.forward + ";}\n");
+stream.write("#backward-trace{background-color: " + config.trace.colour.backward + ";}\n");
+
+stream.write("#isolate{background-color: " + config.hotColour + ";}\n");
+
 stream.write(".road-colour{background-color: " + config.road.style + ";}\n");
 
 stream.write(".school-colour{background-color: " + config.workStyle[C.WORKTYPE.SCHOOLS] + ";}\n");

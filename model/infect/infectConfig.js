@@ -148,7 +148,17 @@ function makeConfig()
 				, chance: [0.0, 0.5, 0.8, 0.9]
 				, colour: {none: "#2C7BB6", encourage: "#857AA3", require: "#BE5A6F", enforce: "#D7191C"}
 			}
+
+		, test:
+			{
+				colour: {none: "#2C7BB6", light: "#857AA3", heavy: "#D7191C"}
+			}
 		
+		, trace:
+			{
+				colour: {none: "#2C7BB6", forward: "#857AA3", backward: "#D7191C"}
+			}
+
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}
 
@@ -168,14 +178,17 @@ function makeConfig()
 	    , intervention:
 	        {
 	        	scale: 0.5
-// room is indexed by
+// arrays are indexed by the constants in the preceeding comment
 // C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 	            , room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 0, 5000, 5000]
 
-// mask is indexed by
 // 	C.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
 	            , mask: [0, 2500, 5000, 10000]
-
+	            , isolation: 5000
+//	result.TESTLEVEL = {NONE: 0, LIGHT: 1. HEAVY: 2};
+				, test: [0, 1000, 2000]
+//	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
+	            , trace: [0, 2000, 3000]
 	        }
 
 		, progression:
@@ -413,8 +426,6 @@ function makeConfig()
 				  			, score: 0
 				  		}
 				}
-
-
 
 				, {
 				  	index: 4000, data: 
