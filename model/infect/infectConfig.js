@@ -95,7 +95,7 @@ function makeConfig()
 				, hallway: {height: 140}
 			}
 
-		, isolation: {style: "#828282", count:10, road: 16, top: 180}
+		, isolation: {style: "#929292", count:10, row: 4, road: 16, top: 180, width:10, height:10}
 
 		, cemetary: {style: "#40D040", y: 180, road: 17, offset: 8, width: 35, height: 100, speed: 0.01}
 

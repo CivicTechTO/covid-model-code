@@ -23,6 +23,7 @@ stream.write(".meat-colour{background-color: " + config.workStyle[C.WORKTYPE.MEA
 
 stream.write(".bunkhouse-colour{background-color: " + config.bunkHouse.style + ";}\n");
 stream.write(".house-colour{background-color: " + config.house.style + ";}\n");
+stream.write(".isolation-colour{background-color: " + config.isolation.style + ";}\n");
 
 stream.write(".church-colour{background-color: " + config.church.style + ";}\n");
 stream.write(".bar-colour{background-color: " + config.pub.style + ";}\n");

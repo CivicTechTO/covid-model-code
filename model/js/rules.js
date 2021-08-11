@@ -549,3 +549,11 @@ class CemetaryRules extends SeatRules
 	}
 }
 
+class IsolationRules extends SeatRules
+{
+	depart(room, person)
+	{
+		super.depart(room, person);
+		room.reserved = false;
+	}
+}

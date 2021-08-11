@@ -282,3 +282,23 @@ class Outside extends Room
 		context.fillRect(this.x, this.y, this.width, this.height);	
 	}
 }
+
+class Isolation extends Room
+{
+	constructor(x, y, width, height)
+	{
+		super(x, y, width, height);
+		this.reserved = false;
+		this.rules = new IsolationRules();
+	}
+
+	draw(context)
+	{
+		this.background(context);
+	}
+}
+
+function makeIsolation() 
+{
+	return function(x, y, width, height) {return new Isolation(x, y, width, height)};
+}

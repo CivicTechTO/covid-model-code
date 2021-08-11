@@ -41,3 +41,18 @@ function twoStack(count, x, y, width, height)
 
 	return result;
 }
+
+function NStack(rowSize, rowCount, x, y, width, height, makeRoom) 
+{
+	let result = [];
+
+	for (var i = 0 ; i < rowCount ; i++)
+	{
+		for (var j = 0 ; j < rowSize ; j++)
+		{
+			result.push(makeRoom(x + j * width, y + i * height, width, height));
+		}
+	}
+
+	return result;
+}

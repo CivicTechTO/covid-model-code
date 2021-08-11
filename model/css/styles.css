@@ -130,7 +130,7 @@ h4
 .other-title
 {
 	display: inline-block;
-	width: 6em;
+	width: 5em;
 	margin-right: 1em;
 	padding: 0.1em;
 }
@@ -190,10 +190,17 @@ h4
 	background-color: #D01C8B;
 }
 
-#masks
+.control-value
 {
+	padding-top: 0.1em;
+	padding-left: 0.3em;
+	width: 4.5em;
 	margin-right: 10px;
 	background-color: #2C7BB6;
+}
+
+#masks
+{
 }
 
 .swatch

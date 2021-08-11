@@ -31,7 +31,7 @@
   </div>
   
   <div>
-    <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span> &nbsp; </div>
+    <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
     <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
     <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
     <div id="screen-pick">
@@ -52,6 +52,8 @@
             <tr class="game-hide"> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
             <tr class="game-hide"> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
             <tr class="game-hide"> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
+            <tr> <td>Isolating</td> <td id="currentIsolating">0</td> <td id="maxIsolating">0</td> <td id="totalIsolating">0</td> </tr>
+            <tr> <td>Positive</td> <td id="currentPositive">0</td> <td id="maxPositive">0</td> <td id="totalPositive">0</td> </tr>
             <tr> <td>Symptomatic</td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
             <tr> <td>Recovered</td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
             <tr> <td>Sick&nbsp;at&nbsp;home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
@@ -79,15 +81,35 @@
               <div class="controls-contents">
              
                 <div class="control-title">Masks</div>
-                <div id="masks">None</div>
+                <div id="masks" class="control-value">None</div>
                 <div class="control-buttons">
                   <button id="no-masks" type="button" onclick="noMasks();">None</button>
                   <button id="encourage-masks" type="button" onclick="encourageMasks();">Encourage</button>
                   <button id="require-masks" type="button" onclick="requireMasks();">Require</button>
                   <button id="enforce-masks" type="button" onclick="enforceMasks();">Enforce</button>
                 </div>
-             
-          </div>
+            
+                <div class="control-title">Test</div>
+                <div id="test" class="control-value">None</div>
+                <div class="control-buttons">
+                  <button type="button" onclick="noTest();">None</button>
+                  <button type="button" onclick="lightTest();">Light</button>
+                  <button type="button" onclick="heavyTest();">Heavy</button>
+                </div>
+                <div class="control-title">Tracing</div>
+                <div id="trace" class="control-value">None</div>
+                <div class="control-buttons">
+                  <button type="button" onclick="noTrace();">None</button>
+                  <button type="button" onclick="forwardTrace();">Forward</button>
+                  <button type="button" onclick="backwardTrace();">Backward</button>
+                </div>
+                <div class="control-title">Isolate</div>
+                <div id="isolate" class="control-value">None</div>
+                <div class="control-buttons">
+                  <button type="button" onclick="toggleIsolate();">None</button>
+                </div>
+              </div>
+
               <div>
                 The following controls shut down or open up a category of rooms.
               </div>
@@ -146,6 +168,7 @@
       <div id="other-group">
         <div class="other-title">Other rooms</div>
         <div class="other-title bunkhouse-colour">Bunkhouse</div>
+        <div class="other-title isolation-colour">Isolation</div>
         <div class="other-title icu-colour">ICU</div>
         <div class="other-title ward-colour">Ward</div>
         <div class="other-title hallway-colour">Waiting</div>

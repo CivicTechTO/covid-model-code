@@ -127,18 +127,36 @@ class TownState extends InfectState
 	fillIsolation()
 	{
 		const count = this.activeConfig.isolation.count;
-		const width = this.activeConfig.house.width;
-		const height = this.activeConfig.house.height;
-		const offset = Math.round((this.activeConfig.road.space - 2 * width) / 2);
+		const width = this.activeConfig.isolation.width;
+		const height = this.activeConfig.isolation.height;
+		const row = this.activeConfig.isolation.row;
+		const offset = Math.round((this.activeConfig.road.space - row * width) / 2);
 		const x = this.activeConfig.isolation.road * this.activeConfig.road.space + offset;
 		const top = this.activeConfig.isolation.top;
 
-		this.isolationList = twoStack(count, x, top, width, height);
+		this.isolationList = NStack(row, count, x, top, width, height, makeIsolation());
+
+		for (let room of this.isolationList)
+		{
+			room.fillStyle = state.activeConfig.isolation.style;
+			this.roomList.push(room);
+		}
+	}
+
+	findIsolation()
+	{
+		let result = null;
 
 		for (const room of this.isolationList)
 		{
-			this.roomList.push(room);
+			if (!room.reserved)
+			{
+				result = room;
+				break;
+			}
 		}
+
+		return result;
 	}
 
 	fillWork()
