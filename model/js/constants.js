@@ -6,7 +6,7 @@ function makeConstants()
 	
     result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for Bed" ],
 	
-	result.CHART_COLOURS = [ { BORDER : 'rgb(100, 240, 150)', FILL : 'rgb(100, 240, 150)' },
+	result.CHART_COLOURS = [ { BORDER : 'rgb(20, 100, 20)', FILL : 'rgb(40, 160, 40)' },
                              { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' },
 						     { BORDER : 'rgb(240, 150, 150)', FILL : 'rgb(240, 150, 150)' },
 						     { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(0, 0, 0)' } ],

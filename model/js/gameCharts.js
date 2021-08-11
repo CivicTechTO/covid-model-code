@@ -1,4 +1,4 @@
-// Base class: ontains the basic definition for creating charts, but never adds data
+// Base class: contains the basic definition for creating charts, but never adds data
 class GameChart
 {
 	constructor (id)
@@ -99,10 +99,10 @@ function addItemToChart (value, timeSeries)
 
 function atNewDay () 
 {
-  // addItemToChart (state.record.symptoms.current, 0); // "symptomatic"
-  // addItemToChart (state.record.homeSick.current, 1); // "at-home"
-  // addItemToChart (state.record.wardSick.current, 2); // "hospital"
-  // addItemToChart (state.record.hallway.current, 3);  // "hallway"
+  addItemToChart (state.record.symptoms.current, 0); // "symptomatic"
+  addItemToChart (state.record.homeSick.current, 1); // "at-home"
+  addItemToChart (state.record.wardSick.current, 2); // "hospital"
+  addItemToChart (state.record.hallway.current, 3);  // "hallway"
 }
 
 function destroyCharts() 
