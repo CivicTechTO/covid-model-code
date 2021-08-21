@@ -110,8 +110,8 @@ class InfectablePerson extends Person
 		if (this.infectable())
 		{
 			const decay = state.activeConfig.infection.decay;
-			const increase = this.currentLoad * state.secondsPerTick / 2;
-			const cumulative = (this.exposure * (1 - Math.pow(decay, state.secondsPerTick))) / Math.log(state.secondsPerTick);
+			const increase = this.currentLoad * state.secondsPerStep / 2;
+			const cumulative = (this.exposure * (1 - Math.pow(decay, state.secondsPerStep))) / Math.log(state.secondsPerStep);
 			this.exposure = increase + cumulative;
 			if (this.exposure < state.activeConfig.infection.reset)
 			{

@@ -10,8 +10,16 @@ function makeConfig()
 		, hotColour: "#D7191C"
 		, openColour: "#D01C8B"
 		, closedColour: "#4DAC26"
-		, stepsPerFrame: {slow: 1, fast: 120}
-		, secondsPerTick: {small: 30, large: 300}
+
+		, stepsPerFrame: 
+			{
+				slow: {name: "Slow", value: 1, colour: "#2C7BB6"}
+				, medium: {name: "Medium", value: 12, colour: "#857AA3"}
+				, fast: {name: "Fast", value: 120, colour: "#BE5A6F"}
+				, fastest: {name: "Fastest", value: 1200, colour: "#D7191C"}
+			}
+
+		, secondsPerStep: {small: 3, large: 300}
 		, startScore: 50000000
 		, limit: 400
 		, randomInfected: 100

@@ -10,7 +10,7 @@ class State
 		this.background = configuration.background;
 		
 		this.setSteps(1);
-		this.setStepsize(30);
+		this.setSecondsPerStep(configuration.secondsPerStep.small);
 
 		this.personSize = configuration.personSize;
 		
@@ -36,47 +36,47 @@ class State
 
 	tickToSecond(tick)
 	{
-		return tick * this.secondsPerTick;
+		return tick * this.secondsPerStep;
 	}
 
 	tickToMinute(tick)
 	{
-		return Math.floor(tick / ((60 / this.secondsPerTick)));
+		return Math.floor(tick / ((60 / this.secondsPerStep)));
 	}
 
 	tickToHour(tick)
 	{
-		return Math.floor(tick / (((60 * 60) / this.secondsPerTick)));
+		return Math.floor(tick / (((60 * 60) / this.secondsPerStep)));
 	}
 
 	tickToDay(tick)
 	{
-		return Math.floor(tick / (((24 * 60 * 60) / this.secondsPerTick)));
+		return Math.floor(tick / (((24 * 60 * 60) / this.secondsPerStep)));
 	}
 
 	secondToTick(second)
 	{
-		return second / this.secondsPerTick;
+		return second / this.secondsPerStep;
 	}
 
 	minuteToTick(second)
 	{
-		return second * 60 / this.secondsPerTick;
+		return second * 60 / this.secondsPerStep;
 	}
 
 	hourToTick(hour) 
 	{
-		return hour * ((60 * 60) / this.secondsPerTick);
+		return hour * ((60 * 60) / this.secondsPerStep);
 	}
 
 	dayToTick(day) 
 	{
-		return day * ((24 * 60 * 60) / this.secondsPerTick);
+		return day * ((24 * 60 * 60) / this.secondsPerStep);
 	}
 
 	perSecondToPerTick(speed)
 	{
-		return speed * this.secondsPerTick;
+		return speed * this.secondsPerStep;
 	}
 
 	scaleTime()
@@ -143,9 +143,9 @@ class State
 		this.stepsPerFrame = steps;
 	}
 
-	setStepsize(stepSize)
+	setSecondsPerStep(stepSize)
 	{
-		this.secondsPerTick = stepSize;
+		this.secondsPerStep = stepSize;
 
 		this.scaleTime();
 

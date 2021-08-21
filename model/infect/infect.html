@@ -54,7 +54,14 @@
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
-              Speed <button type="button" id="speed" class="cold-colour" onclick="toggleSpeed();">Fast</button>
+                <div class="control-title">Speed</div>
+                <div id="speed" class="control-value">Slow</div>
+                <div class="control-buttons">
+                  <button id="slow-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.slow);">Slow</button>
+                  <button id="medium-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.medium);">Medium</button>
+                  <button id="fast-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fast);">Fast</button>
+                  <button id="fastest-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fastest);">Fastest</button>
+                </div>
             </div>
 
             <fieldset id="game-controls" disabled="true">
@@ -183,9 +190,11 @@
       </div>
 
       <div id="charts">
-        <div> <!-- id="chartContainer" class="chartx"> <!-->
-          <div><h5>Overview</h5><canvas id='overview'></canvas> </div>
-          <div><h5>Recent</h><canvas id='moving'></canvas> </div>
+        <div id="chartContainer" class="chartx">
+          <div> <canvas id="symptomatic"></canvas> </div>
+          <div> <canvas id="at-home"></canvas> </div>
+          <div> <canvas id="hospital"></canvas> </div>
+          <div> <canvas id="hallway"></canvas> </div>
         </div>
       </div>
     </div>

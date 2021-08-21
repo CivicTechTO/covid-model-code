@@ -36,7 +36,7 @@ class GameState extends TownState
 		this.mode = 1;
 		this.animate = gameAnimate;
 
-		this.setStepsize(this.activeConfig.secondsPerTick.large);
+		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
 
 		document.getElementById("game-controls").disabled = false;
 		gameHide("game-hide", true);
