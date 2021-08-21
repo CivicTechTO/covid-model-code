@@ -30,40 +30,23 @@
     <a href="index.html"><h1>Animated Covid Model/Game</h1></a>
   </div>
   
-  <div>
-    <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
-    <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
-    <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
-    <div id="screen-pick">
-      <button type="button" onclick="leftScreen();">Left Screen</button>
-      <button type="button" onclick="rightScreen();">Right Screen</button>
-    </div>
-  </div>
 
   <div id="infect-container">
     
-    <div id="left">
-        <div id="top-panel">
+    <div id="animation-block">
+      <div id="display">
+        <canvas id="canvas" width=1000 height=505></canvas>      
+      </div>
+    </div>
 
-        <div id="records">
-          <table>
-            <tr> <th>Condition</th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
-            <tr class="game-hide"> <td>Never&nbsp;infected </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
-            <tr class="game-hide"> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
-            <tr class="game-hide"> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
-            <tr class="game-hide"> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
-            <tr> <td>Isolating</td> <td id="currentIsolating">0</td> <td id="maxIsolating">0</td> <td id="totalIsolating">0</td> </tr>
-            <tr> <td>Positive</td> <td id="currentPositive">0</td> <td id="maxPositive">0</td> <td id="totalPositive">0</td> </tr>
-            <tr> <td>Symptomatic</td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
-            <tr> <td>Recovered</td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
-            <tr> <td>Sick&nbsp;at&nbsp;home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
-            <tr> <td>Needs&nbsp;hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
-            <tr> <td>Waiting&nbsp;for&nbsp;bed</td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
-            <tr> <td>Needs&nbsp;ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
-            <tr> <td>Dead</td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
-        </table>  
+    <div id="static-block">
+      <div>
+        <div id="info-panel">
+          <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
+          <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
+          <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
         </div>
-
+ 
         <div id="controls">
           <fieldset id="all-controls">
             <h4>General Controls</h4>
@@ -96,82 +79,107 @@
                   <button id="light-test" type="button" onclick="lightTest();">Light</button>
                   <button id="heavy-test" type="button" onclick="heavyTest();">Heavy</button>
                 </div>
+
                 <div class="control-title">Tracing</div>
                 <div id="trace" class="control-value">None</div>
                 <div class="control-buttons">
-                  <button id="no-trace" type="button" onclick="noTrace();">None</button>
-                  <button id="forward-trace" type="button" onclick="forwardTrace();">Forward</button>
-                  <button id="backward-trace" type="button" onclick="backwardTrace();">Backward</button>
+                  <fieldset id="depends-on-test" disabled="true">
+                    <button id="no-trace" type="button" onclick="noTrace();">None</button>
+                    <button id="forward-trace" type="button" onclick="forwardTrace();">Forward</button>
+                    <button id="backward-trace" type="button" onclick="backwardTrace();">Backward</button>
+                  </fieldset>
                 </div>
+
                 <div class="control-title">Isolate</div>
                 <div class="control-buttons">
                   <button type="button" id="isolate" class="cold-colour" onclick="toggleIsolate();">None</button>
                 </div>
+                <div>&nbsp</div>
               </div>
 
-              <div>
-                The following controls shut down or open up a category of rooms.
-              </div>
-
-              <div class="toggle-contents">
-                <div class="toggle-room">
-                  <div class="toggle-title church-colour">Worship</div>
-                  <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+                <div>
+                  The following controls shut down or open up a category of rooms.
                 </div>
 
-                <div class="toggle-room">
-                  <div class="toggle-title restaurant-colour">Restaurants</div>
-                  <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+                <div class="toggle-contents">
+                  <div class="toggle-room">
+                    <div class="toggle-title church-colour">Worship</div>
+                    <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title restaurant-colour">Restaurants</div>
+                    <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title bar-colour">Bars</div>
+                    <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title club-colour">Clubs</div>
+                    <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title school-colour">Schools</div>
+                    <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title office-colour">Offices</div>
+                    <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
+                    <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
+                  </div>
+
+                  <div class="toggle-room">
+                    <div class="toggle-title outside-colour">Parks</div>
+                    <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
                 </div>
 
-                <div class="toggle-room">
-                  <div class="toggle-title bar-colour">Bars</div>
-                  <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
-                </div>
-
-                <div class="toggle-room">
-                  <div class="toggle-title club-colour">Clubs</div>
-                  <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
-                </div>
-
-                <div class="toggle-room">
-                  <div class="toggle-title school-colour">Schools</div>
-                  <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
-                </div>
-
-                <div class="toggle-room">
-                  <div class="toggle-title office-colour">Offices</div>
-                  <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
-                </div>
-
-                <div class="toggle-room">
-                  <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                  <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
-                </div>
-
-                 <div class="toggle-room">
-                  <div class="toggle-title outside-colour">Parks</div>
-                  <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
-                </div>
-
-                 <div class="toggle-room">
+                  <div class="toggle-room">
                   <div class="toggle-title house-colour">House&nbsp;parties</div>
                   <button type="button" id="parties" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
                 </div>
-              </div>
-            </div>
+            </fieldset>
           </fieldset>
-      </fieldset>
-      </div>
 
-      <div id="other-group">
-        <div class="other-title">Other rooms</div>
-        <div class="other-title bunkhouse-colour">Bunkhouse</div>
-        <div class="other-title isolation-colour">Isolation</div>
-        <div class="other-title icu-colour">ICU</div>
-        <div class="other-title ward-colour">Ward</div>
-        <div class="other-title hallway-colour">Waiting</div>
-        <div class="other-title cemetary-colour">Cemetary</div>
+          <div id="other-group">
+            <div class="other-title">Other rooms</div>
+            <div id="other-names">
+              <div class="other-title bunkhouse-colour">Bunkhouse</div>
+              <div class="other-title isolation-colour">Isolation</div>
+              <div class="other-title icu-colour">ICU</div>
+              <div class="other-title ward-colour">Ward</div>
+              <div class="other-title hallway-colour">Waiting</div>
+              <div class="other-title cemetary-colour">Cemetary</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="records">
+          <table>
+            <tr> <th>Condition</th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
+            <tr class="game-hide"> <td>Never&nbsp;infected </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
+            <tr class="game-hide"> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
+            <tr class="game-hide"> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
+            <tr class="game-hide"> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
+            <tr> <td>Isolating</td> <td id="currentIsolating">0</td> <td id="maxIsolating">0</td> <td id="totalIsolating">0</td> </tr>
+            <tr> <td>Positive</td> <td id="currentPositive">0</td> <td id="maxPositive">0</td> <td id="totalPositive">0</td> </tr>
+            <tr> <td>Symptomatic</td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
+            <tr> <td>Recovered</td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
+            <tr> <td>Sick&nbsp;at&nbsp;home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
+            <tr> <td>Needs&nbsp;hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
+            <tr> <td>Waiting&nbsp;for&nbsp;bed</td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
+            <tr> <td>Needs&nbsp;ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
+            <tr> <td>Dead</td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
+          </table>  
+        </div>
       </div>
 
       <div id="charts">
@@ -183,13 +191,6 @@
         </div>
       </div>
     </div>
-
-    <div id="right">
-      <div id="display">
-        <canvas id="canvas" width=1000 height=505></canvas>      
-      </div>
-    </div>
-  </div>  
 
   <div id="announce-outer">
     <div id="announce-lose" class="announce">

@@ -1,19 +1,17 @@
-function show(name) 
+function show(name, type) 
 {
 	const element = document.getElementById(name);
-	element.style.display = "block";
+	element.style.display = type;
 }
 
 function showInline(name) 
 {
-	const element = document.getElementById(name);
-	element.style.display = "inline-block";
+	show(name, "inline-block");
 }
 
 function showGrid(name) 
 {
-	const element = document.getElementById(name);
-	element.style.display = "grid";
+	show(name, "grid");
 }
 
 function hide(name) 
@@ -22,18 +20,13 @@ function hide(name)
 	element.style.display = "none";
 }
 
-function showPage(name) 
+function gameHide(which, show)
 {
-	show(name);
-	const tab = document.getElementById(name + "Choice");
-	tab.style.backgroundColor =	"#87CEEB"
-}
-
-function hidePage(name) 
-{
-	hide(name);
-	const tab = document.getElementById(name + "Choice");
-	tab.style.backgroundColor =	"#77BEDB"
+	const hideList = document.getElementsByClassName(which);
+	for (const element of hideList)
+	{
+		element.hidden = show;
+	}
 }
 
 function setText(name, text) 
@@ -46,52 +39,79 @@ function setColour(name, colour)
 	document.getElementById(name).style.backgroundColor = colour;
 }
 
-function copyColour(toElement, fromElement) 
+function setSource(name, source) 
 {
-	const colour = document.getElementById(fromElement).style.backgroundColor;
-	document.getElementById(toElement).style.backgroundColor = colour;
+	document.getElementById(name).src = source;
+}
+
+function drawControls()
+{
+	drawPlay();
+	drawRun();
+	drawSpeed();
+
+	drawMask();
+	drawTest();
+	drawTrace();
+	drawIsolate();
+
+	state.drawRoomstates();
+}
+
+function drawPlay()
+{
+	if (state.game)
+	{
+		document.getElementById("start-game").disabled = true;
+	}
+}
+
+function drawRun()
+{
+	if (state.run)
+	{
+		setText("run", "Pause");
+		setColour("run", state.activeConfig.hotColour);
+	}
+	else
+	{
+		setText("run", "Run");
+		setColour("run", state.activeConfig.coldColour);
+	}
+}
+
+function drawSpeed() 
+{
+	if (state.stepsPerFrame === choices.slow)
+	{
+		setText("speed", "Slow");
+		setColour("speed", state.activeConfig.hotColour);
+	}
+	else
+	{
+		setText("speed", "Fast");
+		setColour("speed", state.activeConfig.coldColour);
+	}
 }
 
 function startGame() 
 {
-	state.game = true;
-	document.getElementById("start-game").disabled = true;
+	runGame();
 
-	if (!state.run)
-	{
-		runGame();
-	}
+	drawControls();
 }
 
 function toggleRun() 
 {
+	state.run = !state.run;
+
 	if (state.run)
 	{
-		stopRunning();
+		state.past = null;
+		window.requestAnimationFrame(state.animate);
 	}
-	else
-	{
-		startRunning();
-	}
-}
 
-function stopRunning()
-{
-	state.run = false;
-
-	setText("run", "Run");
-	setColour("run", state.activeConfig.coldColour);
-}
-
-function startRunning()
-{
-	state.run = true;
-	state.past = null;
-
-	setText("run", "Pause");
-	setColour("run", state.activeConfig.hotColour);
-
-	window.requestAnimationFrame(state.animate);
+	drawControls();
 }
 
 function toggleSpeed() 
@@ -100,47 +120,14 @@ function toggleSpeed()
 
 	if (state.stepsPerFrame === choices.slow)
 	{
-		showFast();
 		state.setSteps(choices.fast);
 	}
 	else
 	{
-		showSlow();
 		state.setSteps(choices.slow);
 	}
-}
 
-function showFast() 
-{
-	setText("speed", "Slow");
-	setColour("speed", state.activeConfig.hotColour);
-}
-
-function showSlow() 
-{
-	setText("speed", "Fast");
-	setColour("speed", state.activeConfig.coldColour);
-}
-
-function gameHide(which, show)
-{
-	const hideList = document.getElementsByClassName(which);
-	for (const element of hideList)
-	{
-		element.hidden = show;
-	}
-}
-
-function pickDisplay()
-{
-	hidePage("charts");
-	showPage("display");
-}
-
-function pickCharts()
-{
-	hidePage("display");
-	showPage("charts");
+	drawControls();
 }
 
 function noMasks() 
@@ -229,6 +216,20 @@ function toggleIsolate()
 	}
 }
 
+toggleRoomState(roomType)
+{
+	if (state.roomState[roomType])
+	{
+		state.roomState[roomType] = false;
+	}
+	else
+	{
+		state.roomState[roomType] = true;
+	}
+
+	drawControls();
+}
+
 function announceLost()
 {
 	state.announce = "announce-lose";
@@ -262,15 +263,3 @@ function play()
 	runGame();
 }
 
-
-function leftScreen()
-{
-	show("left");
-	hide("right");
-}
-
-function rightScreen()
-{
-	show("right");
-	hide("left");
-}

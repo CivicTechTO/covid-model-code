@@ -298,19 +298,6 @@ class GameState extends TownState
 		return this.useRoomState[roomType];
 	}
 
-	toggleRoomState(roomType)
-	{
-		if (this.roomState[roomType])
-		{
-			this.roomState[roomType] = false;
-		}
-		else
-		{
-			this.roomState[roomType] = true;
-		}
-		this.drawRoomstates();
-	}
-
 	setMasks()
 	{
 		recordReset(C.RECORD.MASKS | C.RECORD.INFECTOR | C.RECORD.INFECTEE);

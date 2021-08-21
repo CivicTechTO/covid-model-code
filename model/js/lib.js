@@ -89,7 +89,6 @@ function animate(timestamp)
 function runGame()
 {
 	destroyCharts();
-	showSlow();
 	startup(true);
 	startRunning();
 }

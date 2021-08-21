@@ -15,30 +15,24 @@ h4
 	margin: 0;
 }
 
+fieldset
+{
+	border: none;
+}
+
 #container
 {
 	margin-left: 1em;
 	width: 1000px;
 }
 
-#infect-container
-{
-    display: grid;
-    grid-template-columns: min-content auto;
-}
-
-#screen-pick
-{
-	display: none;
-}
-
-#left
+#static-block
 {
 	margin-left: 1em;
 	width: 800px;
 }
 
-#right
+#animation-right
 {
 	margin-left: 1em;
 }
@@ -48,16 +42,19 @@ h4
 	display: none;
 }
 
-#top-panel
+#info-panel
 {
-    display: grid;
-    grid-template-columns: min-content auto;
+	display: flex;
+	flex-flow: row;
+
+	font-size: large;
+	font-weight: bold;
 }
 
 #day-block
 {
 	display: inline-block;
-	width: 15em;
+	width: 15.5em;
 	margin-left: 1em;
 }
 
@@ -69,11 +66,14 @@ h4
 #score-block
 {
 	display: none;
+	margin-left: 1em;
 	width: 17em;
 }
 
 #records
 {
+	display: inline-block;
+	vertical-align: top;
 	margin-right: 0.5em;
 	padding-right: 0.5em;
 	background-color: #87CEEB;
@@ -81,6 +81,7 @@ h4
 
 #controls
 {
+	display: inline-block;
 	background-color: #87CEEB;
 	padding-top: 0.1em;
 	padding-left: 0.2em;
@@ -101,6 +102,8 @@ h4
 
 #game-controls
 {
+	padding-top: 0.25em;
+	padding-inline-start: 0;
 }
 
 .toggle-contents
@@ -127,9 +130,16 @@ h4
 	margin: 0.3em;
 }
 
+#other-names
+{
+	display: inline-block;
+	width: 22em;
+}
+
 .other-title
 {
 	display: inline-block;
+	vertical-align: top;
 	width: 6em;
 	margin-right: 0.5em;
 	padding: 0.1em;
@@ -206,6 +216,14 @@ h4
 #isolate
 {
 	
+}
+
+#depends-on-test
+{
+	border: none;
+	padding: 0;
+	margin-left: 0em;
+	padding-inline: 0;
 }
 
 .swatch
@@ -293,32 +311,19 @@ h4
 
 @media screen and (max-width: 1800px) 
 {
-	#screen-pick
+	#infect-container
 	{
-		display: inline-block;
-	}
-
-	#right
-	{
-		display: none;
+		display: flex;
+		flex-direction: column;
 	}
 }
 
 @media screen and (min-width: 1801px) 
 {
-	#screen-pick
+	#infect-container
 	{
-		display: none;
-	}
-
-	#right
-	{
-		display: block;
-	}
-
-	#left
-	{
-		display: block;
+		display: flex;
+		flex-direction: row;
 	}
 }
 
