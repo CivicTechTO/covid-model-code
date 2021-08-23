@@ -44,14 +44,25 @@ function setSource(name, source)
 	document.getElementById(name).src = source;
 }
 
+function setDisabled(name, disabled)
+{
+	document.getElementById(name).disabled = disabled;
+}
+
+function drawValue(name, spec)
+{
+	setText(name, spec.label);
+	setColour(name, spec.colour);
+}
+
 function drawControls()
 {
 	drawPlay();
 	drawRun();
 	drawSpeed();
 
-	drawMask();
-	drawTest();
+	drawMasks();
+	drawTests();
 	drawTrace();
 	drawIsolate();
 
@@ -80,25 +91,18 @@ function drawRun()
 	}
 }
 
-function drawSpeed() 
-{
-	if (state.stepsPerFrame === choices.slow)
-	{
-		setText("speed", "Slow");
-		setColour("speed", state.activeConfig.hotColour);
-	}
-	else
-	{
-		setText("speed", "Fast");
-		setColour("speed", state.activeConfig.coldColour);
-	}
-}
-
 function startGame() 
 {
-	runGame();
-
 	drawControls();
+	runGame();
+}
+
+function startRunning()
+{
+	drawControls();
+	
+	state.past = null;
+	window.requestAnimationFrame(state.animate);
 }
 
 function toggleRun() 
@@ -107,97 +111,64 @@ function toggleRun()
 
 	if (state.run)
 	{
-		state.past = null;
-		window.requestAnimationFrame(state.animate);
+		startRunning();
 	}
 
 	drawControls();
 }
 
-function toggleSpeed() 
+function setSpeed(spec)
 {
-	const choices = state.activeConfig.stepsPerFrame;
+	state.speedSpec = spec;
 
-	if (state.stepsPerFrame === choices.slow)
+	drawControls();
+}
+
+function drawSpeed() 
+{
+	drawValue("speed", state.speedSpec);
+}
+
+function setMasks(spec)
+{
+	state.masksSpec = spec;
+
+	drawControls();
+}
+
+function drawMasks() 
+{
+	drawValue("masks", state.masksSpec);
+}
+
+function setTests(spec)
+{
+	state.testsSpec = spec;
+
+	if (spec.value == 0.0)
 	{
-		state.setSteps(choices.fast);
-	}
-	else
-	{
-		state.setSteps(choices.slow);
+		setTrace(state.activeConfig.trace.none);
 	}
 
 	drawControls();
 }
 
-function noMasks() 
+function drawTests() 
 {
-	setText("masks", "None");
-	setColour("masks", state.activeConfig.mask.colour.none);
-	state.setMaskLevel(C.MASKLEVEL.NONE);
+	drawValue("tests", state.testsSpec);
+	setDisabled("depends-on-tests", state.testsSpec.value == 0.0);
 }
 
-function encourageMasks() 
+function setTrace(spec)
 {
-	setText("masks", "Encourage");
-	setColour("masks", state.activeConfig.mask.colour.encourage);
-	state.setMaskLevel(C.MASKLEVEL.ENCOURAGE);
+	state.traceSpec = spec;
+
+	drawControls();
 }
 
-function requireMasks() 
+function drawTrace() 
 {
-	setText("masks", "Require");
-	setColour("masks", state.activeConfig.mask.colour.require);
-	state.setMaskLevel(C.MASKLEVEL.REQUIRE);
-}
-
-function enforceMasks() 
-{
-	setText("masks", "Enforce");
-	setColour("masks", state.activeConfig.mask.colour.enforce);
-	state.setMaskLevel(C.MASKLEVEL.ENFORCE);
-}
-
-function noTest() 
-{
-	setText("test", "None");
-	setColour("test", state.activeConfig.test.colour.none);
-	state.setTest(C.TESTLEVEL.NONE);
-}
-
-function lightTest() 
-{
-	setText("test", "Light");
-	setColour("test", state.activeConfig.test.colour.light);
-	state.setTest(C.TESTLEVEL.LIGHT);
-}
-
-function heavyTest() 
-{
-	setText("test", "Heavy");
-	setColour("test", state.activeConfig.test.colour.heavy);
-	state.setTest(C.TESTLEVEL.HEAVY);
-}
-
-function noTrace() 
-{
-	setText("trace", "None");
-	setColour("trace", state.activeConfig.trace.colour.none);
-	state.setTrace(C.TRACE.NONE);
-}
-
-function forwardTrace() 
-{
-	setText("trace", "Forward");
-	setColour("trace", state.activeConfig.trace.colour.forward);
-	state.setTrace(C.TRACE.FORWARD);
-}
-
-function backwardTrace() 
-{
-	setText("trace", "Backward");
-	setColour("trace", state.activeConfig.trace.colour.backward);
-	state.setTrace(C.TRACE.BACKWARD);
+	drawValue("trace", state.traceSpec);
 }
 
 function toggleIsolate() 
@@ -214,9 +185,17 @@ function toggleIsolate()
 		setText("isolate", "Isolating");
 		setColour("isolate", state.activeConfig.coldColour)
 	}
+
+	drawControls();
 }
 
-toggleRoomState(roomType)
+function drawIsolate()
+{
+	setText("isolate", "Isolate");
+	setColour("isolate", state.activeConfig.coldColour)
+}
+
+function toggleRoomState(roomType)
 {
 	if (state.roomState[roomType])
 	{

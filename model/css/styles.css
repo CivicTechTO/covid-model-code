@@ -94,10 +94,9 @@ fieldset
     grid-template-columns: 5em 5em auto;
 }
 
-#stepsize-controls
+#speed-group
 {
-	border: 0;
-	padding: 0;
+	padding-top: 0.2em;
 }
 
 #game-controls
@@ -106,16 +105,22 @@ fieldset
 	padding-inline-start: 0;
 }
 
+#toggle-description
+{
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+
 .toggle-contents
 {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	display: flex;
+	flex-direction: column;
 }
 
 .toggle-room
 {
-	display: grid;
-	grid-template-columns: 7.5em 4em;
+	display: flex;
+	flex-direction: row;
 }
 
 .toggle-title
@@ -217,7 +222,7 @@ fieldset
 	
 }
 
-#depends-on-test
+#depends-on-tests
 {
 	border: none;
 	padding: 0;

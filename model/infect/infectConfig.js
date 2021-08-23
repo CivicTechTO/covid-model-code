@@ -13,10 +13,10 @@ function makeConfig()
 
 		, stepsPerFrame: 
 			{
-				slow: {name: "Slow", value: 1, colour: "#2C7BB6"}
-				, medium: {name: "Medium", value: 12, colour: "#857AA3"}
-				, fast: {name: "Fast", value: 120, colour: "#BE5A6F"}
-				, fastest: {name: "Fastest", value: 1200, colour: "#D7191C"}
+				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
+				, medium: {label: "Medium", value: 12, colour: "#857AA3"}
+				, fast: {label: "Fast", value: 120, colour: "#BE5A6F"}
+				, fastest: {label: "Fastest", value: 1200, colour: "#D7191C"}
 			}
 
 		, secondsPerStep: {small: 3, large: 300}
@@ -150,21 +150,30 @@ function makeConfig()
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 
-		, mask: 
+		, masks: 
 			{
 				factor: {infector: 0.35, infectee: 0.65}
-				, chance: [0.0, 0.5, 0.8, 0.9]
-				, colour: {none: "#2C7BB6", encourage: "#857AA3", require: "#BE5A6F", enforce: "#D7191C"}
+				, specs:
+				{
+					none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
+					, encourage: {label: "Encourage", value: 0.5, colour: "#857AA3", cost:2500}
+					, require: {label: "Require", value: 0.8, colour: "#BE5A6F", cost: 5000}
+					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 10000}
+				}
 			}
 
-		, test:
+		, tests:
 			{
-				colour: {none: "#2C7BB6", light: "#857AA3", heavy: "#D7191C"}
+				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0} 
+				, light: {label: "Light", value: 0.001, colour: "#857AA3", cost: 1000} 
+				, heavy: {label: "Heavy", value: 0.01, colour: "#D7191C", cost: 2000}
 			}
 		
 		, trace:
 			{
-				colour: {none: "#2C7BB6", forward: "#857AA3", backward: "#D7191C"}
+				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
+				, forward: {label: "Forward", value: 0.0, colour: "#857AA3", cost: 2000} 
+				, backward: {label: "Backward", value: 0.0, colour: "#D7191C", cost: 3000}
 			}
 
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
@@ -190,13 +199,6 @@ function makeConfig()
 // C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 	            , room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 0, 5000, 5000]
 
-// 	C.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
-	            , mask: [0, 2500, 5000, 10000]
-	            , isolation: 5000
-//	result.TESTLEVEL = {NONE: 0, LIGHT: 1. HEAVY: 2};
-				, test: [0, 1000, 2000]
-//	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
-	            , trace: [0, 2000, 3000]
 	        }
 
 		, progression:

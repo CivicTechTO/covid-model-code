@@ -9,7 +9,8 @@ class State
 
 		this.background = configuration.background;
 		
-		this.setSteps(1);
+		this.speedSpec = configuration.stepsPerFrame.medium;
+		
 		this.setSecondsPerStep(configuration.secondsPerStep.small);
 
 		this.personSize = configuration.personSize;
@@ -138,11 +139,6 @@ class State
 		this.activeConfig.progression = progression;
 	}
 
-	setSteps(steps)
-	{
-		this.stepsPerFrame = steps;
-	}
-
 	setSecondsPerStep(stepSize)
 	{
 		this.secondsPerStep = stepSize;
@@ -152,6 +148,11 @@ class State
 		this.progression = this.makeMap(this.activeConfig.progression);
 
 		this.setWeek();
+	}
+
+	stepsPerFrame()
+	{
+		return this.speedSpec.value;
 	}
 
 	makeMap(progression)

@@ -40,10 +40,6 @@ function makeConstants()
 
 	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
 
-	result.MASKLEVEL = {NONE: 0, ENCOURAGE: 1, REQUIRE: 2, ENFORCE: 3};
-
-	result.TESTLEVEL = {NONE: 0, LIGHT: 1, HEAVY: 2};
-
 	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
 
 	return result;	

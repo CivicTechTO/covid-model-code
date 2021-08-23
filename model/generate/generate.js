@@ -15,19 +15,19 @@ stream.write("#medium-speed{background-color: " + config.stepsPerFrame.medium.co
 stream.write("#fast-speed{background-color: " + config.stepsPerFrame.fast.colour + ";}\n");
 stream.write("#fastest-speed{background-color: " + config.stepsPerFrame.fastest.colour + ";}\n");
 
-stream.write("#no-masks{background-color: " + config.mask.colour.none + ";}\n");
-stream.write("#encourage-masks{background-color: " + config.mask.colour.encourage + ";}\n");
-stream.write("#require-masks{background-color: " + config.mask.colour.require + ";}\n");
-stream.write("#enforce-masks{background-color: " + config.mask.colour.enforce + ";}\n");
+stream.write("#no-masks{background-color: " + config.masks.specs.none.colour + ";}\n");
+stream.write("#encourage-masks{background-color: " + config.masks.specs.encourage.colour + ";}\n");
+stream.write("#require-masks{background-color: " + config.masks.specs.require.colour + ";}\n");
+stream.write("#enforce-masks{background-color: " + config.masks.specs.enforce.colour + ";}\n");
 
 
-stream.write("#no-test{background-color: " + config.test.colour.none + ";}\n");
-stream.write("#light-test{background-color: " + config.test.colour.light + ";}\n");
-stream.write("#heavy-test{background-color: " + config.test.colour.heavy + ";}\n");
+stream.write("#no-tests{background-color: " + config.tests.none.colour + ";}\n");
+stream.write("#light-tests{background-color: " + config.tests.light.colour + ";}\n");
+stream.write("#heavy-tests{background-color: " + config.tests.heavy.colour + ";}\n");
 
-stream.write("#no-trace{background-color: " + config.trace.colour.none + ";}\n");
-stream.write("#forward-trace{background-color: " + config.trace.colour.forward + ";}\n");
-stream.write("#backward-trace{background-color: " + config.trace.colour.backward + ";}\n");
+stream.write("#no-trace{background-color: " + config.trace.none.colour + ";}\n");
+stream.write("#forward-trace{background-color: " + config.trace.forward.colour + ";}\n");
+stream.write("#backward-trace{background-color: " + config.trace.backward.colour + ";}\n");
 
 stream.write("#isolate{background-color: " + config.hotColour + ";}\n");
 

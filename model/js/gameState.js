@@ -12,9 +12,9 @@ class GameState extends TownState
 		this.roomState = [];
 		this.useRoomState = [];
 
-		this.maskLevel = C.MASKLEVEL.NONE;
-		this.test = C.TESTLEVEL.NONE;
-		this.trace = C.TRACE.NONE;
+		this.masksSpec = this.activeConfig.masks.specs.none;
+		this.testsSpec = this.activeConfig.tests.none;
+		this.traceSpec = this.activeConfig.trace.none;
 		this.isolate = false;
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
@@ -28,6 +28,23 @@ class GameState extends TownState
 		{
 			this.setGame();
 		}
+		else
+		{
+			this.notGame();
+		}
+	}
+
+	notGame()
+	{
+		this.game = false;
+		this.mode = 0;
+		this.animate = animate;
+
+		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
+
+		document.getElementById("game-controls").disabled = true;
+		gameHide("game-hide", false);
+		gameHide("game-show", true);
 	}
 
 	setGame()
@@ -80,7 +97,6 @@ class GameState extends TownState
 		this.fillRoomState();
 
 		this.drawRoomstates();
-		noMasks();
 	}
 
 	fillRoomTypes()
@@ -233,20 +249,22 @@ class GameState extends TownState
 
 	scoreOthers()
 	{
-		const intervention = state.activeConfig.intervention;
 		let result = 0;
 
-		result += intervention.mask[this.maskLevel];
+		result += this.masksSpec.cost;
+		result += this.testsSpec.cost;
+		result += this.traceSpec.cost;
 
 		return result;
 	}
 	
 	maxScoreOthers()
 	{
-		const intervention = this.activeConfig.intervention;
 		let result = 0;
 
-		result += Math.max(... intervention.mask);
+		result += this.activeConfig.masks.specs.enforce.cost;
+		result += this.activeConfig.tests.heavy.cost;
+		result += this.activeConfig.trace.backward.cost;
 
 		return result;
 	}
@@ -282,7 +300,6 @@ class GameState extends TownState
 	setInterventions()
 	{
 		this.copyRoomState();
-		this.setMasks();
 	}
 
 	copyRoomState()
@@ -304,7 +321,8 @@ class GameState extends TownState
 
 		for (const person of this.personList)
 		{
-			person.mask = Math.random() < this.activeConfig.mask.chance[this.maskLevel];
+			person.mask = Math.random() < this.masksSpec.value;
+
 			if (person.mask)
 			{
 				recordIncrement(C.RECORD.MASKS);

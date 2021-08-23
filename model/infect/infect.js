@@ -4,7 +4,7 @@ var state;
 
 startup(false);
 
-window.requestAnimationFrame(animate);
+startRunning();
 
 // let context = canvas.getContext('2d');
 //draw(context);

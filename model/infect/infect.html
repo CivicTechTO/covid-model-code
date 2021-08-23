@@ -54,6 +54,7 @@
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
+              <div id="speed-group" class="controls-contents">
                 <div class="control-title">Speed</div>
                 <div id="speed" class="control-value">Slow</div>
                 <div class="control-buttons">
@@ -62,6 +63,7 @@
                   <button id="fast-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fast);">Fast</button>
                   <button id="fastest-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fastest);">Fastest</button>
                 </div>
+              </div>
             </div>
 
             <fieldset id="game-controls" disabled="true">
@@ -73,27 +75,27 @@
                 <div class="control-title">Masks</div>
                 <div id="masks" class="control-value">None</div>
                 <div class="control-buttons">
-                  <button id="no-masks" type="button" onclick="noMasks();">None</button>
-                  <button id="encourage-masks" type="button" onclick="encourageMasks();">Encourage</button>
-                  <button id="require-masks" type="button" onclick="requireMasks();">Require</button>
-                  <button id="enforce-masks" type="button" onclick="enforceMasks();">Enforce</button>
+                  <button id="no-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.none);">None</button>
+                  <button id="encourage-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.encourage);">Encourage</button>
+                  <button id="require-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.require);">Require</button>
+                  <button id="enforce-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.enforce);">Enforce</button>
                 </div>
             
-                <div class="control-title">Test</div>
-                <div id="test" class="control-value">None</div>
+                <div class="control-title">Tests</div>
+                <div id="tests" class="control-value">None</div>
                 <div class="control-buttons">
-                  <button id="no-test" type="button" onclick="noTest();">None</button>
-                  <button id="light-test" type="button" onclick="lightTest();">Light</button>
-                  <button id="heavy-test" type="button" onclick="heavyTest();">Heavy</button>
+                  <button id="no-tests" type="button" onclick="setTests(state.activeConfig.tests.none);">None</button>
+                  <button id="light-tests" type="button" onclick="setTests(state.activeConfig.tests.light);">Light</button>
+                  <button id="heavy-tests" type="button" onclick="setTests(state.activeConfig.tests.heavy);">Heavy</button>
                 </div>
 
                 <div class="control-title">Tracing</div>
                 <div id="trace" class="control-value">None</div>
                 <div class="control-buttons">
-                  <fieldset id="depends-on-test" disabled="true">
-                    <button id="no-trace" type="button" onclick="noTrace();">None</button>
-                    <button id="forward-trace" type="button" onclick="forwardTrace();">Forward</button>
-                    <button id="backward-trace" type="button" onclick="backwardTrace();">Backward</button>
+                  <fieldset id="depends-on-tests" disabled="true">
+                    <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.none);">None</button>
+                    <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.forward);">Forward</button>
+                    <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.backward);">Backward</button>
                   </fieldset>
                 </div>
 
@@ -104,7 +106,7 @@
                 <div>&nbsp</div>
               </div>
 
-                <div>
+                <div id="toggle-description">
                   The following controls shut down or open up a category of rooms.
                 </div>
 
@@ -191,10 +193,8 @@
 
       <div id="charts">
         <div id="chartContainer" class="chartx">
-          <div> <canvas id="symptomatic"></canvas> </div>
-          <div> <canvas id="at-home"></canvas> </div>
-          <div> <canvas id="hospital"></canvas> </div>
-          <div> <canvas id="hallway"></canvas> </div>
+          <div><h5>Overview</h5><canvas id='overview'></canvas> </div>
+          <div><h5>Recent</h><canvas id='moving'></canvas> </div>
         </div>
       </div>
     </div>

@@ -97,7 +97,7 @@ function runModel(timestamp)
 {
 	let deltaT = (state.past ? timestamp - state.past : FRAME);
 	state.past = timestamp;
-	let stepCount = Math.max(state.stepsPerFrame, Math.round(deltaT / FRAME));
+	let stepCount = Math.max(state.speedSpec.value, Math.round(deltaT / FRAME));
 
 	while (state.run && stepCount-- > 0)
 	{
@@ -132,16 +132,16 @@ function gameAnimate(timestamp)
 		{
 			draw();
 			
-			reportInfected();
-
 			if (lost())
 			{
+				reportInfected();
 				announceLost();
 			}
 			else
 			{
 				if (won())
 				{
+					reportInfected();
 					announceWon();
 				}
 			}
