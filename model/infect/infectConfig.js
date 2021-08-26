@@ -19,7 +19,7 @@ function makeConfig()
 				, fastest: {label: "Fastest", value: 1200, colour: "#D7191C"}
 			}
 
-		, secondsPerStep: {small: 3, large: 300}
+		, secondsPerStep: {small: 10, large: 300}
 		, startScore: 50000000
 		, limit: 400
 		, randomInfected: 100
@@ -199,6 +199,7 @@ function makeConfig()
 // C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 	            , room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 0, 5000, 5000]
 
+	            , isolate: 3000
 	        }
 
 		, progression:

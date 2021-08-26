@@ -9,13 +9,19 @@ class GameState extends TownState
 		this.netScore = this.activeConfig.startScore;
 		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
-		this.roomState = [];
-		this.useRoomState = [];
 
 		this.masksSpec = this.activeConfig.masks.specs.none;
 		this.testsSpec = this.activeConfig.tests.none;
 		this.traceSpec = this.activeConfig.trace.none;
-		this.isolate = false;
+
+// Interventions all happen at 8AM
+
+		this.useMasks = this.masksSpec.value;
+		this.useTests = this.testsSpec.value;
+		this.useTrace = this.traceSpec.value;
+		this.useIsolate = false;
+		this.roomButtons = [];
+		this.useRoomState = [];
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
 		this.chartList = initializeCharts ();
@@ -32,6 +38,22 @@ class GameState extends TownState
 		{
 			this.notGame();
 		}
+	}
+
+	getMasks()
+	{
+		return this.useMasks;
+	}
+
+
+	getIsolate()
+	{
+		return this.useIsolate;
+	}
+
+	getTrace()
+	{
+		return this.useTrace;
 	}
 
 	notGame()
@@ -64,40 +86,23 @@ class GameState extends TownState
 		showInline("score-block");		
 	}
 
-	setExposition()
-	{
-		this.game = false;
-		this.mode = 0;
-	}
-	
-	setMaskLevel(level)
-	{
-		this.maskLevel = level;
-	}
-
-	setTest(test)
-	{
-
-	}
-
-	setTrace(trace)
-	{
-
-	}
-
-	setIsolate(isolate)
-	{
-
-	}
-
 	fill()
 	{
 		super.fill();
 		this.fillRoomTypes();
-		this.fillRoomState();
+		this.fillRoomButtons();
+		this.fillIsolate();
 
-		this.drawRoomstates();
+		this.drawRoomButtons();
 	}
+
+	fillIsolate()
+	{
+		const yesColour = this.activeConfig.hotColour;
+		const noColour = this.activeConfig.coldColour;
+		this.isolationButton = new BooleanButton("isolate", drawControls, yesColour, noColour, false); 
+	}
+
 
 	fillRoomTypes()
 	{
@@ -137,21 +142,21 @@ class GameState extends TownState
 		}
 	}
 
-	fillRoomState()
+	fillRoomButtons()
 	{
-		this.roomState[C.ROOMTYPE.OPEN] = true;
-		this.roomState[C.ROOMTYPE.WORSHIP] = true;
-		this.roomState[C.ROOMTYPE.RESTAURANTS] = true;
-		this.roomState[C.ROOMTYPE.BARS] = true;
-		this.roomState[C.ROOMTYPE.CLUBS] = true;
-		this.roomState[C.ROOMTYPE.SCHOOLS] = true;
-		this.roomState[C.ROOMTYPE.OFFICES] = true;
-		this.roomState[C.ROOMTYPE.MEAT] = true;
-		this.roomState[C.ROOMTYPE.GROCERIES] = true;
-		this.roomState[C.ROOMTYPE.OUTSIDE] = true;
-		this.roomState[C.ROOMTYPE.PARTIES] = true;
+		this.roomButtons[C.ROOMTYPE.OPEN] = new OpenButton("");
+		this.roomButtons[C.ROOMTYPE.WORSHIP] = new OpenButton("worship");
+		this.roomButtons[C.ROOMTYPE.RESTAURANTS] = new OpenButton("restaurants");
+		this.roomButtons[C.ROOMTYPE.BARS] = new OpenButton("bars");
+		this.roomButtons[C.ROOMTYPE.CLUBS] = new OpenButton("clubs");
+		this.roomButtons[C.ROOMTYPE.SCHOOLS] = new OpenButton("schools");
+		this.roomButtons[C.ROOMTYPE.OFFICES] = new OpenButton("offices");
+		this.roomButtons[C.ROOMTYPE.MEAT] = new OpenButton("meat");
+		this.roomButtons[C.ROOMTYPE.GROCERIES] = new OpenButton("groceries");
+		this.roomButtons[C.ROOMTYPE.OUTSIDE] = new OpenButton("outside");
+		this.roomButtons[C.ROOMTYPE.PARTIES] = new OpenButton("parties");
 
-		this.copyRoomState();
+		this.copyroomButtons();
 	}
 
 	step()
@@ -231,7 +236,7 @@ class GameState extends TownState
 	{
 		let result = 0;
 
-		result += this.maxScoreRoomState();
+		result += this.maxScoreroomButtons();
 		result += this.maxScoreOthers();
 
 		return result;
@@ -241,7 +246,7 @@ class GameState extends TownState
 	{
 		let result = 0;
 
-		result += this.scoreRoomState();
+		result += this.scoreroomButtons();
 		result += this.scoreOthers();
 
 		return result;
@@ -269,27 +274,27 @@ class GameState extends TownState
 		return result;
 	}
 	
-	scoreRoomState()
+	scoreroomButtons()
 	{
 		let result = 0;
 		const scoreArray = this.activeConfig.intervention.room;
 
-		result += !this.roomState[C.ROOMTYPE.OPEN] ? scoreArray[C.ROOMTYPE.OPEN] : 0;
-		result += !this.roomState[C.ROOMTYPE.WORSHIP] ? scoreArray[C.ROOMTYPE.WORSHIP] : 0;
-		result += !this.roomState[C.ROOMTYPE.RESTAURANTS] ? scoreArray[C.ROOMTYPE.RESTAURANTS] : 0;
-		result += !this.roomState[C.ROOMTYPE.BARS] ? scoreArray[C.ROOMTYPE.BARS] : 0;
-		result += !this.roomState[C.ROOMTYPE.CLUBS] ? scoreArray[C.ROOMTYPE.CLUBS] : 0;
-		result += !this.roomState[C.ROOMTYPE.SCHOOLS] ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
-		result += !this.roomState[C.ROOMTYPE.OFFICES] ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
-		result += !this.roomState[C.ROOMTYPE.MEAT] ? scoreArray[C.ROOMTYPE.MEAT] : 0;
-		result += !this.roomState[C.ROOMTYPE.GROCERIES] ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
-		result += !this.roomState[C.ROOMTYPE.OUTSIDE] ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
-		result += !this.roomState[C.ROOMTYPE.PARTIES] ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OPEN].get() ? scoreArray[C.ROOMTYPE.OPEN] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.WORSHIP].get() ? scoreArray[C.ROOMTYPE.WORSHIP] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.RESTAURANTS].get() ? scoreArray[C.ROOMTYPE.RESTAURANTS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.BARS].get() ? scoreArray[C.ROOMTYPE.BARS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.CLUBS].get() ? scoreArray[C.ROOMTYPE.CLUBS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.SCHOOLS].get() ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OFFICES].get() ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.MEAT].get() ? scoreArray[C.ROOMTYPE.MEAT] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OUTSIDE].get() ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.PARTIES].get() ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
 
 		return result;
 	}
 
-	maxScoreRoomState()
+	maxScoreroomButtons()
 	{
 		const scoreArray = this.activeConfig.intervention.room;
 		const sum = (accumulator, currentValue) => accumulator + currentValue;
@@ -299,14 +304,18 @@ class GameState extends TownState
 
 	setInterventions()
 	{
-		this.copyRoomState();
+		this.useMasks = this.masksSpec.value;
+		this.useIsolate = this.isolationButton.get();
+		this.useTests = this.testsSpec.value;
+		this.useTrace = this.traceSpec.value;
+		this.copyroomButtons();
 	}
 
-	copyRoomState()
+	copyroomButtons()
 	{
-		for (var i = this.roomState.length - 1; i >= 0; i--) 
+		for (var i = this.roomButtons.length - 1; i >= 0; i--) 
 		{
-			this.useRoomState[i] = this.roomState[i];
+			this.useRoomState[i] = this.roomButtons[i].get();
 		}
 	}
 
@@ -330,32 +339,18 @@ class GameState extends TownState
 		}
 	}
 
-	drawState(elementName, roomType)
+	drawRoomButtons()
 	{
-		if (this.roomState[roomType])
-		{
-			setText(elementName, "Close");
-			setColour(elementName, state.activeConfig.closedColour);
-		}
-		else
-		{
-			setText(elementName, "Open");
-			setColour(elementName, state.activeConfig.openColour);
-		}
-	}
-
-	drawRoomstates()
-	{
-		this.drawState("worship", C.ROOMTYPE.WORSHIP);
-		this.drawState("restaurants", C.ROOMTYPE.RESTAURANTS);
-		this.drawState("bars", C.ROOMTYPE.BARS);
-		this.drawState("clubs", C.ROOMTYPE.CLUBS);
-		this.drawState("schools", C.ROOMTYPE.SCHOOLS);
-		this.drawState("offices", C.ROOMTYPE.OFFICES);
-		this.drawState("meat", C.ROOMTYPE.MEAT);
-//		this.drawState("groceries", C.ROOMTYPE.GROCERIES);
-		this.drawState("outside", C.ROOMTYPE.OUTSIDE);
-		this.drawState("parties", C.ROOMTYPE.PARTIES);
+		this.roomButtons[C.ROOMTYPE.WORSHIP].draw();
+		this.roomButtons[C.ROOMTYPE.RESTAURANTS].draw();
+		this.roomButtons[C.ROOMTYPE.BARS].draw();
+		this.roomButtons[C.ROOMTYPE.CLUBS].draw();
+		this.roomButtons[C.ROOMTYPE.SCHOOLS].draw();
+		this.roomButtons[C.ROOMTYPE.OFFICES].draw();
+		this.roomButtons[C.ROOMTYPE.MEAT].draw();
+//		this.roomButtons[C.ROOMTYPE.GROCERIES].draw();
+		this.roomButtons[C.ROOMTYPE.OUTSIDE].draw();
+		this.roomButtons[C.ROOMTYPE.PARTIES].draw();
 	}
 
 	showScore()
@@ -368,3 +363,14 @@ class GameState extends TownState
 	}
 }
 
+// ???
+
+// function getIsolate()
+// {
+// 	state.getIsolate();
+// }
+
+// function setIsolate(value)
+// {
+// 	state.setIsolate(value);
+// }

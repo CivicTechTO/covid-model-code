@@ -38,9 +38,16 @@ function makeConstants()
 
 	result.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 
+	result.ROOMID = ["", "worship", "restaurants", "bars", "clubs", "schools", "offices", "meat", "groceries", "parks", "parties"]
+
+	const rt = result.ROOMTYPE;
+	result.USEDROOMS =[rt.WORSHIP, rt.RESTAURANTS, rt.BARS, rt.CLUBS, rt.SCHOOLS, rt.OFFICES, rt.MEAT, rt.OUTSIDE, rt.PARTIES];
+	
 	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
 
 	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
+
+	result.BOOLEANIMAGES ={LEFT:"../images/left.svg" , RIGHT:"../images/right.svg"}
 
 	return result;	
 }

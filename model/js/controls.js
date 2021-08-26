@@ -64,9 +64,9 @@ function drawControls()
 	drawMasks();
 	drawTests();
 	drawTrace();
-	drawIsolate();
+	state.isolationButton.draw();
 
-	state.drawRoomstates();
+	state.drawRoomButtons();
 }
 
 function drawPlay()
@@ -171,42 +171,12 @@ function drawTrace()
 	drawValue("trace", state.traceSpec);
 }
 
-function toggleIsolate() 
+class OpenButton extends BooleanButton
 {
-	if (state.isolate)
+	constructor(name)
 	{
-		state.isolate = false;
-		setText("isolate", "None");
-		setColour("isolate", state.activeConfig.hotColour)
+		super(name, drawControls, state.activeConfig.openColour, state.activeConfig.closedColour, true);
 	}
-	else
-	{
-		state.isolate = true;
-		setText("isolate", "Isolating");
-		setColour("isolate", state.activeConfig.coldColour)
-	}
-
-	drawControls();
-}
-
-function drawIsolate()
-{
-	setText("isolate", "Isolate");
-	setColour("isolate", state.activeConfig.coldColour)
-}
-
-function toggleRoomState(roomType)
-{
-	if (state.roomState[roomType])
-	{
-		state.roomState[roomType] = false;
-	}
-	else
-	{
-		state.roomState[roomType] = true;
-	}
-
-	drawControls();
 }
 
 function announceLost()

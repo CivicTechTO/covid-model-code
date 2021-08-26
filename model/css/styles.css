@@ -26,8 +26,14 @@ fieldset
 	width: 1000px;
 }
 
+#animation-block
+{
+	display: inline-block;
+}
+
 #static-block
 {
+	display: inline-block;
 	margin-left: 1em;
 	width: 800px;
 }
@@ -175,6 +181,7 @@ fieldset
 
 #charts
 {
+	display: inline-block;
 	background-color: #87CEEB;
 }
 
@@ -192,6 +199,31 @@ fieldset
 .hot-colour
 {
 	background-color: #D7191C;
+}
+
+.boolean-button
+{
+	display: inline-flex;
+	flex-direction: row;
+	background-color: lightsteelblue;
+}
+
+.boolean
+{
+	border: none;
+	padding: 0;
+	background-color: inherit;
+}
+
+.boolean-toggle
+{
+	align-content: center;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	background-color: inherit;
+	width: 2.5em;
 }
 
 .open-state
@@ -311,23 +343,5 @@ fieldset
 .announce-button
 {
 	font-size: large;
-}
-
-@media screen and (max-width: 1800px) 
-{
-	#infect-container
-	{
-		display: flex;
-		flex-direction: column;
-	}
-}
-
-@media screen and (min-width: 1801px) 
-{
-	#infect-container
-	{
-		display: flex;
-		flex-direction: row;
-	}
 }
 

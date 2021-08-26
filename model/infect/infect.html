@@ -101,7 +101,13 @@
 
                 <div class="control-title">Isolate</div>
                 <div class="control-buttons">
-                  <button type="button" id="isolate" class="cold-colour" onclick="toggleIsolate();">None</button>
+                  <div class="boolean-button">
+                    <button class="boolean boolean-false" id="isolate-false" onclick="state.isolationButton.falseAction();">No&nbsp;Isolation</button>
+                    <button class="boolean boolean-toggle" id="isolate-toggle" onclick="state.isolationButton.toggleAction();">
+                      <img id="isolate-image" src="../images/left.svg" />
+                    </button> 
+                    <button class="boolean boolean-true" id="isolate-true" onclick="state.isolationButton.trueAction();">Isolation</button>
+                  </div>
                 </div>
                 <div>&nbsp</div>
               </div>
@@ -113,47 +119,103 @@
                 <div class="toggle-contents">
                   <div class="toggle-room">
                     <div class="toggle-title church-colour">Worship</div>
-                    <button type="button" id="worship" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.WORSHIP);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="worship-false" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="worship-toggle" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].toggleAction();">
+                        <img id="worship-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="worship-true" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title restaurant-colour">Restaurants</div>
-                    <button type="button" id="restaurants" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.RESTAURANTS);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="restaurants-false" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].falseAction();">
+                        Close
+                      </button>
+                      <button class="boolean boolean-toggle" id="restaurants-toggle" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].toggleAction();">
+                        <img id="restaurants-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="restaurants-true" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title bar-colour">Bars</div>
-                    <button type="button" id="bars" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.BARS);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="bars-false" onclick="state.roomButtons[C.ROOMTYPE.BARS].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="bars-toggle" onclick="state.roomButtons[C.ROOMTYPE.BARS].toggleAction();">
+                        <img id="bars-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="bars-true" onclick="state.roomButtons[C.ROOMTYPE.BARS].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title club-colour">Clubs</div>
-                    <button type="button" id="clubs" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.CLUBS);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="clubs-false" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="clubs-toggle" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].toggleAction();">
+                        <img id="clubs-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="clubs-true" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title school-colour">Schools</div>
-                    <button type="button" id="schools" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.SCHOOLS);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="schools-false" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="schools-toggle" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].toggleAction();">
+                        <img id="schools-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="schools-true" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title office-colour">Offices</div>
-                    <button type="button" id="offices" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OFFICES);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="offices-false" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="offices-toggle" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].toggleAction();">
+                        <img id="offices-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="offices-true" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                    <button type="button" id="meat" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.MEAT);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="meat-false" onclick="state.roomButtons[C.ROOMTYPE.MEAT].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="meat-toggle" onclick="state.roomButtons[C.ROOMTYPE.MEAT].toggleAction();">
+                        <img id="meat-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="meat-true" onclick="state.roomButtons[C.ROOMTYPE.MEAT].trueAction();">Open</button>
+                    </div>
                   </div>
 
                   <div class="toggle-room">
                     <div class="toggle-title outside-colour">Parks</div>
-                    <button type="button" id="outside" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.OUTSIDE);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="outside-false" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="outside-toggle" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].toggleAction();">
+                        <img id="outside-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="outside-true" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].trueAction();">Open</button>
+                    </div>
                 </div>
 
                   <div class="toggle-room">
                   <div class="toggle-title house-colour">House&nbsp;parties</div>
-                  <button type="button" id="parties" class="open-state" onclick="state.toggleRoomState(C.ROOMTYPE.PARTIES);">Close</button>
+                    <div class="boolean-button">
+                      <button class="boolean boolean-false" id="parties-false" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].falseAction();">Close</button>
+                      <button class="boolean boolean-toggle" id="parties-toggle" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].toggleAction();">
+                        <img id="parties-image" src="../images/left.svg" />
+                      </button> 
+                      <button class="boolean boolean-true" id="parties-true" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].trueAction();">Open</button>
+                    </div>
                 </div>
             </fieldset>
           </fieldset>
@@ -190,13 +252,13 @@
           </table>  
         </div>
       </div>
+      </div>
 
       <div id="charts">
         <div id="chartContainer" class="chartx">
           <div><h5>Overview</h5><canvas id='overview'></canvas> </div>
           <div><h5>Recent</h><canvas id='moving'></canvas> </div>
         </div>
-      </div>
     </div>
 
   <div id="announce-outer">
@@ -221,6 +283,7 @@
     </div>    
   </div>
 
+  <script src="../js/booleanButton.js"></script>
   <script src="../js/constants.js"></script>
   <script src="../js/controls.js"></script>
   <script src="../js/record.js"></script>
