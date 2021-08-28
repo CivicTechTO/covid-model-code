@@ -33,12 +33,7 @@
   <div id="infect-container">
     
     <div id="animation-block">
-      <div class="hover-class info">Hover for description. 
-        <div class="info-img" onmouseenter="showTooltip('person-tooltip');">
-          <img src="../images/info.svg">
-        </div>
-      </div>
-      <div class="tap-class info">Tap for description. 
+      <div class="info">Click for description. 
         <div class="info-img" onclick="showTooltip('person-tooltip');">
           <img src="../images/info.svg">
         </div>
@@ -55,7 +50,7 @@
           <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
           <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
           <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
-          <div class="info-img" onmouseenter="showTooltip('info-tooltip');" onclick="showTooltip('info-tooltip');">
+          <div class="info-img" onclick="showTooltip('info-tooltip');">
             <img src="../images/info.svg">
           </div>
         </div>
@@ -67,12 +62,12 @@
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
-              <div class="info-img" onmouseenter="showTooltip('general-tooltip');" onclick="showTooltip('general-tooltip');">
+              <div class="info-img" onclick="showTooltip('general-tooltip');">
                 <img src="../images/info.svg">
               </div>
               <div id="speed-group" class="controls-contents">
                 <div class="control-title">Speed</div>
-                <div class="info-img" onmouseenter="showTooltip('speed-tooltip');" onclick="showTooltip('speed-tooltip');">
+                <div class="info-img" onclick="showTooltip('speed-tooltip');">
                   <img src="../images/info.svg">
                 </div>
                 <div id="speed" class="control-value">Slow</div>
@@ -92,7 +87,7 @@
               <div class="controls-contents">
              
                 <div class="control-title">Masks</div>
-                <div class="info-img" onmouseenter="showTooltip('masks-tooltip');" onclick="showTooltip('masks-tooltip');">
+                <div class="info-img" onclick="showTooltip('masks-tooltip');">
                   <img src="../images/info.svg">
                 </div>
                 <div id="masks" class="control-value">None</div>
@@ -104,7 +99,7 @@
                 </div>
             
                 <div class="control-title">Tests</div>
-                <div class="info-img" onmouseenter="showTooltip('tests-tooltip');" onclick="showTooltip('tests-tooltip');">
+                <div class="info-img" onclick="showTooltip('tests-tooltip');">
                   <img src="../images/info.svg">
                 </div>
                 <div id="tests" class="control-value">None</div>
@@ -115,7 +110,7 @@
                 </div>
 
                 <div class="control-title">Tracing</div>
-                <div class="info-img" onmouseenter="showTooltip('trace-tooltip');" onclick="showTooltip('trace-tooltip');">
+                <div class="info-img" onclick="showTooltip('trace-tooltip');">
                   <img src="../images/info.svg">
                 </div>
                 <div id="trace" class="control-value">None</div>
@@ -128,7 +123,7 @@
                 </div>
 
                 <div class="control-title">Isolate</div>
-                <div class="info-img" onmouseenter="showTooltip('isolate-tooltip');" onclick="showTooltip('isolate-tooltip');">
+                <div class="info-img" onclick="showTooltip('isolate-tooltip');">
                   <img src="../images/info.svg">
                 </div>
                 <div class="control-buttons">
@@ -150,7 +145,7 @@
                 <div class="toggle-contents">
                   <div class="toggle-room">
                     <div class="toggle-title church-colour">Worship</div>
-                    <div class="info-img" onmouseenter="showTooltip('worship-tooltip');" onclick="showTooltip('worship-tooltip');">
+                    <div class="info-img" onclick="showTooltip('worship-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -164,7 +159,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title restaurant-colour">Restaurants</div>
-                    <div class="info-img" onmouseenter="showTooltip('restaurants-tooltip');" onclick="showTooltip('restaurants-tooltip');">
+                    <div class="info-img" onclick="showTooltip('restaurants-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -180,7 +175,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title bar-colour">Bars</div>
-                    <div class="info-img" onmouseenter="showTooltip('bars-tooltip');" onclick="showTooltip('bars-tooltip');">
+                    <div class="info-img" onclick="showTooltip('bars-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -194,7 +189,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title club-colour">Clubs</div>
-                    <div class="info-img" onmouseenter="showTooltip('clubs-tooltip');" onclick="showTooltip('clubs-tooltip');">
+                    <div class="info-img" onclick="showTooltip('clubs-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -208,7 +203,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title school-colour">Schools</div>
-                    <div class="info-img" onmouseenter="showTooltip('schools-tooltip');" onclick="showTooltip('schools-tooltip');">
+                    <div class="info-img" onclick="showTooltip('schools-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -222,7 +217,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title office-colour">Offices</div>
-                    <div class="info-img" onmouseenter="showTooltip('offices-tooltip');" onclick="showTooltip('offices-tooltip');">
+                    <div class="info-img" onclick="showTooltip('offices-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -236,7 +231,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                    <div class="info-img" onmouseenter="showTooltip('meat-tooltip');" onclick="showTooltip('meat-tooltip');">
+                    <div class="info-img" onclick="showTooltip('meat-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -250,7 +245,7 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title outside-colour">Parks</div>
-                    <div class="info-img" onmouseenter="showTooltip('outside-tooltip');" onclick="showTooltip('outside-tooltip');">
+                    <div class="info-img" onclick="showTooltip('outside-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -264,7 +259,7 @@
 
                   <div class="toggle-room">
                   <div class="toggle-title house-colour">House&nbsp;parties</div>
-                    <div class="info-img" onmouseenter="showTooltip('house-tooltip');" onclick="showTooltip('house-tooltip');">
+                    <div class="info-img" onclick="showTooltip('house-tooltip');">
                       <img src="../images/info.svg">
                     </div>
                     <div class="boolean-button">
@@ -282,27 +277,27 @@
             <div class="other-title">Other rooms</div>
             <div id="other-names">
               <div class="other-title bunkhouse-colour">Bunkhouse</div>
-                <div class="info-img" onmouseenter="showTooltip('bunkhouse-tooltip');" onclick="showTooltip('bunkhouse-tooltip');">
+                <div class="info-img" onclick="showTooltip('bunkhouse-tooltip');">
                   <img src="../images/info.svg">
                 </div>
               <div class="other-title isolation-colour">Isolation</div>
-                <div class="info-img" onmouseenter="showTooltip('isolation-tooltip');" onclick="showTooltip('isolation-tooltip');">
+                <div class="info-img" onclick="showTooltip('isolation-tooltip');">
                   <img src="../images/info.svg">
                 </div>
               <div class="other-title icu-colour">ICU</div>
-                <div class="info-img" onmouseenter="showTooltip('icu-tooltip');" onclick="showTooltip('icu-tooltip');">
+                <div class="info-img" onclick="showTooltip('icu-tooltip');">
                   <img src="../images/info.svg">
                 </div>
               <div class="other-title ward-colour">Ward</div>
-                <div class="info-img" onmouseenter="showTooltip('ward-tooltip');" onclick="showTooltip('ward-tooltip');">
+                <div class="info-img" onclick="showTooltip('ward-tooltip');">
                   <img src="../images/info.svg">
                 </div>
               <div class="other-title hallway-colour">Waiting</div>
-                <div class="info-img" onmouseenter="showTooltip('waiting-tooltip');" onclick="showTooltip('waiting-tooltip');">
+                <div class="info-img" onclick="showTooltip('waiting-tooltip');">
                   <img src="../images/info.svg">
                 </div>
               <div class="other-title cemetary-colour">Cemetary</div>
-                <div class="info-img" onmouseenter="showTooltip('cemetary-tooltip');" onclick="showTooltip('cemetary-tooltip');">
+                <div class="info-img" onclick="showTooltip('cemetary-tooltip');">
                   <img src="../images/info.svg">
                 </div>
             </div>

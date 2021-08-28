@@ -201,32 +201,6 @@ fieldset
 	left: 23em;
 }
 
-@media (hover: hover)
-{
-	.hover-class
-	{
-		display: block;
-	}
-
-	.tap-class
-	{
-		display: none;
-	}
-}
-
-@media (hover:  none)
-{
-	.hover-class
-	{
-		display: none;
-	}
-
-	.tap-class
-	{
-		display: block;
-	}
-}
-
 .info-img
 {
 	display: inline-block;
