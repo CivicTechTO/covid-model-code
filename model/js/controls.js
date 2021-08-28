@@ -2,6 +2,8 @@ function show(name, type)
 {
 	const element = document.getElementById(name);
 	element.style.display = type;
+
+	return element;
 }
 
 function showInline(name) 
@@ -29,6 +31,25 @@ function gameHide(which, show)
 	}
 }
 
+function hideClass(which)
+{
+	const hideList = document.getElementsByClassName(which);
+	for (const element of hideList)
+	{
+		element.style.display = "none";
+	}
+}
+
+function showTooltip(name)
+{
+	restack(show(name, "block"));
+}
+
+function hideTooltips()
+{
+	hideClass("tooltip");
+}
+
 function setText(name, text) 
 {
 	document.getElementById(name).textContent = text;
@@ -53,6 +74,11 @@ function drawValue(name, spec)
 {
 	setText(name, spec.label);
 	setColour(name, spec.colour);
+}
+
+function restack(element)
+{
+	element.style.zIndex = state.maxZ++;
 }
 
 function drawControls()

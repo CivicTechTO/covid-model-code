@@ -33,6 +33,8 @@ class State
 		this.tuneFlag = false;
 
 		this.past = null;
+
+		this.maxZ = 1;
 	}
 
 	tickToSecond(tick)

@@ -30,10 +30,20 @@
     <a href="index.html"><h1>Animated Covid Model/Game</h1></a>
   </div>
   
-
   <div id="infect-container">
     
     <div id="animation-block">
+      <div class="hover-class info">Hover for description. 
+        <div class="info-img" onmouseenter="showTooltip('person-tooltip');">
+          <img src="../images/info.svg">
+        </div>
+      </div>
+      <div class="tap-class info">Tap for description. 
+        <div class="info-img" onclick="showTooltip('person-tooltip');">
+          <img src="../images/info.svg">
+        </div>
+      </div>
+
       <div id="display">
         <canvas id="canvas" width=1000 height=505></canvas>      
       </div>
@@ -45,6 +55,9 @@
           <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
           <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
           <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
+          <div class="info-img" onmouseenter="showTooltip('info-tooltip');" onclick="showTooltip('info-tooltip');">
+            <img src="../images/info.svg">
+          </div>
         </div>
  
         <div id="controls">
@@ -54,8 +67,14 @@
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
+              <div class="info-img" onmouseenter="showTooltip('general-tooltip');" onclick="showTooltip('general-tooltip');">
+                <img src="../images/info.svg">
+              </div>
               <div id="speed-group" class="controls-contents">
                 <div class="control-title">Speed</div>
+                <div class="info-img" onmouseenter="showTooltip('speed-tooltip');" onclick="showTooltip('speed-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
                 <div id="speed" class="control-value">Slow</div>
                 <div class="control-buttons">
                   <button id="slow-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.slow);">Slow</button>
@@ -73,6 +92,9 @@
               <div class="controls-contents">
              
                 <div class="control-title">Masks</div>
+                <div class="info-img" onmouseenter="showTooltip('masks-tooltip');" onclick="showTooltip('masks-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
                 <div id="masks" class="control-value">None</div>
                 <div class="control-buttons">
                   <button id="no-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.none);">None</button>
@@ -82,6 +104,9 @@
                 </div>
             
                 <div class="control-title">Tests</div>
+                <div class="info-img" onmouseenter="showTooltip('tests-tooltip');" onclick="showTooltip('tests-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
                 <div id="tests" class="control-value">None</div>
                 <div class="control-buttons">
                   <button id="no-tests" type="button" onclick="setTests(state.activeConfig.tests.none);">None</button>
@@ -90,6 +115,9 @@
                 </div>
 
                 <div class="control-title">Tracing</div>
+                <div class="info-img" onmouseenter="showTooltip('trace-tooltip');" onclick="showTooltip('trace-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
                 <div id="trace" class="control-value">None</div>
                 <div class="control-buttons">
                   <fieldset id="depends-on-tests" disabled="true">
@@ -100,6 +128,9 @@
                 </div>
 
                 <div class="control-title">Isolate</div>
+                <div class="info-img" onmouseenter="showTooltip('isolate-tooltip');" onclick="showTooltip('isolate-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
                 <div class="control-buttons">
                   <div class="boolean-button">
                     <button class="boolean boolean-false" id="isolate-false" onclick="state.isolationButton.falseAction();">No&nbsp;Isolation</button>
@@ -119,6 +150,9 @@
                 <div class="toggle-contents">
                   <div class="toggle-room">
                     <div class="toggle-title church-colour">Worship</div>
+                    <div class="info-img" onmouseenter="showTooltip('worship-tooltip');" onclick="showTooltip('worship-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="worship-false" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="worship-toggle" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].toggleAction();">
@@ -130,6 +164,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title restaurant-colour">Restaurants</div>
+                    <div class="info-img" onmouseenter="showTooltip('restaurants-tooltip');" onclick="showTooltip('restaurants-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="restaurants-false" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].falseAction();">
                         Close
@@ -143,6 +180,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title bar-colour">Bars</div>
+                    <div class="info-img" onmouseenter="showTooltip('bars-tooltip');" onclick="showTooltip('bars-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="bars-false" onclick="state.roomButtons[C.ROOMTYPE.BARS].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="bars-toggle" onclick="state.roomButtons[C.ROOMTYPE.BARS].toggleAction();">
@@ -154,6 +194,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title club-colour">Clubs</div>
+                    <div class="info-img" onmouseenter="showTooltip('clubs-tooltip');" onclick="showTooltip('clubs-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="clubs-false" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="clubs-toggle" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].toggleAction();">
@@ -165,6 +208,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title school-colour">Schools</div>
+                    <div class="info-img" onmouseenter="showTooltip('schools-tooltip');" onclick="showTooltip('schools-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="schools-false" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="schools-toggle" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].toggleAction();">
@@ -176,6 +222,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title office-colour">Offices</div>
+                    <div class="info-img" onmouseenter="showTooltip('offices-tooltip');" onclick="showTooltip('offices-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="offices-false" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="offices-toggle" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].toggleAction();">
@@ -187,6 +236,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
+                    <div class="info-img" onmouseenter="showTooltip('meat-tooltip');" onclick="showTooltip('meat-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="meat-false" onclick="state.roomButtons[C.ROOMTYPE.MEAT].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="meat-toggle" onclick="state.roomButtons[C.ROOMTYPE.MEAT].toggleAction();">
@@ -198,6 +250,9 @@
 
                   <div class="toggle-room">
                     <div class="toggle-title outside-colour">Parks</div>
+                    <div class="info-img" onmouseenter="showTooltip('outside-tooltip');" onclick="showTooltip('outside-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="outside-false" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="outside-toggle" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].toggleAction();">
@@ -209,6 +264,9 @@
 
                   <div class="toggle-room">
                   <div class="toggle-title house-colour">House&nbsp;parties</div>
+                    <div class="info-img" onmouseenter="showTooltip('house-tooltip');" onclick="showTooltip('house-tooltip');">
+                      <img src="../images/info.svg">
+                    </div>
                     <div class="boolean-button">
                       <button class="boolean boolean-false" id="parties-false" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].falseAction();">Close</button>
                       <button class="boolean boolean-toggle" id="parties-toggle" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].toggleAction();">
@@ -224,11 +282,29 @@
             <div class="other-title">Other rooms</div>
             <div id="other-names">
               <div class="other-title bunkhouse-colour">Bunkhouse</div>
+                <div class="info-img" onmouseenter="showTooltip('bunkhouse-tooltip');" onclick="showTooltip('bunkhouse-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
               <div class="other-title isolation-colour">Isolation</div>
+                <div class="info-img" onmouseenter="showTooltip('isolation-tooltip');" onclick="showTooltip('isolation-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
               <div class="other-title icu-colour">ICU</div>
+                <div class="info-img" onmouseenter="showTooltip('icu-tooltip');" onclick="showTooltip('icu-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
               <div class="other-title ward-colour">Ward</div>
+                <div class="info-img" onmouseenter="showTooltip('ward-tooltip');" onclick="showTooltip('ward-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
               <div class="other-title hallway-colour">Waiting</div>
+                <div class="info-img" onmouseenter="showTooltip('waiting-tooltip');" onclick="showTooltip('waiting-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
               <div class="other-title cemetary-colour">Cemetary</div>
+                <div class="info-img" onmouseenter="showTooltip('cemetary-tooltip');" onclick="showTooltip('cemetary-tooltip');">
+                  <img src="../images/info.svg">
+                </div>
             </div>
           </div>
         </div>
@@ -281,6 +357,277 @@
         <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
       </div>
     </div>    
+  </div>
+
+  <div id="person-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Displaying People</h5>
+    <p>
+      People are displayed as faces.  The colour and whether or not they are smiling indicate their status.
+    </p>
+    <div>
+      During the illustration:
+      <div class="face-list">Not infectious yet <div class="face"><img src="../images/covid-uninfected.png"></div></div>
+      <div class="face-list">Currently infectious <div class="face"><img src="../images/covid-infected.png"></div></div>
+      <div class="face-list">No longer infectious <div class="face"><img src="../images/covid-recovered.png"></div></div>
+    </div>
+    <div>
+      During the game:
+      <div class="face-list">Not symptomatic yet <div class="face"><img src="../images/covid-uninfected.png"></div></div>
+      <div class="face-list">Currently symptomatic <div class="face"><img src="../images/covid-infected.png"></div></div>
+      <div class="face-list">No longer symptomatic <div class="face"><img src="../images/covid-recovered.png"></div></div>
+    </div>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('person-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="info-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Time and Score Information</h5>
+    <p>
+      Time includes day number, day of week, and time of day.  Peoples behaviour depends on day of week and time of day.  
+      The game lasts a limited number of days.
+    </p>
+    <p>
+      For the game, you start with a fixed number of political points.  Disease progression will cost points, as will interventions.  The object is to spend the fewest points possible to get to the game day limit.  If the available points drop to zero the game stops and you lose.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('info-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="general-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>General Controls</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('general-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="speed-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Speed</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('speed-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="masks-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Masks</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('masks-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="tests-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Tests</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('tests-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="trace-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Trace</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('trace-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="isolate-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Isolate</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('isolate-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="worship-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Worship</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('worship-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="restaurants-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Restaurants</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('restaurants-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="bars-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Bars</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('bars-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="clubs-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Clubs</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('clubs-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="schools-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Schools</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('schools-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="offices-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Offices</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('offices-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="meat-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Meat packing</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('meat-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="outside-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Parks</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('outside-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="house-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Houses</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('house-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="bunkhouse-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Bunkhouses</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('bunkhouse-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="isolation-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Isolation Rooms</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('isolation-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="icu-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Intensive Care Unit</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('icu-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="ward-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Ward</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('ward-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="waiting-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Waiting Room</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('waiting-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="cemetary-tooltip" class="tooltip" onclick="restack(this);">
+    <h5>Cemetary</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('cemetary-tooltip');">Close</button>
+    </div>
   </div>
 
   <script src="../js/booleanButton.js"></script>
