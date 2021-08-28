@@ -11,6 +11,7 @@ function makeConfig()
 		, openColour: "#D01C8B"
 		, closedColour: "#4DAC26"
 
+		, tooltips: {base: 6, streamDelta: 1, placeDelta: 1}
 		, stepsPerFrame: 
 			{
 				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
