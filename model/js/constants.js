@@ -49,5 +49,13 @@ function makeConstants()
 
 	result.BOOLEANIMAGES ={LEFT:"../images/left.svg" , RIGHT:"../images/right.svg"}
 
+	result.TOOLTIPS = 
+	{
+		BUNKHOUSES: "bunkhouse-tooltip", HOUSES: "house-tooltip", WORSHIP: "worship-tooltip", RESTAURANTS: "restaurants-tooltip"
+		, BARS: "bars-tooltip", CLUBS: "clubs-tooltip", SCHOOLS: "schools-tooltip", OFFICES: "offices-tooltip", MEAT: "meat-tooltip"
+		, OUTSIDE: "outside-tooltip", ICU: "icu-tooltip", WARD: "ward-tooltip", WAITING: "waiting-tooltip", CEMETARY: "cemetary-tooltip"
+		, ISOLATION: "isolation-tooltip", ROAD: "road-tooltip"
+	}
+
 	return result;	
 }

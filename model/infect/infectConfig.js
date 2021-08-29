@@ -16,8 +16,7 @@ function makeConfig()
 			{
 				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
 				, medium: {label: "Medium", value: 12, colour: "#857AA3"}
-				, fast: {label: "Fast", value: 120, colour: "#BE5A6F"}
-				, fastest: {label: "Fastest", value: 1200, colour: "#D7191C"}
+				, fast: {label: "Fast", value: 120, colour: "#D7191C"}
 			}
 
 		, secondsPerStep: {small: 10, large: 300}

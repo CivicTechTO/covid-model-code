@@ -87,6 +87,7 @@ class TownState extends InfectState
 			room.ventilation = computeLevel(this.activeConfig.bunkHouse.ventilation);
 			room.loudness = computeLevel(this.activeConfig.bunkHouse.loudness);
 			room.house = false;
+			room.tooltip = C.TOOLTIPS.BUNKHOUSES;
 
 			this.roomList.push(room);
 			dwellings.push(room);
@@ -115,6 +116,7 @@ class TownState extends InfectState
 				room.ventilation = computeLevel(this.activeConfig.house.ventilation);
 				room.loudness = computeLevel(this.activeConfig.house.loudness);
 				room.house = true;
+				room.tooltip = C.TOOLTIPS.HOUSES;
 
 				this.houseList.push(room);
 				this.roomList.push(room);
@@ -231,6 +233,9 @@ class TownState extends InfectState
 		this.cemetary.ventilation = this.activeConfig.ventilation.max;
 		this.cemetary.loudness = 0;
 		this.cemetary.fillStyle = this.activeConfig.cemetary.style;
+
+		this.cemetary.tooltip = C.TOOLTIPS.CEMETARY;
+
 		this.roomList.push(this.cemetary);
 	}
 
@@ -248,6 +253,8 @@ class TownState extends InfectState
 		this.hallway.ventilation = this.activeConfig.ventilation.max;
 		this.hallway.loudness = 0;
 		this.hallway.fillStyle = this.activeConfig.hospital.style.hallway;
+		this.hallway.tooltip = C.TOOLTIPS.WAITING;
+
 		this.roomList.push(this.hallway);
 
 		y = this.activeConfig.hospital.y + icuConfig.height;
@@ -256,6 +263,7 @@ class TownState extends InfectState
 		this.ward.ventilation = this.activeConfig.ventilation.max;
 		this.ward.loudness = 0;
 		this.ward.fillStyle = this.activeConfig.hospital.style.ward;
+		this.ward.tooltip = C.TOOLTIPS.WARD;
 
 		this.roomList.push(this.ward);
 
@@ -265,6 +273,8 @@ class TownState extends InfectState
 		this.icu.ventilation = this.activeConfig.ventilation.max;
 		this.icu.loudness = 0;
 		this.icu.fillStyle = this.activeConfig.hospital.style.icu;
+		this.icu.tooltip = C.TOOLTIPS.ICU;
+
 		this.roomList.push(this.icu);
 	}
 
@@ -285,6 +295,7 @@ class TownState extends InfectState
 			this.roomList.push(church);
 			this.churchList.push(church);
 			church.rules = new ChurchSitRules(church, separation);
+			church.tooltip = C.TOOLTIPS.WORSHIP;
 		}
 	}
 
@@ -303,6 +314,7 @@ class TownState extends InfectState
 			club.ventilation = computeLevel(clubSpec.ventilation);
 			club.loudness = computeLevel(clubSpec.loudness);
 			club.rules = new ClubRules(halfEdge);
+			club.tooltip = C.TOOLTIPS.CLUBS;
 
 			this.roomList.push(club);
 			this.clubList.push(club);
@@ -319,6 +331,7 @@ class TownState extends InfectState
 			pub.fillStyle = pubSpec.style;
 			pub.ventilation = computeLevel(pubSpec.ventilation);
 			pub.loudness = computeLevel(pubSpec.loudness);
+			pub.tooltip = C.TOOLTIPS.BARS;
 
 			this.roomList.push(pub);
 			this.pubList.push(pub);
@@ -344,6 +357,7 @@ class TownState extends InfectState
 			restaurant.fillStyle = resto.style;
 			restaurant.ventilation = computeLevel(resto.ventilation);
 			restaurant.loudness = computeLevel(resto.loudness);
+			restaurant.tooltip = C.TOOLTIPS.RESTAURANTS;
 
 			this.roomList.push(restaurant);
 			this.restaurantList.push(restaurant);
@@ -521,4 +535,10 @@ class TownState extends InfectState
 			minuteElement.textContent = minute.toString().padStart(2, '0');
 		}
 	}
+
+	findRoom(x, y)
+	{
+		return this.roomList.find(room => room.has(x, y));
+	}
 }
+

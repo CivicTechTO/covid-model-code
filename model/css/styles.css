@@ -46,9 +46,14 @@ fieldset
 	position: absolute;
 	width: 20em;
 	padding: 0.5em;
-	border: solid blue 5px;
+	border: solid blue 1px;
 	background-color: antiquewhite;
 	font-size: large;
+}
+
+.light-text
+{
+	color: white;
 }
 
 .info-img
@@ -110,7 +115,22 @@ fieldset
 	vertical-align: top;
 	margin-right: 0.5em;
 	padding-right: 0.5em;
-	background-color: #87CEEB;
+	background-color: #97DEFB;
+}
+
+#records tr
+{
+	text-align: right;
+}
+
+.row-label
+{
+	text-align: left;
+}
+
+#records tr:nth-child(even) 
+{
+	background-color: #77BED8;
 }
 
 #controls

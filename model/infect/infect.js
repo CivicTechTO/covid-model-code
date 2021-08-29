@@ -2,6 +2,8 @@
 var C = makeConstants();
 var state;
 
+connectRooms();
+
 startup(false);
 
 startRunning();

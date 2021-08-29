@@ -45,17 +45,17 @@
     </div>
 
     <div id="static-block">
-      <div>
-        <div id="info-panel">
-          <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
-          <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
-          <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
-          <div class="info-img" onclick="showTooltip('info-tooltip', 0, 1);">
-            <img src="../images/info.svg">
-          </div>
+      <div id="info-panel">
+        <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
+        <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
+        <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
+        <div class="info-img" onclick="showTooltip('info-tooltip', 0, 1);">
+          <img src="../images/info.svg">
         </div>
+      </div>
  
-        <div id="controls">
+     <div>
+         <div id="controls">
           <fieldset id="all-controls">
             <h4>General Controls</h4>
 
@@ -75,7 +75,6 @@
                   <button id="slow-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.slow);">Slow</button>
                   <button id="medium-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.medium);">Medium</button>
                   <button id="fast-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fast);">Fast</button>
-                  <button id="fastest-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fastest);">Fastest</button>
                 </div>
               </div>
             </div>
@@ -306,20 +305,102 @@
 
         <div id="records">
           <table>
-            <tr> <th>Condition</th> <th>Current</th> <th>Maximum</th> <th>Total</th> </tr>
-            <tr class="game-hide"> <td>Never&nbsp;infected </td> <td id="currentWell">0</td> <td id="maxWell">0</td> <td id="totalWell">0</td> </tr>
-            <tr class="game-hide"> <td>Infected </td> <td id="currentInfected">0</td> <td id="maxInfected">0</td> <td id="totalInfected">0</td> </tr>
-            <tr class="game-hide"> <td>Incubating </td> <td id="currentIncubating">0</td> <td id="maxIncubating">0</td> <td id="totalIncubating">0</td> </tr>
-            <tr class="game-hide"> <td>Infectious </td> <td id="currentInfectious">0</td> <td id="maxInfectious">0</td> <td id="totalInfectious">0</td> </tr>
-            <tr> <td>Isolating</td> <td id="currentIsolating">0</td> <td id="maxIsolating">0</td> <td id="totalIsolating">0</td> </tr>
-            <tr> <td>Positive</td> <td id="currentPositive">0</td> <td id="maxPositive">0</td> <td id="totalPositive">0</td> </tr>
-            <tr> <td>Symptomatic</td> <td id="currentSymptomatic">0</td> <td id="maxSymptomatic">0</td> <td id="totalSymptomatic">0</td> </tr>
-            <tr> <td>Recovered</td> <td id="currentRecovered">0</td> <td id="maxRecovered">0</td> <td id="totalRecovered">0</td> </tr>
-            <tr> <td>Sick&nbsp;at&nbsp;home </td> <td id="currentHomeSick">0</td> <td id="maxHomeSick">0</td> <td id="totalHomeSick">0</td> </tr>
-            <tr> <td>Needs&nbsp;hospital </td> <td id="currentWardSick">0</td> <td id="maxWardSick">0</td> <td id="totalWardSick">0</td> </tr>
-            <tr> <td>Waiting&nbsp;for&nbsp;bed</td> <td id="currentHallway">0</td> <td id="maxHallway">0</td> <td id="totalHallway">0</td> </tr>
-            <tr> <td>Needs&nbsp;ICU </td> <td id="currentICUSick">0</td> <td id="maxICUSick">0</td> <td id="totalICUSick">0</td> </tr>
-            <tr> <td>Dead</td> <td id="currentDead">0</td> <td id="maxDead">0</td> <td id="totalDead">0</td> </tr>
+            <tr> 
+              <th class="row-label">Condition</th> 
+              <th>Current</th> 
+              <th>Maximum</th> 
+              <th>Total</th> 
+            </tr>
+            
+            <tr class="game-hide"> 
+              <td class="row-label">Never&nbsp;infected </td> 
+              <td id="currentWell">0</td> 
+              <td id="maxWell">0</td> 
+              <td id="totalWell">0</td> 
+            </tr>
+            
+            <tr class="game-hide"> 
+              <td class="row-label">Infected </td> 
+              <td id="currentInfected">0</td> 
+              <td id="maxInfected">0</td> 
+              <td id="totalInfected">0</td> 
+            </tr>
+            <tr class="game-hide"> 
+              <td class="row-label">Incubating </td> 
+              <td id="currentIncubating">0</td> 
+              <td id="maxIncubating">0</td> 
+              <td id="totalIncubating">0</td> 
+            </tr>
+            
+            <tr class="game-hide"> 
+              <td class="row-label">Infectious </td> 
+              <td id="currentInfectious">0</td> 
+              <td id="maxInfectious">0</td> 
+              <td id="totalInfectious">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Isolating</td> 
+              <td id="currentIsolating">0</td> 
+              <td id="maxIsolating">0</td> 
+              <td id="totalIsolating">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Positive</td> 
+              <td id="currentPositive">0</td> 
+              <td id="maxPositive">0</td> 
+              <td id="totalPositive">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Symptomatic</td> 
+              <td id="currentSymptomatic">0</td> 
+              <td id="maxSymptomatic">0</td> 
+              <td id="totalSymptomatic">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Recovered</td> 
+              <td id="currentRecovered">0</td> 
+              <td id="maxRecovered">0</td> 
+              <td id="totalRecovered">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Sick&nbsp;at&nbsp;home </td> 
+              <td id="currentHomeSick">0</td> 
+              <td id="maxHomeSick">0</td> 
+              <td id="totalHomeSick">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Needs&nbsp;hospital </td> 
+              <td id="currentWardSick">0</td> 
+              <td id="maxWardSick">0</td> 
+              <td id="totalWardSick">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Waiting&nbsp;for&nbsp;bed</td> 
+              <td id="currentHallway">0</td> 
+              <td id="maxHallway">0</td> 
+              <td id="totalHallway">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Needs&nbsp;ICU </td> 
+              <td id="currentICUSick">0</td> 
+              <td id="maxICUSick">0</td> 
+              <td id="totalICUSick">0</td> 
+            </tr>
+            
+            <tr> 
+              <td class="row-label">Dead</td> 
+              <td id="currentDead">0</td> 
+              <td id="maxDead">0</td> 
+              <td id="totalDead">0</td> 
+            </tr>
           </table>  
         </div>
       </div>
@@ -450,7 +531,7 @@
   </div>
 
   <div id="isolate-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Isolate</h5>
+    <h5 class="isolation-colour">Isolate</h5>
     <p>
     </p>
 
@@ -461,7 +542,7 @@
   </div>
 
   <div id="worship-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Worship</h5>
+    <h5 class="worship-colour">Worship</h5>
     <p>
     </p>
 
@@ -483,7 +564,7 @@
   </div>
 
   <div id="bars-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Bars</h5>
+    <h5 class="bar-colour">Bars</h5>
     <p>
     </p>
 
@@ -494,7 +575,7 @@
   </div>
 
   <div id="clubs-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Clubs</h5>
+    <h5 class="club-colour">Clubs</h5>
     <p>
     </p>
 
@@ -505,7 +586,7 @@
   </div>
 
   <div id="schools-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Schools</h5>
+    <h5 class="school-colour">Schools</h5>
     <p>
     </p>
 
@@ -516,7 +597,7 @@
   </div>
 
   <div id="offices-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Offices</h5>
+    <h5 class="office-colour">Offices</h5>
     <p>
     </p>
 
@@ -527,7 +608,7 @@
   </div>
 
   <div id="meat-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Meat packing</h5>
+    <h5 class="meat-colour">Meat packing</h5>
     <p>
     </p>
 
@@ -538,7 +619,7 @@
   </div>
 
   <div id="outside-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Parks</h5>
+    <h5 class="outside-colour">Parks</h5>
     <p>
     </p>
 
@@ -549,7 +630,7 @@
   </div>
 
   <div id="house-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Houses</h5>
+    <h5 class="house-colour">Houses</h5>
     <p>
     </p>
 
@@ -560,7 +641,7 @@
   </div>
 
   <div id="bunkhouse-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Bunkhouses</h5>
+    <h5 class="bunkhouse-colour">Bunkhouses</h5>
     <p>
     </p>
 
@@ -571,7 +652,7 @@
   </div>
 
   <div id="isolation-tooltip" class="tooltip" onclick="restack(this);">
-    5>Isolation Rooms</h5>
+    <h5 class="isolation-colour">Isolation Rooms</h5>
     <p>
     </p>
 
@@ -582,7 +663,7 @@
   </div>
 
   <div id="icu-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Intensive Care Unit</h5>
+    <h5 class="icu-colour">Intensive Care Unit</h5>
     <p>
     </p>
 
@@ -593,7 +674,7 @@
   </div>
 
   <div id="ward-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Ward</h5>
+    <h5 class="ward-colour">Ward</h5>
     <p>
     </p>
 
@@ -604,7 +685,7 @@
   </div>
 
   <div id="waiting-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Waiting Room</h5>
+    <h5 class="hallway-colour">Waiting Room</h5>
     <p>
     </p>
 
@@ -615,7 +696,7 @@
   </div>
 
   <div id="cemetary-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Cemetary</h5>
+    <h5 class="cemetary-colour">Cemetary</h5>
     <p>
     </p>
 
@@ -625,9 +706,21 @@
     </div>
   </div>
 
+  <div id="road-tooltip" class="tooltip" onclick="restack(this);">
+    <h5 class="light-text road-colour">Road</h5>
+    <p>
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('road-tooltip');">Close</button>
+    </div>
+  </div>
+
   <script src="../js/booleanButton.js"></script>
   <script src="../js/constants.js"></script>
   <script src="../js/controls.js"></script>
+  <script src="../js/tooltips.js"></script>
   <script src="../js/record.js"></script>
   <script src="../js/manager.js"></script>
   <script src="../js/state.js"></script>

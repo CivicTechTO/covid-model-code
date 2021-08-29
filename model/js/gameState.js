@@ -118,18 +118,21 @@ class GameState extends TownState
 
 	fillWorkListType()
 	{
-		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT, this.meatList);
-		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES, this.officeList);
-		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS, this.schoolList);
+		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT, C.TOOLTIPS.MEAT, this.meatList);
+		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES, C.TOOLTIPS.OFFICES, this.officeList);
+		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS, C.TOOLTIPS.SCHOOLS, this.schoolList);
 	}
 
-	fillWorkType(config, type, workType, list)
+	fillWorkType(config, type, workType, tooltip, list)
 	{
 		for (var i = config.start; i <= config.end; i++) 
 		{
 			let room = this.workList[i];
+			
 			room.roomType = type;
 			room.fillStyle = state.activeConfig.workStyle[workType];
+			room.tooltip = tooltip;
+
 			list.push(room);
 		}
 	}

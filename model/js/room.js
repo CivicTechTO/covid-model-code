@@ -25,7 +25,14 @@ class Room
 
 		this.roomType = C.ROOMTYPE.OPEN;
 
+		this.tooltip = "";
+
 		this.house = false;
+	}
+
+	has(x, y)
+	{
+		return x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height;
 	}
 
 	equals(other)
@@ -274,6 +281,7 @@ class Outside extends Room
 	{
 		super(x, y, width, height);
 		this.rules = new OutsideRules();
+		this.tooltip = C.TOOLTIPS.OUTSIDE;
 	}
 
 	draw(context)
@@ -290,6 +298,7 @@ class Isolation extends Room
 		super(x, y, width, height);
 		this.reserved = false;
 		this.rules = new IsolationRules();
+		this.tooltip = C.TOOLTIPS.ISOLATION;
 	}
 
 	draw(context)

@@ -40,28 +40,6 @@ function hideClass(which)
 	}
 }
 
-function showTooltip(name, stream, place)
-{
-	restack(placeTooltip(show(name, "block"), stream, place));
-}
-
-function placeTooltip(element, stream, place)
-{
-	const spec = state.activeConfig.tooltips;
-	const pos = spec.base + stream * spec.streamDelta + place * spec.placeDelta;
-	const formatted = pos.toString() + "em";
-	
-	element.style.left = formatted;
-	element.style.top = formatted;
-
-	return element;
-}
-
-function hideTooltips()
-{
-	hideClass("tooltip");
-}
-
 function setText(name, text) 
 {
 	document.getElementById(name).textContent = text;
@@ -91,6 +69,8 @@ function drawValue(name, spec)
 function restack(element)
 {
 	element.style.zIndex = state.maxZ++;
+
+	return element;
 }
 
 function drawControls()
