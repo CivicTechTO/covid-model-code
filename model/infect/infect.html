@@ -61,7 +61,9 @@
 
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
+
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
+              
               <div class="info-img" onclick="showTooltip('general-tooltip', 0, 2);">
                 <img src="../images/info.svg">
               </div>
@@ -589,6 +591,10 @@
     <p>
       Backward tracing means to try to find the person that infected this person by looking at less recent travel patterns,
       and then forward trace from the people found to be infected there.
+    </p>
+
+    <p>
+      Tracing is only available if testing is active.
     </p>
 
     <div class="tooltip-buttons">
