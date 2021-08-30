@@ -1,5 +1,3 @@
-
-
 body
 {
 	background-color: #87CEEB;
@@ -10,9 +8,17 @@ h1
 	text-align: center;
 }
 
-h4
+h2
 {
+	font-size: 1em;
 	margin: 0;
+}
+
+h3
+{
+	margin-block-start: 0.25em;
+	margin-block-end: 0.75em;
+	padding-left: 0.5em;
 }
 
 fieldset
@@ -44,7 +50,7 @@ fieldset
 {
 	display: none;
 	position: absolute;
-	width: 20em;
+	width: 30em;
 	padding: 0.5em;
 	border: solid blue 1px;
 	background-color: antiquewhite;
@@ -113,9 +119,11 @@ fieldset
 {
 	display: inline-block;
 	vertical-align: top;
-	margin-right: 0.5em;
+	margin-top: 0.5em;
+	padding-left: 0.5em;
 	padding-right: 0.5em;
-	background-color: #97DEFB;
+	padding-bottom: 0.5em;
+	background-color: #77BED8;
 }
 
 #records tr
@@ -130,7 +138,7 @@ fieldset
 
 #records tr:nth-child(even) 
 {
-	background-color: #77BED8;
+	background-color: #97DEFB;
 }
 
 #controls
@@ -204,27 +212,10 @@ fieldset
 	padding: 0.1em;
 }
 
-.picker
-{
-	display: inline-block;
-	padding-top: 0.5em;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-
-#displayChoice
-{
-	background-color: #87CEEB;
-}
-
-#chartsChoice
-{
-	background-color: #77BEDB;
-}
-
 #display
 {
 	background-color: #87CEEB;
+	border: solid blue 1px;
 }
 
 #charts
@@ -391,5 +382,22 @@ fieldset
 .announce-button
 {
 	font-size: large;
+}
+
+.face-list
+{
+	display: grid;
+	grid-template-columns: max-content auto;
+}
+
+.face-name
+{
+	margin-left: 1em;
+	margin-right: 0.5em;
+}
+
+.face
+{
+	display: inline-block;
 }
 

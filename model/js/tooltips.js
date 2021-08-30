@@ -6,11 +6,11 @@ function showTooltip(name, stream, place)
 function placeTooltip(element, stream, place)
 {
 	const spec = state.activeConfig.tooltips;
-	const pos = spec.base + stream * spec.streamDelta + place * spec.placeDelta;
-	const formatted = pos.toString() + "em";
+	const left = spec.base + stream * spec.streamXDelta + place * spec.placeDelta;
+	const top = spec.base + stream * spec.streamYDelta + place * spec.placeDelta;
 	
-	element.style.left = formatted;
-	element.style.top = formatted;
+	element.style.left = left.toString() + "em";
+	element.style.top = top.toString() + "em";
 
 	return element;
 }

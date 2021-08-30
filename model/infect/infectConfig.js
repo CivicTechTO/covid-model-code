@@ -11,7 +11,7 @@ function makeConfig()
 		, openColour: "#D01C8B"
 		, closedColour: "#4DAC26"
 
-		, tooltips: {base: 6, streamDelta: 1, placeDelta: 1}
+		, tooltips: {base: 6, streamXDelta: 1, streamYDelta: 1.5, placeDelta: 1}
 		, stepsPerFrame: 
 			{
 				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
@@ -29,7 +29,7 @@ function makeConfig()
 		, personSize: 3
 		, moveSpeed: 0.05
 		, leaveSpeed: 0.1
-		, deadSpeed: 0.01
+		, deadSpeed: 0.001
 		, moveVariation: 0.1
 		, travelSpeed: 0.2
 		, travelVariation: 0.2

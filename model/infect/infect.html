@@ -57,7 +57,7 @@
      <div>
          <div id="controls">
           <fieldset id="all-controls">
-            <h4>General Controls</h4>
+            <h2>General Controls</h2>
 
             <div>
               <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
@@ -81,12 +81,16 @@
 
             <fieldset id="game-controls" disabled="true">
 
-              <h4>Game Controls</h4>
+              <h2>Game Controls</h2>
+
+              <div class="info-img" onclick="showTooltip('game-tooltip', 0, 4);">
+                <img src="../images/info.svg">
+              </div>
 
               <div class="controls-contents">
              
                 <div class="control-title">Masks</div>
-                <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 4);">
+                <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 5);">
                   <img src="../images/info.svg">
                 </div>
                 <div id="masks" class="control-value">None</div>
@@ -98,7 +102,7 @@
                 </div>
             
                 <div class="control-title">Tests</div>
-                <div class="info-img" onclick="showTooltip('tests-tooltip', 0, 5);">
+                <div class="info-img" onclick="showTooltip('tests-tooltip', 0, 6);">
                   <img src="../images/info.svg">
                 </div>
                 <div id="tests" class="control-value">None</div>
@@ -109,7 +113,7 @@
                 </div>
 
                 <div class="control-title">Tracing</div>
-                <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 6);">
+                <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 7);">
                   <img src="../images/info.svg">
                 </div>
                 <div id="trace" class="control-value">None</div>
@@ -122,7 +126,7 @@
                 </div>
 
                 <div class="control-title">Isolate</div>
-                <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 7);">
+                <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 8);">
                   <img src="../images/info.svg">
                 </div>
                 <div class="control-buttons">
@@ -339,14 +343,14 @@
               <td id="totalInfectious">0</td> 
             </tr>
             
-            <tr> 
+            <tr class="game-show"> 
               <td class="row-label">Isolating</td> 
               <td id="currentIsolating">0</td> 
               <td id="maxIsolating">0</td> 
               <td id="totalIsolating">0</td> 
             </tr>
             
-            <tr> 
+            <tr class="game-show"> 
               <td class="row-label">Positive</td> 
               <td id="currentPositive">0</td> 
               <td id="maxPositive">0</td> 
@@ -409,7 +413,7 @@
       <div id="charts">
         <div id="chartContainer" class="chartx">
           <div><h5>Overview</h5><canvas id='overview'></canvas> </div>
-          <div><h5>Recent</h><canvas id='moving'></canvas> </div>
+          <div><h5>Recent</h5><canvas id='moving'></canvas> </div>
         </div>
     </div>
 
@@ -436,22 +440,49 @@
   </div>
 
   <div id="person-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Displaying People</h5>
+    <h3>Illustration</h3>
+    <p>
+      The model starts with a running illustration of what happens if there are no interventions.  
+      More details of what is going on are displayed here than during the game.
+      The initial conditions are carefully set up to guarantee a virulent outbreak.
+    </p>
+
+    <h3>Room Effects</h3>
+    <p>
+      People behave differently in different kinds of rooms.
+    </p>
+    <p>
+      There are some characteristics of rooms that influence disease transmission.  
+      Notably the ventilation level and loudness (people talking and singing).
+      The blue bar on the left of the room indicates the ventilation level (higher is worse).
+      The red bar on the right indicates the loudness level.
+    </p>
+    
+    <h3>Displaying People</h3>
     <p>
       People are displayed as faces.  The colour and whether or not they are smiling indicate their status.
     </p>
     <div>
       During the illustration:
-      <div class="face-list">Not infectious yet <div class="face"><img src="../images/covid-uninfected.png"></div></div>
-      <div class="face-list">Currently infectious <div class="face"><img src="../images/covid-infected.png"></div></div>
-      <div class="face-list">No longer infectious <div class="face"><img src="../images/covid-recovered.png"></div></div>
+      <div class="face-list">
+        <div class="face-name">Never been infectious</div> <div class="face"><img src="../images/covid-uninfected.png"></div>
+        <div class="face-name">Currently infectious </div> <div class="face"><img src="../images/covid-infected.png"></div>
+        <div class="face-name">No longer infectious </div> <div class="face"><img src="../images/covid-recovered.png"></div>
+      </div>
     </div>
     <div>
       During the game:
-      <div class="face-list">Not symptomatic yet <div class="face"><img src="../images/covid-uninfected.png"></div></div>
-      <div class="face-list">Currently symptomatic <div class="face"><img src="../images/covid-infected.png"></div></div>
-      <div class="face-list">No longer symptomatic <div class="face"><img src="../images/covid-recovered.png"></div></div>
+      <div class="face-list">
+        <div class="face-name">Never been symptomatic</div> <div class="face"><img src="../images/covid-uninfected.png"></div>
+        <div class="face-name">Currently symptomatic</div> <div class="face"><img src="../images/covid-infected.png"></div>
+        <div class="face-name">No longer symptomatic</div> <div class="face"><img src="../images/covid-recovered.png"></div>
+      </div>
     </div>
+
+    <h3>Other</h3>
+    <p>
+      Clicking on the animation shows information about the room you clicked on.
+    </p>
 
     <div class="tooltip-buttons">
       <button onclick="hideTooltips();">Close&nbsp;all</button>
@@ -460,7 +491,7 @@
   </div>
 
   <div id="info-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Time and Score Information</h5>
+    <h3>Time and Score Information</h3>
     <p>
       Time includes day number, day of week, and time of day.  Peoples behaviour depends on day of week and time of day.  
       The game lasts a limited number of days.
@@ -476,8 +507,13 @@
   </div>
 
   <div id="general-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>General Controls</h5>
+    <h3>General Controls</h3>
     <p>
+      The Start game button starts the game running, if you want to go back to the illustration you must reload the page.
+      The game simulation is slightly different from the illustration because the model step size is different.
+    </p>
+    <p>
+      The Pause/Run button stops and starts the animation.  Game controls will still work when the animation is paused.  
     </p>
 
     <div class="tooltip-buttons">
@@ -487,8 +523,9 @@
   </div>
 
   <div id="speed-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Speed</h5>
+    <h3>Speed</h3>
     <p>
+      The speed selection changes how many model steps happen between screen refreshes.
     </p>
 
     <div class="tooltip-buttons">
@@ -497,9 +534,22 @@
     </div>
   </div>
 
-  <div id="masks-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Masks</h5>
+  <div id="game-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Game Controls</h3>
     <p>
+      Game interventions wait to take effect at 8AM.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('game-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="masks-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Masks</h3>
+    <p>
+      Higher levels of mask enforcement causes more people to wear masks.
     </p>
 
     <div class="tooltip-buttons">
@@ -509,8 +559,9 @@
   </div>
 
   <div id="tests-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Tests</h5>
+    <h3>Tests</h3>
     <p>
+      Selecting Tests implements random testing. More people get tested if Heavy testing is selected. People who test positive go home (or isolate).
     </p>
 
     <div class="tooltip-buttons">
@@ -520,8 +571,24 @@
   </div>
 
   <div id="trace-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Trace</h5>
+    <h3>Trace</h3>
     <p>
+      The trace issue may be the most significant part of this animation.  
+      The assumption in the underlying model is that most people infected with Covid are not infectious at all, 
+      while a small minority is incredibly infectious.  
+      Whether this is actually true or not is expected to make a large difference in the effectiveness of tracing choices.
+    </p>
+
+    <p>
+      Tracing means to look at travel patterns of an infected person and test people they have been in contact with.
+    </p>
+    <p>
+      Forward tracing means to try to find people that this case has infected by looking at recent travel patterns.
+    </p>
+
+    <p>
+      Backward tracing means to try to find the person that infected this person by looking at less recent travel patterns,
+      and then forward trace from the people found to be infected there.
     </p>
 
     <div class="tooltip-buttons">
@@ -531,8 +598,10 @@
   </div>
 
   <div id="isolate-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="isolation-colour">Isolate</h5>
+    <h3>Isolate</h3>
     <p>
+      Turning Isolate on causes people who are sick at home (or test positive) to go to isolation rooms 
+      if they are not the sole occupant of their dwelling.
     </p>
 
     <div class="tooltip-buttons">
@@ -542,8 +611,10 @@
   </div>
 
   <div id="worship-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="worship-colour">Worship</h5>
+    <h3 class="church-colour">Worship</h3>
     <p>
+      People worshipping alternate between sitting in rows and milling about.  
+      Along with relatively low ventilation and being very loud (singing) this makes them significant spreading sites.
     </p>
 
     <div class="tooltip-buttons">
@@ -553,8 +624,10 @@
   </div>
 
   <div id="restaurants-tooltip" class="tooltip" onclick="restack(this);">
-    <h5>Restaurants</h5>
+    <h3 class="restaurant-colour">Restaurants</h3>
     <p>
+      People in restaurants are grouped.  New (random) arrivals are seated at the first table with an empty chair, 
+      when they (randomly) decide to leave, the whole table leaves together.
     </p>
 
     <div class="tooltip-buttons">
@@ -564,8 +637,10 @@
   </div>
 
   <div id="bars-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="bar-colour">Bars</h5>
+    <h3 class="bar-colour">Bars</h3>
     <p>
+      People are seated in rows in the bars.
+      They arrive and leave (randomly) on their own.
     </p>
 
     <div class="tooltip-buttons">
@@ -575,8 +650,10 @@
   </div>
 
   <div id="clubs-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="club-colour">Clubs</h5>
+    <h3 class="club-colour">Clubs</h3>
     <p>
+      In clubs people are rapidly moving around inside.  Clubs are loud because people are breathing heavily.
+      People individually randomly arrive and leave.
     </p>
 
     <div class="tooltip-buttons">
@@ -586,8 +663,10 @@
   </div>
 
   <div id="schools-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="school-colour">Schools</h5>
+    <h3 class="school-colour">Schools</h3>
     <p>
+      People are allocated to schools, they go there from 8AM to 4PM Monday to Friday.
+      In schools people mostly sit in rows.  Sometimes people move to a random location in the room and then return.
     </p>
 
     <div class="tooltip-buttons">
@@ -597,8 +676,10 @@
   </div>
 
   <div id="offices-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="office-colour">Offices</h5>
+    <h3 class="office-colour">Offices</h3>
     <p>
+      People are allocated to offices, they go there from 8AM to 4PM Monday to Friday.
+      In offices people mostly sit in rows.  Sometimes people move to a random location in the room and then return.
     </p>
 
     <div class="tooltip-buttons">
@@ -608,8 +689,10 @@
   </div>
 
   <div id="meat-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="meat-colour">Meat packing</h5>
+    <h3 class="meat-colour">Meat packing</h3>
     <p>
+      People are allocated to meat packing plants, they go there from 8AM to 4PM Monday to Friday.
+      In packing plants people mostly sit in rows.  Sometimes people move to a random location in the room and then return.
     </p>
 
     <div class="tooltip-buttons">
@@ -619,8 +702,9 @@
   </div>
 
   <div id="outside-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="outside-colour">Parks</h5>
+    <h3 class="outside-colour">Parks</h3>
     <p>
+      Parks are extemely well ventilated and not loud.  People randomly go to parks on evenings and weekends.
     </p>
 
     <div class="tooltip-buttons">
@@ -630,8 +714,19 @@
   </div>
 
   <div id="house-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="house-colour">Houses</h5>
+    <h3 class="house-colour">Houses</h3>
     <p>
+      Houses and bunkhouses are collectively known as dwellings.
+    </p>
+    <p>
+      People are allocated to dwellings.  They go there every night (if not isolating or in hospital).
+      They also go there if they are too sick to work.  
+      Some people are allocated to their house during the workday.
+    </p>
+
+    <p>
+      Some people randomly visit other dwellings on evenings and weekends.  
+      This can be preventing by closing house parties.
     </p>
 
     <div class="tooltip-buttons">
@@ -641,8 +736,9 @@
   </div>
 
   <div id="bunkhouse-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="bunkhouse-colour">Bunkhouses</h5>
+    <h3 class="bunkhouse-colour">Bunkhouses</h3>
     <p>
+      Bunkhouses are large dwellings with more people in them.  No one is allocated to them during the workday.
     </p>
 
     <div class="tooltip-buttons">
@@ -652,8 +748,9 @@
   </div>
 
   <div id="isolation-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="isolation-colour">Isolation Rooms</h5>
+    <h3 class="isolation-colour">Isolation Rooms</h3>
     <p>
+      Isolation rooms are where people with room mates go it they are sick and isolation is being enforced.
     </p>
 
     <div class="tooltip-buttons">
@@ -663,8 +760,14 @@
   </div>
 
   <div id="icu-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="icu-colour">Intensive Care Unit</h5>
+    <h3 class="icu-colour">Intensive Care Unit</h3>
     <p>
+      Intensive care is where people go if they are exceedingly sick.
+      Some people who reach this state do not recover and die.
+      Everyone who does not die eventually recovers, we do not model long covid.
+    </p>
+    <p>
+      This model assumes that protective equipment in hospitals is effective, there is no transmission in hospitals.
     </p>
 
     <div class="tooltip-buttons">
@@ -674,8 +777,13 @@
   </div>
 
   <div id="ward-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="ward-colour">Ward</h5>
+    <h3 class="ward-colour">Ward</h3>
     <p>
+      The ward is where people go if they are sufficiently sick.
+      Everyone either recovers or goes to the intensive care unit (if there is room), we do not model long covid.
+    </p>
+    <p>
+      This model assumes that protective equipment in hospitals is effective, there is no transmission in hospitals.
     </p>
 
     <div class="tooltip-buttons">
@@ -685,8 +793,15 @@
   </div>
 
   <div id="waiting-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="hallway-colour">Waiting Room</h5>
+    <h3 class="hallway-colour">Waiting Room</h3>
     <p>
+      Waiting rooms are where people go if they should be in a ward or in the intensive care unit but there is no space.
+    </p>
+    <p>
+      This model assumes that protective equipment in hospitals is effective, there is no transmission in hospitals.
+    </p>
+    <p>
+      Having people in the waiting room is very costly politically.
     </p>
 
     <div class="tooltip-buttons">
@@ -696,8 +811,9 @@
   </div>
 
   <div id="cemetary-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="cemetary-colour">Cemetary</h5>
+    <h3 class="cemetary-colour">Cemetary</h3>
     <p>
+      Only dead people go to the cemetary.  There is no infection transmission.
     </p>
 
     <div class="tooltip-buttons">
@@ -707,8 +823,9 @@
   </div>
 
   <div id="road-tooltip" class="tooltip" onclick="restack(this);">
-    <h5 class="light-text road-colour">Road</h5>
+    <h3 class="light-text road-colour">Road</h3>
     <p>
+      Roads are how people travel from room to room.  There is no infection transmission on the roads.
     </p>
 
     <div class="tooltip-buttons">
