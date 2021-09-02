@@ -326,7 +326,7 @@ class TownState extends InfectState
 	fillPub(x, pubSpec)
 	{
 		let actual = x + pubSpec.offset;
-		let pubStack = twoStack(pubSpec.count, actual, 1, pubSpec.width, pubSpec.height);
+		let pubStack = stack(pubSpec.count, actual, 1, pubSpec.width, pubSpec.height);
 
 		for (const pub of pubStack)
 		{
@@ -352,7 +352,7 @@ class TownState extends InfectState
 	{
 		let actual = x + resto.offset;
 
-		let restaurantStack = twoStack(resto.count, actual, 1, resto.width, resto.height);
+		let restaurantStack = stack(resto.count, actual, 1, resto.width, resto.height);
 
 		for (const restaurant of restaurantStack)
 		{

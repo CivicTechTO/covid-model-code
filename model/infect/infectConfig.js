@@ -74,18 +74,18 @@ function makeConfig()
 			}
 		, restaurant: 
 			{
-				style: "#8ABAF2", count: 4, width: 20, height: 40, crowd: 2, offset: 4, speed: 0.05
+				style: "#8ABAF2", count: 1, width: 40, height: 160, crowd: 2, offset: 4, speed: 0.05
 				, separation: 1
 				, ventilation: {low: 8, high: 12}, loudness:{low:5, high: 15}
 			}
 		, pub: 
 			{
-				style: "#6CBAF2", count: 4, width: 20, height: 40, crowd: 1, offset: 4, speed: 0.025
+				style: "#6CBAF2", count: 1, width: 40, height: 160, crowd: 1, offset: 4, speed: 0.025
 				, ventilation: {low: 20, high: 30}, loudness:{low:15, high: 30}
 			}
 		, club: 
 			{
-				style: "#40BAF2", count: 4, width: 40, height: 40, crowd: 8, offset: 4, speed: 0.075
+				style: "#40BAF2", count: 1, width: 40, height: 160, crowd: 8, offset: 4, speed: 0.075
 				, halfEdge: 5, start:1, pause: 1, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
 			}
 		, outside: 
