@@ -45,10 +45,14 @@ class GameState extends TownState
 		return this.useMasks;
 	}
 
-
 	getIsolate()
 	{
 		return this.useIsolate;
+	}
+
+	getTests()
+	{
+		return this.useTests;
 	}
 
 	getTrace()

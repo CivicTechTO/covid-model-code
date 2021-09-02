@@ -23,24 +23,100 @@ class SicknessManager
 		if (0 !== (increment & C.RECORD.DEAD))
 		{
 			this.die(person);
-			return;
+		}
+		else
+		{
+			if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
+			if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
+			if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
+
+			if (0 !== (decrement & C.RECORD.WARDSICK)) this.discharge(person);
+			if (0 !== (decrement & C.RECORD.ICUSICK)) this.lessSick(person);
+			if (0 !== (decrement & C.RECORD.HOMESICK)) this.notHomeSick(person);
+		}
+	}
+
+	notHomeSick(person)
+	{
+		if (this.deIsolate(person))
+		{
+			person.goHome();
+		}
+	}
+
+	deIsolate(person)
+	{
+		const result = person.isolate;
+
+		if (person.isolate)
+		{
+			person.isolate = false;
+			recordDecrement(C.RECORD.ISOLATED);
+
+			if (person.isolation)
+			{
+				person.isolation.reserved = false;
+				person.isolation = null;
+				recordDecrement(C.RECORD.ISOLATIONROOM);
+			}
+			else
+			{
+				if (person.home.residents > 1)
+				{
+					recordDecrement(C.RECORD.ISOLATIONOVERFLOW);
+				}
+				else
+				{
+					recordDecrement(C.RECORD.ISOLATIONHOME);
+				}
+			}
 		}
 
-		if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
-		if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
-		if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
-
-		if (0 !== (decrement & C.RECORD.WARDSICK)) this.discharge(person);
-		if (0 !== (decrement & C.RECORD.ICUSICK)) this.lessSick(person);
+		return result;
 	}
 
 	homeSick(person)
 	{
-		person.setItinerary(person.home);
+		if (state.getIsolate())
+		{
+			person.isolate = true;
+			recordIncrement(C.RECORD.ISOLATED);
+
+			if (person.home.residents > 1)
+			{
+				this.sendToIsolation(person);
+			}
+			else
+			{
+				person.setItinerary(person.home);
+				recordIncrement(C.RECORD.ISOLATIONHOME);
+			}
+		}
+	}
+
+	sendToIsolation(person)
+	{
+		const isolation = state.findIsolation();
+
+		if (isolation)
+		{
+			isolation.reserved = true;
+			person.setItinerary(isolation);
+			person.isolation = isolation;
+
+			recordIncrement(C.RECORD.ISOLATIONROOM);
+		}
+		else
+		{
+			person.setItinerary(person.home);
+			recordIncrement(C.RECORD.ISOLATIONOVERFLOW);
+		}
 	}
 
 	admit(person)
 	{
+		this.deIsolate(person);
+
 		if (this.wardNotFull())
 		{
 			this.sendTo(C.HOSPITAL.WARD, person);
@@ -53,18 +129,17 @@ class SicknessManager
 
 	discharge(person)
 	{
-		this.doDischarge(person, person.home);
+		this.doDischarge(person);
+		this.homeSick(person);
 	}
 
-	doDischarge(person, destination)
+	doDischarge(person)
 	{
 
 		this.wardAllocated.delete(person);
 		this.hallwayAllocated.delete(person);
 		this.icuAllocated.delete(person);
 		this.needsICU.delete(person);
-
-		person.setItinerary(destination);
 
 		this.allocate();
 	}
@@ -120,7 +195,8 @@ class SicknessManager
 
 	die(person)
 	{
-		this.doDischarge(person, state.cemetary);
+		this.doDischarge(person);
+		person.setItinerary(state.cemetary);
 	}
 
 	allocate()

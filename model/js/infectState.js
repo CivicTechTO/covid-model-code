@@ -45,6 +45,11 @@ class InfectState extends State
 				, masks: new Record() 
 				, infector: new Record() 
 				, infectee: new Record() 
+				, isolated: new Record()
+				, isolationRoom: new Record()
+				, isolationHome: new Record()
+				, isolationOverflow: new Record()
+				, positive: new Record()
 			}
 	}
 
@@ -114,6 +119,11 @@ class InfectState extends State
 
 	drawAllRecords()
 	{
+		this.drawARecord("Isolated", this.record.isolated);
+		this.drawARecord("IsolationRoom", this.record.isolationRoom);
+		this.drawARecord("IsolationHome", this.record.isolationHome);
+		this.drawARecord("IsolationOverflow", this.record.isolationOverflow);
+		this.drawARecord("Positive", this.record.positive);
 		this.drawARecord("Infected", this.record.infected);
 		this.drawARecord("Incubating", this.record.incubating);
 		this.drawARecord("Infectious", this.record.infectious);

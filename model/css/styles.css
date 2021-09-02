@@ -24,6 +24,7 @@ h3
 fieldset
 {
 	border: none;
+	padding: 0;
 }
 
 #container
@@ -73,7 +74,6 @@ fieldset
 {
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 1em;
 	width: 800px;
 }
 
@@ -146,8 +146,6 @@ fieldset
 	display: inline-block;
 	background-color: #87CEEB;
 	padding-top: 0.1em;
-	padding-left: 0.2em;
-	padding-right: 0.2em;
 }
 
 .controls-contents

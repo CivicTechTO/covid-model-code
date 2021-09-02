@@ -88,6 +88,7 @@ class TownState extends InfectState
 			room.loudness = computeLevel(this.activeConfig.bunkHouse.loudness);
 			room.house = false;
 			room.tooltip = C.TOOLTIPS.BUNKHOUSES;
+			room.residents = 0;
 
 			this.roomList.push(room);
 			dwellings.push(room);
@@ -117,6 +118,7 @@ class TownState extends InfectState
 				room.loudness = computeLevel(this.activeConfig.house.loudness);
 				room.house = true;
 				room.tooltip = C.TOOLTIPS.HOUSES;
+				room.residents = 0;
 
 				this.houseList.push(room);
 				this.roomList.push(room);
@@ -435,6 +437,7 @@ class TownState extends InfectState
 			}
 
 			person.home.insert(person);
+			person.home.residents++;
 		}
 	}
 

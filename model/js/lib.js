@@ -264,6 +264,11 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.increment();}
 	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.increment();}
 	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.increment();}
+	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.increment();}
+	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.increment();}
+	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.increment();}
+	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.increment();}
+	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.increment();}
 
 	if (which !== 0)
 	{
@@ -287,6 +292,11 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.decrement();}
 	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.decrement();}
 	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.decrement();}
+	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.decrement();}
+	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.decrement();}
+	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.decrement();}
+	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.decrement();}
+	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.decrement();}
 
 	if (which !== 0)
 	{
@@ -310,6 +320,11 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.reset();}
 	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.reset();}
 	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.reset();}
+	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.reset();}
+	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.reset();}
+	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.reset();}
+	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.reset();}
+	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.reset();}
 
 	if (which !== 0)
 	{

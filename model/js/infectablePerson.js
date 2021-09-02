@@ -10,6 +10,7 @@ class InfectablePerson extends Person
 		this.loadValue = 0.0;
 		this.currentLoad = 0.0;
 		this.mask = false;
+		this.isolating = false;
 	}
 
 	canProgress()

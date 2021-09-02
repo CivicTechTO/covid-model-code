@@ -556,4 +556,9 @@ class IsolationRules extends SeatRules
 		super.depart(room, person);
 		room.reserved = false;
 	}
+
+	getSpeed()
+	{
+		return state.activeConfig.isolation.speed;
+	}
 }
