@@ -10,7 +10,109 @@ class InfectablePerson extends Person
 		this.loadValue = 0.0;
 		this.currentLoad = 0.0;
 		this.mask = false;
-		this.isolating = false;
+		this.isolateAt = false;
+		this.isolation = false;
+		this.positiveAt = false;
+	}
+
+	isolate()
+	{
+		this.isolateAt = state.clock;
+
+		recordIncrement(C.RECORD.ISOLATED);
+
+		if (this.home.residents > 1)
+		{
+			this.sendToIsolation();
+		}
+		else
+		{
+			this.setItinerary(this.home);
+			recordIncrement(C.RECORD.ISOLATIONHOME);
+		}
+	}
+
+	sendToIsolation()
+	{
+		const isolation = state.findIsolation();
+
+		if (isolation)
+		{
+			this.setItinerary(isolation);
+			this.isolation = isolation;
+
+			recordIncrement(C.RECORD.ISOLATIONROOM);
+		}
+		else
+		{
+			this.setItinerary(this.home);
+			recordIncrement(C.RECORD.ISOLATIONOVERFLOW);
+		}
+	}
+
+	isolationTransition()
+	{
+		this.isolateAt = false;
+		recordDecrement(C.RECORD.ISOLATED);
+
+		if (this.isolation)
+		{
+			this.isolation = false;
+			recordDecrement(C.RECORD.ISOLATIONROOM);
+		}
+		else
+		{
+			if (this.home.residents > 1)
+			{
+				recordDecrement(C.RECORD.ISOLATIONOVERFLOW);
+			}
+			else
+			{
+				recordDecrement(C.RECORD.ISOLATIONHOME);
+			}
+		}
+	}
+
+	evaluateIsolate()
+	{
+		if (this.isIsolating())
+		{
+			if (this.isolateAt + state.activeConfig.longEnough.isolation < state.clock)
+			{
+				if (this.isolation)
+				{
+					this.setItinerary(this.home);
+				}
+
+				this.isolationTransition();
+			}
+		}
+	}
+
+	isIsolating()
+	{
+		return this.isolateAt != false;
+	}
+
+	setPositive()
+	{
+		this.positiveAt = state.clock;
+	}
+
+	evaluatePositive()
+	{
+		if (this.isPositive())
+		{
+			if (this.positiveAt + state.activeConfig.longEnough.positive < state.clock)
+			{
+				this.positiveAt = false;
+			}
+		}
+	}
+
+	isPositive()
+	{
+		return this.positiveAt != false;
 	}
 
 	canProgress()
@@ -177,7 +279,7 @@ class InfectablePerson extends Person
 
 	goToRoom(toRoom)
 	{
-		if (!C.FIXEDROOM.includes(this.sickness()))
+		if (!(this.isIsolating() || C.FIXEDROOM.includes(this.sickness())))
 		{
 			if (toRoom.isOpen())
 			{

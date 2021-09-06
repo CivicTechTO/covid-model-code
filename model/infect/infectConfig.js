@@ -98,7 +98,7 @@ function makeConfig()
 			{
 				style: {icu: "#F2F2C2", ward: "#E2E2C2", hallway: "#D2D2C2"}
 				, y: 1, road: 17, offset: 8, width: 35, speed: 0.1
-				,icu: {height: 10, count: 1}
+				, icu: {height: 10, count: 1}
 				, ward: {height: 10, count: 5}
 				, hallway: {height: 140}
 			}
@@ -165,17 +165,19 @@ function makeConfig()
 		, tests:
 			{
 				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0} 
-				, light: {label: "Light", value: 0.001, colour: "#857AA3", cost: 1000} 
-				, heavy: {label: "Heavy", value: 0.01, colour: "#D7191C", cost: 2000}
+				, light: {label: "Light", value: 0.001, colour: "#857AA3", cost: 100} 
+				, heavy: {label: "Heavy", value: 0.01, colour: "#D7191C", cost: 200}
 			}
 		
 		, trace:
 			{
 				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
-				, forward: {label: "Forward", value: 0.0, colour: "#857AA3", cost: 2000} 
-				, backward: {label: "Backward", value: 0.0, colour: "#D7191C", cost: 3000}
+				, forward: {label: "Forward", value: 0.0, colour: "#857AA3", cost: 400} 
+				, backward: {label: "Backward", value: 0.0, colour: "#D7191C", cost: 800}
 			}
 
+		, longEnough: {isolation: 14, positive: 14}
+		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}
 

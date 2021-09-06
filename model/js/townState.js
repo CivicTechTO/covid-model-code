@@ -149,15 +149,14 @@ class TownState extends InfectState
 
 	findIsolation()
 	{
-		let result = null;
+		let result = false;
 
-		for (const room of this.isolationList)
+		const found = this.isolationList.find(element => !element.reserved);
+
+		if (typeof found != 'undefined')
 		{
-			if (!room.reserved)
-			{
-				result = room;
-				break;
-			}
+			result = found;
+			result.reserved = true;
 		}
 
 		return result;

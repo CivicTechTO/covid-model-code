@@ -124,6 +124,9 @@ class State
 		this.activeConfig.hospital.speed = this.perSecondToPerTick(this.savedConfig.hospital.speed);
 		this.activeConfig.cemetary.speed = this.perSecondToPerTick(this.savedConfig.cemetary.speed);
 
+		this.activeConfig.longEnough.isolation = this.dayToTick(this.savedConfig.longEnough.isolation);
+		this.activeConfig.longEnough.positive = this.dayToTick(this.savedConfig.longEnough.positive);
+		
 		let progression = [];
 
 		for (let input of this.savedConfig.progression)

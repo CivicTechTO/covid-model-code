@@ -55,6 +55,11 @@ class GameState extends TownState
 		return this.useTests;
 	}
 
+	isTesting()
+	{
+		return this.useTests.value != this.activeConfig.tests.value;
+	}
+
 	getTrace()
 	{
 		return this.useTrace;
@@ -178,6 +183,8 @@ class GameState extends TownState
 
 			if (this.activeConfig.game.update > now % 24)
 			{
+				this.evaluatePeople();
+
 				this.scoreDate = today;
 				this.setInterventions();
 				
@@ -193,6 +200,15 @@ class GameState extends TownState
 			}
 		}
 
+	}
+
+	evaluatePeople()
+	{
+		for (let person of this.personList)
+		{
+			person.evaluateIsolate();
+			person.evaluatePositive();
+		}
 	}
 
 	opportunityScore()
