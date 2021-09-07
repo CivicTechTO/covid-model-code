@@ -363,18 +363,6 @@ function formatScore()
 	return state.scoreFormat.format(Math.max(0, state.netScore));
 }
 
-function addPositive(person)
-{
-	person.positive = true;
-	recordIncrement(C.RECORD.POSITIVE);
-}
-
-function removePositive(person)
-{
-	person.positive = false;
-	recordDecrement(C.RECORD.POSITIVE);
-}
-
 function computeR()
 {
 // EXP((LN(Population/((1/(case[current]/(case[start]*Population)))-1)))/(current-start))

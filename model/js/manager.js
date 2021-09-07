@@ -52,10 +52,7 @@ class SicknessManager
 
 		if (state.isTesting())
 		{
-			if (!person.isPositive())
-			{
-				addPositive(person);
-			}
+			person.setPositive();
 		}
 
 		if (this.wardNotFull())

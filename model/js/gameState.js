@@ -17,9 +17,9 @@ class GameState extends TownState
 // Interventions all happen at 8AM
 
 		this.useMasks = this.masksSpec.value;
-		this.useTests = this.testsSpec.value;
-		this.useTrace = this.traceSpec.value;
-		this.useIsolate = false;
+		this.useTestsValue = this.testsSpec.value;
+		this.useTraceValue = this.traceSpec.value;
+		this.useIsolateValue = false;
 		this.roomButtons = [];
 		this.useRoomState = [];
 
@@ -42,27 +42,32 @@ class GameState extends TownState
 
 	getMasks()
 	{
-		return this.useMasks;
+		return this.useMasksValue;
 	}
 
 	getIsolate()
 	{
-		return this.useIsolate;
+		return this.useIsolateValue;
 	}
 
 	getTests()
 	{
-		return this.useTests;
+		return this.useTestsValue;
+	}
+
+	testThis()
+	{
+		return this.getTests() > Math.random();
 	}
 
 	isTesting()
 	{
-		return this.useTests.value != this.activeConfig.tests.value;
+		return this.getTests() != this.activeConfig.tests.value;
 	}
 
 	getTrace()
 	{
-		return this.useTrace;
+		return this.useTraceValue;
 	}
 
 	notGame()
@@ -184,6 +189,7 @@ class GameState extends TownState
 			if (this.activeConfig.game.update > now % 24)
 			{
 				this.evaluatePeople();
+				this.test();
 
 				this.scoreDate = today;
 				this.setInterventions();
@@ -200,6 +206,14 @@ class GameState extends TownState
 			}
 		}
 
+	}
+
+	test()
+	{
+		for (let person of this.personList)
+		{
+			person.test();
+		}
 	}
 
 	evaluatePeople()
@@ -327,10 +341,10 @@ class GameState extends TownState
 
 	setInterventions()
 	{
-		this.useMasks = this.masksSpec.value;
-		this.useIsolate = this.isolationButton.get();
-		this.useTests = this.testsSpec.value;
-		this.useTrace = this.traceSpec.value;
+		this.useMasksValue = this.masksSpec.value;
+		this.useIsolateValue = this.isolationButton.get();
+		this.useTestsValue = this.testsSpec.value;
+		this.useTraceValue = this.traceSpec.value;
 		this.copyroomButtons();
 	}
 

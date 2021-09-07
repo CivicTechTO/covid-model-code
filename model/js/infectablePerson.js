@@ -94,9 +94,32 @@ class InfectablePerson extends Person
 		return this.isolateAt != false;
 	}
 
+	test()
+	{
+		if (!C.ALREADYTESTED.includes(this.sickness()))
+		{
+			if (state.testThis())
+			{
+				if (C.TESTSPOSITIVE.includes(this.sickness()))
+				{
+					this.setPositive();
+
+					if (state.getIsolate() && ! this.isIsolating())
+					{
+						this.isolate();
+					}
+				}
+			}
+		}
+	}
+	
 	setPositive()
 	{
-		this.positiveAt = state.clock;
+		if (!this.isPositive())
+		{
+			this.positiveAt = state.clock;
+			recordIncrement(C.RECORD.POSITIVE);
+		}
 	}
 
 	evaluatePositive()
@@ -106,6 +129,7 @@ class InfectablePerson extends Person
 			if (this.positiveAt + state.activeConfig.longEnough.positive < state.clock)
 			{
 				this.positiveAt = false;
+				recordDecrement(C.RECORD.POSITIVE);
 			}
 		}
 	}
