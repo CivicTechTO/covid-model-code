@@ -82,7 +82,7 @@ function drawControls()
 	drawMasks();
 	drawTests();
 	drawTrace();
-	state.isolationButton.draw();
+	drawIsolate();
 
 	state.drawRoomButtons();
 }
@@ -187,6 +187,18 @@ function setTrace(spec)
 function drawTrace() 
 {
 	drawValue("trace", state.traceSpec);
+}
+
+function setIsolate(spec)
+{
+	state.isolateSpec = spec;
+
+	drawControls();
+}
+
+function drawIsolate() 
+{
+	drawValue("isolate", state.isolateSpec);
 }
 
 class OpenButton extends BooleanButton

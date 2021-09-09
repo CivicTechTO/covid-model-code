@@ -13,13 +13,16 @@ class GameState extends TownState
 		this.masksSpec = this.activeConfig.masks.specs.none;
 		this.testsSpec = this.activeConfig.tests.none;
 		this.traceSpec = this.activeConfig.trace.none;
+		this.isolateSpec = this.activeConfig.isolate.none;
 
 // Interventions all happen at 8AM
 
 		this.useMasks = this.masksSpec.value;
 		this.useTestsValue = this.testsSpec.value;
 		this.useTraceValue = this.traceSpec.value;
-		this.useIsolateValue = false;
+		this.useIsolateValue = this.isolateSpec.value;
+		this.useIsolateHomeSick = this.isolateSpec.homeSick;
+
 		this.roomButtons = [];
 		this.useRoomState = [];
 
@@ -40,14 +43,24 @@ class GameState extends TownState
 		}
 	}
 
-	getMasks()
+	getMask()
 	{
-		return this.useMasksValue;
+		return this.useMasksValue > Math.random();
 	}
 
-	getIsolate()
+	getIsolateSick()
 	{
-		return this.useIsolateValue;
+		return this.useIsolateValue > Math.random();
+	}
+
+	getIsolateHomeSick()
+	{
+		return this.useIsolateHomeSick > Math.random();
+	}
+
+	getIsolateTest()
+	{
+		return this.useIsolateValue > 0.0;
 	}
 
 	getTests()
@@ -105,18 +118,9 @@ class GameState extends TownState
 		super.fill();
 		this.fillRoomTypes();
 		this.fillRoomButtons();
-		this.fillIsolate();
 
 		this.drawRoomButtons();
 	}
-
-	fillIsolate()
-	{
-		const yesColour = this.activeConfig.hotColour;
-		const noColour = this.activeConfig.coldColour;
-		this.isolationButton = new BooleanButton("isolate", drawControls, yesColour, noColour, false); 
-	}
-
 
 	fillRoomTypes()
 	{
@@ -296,6 +300,7 @@ class GameState extends TownState
 		result += this.masksSpec.cost;
 		result += this.testsSpec.cost;
 		result += this.traceSpec.cost;
+		result += this.isolateSpec.cost;
 
 		return result;
 	}
@@ -307,6 +312,7 @@ class GameState extends TownState
 		result += this.activeConfig.masks.specs.enforce.cost;
 		result += this.activeConfig.tests.heavy.cost;
 		result += this.activeConfig.trace.backward.cost;
+		result += this.activeConfig.isolate.enforce.cost;
 
 		return result;
 	}
@@ -324,7 +330,7 @@ class GameState extends TownState
 		result += !this.roomButtons[C.ROOMTYPE.SCHOOLS].get() ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.OFFICES].get() ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.MEAT].get() ? scoreArray[C.ROOMTYPE.MEAT] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
+//		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.OUTSIDE].get() ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.PARTIES].get() ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
 
@@ -342,9 +348,11 @@ class GameState extends TownState
 	setInterventions()
 	{
 		this.useMasksValue = this.masksSpec.value;
-		this.useIsolateValue = this.isolationButton.get();
+		this.useIsolateValue = this.isolateSpec.value;
+		this.useIsolateHomeSick = this.isolateSpec.homeSick;
 		this.useTestsValue = this.testsSpec.value;
 		this.useTraceValue = this.traceSpec.value;
+
 		this.copyroomButtons();
 	}
 
@@ -367,7 +375,7 @@ class GameState extends TownState
 
 		for (const person of this.personList)
 		{
-			person.mask = Math.random() < this.masksSpec.value;
+			person.mask = this.getMask();
 
 			if (person.mask)
 			{
@@ -400,14 +408,3 @@ class GameState extends TownState
 	}
 }
 
-// ???
-
-// function getIsolate()
-// {
-// 	state.getIsolate();
-// }
-
-// function setIsolate(value)
-// {
-// 	state.setIsolate(value);
-// }

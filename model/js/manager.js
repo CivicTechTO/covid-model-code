@@ -29,6 +29,7 @@ class SicknessManager
 			if (0 !== (increment & C.RECORD.ICUSICK)) this.sicker(person);
 			if (0 !== (increment & C.RECORD.WARDSICK)) this.admit(person);
 			if (0 !== (increment & C.RECORD.SICK)) this.sick(person);
+			if (0 !== (increment & C.RECORD.HOMESICK)) this.homeSick(person);
 
 			if (0 !== (decrement & C.RECORD.WARDSICK)) this.discharge(person);
 			if (0 !== (decrement & C.RECORD.ICUSICK)) this.lessSick(person);
@@ -37,7 +38,15 @@ class SicknessManager
 
 	sick(person)
 	{
-		if (state.getIsolate())
+		if (state.getIsolateSick())
+		{
+			person.isolate();			
+		}
+	}
+
+	homeSick(person)
+	{
+		if (state.getIsolateHomeSick())
 		{
 			person.isolate();			
 		}

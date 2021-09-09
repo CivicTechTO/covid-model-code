@@ -131,14 +131,12 @@
                 <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 8);">
                   <img src="../images/info.svg">
                 </div>
+                <div id="isolate" class="control-value">None</div>
                 <div class="control-buttons">
-                  <div class="boolean-button">
-                    <button class="boolean boolean-false" id="isolate-false" onclick="state.isolationButton.falseAction();">No&nbsp;Isolation</button>
-                    <button class="boolean boolean-toggle" id="isolate-toggle" onclick="state.isolationButton.toggleAction();">
-                      <img id="isolate-image" src="../images/left.svg" />
-                    </button> 
-                    <button class="boolean boolean-true" id="isolate-true" onclick="state.isolationButton.trueAction();">Isolation</button>
-                  </div>
+                  <button id="no-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.none);">None</button>
+                  <button id="encourage-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.encourage);">Encourage</button>
+                  <button id="require-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.require);">Require</button>
+                  <button id="enforce-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.enforce);">Enforce</button>
                 </div>
                 <div>&nbsp</div>
               </div>

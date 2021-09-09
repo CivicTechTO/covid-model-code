@@ -156,9 +156,9 @@ function makeConfig()
 				, specs:
 				{
 					none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
-					, encourage: {label: "Encourage", value: 0.5, colour: "#857AA3", cost:2500}
-					, require: {label: "Require", value: 0.8, colour: "#BE5A6F", cost: 5000}
-					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 10000}
+					, encourage: {label: "Encourage", value: 0.5, colour: "#857AA3", cost:250}
+					, require: {label: "Require", value: 0.8, colour: "#BE5A6F", cost: 500}
+					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 1000}
 				}
 			}
 
@@ -174,6 +174,14 @@ function makeConfig()
 				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
 				, forward: {label: "Forward", value: 0.0, colour: "#857AA3", cost: 400} 
 				, backward: {label: "Backward", value: 0.0, colour: "#D7191C", cost: 800}
+			}
+
+		, isolate: 
+			{
+				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
+				, encourage: {label: "Encourage", value: 0.25, homeSick: 0.5,  colour: "#857AA3", cost:250}
+				, require: {label: "Require", value: 0.4, homeSick: 0.75, colour: "#BE5A6F", cost: 500}
+				, enforce: {label: "Enforce", value: 0.6, homeSick: 0.9, colour: "#D7191C", cost: 1000}
 			}
 
 		, longEnough: {isolation: 14, positive: 14}

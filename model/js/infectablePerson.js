@@ -17,18 +17,21 @@ class InfectablePerson extends Person
 
 	isolate()
 	{
-		this.isolateAt = state.clock;
-
-		recordIncrement(C.RECORD.ISOLATED);
-
-		if (this.home.residents > 1)
+		if (!this.isIsolating())
 		{
-			this.sendToIsolation();
-		}
-		else
-		{
-			this.setItinerary(this.home);
-			recordIncrement(C.RECORD.ISOLATIONHOME);
+			this.isolateAt = state.clock;
+
+			recordIncrement(C.RECORD.ISOLATED);
+
+			if (this.home.residents > 1)
+			{
+				this.sendToIsolation();
+			}
+			else
+			{
+				this.setItinerary(this.home);
+				recordIncrement(C.RECORD.ISOLATIONHOME);
+			}
 		}
 	}
 
@@ -104,7 +107,7 @@ class InfectablePerson extends Person
 				{
 					this.setPositive();
 
-					if (state.getIsolate() && ! this.isIsolating())
+					if (state.getIsolateTest())
 					{
 						this.isolate();
 					}
