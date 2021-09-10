@@ -1,8 +1,8 @@
 class InfectState extends State
 {
-	constructor(configuration, width, height)
+	constructor(configuration)
 	{
-		super(configuration, width, height);
+		super(configuration);
 		
 		this.susceptible = this.activeConfig.susceptible;
 		this.infectious = this.activeConfig.infectious;

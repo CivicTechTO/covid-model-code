@@ -1,6 +1,6 @@
 class State 
 {
-	constructor(configuration, width, height)
+	constructor(configuration)
 	{
 		this.savedConfig = configuration;
 		this.activeConfig = deepCopy(configuration);

@@ -185,7 +185,7 @@ function startup(playGame)
 {
 	const canvas = document.getElementById('canvas');
 
-	state = new GameState(makeConfig(), canvas.width, canvas.height, playGame);
+	state = new GameState(makeConfig(), playGame);
 	state.fill();
 	state.initialize();
 

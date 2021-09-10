@@ -1,9 +1,9 @@
 
 class TownState extends InfectState
 {
-	constructor(configuration, width, height)
+	constructor(configuration)
 	{
-		super(configuration, width, height);
+		super(configuration);
 
 		this.count = this.activeConfig.count;
 

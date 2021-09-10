@@ -1,8 +1,8 @@
 class GameState extends TownState
 {
-	constructor(configuration, width, height, playGame)
+	constructor(configuration, playGame)
 	{
-		super(configuration, width, height);
+		super(configuration);
 
 		this.game = false;
 		this.score = 0;
