@@ -13,8 +13,14 @@ class InfectablePerson extends Person
 		this.isolateAt = false;
 		this.isolation = false;
 		this.positiveAt = false;
+		this.testedAt = false;
 	}
 
+	contacts(from, to)
+	{
+		return [];
+	}
+	
 	isolate()
 	{
 		if (!this.isIsolating())
@@ -99,10 +105,12 @@ class InfectablePerson extends Person
 
 	test()
 	{
-		if (!C.ALREADYTESTED.includes(this.sickness()))
+		if (!this.testedAt)
 		{
 			if (state.testThis())
 			{
+				this.setTested();
+
 				if (C.TESTSPOSITIVE.includes(this.sickness()))
 				{
 					this.setPositive();
@@ -123,6 +131,32 @@ class InfectablePerson extends Person
 			this.positiveAt = state.clock;
 			recordIncrement(C.RECORD.POSITIVE);
 		}
+	}
+
+	setTested()
+	{
+		if (!this.isTested())
+		{
+			this.testedAt = state.clock;
+			recordIncrement(C.RECORD.TESTS);
+		}
+	}
+
+	evaluateTested()
+	{
+		if (this.isTested())
+		{
+			if (this.testedAt + state.activeConfig.longEnough.test < state.clock)
+			{
+				this.testedAt = false;
+				recordDecrement(C.RECORD.TESTS);
+			}
+		}
+	}
+
+	isTested()
+	{
+		return this.testedAt != false;
 	}
 
 	evaluatePositive()
@@ -308,13 +342,20 @@ class InfectablePerson extends Person
 	{
 		if (!(this.isIsolating() || C.FIXEDROOM.includes(this.sickness())))
 		{
-			if (toRoom.isOpen())
+			if (this.sickness() === C.SICKNESS.HOMESICK)
 			{
-				this.setItinerary(toRoom);
+				this.setItinerary(this.home);
 			}
 			else
 			{
-				this.setItinerary(this.home);					
+				if (toRoom.isOpen())
+				{
+					this.setItinerary(toRoom);
+				}
+				else
+				{
+					this.setItinerary(this.home);					
+				}
 			}
 		}
 	}

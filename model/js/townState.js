@@ -138,7 +138,7 @@ class TownState extends InfectState
 		const x = this.activeConfig.isolation.road * this.activeConfig.road.space + offset;
 		const top = this.activeConfig.isolation.top;
 
-		this.isolationList = NStack(row, count, x, top, width, height, makeIsolation());
+		this.isolationList = nStack(row, count, x, top, width, height, makeIsolation());
 
 		for (let room of this.isolationList)
 		{
@@ -541,6 +541,11 @@ class TownState extends InfectState
 	findRoom(x, y)
 	{
 		return this.roomList.find(room => room.has(x, y));
+	}
+
+	findPerson(x, y)
+	{
+		return this.personList.find(person => person.has(x, y));
 	}
 }
 

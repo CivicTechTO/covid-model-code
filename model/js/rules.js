@@ -55,7 +55,11 @@ class Rules
 
 function seat(room, person, which)
 {
-	let spacing = state.spacing
+	return seatSpace(room, person, which, state.spacing);
+}
+
+function seatSpace(room, person, which, spacing)
+{
 	let columnCount = Math.floor((room.width - spacing) / spacing);
 	let x = room.x + spacing + spacing * (which % columnCount);
 	let y = room.y + spacing + spacing * Math.floor(which / columnCount);
@@ -82,6 +86,36 @@ class SeatRules extends Rules
 		for (const person of room.personSet)
 		{
 			person.moveTo(seat(room, person, i++), this.getSpeed());
+		}
+	}
+}
+
+class SeatRulesSpace extends Rules
+{
+	constructor(spacing)
+	{
+		super();
+
+		this.spacing = spacing;
+	}
+
+	insert(room, person)
+	{
+		person.setNewCurrent(seatSpace(room, person, room.personSet.size, this.spacing));
+	}
+
+	arrive(room, person)
+	{
+		person.moveTo(seatSpace(room, person, room.personSet.size), this.getSpeed(), this.spacing);
+		return true;
+	}
+
+	transition(room)
+	{
+		let i = 0;
+		for (const person of room.personSet)
+		{
+			person.moveTo(seatSpace(room, person, i++), this.getSpeed(), this.spacing);
 		}
 	}
 }

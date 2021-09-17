@@ -269,6 +269,7 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.increment();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.increment();}
+	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.increment();}
 
 	if (which !== 0)
 	{
@@ -297,6 +298,7 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.decrement();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.decrement();}
+	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.decrement();}
 
 	if (which !== 0)
 	{
@@ -325,6 +327,7 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.reset();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.reset();}
+	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.reset();}
 
 	if (which !== 0)
 	{

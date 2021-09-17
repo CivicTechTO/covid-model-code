@@ -184,7 +184,7 @@ function makeConfig()
 				, enforce: {label: "Enforce", value: 0.6, homeSick: 0.9, colour: "#D7191C", cost: 1000}
 			}
 
-		, longEnough: {isolation: 14, positive: 14}
+		, longEnough: {isolation: 14, positive: 14, test: 14}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}

@@ -20,6 +20,14 @@ class Person
 		this.current = new Point(x, y);
 	}
 
+
+	has(x, y)
+	{
+		const size = state.activeConfig.personSize * 2 + 1;
+
+		return x >= this.current.x && x < this.current.x + size && y >= this.current.y && y < this.current.y + size;
+	}
+
 	setNewCurrent(newCurrent)
 	{
 		this.current = newCurrent;

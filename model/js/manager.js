@@ -50,6 +50,10 @@ class SicknessManager
 		{
 			person.isolate();			
 		}
+		else
+		{
+			person.goHome();
+		}
 	}
 
 	admit(person)
@@ -61,6 +65,7 @@ class SicknessManager
 
 		if (state.isTesting())
 		{
+			person.setTested();
 			person.setPositive();
 		}
 

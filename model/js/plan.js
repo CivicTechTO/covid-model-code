@@ -42,7 +42,7 @@ function twoStack(count, x, y, width, height)
 	return result;
 }
 
-function NStack(rowSize, rowCount, x, y, width, height, makeRoom) 
+function nStack(rowSize, rowCount, x, y, width, height, makeRoom) 
 {
 	let result = [];
 

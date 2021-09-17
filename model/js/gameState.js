@@ -41,6 +41,8 @@ class GameState extends TownState
 		{
 			this.notGame();
 		}
+
+		this.debugPerson = true;
 	}
 
 	getMask()
@@ -226,6 +228,7 @@ class GameState extends TownState
 		{
 			person.evaluateIsolate();
 			person.evaluatePositive();
+			person.evaluateTested();
 		}
 	}
 

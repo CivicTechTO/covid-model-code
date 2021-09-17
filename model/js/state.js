@@ -126,6 +126,7 @@ class State
 
 		this.activeConfig.longEnough.isolation = this.dayToTick(this.savedConfig.longEnough.isolation);
 		this.activeConfig.longEnough.positive = this.dayToTick(this.savedConfig.longEnough.positive);
+		this.activeConfig.longEnough.test = this.dayToTick(this.savedConfig.longEnough.test);
 		
 		let progression = [];
 

@@ -344,6 +344,20 @@
             </tr>
             
             <tr class="game-show"> 
+              <td class="row-label">Tests</td> 
+              <td id="currentTests">0</td> 
+              <td id="maxTests">0</td> 
+              <td id="totalTests">0</td> 
+            </tr>
+            
+            <tr class="game-show"> 
+              <td class="row-label">Positive</td> 
+              <td id="currentPositive">0</td> 
+              <td id="maxPositive">0</td> 
+              <td id="totalPositive">0</td> 
+            </tr>
+            
+            <tr class="game-show"> 
               <td class="row-label">Isolated</td> 
               <td id="currentIsolated">0</td> 
               <td id="maxIsolated">0</td> 
@@ -369,13 +383,6 @@
               <td id="currentIsolationOverflow">0</td> 
               <td id="maxIsolationOverflow">0</td> 
               <td id="totalIsolationOverflow">0</td> 
-            </tr>
-            
-            <tr class="game-show"> 
-              <td class="row-label">Positive</td> 
-              <td id="currentPositive">0</td> 
-              <td id="maxPositive">0</td> 
-              <td id="totalPositive">0</td> 
             </tr>
             
             <tr> 
@@ -857,6 +864,11 @@
       <button onclick="hideTooltips();">Close&nbsp;all</button>
       <button onclick="hide('road-tooltip');">Close</button>
     </div>
+  </div>
+
+  <div id="debug">
+    <div id="debug-contents"></div>
+    <button onclick="hide('debug');">Close</button>
   </div>
 
   <script src="../js/booleanButton.js"></script>

@@ -399,3 +399,13 @@ fieldset
 	display: inline-block;
 }
 
+#debug
+{
+	display: none;
+	position: absolute;
+	width: 30em;
+	padding: 0.5em;
+	border: solid blue 1px;
+	background-color: antiquewhite;
+	font-size: large;
+}
