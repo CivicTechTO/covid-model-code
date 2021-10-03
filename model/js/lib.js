@@ -221,6 +221,28 @@ class Point
 	}
 }
 
+class History
+{
+	constructor(time)
+	{
+		this.from = time;
+		this.to = -1;
+	}
+
+	depart(time)
+	{
+		this.to = time;
+	}
+
+	overlaps(other)
+	{
+		let thisTo = (this.to > 0 ? this.to : state.clock);
+		let otherTo = (other.to > 0 ? other.to : state.clock);
+
+		return !(thisTo < other.from || otherTo < this.from);
+	}
+}
+
 // function transfer(fromSet, toSet, member) 
 // {
 // 	toSet.add(member);

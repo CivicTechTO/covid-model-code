@@ -194,6 +194,11 @@ class GameState extends TownState
 
 			if (this.activeConfig.game.update > now % 24)
 			{
+				this.setHistoryIndex();
+
+				this.personList.forEach(person => person.resetHistory());
+				this.roomList.forEach(room => room.resetHistory());
+				
 				this.evaluatePeople();
 				this.test();
 

@@ -77,21 +77,28 @@ function pickPeople(indexList)
 	return result;
 }
 
+function actionToTick(action) 
+{
+	return state.dayToTick(action[0]) + state.hourToTick(action[1]);
+}
+
 function testHistory()
 {
 	let actionIndex = 0;
-
 	resetResults();
 	
-	state = new TestState(makeConfig(), 4, 20);
+	state = new TestState(makeConfig(), 10, 20);
+	state.fillHistory();
 
-	while (state.clock < actionList[actionList.length - 1][0])
+	while (state.clock < state.dayToTick(END))
 	{
-		while (actionList[actionIndex][0] === state.clock)
+		while (actionIndex < actionList.length && actionToTick(actionList[actionIndex]) === state.clock)
 		{
 			const action = actionList[actionIndex];
+			const person = state.personList[action[2]];
+			const toRoom = state.roomList[action[3]];
 
-			state.personList[action[1]].setItinerary(state.roomList[action[2]]);
+			person.setItinerary(toRoom);
 
 			actionIndex++;
 		}
@@ -104,42 +111,74 @@ function testHistory()
 		const test = testList[i]
 	
 		const person = state.personList[test[0]];
-		const actual = person.contacts(test[1], test[2]);
+		const actual = person.contacts(state.dayToTick(test[1]), state.dayToTick(test[2]));
 		const label = person.id.toString() + " " + test[1].toString() + " " + test[2].toString();
 
 		displayResult(label, pickPeople(test[3]), actual);
 	}
 }
 
+function displayHistory()
+{
+	const showMap = (dayNumber, x, y, person, history) => console.log("room", x, y, "day", dayNumber, "person", person.id, "history", JSON.stringify(history));
+	const showDay = (dayNumber, day, x, y) => day.forEach((history, person, map) => showMap(dayNumber, x, y, person, history));
+	const showRoom = (room) => room.history.forEach((day, dayNumber) => showDay(dayNumber, day, room.x, room.y));
+	state.roomList.forEach(room => showRoom(room));
+}
+
+const END = 5;
+
 var actionList = 
 [
-	  [100, 0, 10]
-	, [200, 0, 0]
-	, [300, 1, 10]
-	, [400, 3, 10]
-	, [500, 3, 3]
-	, [600, 1, 1]
-	, [700, 2, 10]
-	, [800, 2, 2]
-	, [8840, 0, 10]
-	, [8940, 3, 10]
-	, [9040, 0, 0]
-	, [9140, 1, 10]
-	, [9240, 1, 1]
-	, [9340, 2, 10]
-	, [9440, 3, 3]
-	, [9540, 2, 2]
-	, [86400, 0, 0]
+	  [0, 1, 0, 10]
+	, [0, 4, 0, 0]
+	, [0, 6, 1, 10]
+	, [0, 7, 3, 10]
+	, [0, 10, 3, 3]
+	, [0, 11, 1, 1]
+	, [0, 12, 2, 10]
+	, [0, 15, 2, 2]
+	, [1, 0, 8, 10]
+	, [1, 1, 4, 10]
+	, [1, 2, 7, 10]
+	, [1, 4, 4, 4]
+	, [1, 5, 5, 10]
+	, [1, 8, 5, 5]
+	, [1, 9, 6, 10]
+	, [1, 11, 7, 7]
+	, [1, 13, 6, 6]
+	, [1, 20, 8, 8]
+	, [2, 0, 8, 11]
+	, [2, 0, 9, 12]
+	, [2, 1, 0, 11]
+	, [2, 2, 1, 11]
+	, [2, 4, 0, 0]
+	, [2, 5, 1, 1]
+	, [2, 7, 0, 12]
+	, [2, 10, 0, 12]
+	, [2, 20, 8, 8]
+	, [2, 20, 9, 9]
 ];
 
 var testList = 
 [
-	  [0, 0, 8640, []]
-	, [1, 0, 8640, [3]]
-	, [2, 0, 8640, []]
-	, [3, 0, 8640, [1]]
-	, [0, 8640, 17280, [3]]
-	, [1, 8640, 17280, [3]]
-	, [2, 8640, 17280, [3]]
-	, [3, 8640, 17280, [0, 1, 2]]
+	  [0, 0, 1, []]
+	, [1, 0, 1, [3]]
+	, [2, 0, 1, []]
+	, [3, 0, 1, [1]]
+	, [4, 1, 2, [7, 8]]
+	, [5, 1, 2, [7, 8]]
+	, [6, 1, 2, [7, 8]]
+	, [7, 1, 2, [4, 5, 6, 8]]
+	, [0, 0, 2, []]
+	, [1, 0, 2, [3]]
+	, [2, 0, 2, []]
+	, [3, 0, 2, [1]]
+	, [4, 0, 2, [7, 8]]
+	, [5, 0, 2, [7, 8]]
+	, [6, 0, 2, [7, 8]]
+	, [7, 0, 2, [4, 5, 6, 8]]
+	, [0, 2, 3, [1, 8, 9]]
+	, [0, 0, 3, [1, 8, 9]]
+	, [1, 0, 3, [0, 3, 8]]
 ];

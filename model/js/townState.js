@@ -61,6 +61,8 @@ class TownState extends InfectState
 		this.setDays();
 
 		this.manager = new SicknessManager(this.activeConfig.hospital);
+
+		this.fillHistory();
 	}
 
 	fillHome(dwellings, crowd)

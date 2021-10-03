@@ -28,6 +28,8 @@ class Room
 		this.tooltip = "";
 
 		this.house = false;
+
+		this.history = [];
 	}
 
 	has(x, y)
@@ -50,6 +52,47 @@ class Room
 		return this.rules.getSpeed();
 	}
 	
+	resetHistory()
+	{
+		this.history[state.historyIndex] = new Map();
+	}
+
+	fillHistory(historyCount)
+	{
+		for (let i = 0 ; i < historyCount ; i++)
+		{
+			this.history[i] = new Map();
+		}
+	}
+
+	recordArrival(person)
+	{
+		person.recordArrival(this);
+	}
+
+	recordDeparture(person)
+	{
+		if (person.currentHistory)
+		{
+			person.currentHistory.depart(state.clock);
+			
+			let contents = [];
+			let map = this.history[state.historyIndex];
+
+			if (map.has(person))
+			{
+				contents = map.get(person);
+			}
+			
+			contents.push(person.currentHistory);
+
+			map.set(person, contents);
+			
+			person.currentHistory = false;
+	
+		}
+	}
+
 	change(rules)
 	{
 		this.rules = rules;
@@ -61,6 +104,7 @@ class Room
 		this.rules.insert(this, person);
 		person.inRoom = this;
 		this.personSet.add(person);
+		person.insertArrival(this);
 	}
 
 	arrive(person)
@@ -71,6 +115,7 @@ class Room
 		{
 			person.inRoom = this;
 			this.personSet.add(person);
+			this.rules.recordArrival(this, person);
 		}
 		else
 		{
@@ -83,7 +128,8 @@ class Room
 	depart(person)
 	{
 		this.personSet.delete(person);
-		this.rules.depart(this, person)
+		this.rules.depart(this, person);
+		this.rules.recordDeparture(this, person);
 	}
 
 	leave(person)

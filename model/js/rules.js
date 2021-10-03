@@ -30,6 +30,16 @@ class Rules
 
 	}
 	
+	recordArrival(room, person)
+	{
+		room.recordArrival(person);
+	}
+
+	recordDeparture(room, person)
+	{
+		room.recordDeparture(person);
+	}
+
 	transition(room)
 	{
 	}
@@ -90,13 +100,19 @@ class SeatRules extends Rules
 	}
 }
 
-class SeatRulesSpace extends Rules
+class SeatRulesSpace extends SeatRules
 {
-	constructor(spacing)
+	constructor(spacing, speed)
 	{
 		super();
 
 		this.spacing = spacing;
+		this.speed = speed;
+	}
+
+	getSpeed()
+	{
+		return this.speed;
 	}
 
 	insert(room, person)
@@ -106,7 +122,7 @@ class SeatRulesSpace extends Rules
 
 	arrive(room, person)
 	{
-		person.moveTo(seatSpace(room, person, room.personSet.size), this.getSpeed(), this.spacing);
+		person.moveTo(seatSpace(room, person, room.personSet.size, this.spacing), this.getSpeed());
 		return true;
 	}
 
@@ -115,7 +131,7 @@ class SeatRulesSpace extends Rules
 		let i = 0;
 		for (const person of room.personSet)
 		{
-			person.moveTo(seatSpace(room, person, i++), this.getSpeed(), this.spacing);
+			person.moveTo(seatSpace(room, person, i++, this.spacing), this.getSpeed());
 		}
 	}
 }
@@ -444,6 +460,16 @@ class HospitalRules extends SeatRules
 		this.transition(room);
 	}
 
+	recordArrival(room, person)
+	{
+
+	}
+
+	recordDeparture(room, person)
+	{
+
+	}
+	
 	getSpeed()
 	{
 		return state.activeConfig.hospital.speed;
@@ -581,6 +607,16 @@ class CemetaryRules extends SeatRules
 	{
 		return state.activeConfig.cemetary.speed;
 	}
+
+	recordArrival(room, person)
+	{
+
+	}
+
+	recordDeparture(room, person)
+	{
+
+	}	
 }
 
 class IsolationRules extends SeatRules
@@ -595,4 +631,14 @@ class IsolationRules extends SeatRules
 	{
 		return state.activeConfig.isolation.speed;
 	}
+
+	recordArrival(room, person)
+	{
+
+	}
+
+	recordDeparture(room, person)
+	{
+
+	}	
 }

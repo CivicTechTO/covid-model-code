@@ -11,6 +11,9 @@ class Person
 		this.home = null;
 		this.work = null;
 		this.church = null;
+
+		this.history = [];
+		this.currentHistory = false;
 	}
 
 // newCurrent : Point
@@ -19,7 +22,6 @@ class Person
 	{
 		this.current = new Point(x, y);
 	}
-
 
 	has(x, y)
 	{
@@ -56,6 +58,64 @@ class Person
 	hasArrived()
 	{
 		return ((this.current && this.dest) ? this.current.equals(this.dest) : false);
+	}
+
+	contacts(from, to)
+	{
+		let result = new Set();
+
+		for (let time = from ; time < to ; time += state.dayToTick(1))
+		{
+			const index = state.computeHistoryIndex(time);
+
+			this.history[index].forEach(room => this.buildContacts(result, room.history[index]));
+		}
+
+		return result;
+	}
+
+	buildContacts(result, historyMap)
+	{
+		if (historyMap.has(this))
+		{
+			const thisHistoryArray = historyMap.get(this);
+
+			thisHistoryArray.forEach(thisHistory => historyMap.forEach((historyArray, person) => this.addContacts(result, person, thisHistory, historyArray)));
+		}
+	}
+
+	addContacts(result, person, thisHistory, historyArray)
+	{
+		if (person !== this)
+		{
+			historyArray.forEach(otherHistory => {if (thisHistory.overlaps(otherHistory)){result.add(person)}});
+		}
+	}
+
+	resetHistory()
+	{
+		this.history[state.historyIndex] = new Set();
+	}
+
+	fillHistory(historyCount)
+	{
+		for (let i = 0 ; i < historyCount ; i++)
+		{
+			this.history[i] = new Set();
+		}
+	}
+
+	insertArrival(room)
+	{
+		this.history[0] = new Set();
+		this.history[0].add(room);
+		this.currentHistory = new History(0);
+	}
+
+	recordArrival(room)
+	{
+		this.history[state.historyIndex].add(room);
+		this.currentHistory = new History(state.clock);
 	}
 
 /*
@@ -145,16 +205,18 @@ class Person
 		this.dest = this.itinerary[0];
 	}
 
+	checkSpeed()
+	{
+
+	}
+
 	step()
 	{
 		if (this.current && this.dest)
 		{
 			if (!this.current.equals(this.dest))
 			{
-				if (this.sickness() === C.SICKNESS.DEAD)
-				{
-					this.speed = state.activeConfig.deadSpeed;
-				}
+				this.checkSpeed();
 				
 				this.current.x = closer(this.dest.x, this.current.x, this.speed);
 				this.current.y = closer(this.dest.y, this.current.y, this.speed);
@@ -215,11 +277,6 @@ class Person
 	{
 		let result = state.activeConfig.travelSpeed + rand(state.activeConfig.travelVariation);
 
-		if (this.sickness() === C.SICKNESS.DEAD)
-		{
-			result = state.activeConfig.deadSpeed;
-		}
-				
 		return result;
 	}
 

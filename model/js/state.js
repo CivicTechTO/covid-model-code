@@ -35,6 +35,8 @@ class State
 		this.past = null;
 
 		this.maxZ = 1;
+
+		this.historyIndex = 0;
 	}
 
 	tickToSecond(tick)
@@ -227,9 +229,26 @@ class State
 
 	}
 	
+	fillHistory()
+	{
+		this.roomList.forEach(room => room.fillHistory(this.activeConfig.history));
+
+		this.personList.forEach(person => person.fillHistory(this.activeConfig.history));
+	}
+	
 	initialize()
 	{
 
+	}
+
+	computeHistoryIndex(tick) 
+	{
+		return Math.floor(this.tickToDay(tick)) % this.activeConfig.history;
+	}
+
+	setHistoryIndex() 
+	{
+		this.historyIndex = this.computeHistoryIndex(this.clock + 1);
 	}
 
 	step()

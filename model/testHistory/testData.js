@@ -16,23 +16,25 @@ class TestState extends State
 	constructor(configuration, personCount, roomCount)
 	{
 		super(configuration);
+		
+		this.setSecondsPerStep(configuration.secondsPerStep.large);
 
 		this.makeRooms(roomCount);
 		this.makePeople(personCount);
 
-
+		this.scoreDate = -1;
 	}
 
 	makeRooms(roomCount)
 	{
-		this.roomList = nStack(1, roomCount, 1, 1, 40, 40, makeSeat(this.activeConfig.spacing, this.activeConfig.moveSpeed));
+		this.roomList = nStack(1, roomCount, 1, 1, 40, 40, makeSeat(this.activeConfig.spacing, 10));
 	}
 
 	makePeople(personCount)
 	{
 		this.personList = [];
 
-		for (var i = 0; i < personCount; i++) 
+		for (let i = 0; i < personCount; i++) 
 		{
 			this.personList[i] = new IdentifiablePerson(i);
 			this.roomList[i].insert(this.personList[i]);
@@ -61,6 +63,22 @@ class TestState extends State
 	{
 		this.clock++;
 
+		const today = this.tickToDay(this.clock);
+
+		if (today !== this.scoreDate)
+		{
+			this.scoreDate = today;
+			
+			const now = this.tickToHour(this.clock);
+
+			if (this.activeConfig.game.update > now % 24)
+			{
+				this.setHistoryIndex();
+				this.personList.forEach(person => person.resetHistory());
+				this.roomList.forEach(room => room.resetHistory());				
+			}
+		}
+		
 		for (let person of this.personList)
 		{
 			person.step();

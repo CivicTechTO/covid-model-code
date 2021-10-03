@@ -15,11 +15,6 @@ class InfectablePerson extends Person
 		this.positiveAt = false;
 		this.testedAt = false;
 	}
-
-	contacts(from, to)
-	{
-		return [];
-	}
 	
 	isolate()
 	{
@@ -316,6 +311,14 @@ class InfectablePerson extends Person
 
 		recordIncrement(C.RECORD.INFECTED | C.RECORD.INCUBATING);
 		recordDecrement(C.RECORD.WELL);
+	}
+
+	checkSpeed()
+	{
+		if (this.sickness() === C.SICKNESS.DEAD)
+		{
+			this.speed = state.activeConfig.deadSpeed;
+		}
 	}
 
 	step()
