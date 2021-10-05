@@ -72,6 +72,11 @@ class Room
 
 	recordDeparture(person)
 	{
+
+// There are edge conditions where people are not recorded entering a room
+// I don't know what they are 
+// People not being recorded under some conditions is consistent with the real world
+
 		if (person.currentHistory)
 		{
 			person.currentHistory.depart(state.clock);
