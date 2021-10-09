@@ -26,7 +26,8 @@ class GameState extends TownState
 		this.useRoomState = [];
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
-		this.chartList = initializeCharts ();
+		// this.chartList = initializeCharts ();
+		this.chartList = new ChartList (this, this.activeConfig.graphedValues);
 
 		this.run = true;
 		this.past = null;
@@ -352,6 +353,11 @@ class GameState extends TownState
 		return scoreArray.reduce(sum);
 	}
 
+    getScore ()
+	{
+        return (this.netScore / this.activeConfig.startScore) * 100;
+	}
+	
 	setInterventions()
 	{
 		this.useMasksValue = this.masksSpec.value;
