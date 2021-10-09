@@ -110,7 +110,7 @@ class InfectablePerson extends Person
 				{
 					this.setPositive();
 
-					if (state.getIsolateTest())
+					if (state.isolateTestThis(this))
 					{
 						this.isolate();
 					}

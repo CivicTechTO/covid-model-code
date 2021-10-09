@@ -38,7 +38,7 @@ class SicknessManager
 
 	sick(person)
 	{
-		if (state.getIsolateSick())
+		if (state.isolateSickThis())
 		{
 			person.isolate();			
 		}
@@ -46,7 +46,7 @@ class SicknessManager
 
 	homeSick(person)
 	{
-		if (state.getIsolateHomeSick())
+		if (state.isolateHomeSickThis())
 		{
 			person.isolate();			
 		}

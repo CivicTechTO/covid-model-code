@@ -164,24 +164,24 @@ function makeConfig()
 
 		, tests:
 			{
-				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0} 
-				, light: {label: "Light", value: 0.001, colour: "#857AA3", cost: 100} 
-				, heavy: {label: "Heavy", value: 0.01, colour: "#D7191C", cost: 200}
+				none: {label: "None", value: {sample: 0.0, trace: {test: 0.0, limit: 0}}, colour: "#2C7BB6", cost: 0} 
+				, light: {label: "Light", value: {sample: 0.001, trace: {test: 0.5, limit: 10}}, colour: "#857AA3", cost: 100} 
+				, heavy: {label: "Heavy", value: {sample: 0.01, trace: {test: 0.9, limit: 100}}, colour: "#D7191C", cost: 200}
 			}
 		
 		, trace:
 			{
-				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
-				, forward: {label: "Forward", value: 0.0, colour: "#857AA3", cost: 400} 
-				, backward: {label: "Backward", value: 0.0, colour: "#D7191C", cost: 800}
+				none: {label: "None", action: new Trace(), colour: "#2C7BB6", cost: 0}
+				, forward: {label: "Forward", action: new Forward(), colour: "#857AA3", cost: 400} 
+				, backward: {label: "Backward", action: new Backward(), colour: "#D7191C", cost: 800}
 			}
 
 		, isolate: 
 			{
-				none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
-				, encourage: {label: "Encourage", value: 0.25, homeSick: 0.5,  colour: "#857AA3", cost:250}
-				, require: {label: "Require", value: 0.4, homeSick: 0.75, colour: "#BE5A6F", cost: 500}
-				, enforce: {label: "Enforce", value: 0.6, homeSick: 0.9, colour: "#D7191C", cost: 1000}
+				none: {label: "None", value: {sick: 0.0, homeSick: 0.0}, colour: "#2C7BB6", cost: 0}
+				, encourage: {label: "Encourage", value: {sick: 0.25, homeSick: 0.5},  colour: "#857AA3", cost:250}
+				, require: {label: "Require", value: {sick: 0.4, homeSick: 0.75}, colour: "#BE5A6F", cost: 500}
+				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 1000}
 			}
 
 		, history: 20

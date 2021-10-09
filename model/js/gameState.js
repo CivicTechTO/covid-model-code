@@ -19,9 +19,8 @@ class GameState extends TownState
 
 		this.useMasks = this.masksSpec.value;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceValue = this.traceSpec.value;
+		this.useTraceAction = this.traceSpec.action;
 		this.useIsolateValue = this.isolateSpec.value;
-		this.useIsolateHomeSick = this.isolateSpec.homeSick;
 
 		this.roomButtons = [];
 		this.useRoomState = [];
@@ -50,39 +49,39 @@ class GameState extends TownState
 		return this.useMasksValue > Math.random();
 	}
 
-	getIsolateSick()
+	isolateSickThis()
 	{
-		return this.useIsolateValue > Math.random();
+		return this.useIsolateValue,sick > Math.random();
 	}
 
-	getIsolateHomeSick()
+	isolateHomeSickThis()
 	{
-		return this.useIsolateHomeSick > Math.random();
+		return this.useIsolateValue.homeSick > Math.random();
 	}
 
-	getIsolateTest()
+	isolateTestThis(person)
 	{
-		return this.useIsolateValue > 0.0;
-	}
-
-	getTests()
-	{
-		return this.useTestsValue;
+		return this.useIsolateValue.sick > 0.0;
 	}
 
 	testThis()
 	{
-		return this.getTests() > Math.random();
+		return this.useTestsValue.sample > Math.random();
 	}
 
 	isTesting()
 	{
-		return this.getTests() != this.activeConfig.tests.value;
+		return this.useTestsValue.sample != 0.0;
+	}
+
+	getTraceLimit()
+	{
+		return this.useTestsValue.trace.limit;
 	}
 
 	getTrace()
 	{
-		return this.useTraceValue;
+		return this.useTraceAction;
 	}
 
 	notGame()
@@ -359,7 +358,7 @@ class GameState extends TownState
 		this.useIsolateValue = this.isolateSpec.value;
 		this.useIsolateHomeSick = this.isolateSpec.homeSick;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceValue = this.traceSpec.value;
+		this.useTraceAction = this.traceSpec.action;
 
 		this.copyroomButtons();
 	}
