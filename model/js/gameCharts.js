@@ -79,7 +79,7 @@ class ReferenceList
  */
 class GameChart
 {
-	constructor (id, state, displayList, lineTension)
+	constructor (descriptor, state, displayList, lineTension)
     {
 	   this.referenceList = displayList;
        this.nextIndex = 0;
@@ -91,7 +91,6 @@ class GameChart
 						                    display : true,
 								            type : 'linear',
 							                ticks : {
-									                    // suggestedMax : 200,
 								                        steps : 10
 							                        }
 						                },
@@ -111,11 +110,12 @@ class GameChart
 										    grid : { drawOnChartArea : false }
 					     	            }	                  
 	                    },
-	       ctx = document.getElementById(id),
+		   title = descriptor.hasOwnProperty ('title') ? descriptor.title : '',
+	       ctx = document.getElementById (descriptor.id),
            desc = {
                     type: 'line',
                     data: { labels : [], datasets: this.referenceList.fieldList (lineTension) },
-                    options : { scales: scaleData }
+                    options : { scales: scaleData, plugins : { title : { display : true, text : title } } }
                   };
         this.chart = new Chart(ctx, desc);
     }
@@ -136,9 +136,7 @@ class GameChart
 	    for (let i = 0; i < tupleList.length; i++)
 		    this.addToList (i, tupleList [i]);
         this.addLabel ();
-        // this.chart.update (this.updateMode);
 		this.chart.update ();
-		// if (this.drawUpdated) this.chart.render ();
 	}
 
 	destroy ()
@@ -153,7 +151,7 @@ class OverviewChart extends GameChart
 {
 	constructor (state, items)
     {
-		super (C.CHART_IDS [0], state, items, 0.2);
+		super (C.CHART_DESCRIPTIONS [0], state, items, 0.2);
     }
 
     addToList (index, toPush)
@@ -181,7 +179,7 @@ class WindowChart extends GameChart
 {
 	constructor (state, items)
     {
-		super (C.CHART_IDS [1], state, items, 0);
+		super (C.CHART_DESCRIPTIONS [1], state, items, 0);
 		this.limit = C.MOVING_CHART_WINDOW;
     }
 

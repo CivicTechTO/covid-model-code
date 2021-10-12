@@ -44,9 +44,9 @@ function makeConstants()
 									dashes : [5, 5], yaxis : 'scoreAxis' } 
 							    ];
 								
-    result.CHART_IDS =  ['overview', 'moving' ],
-	
-	result.MOVING_CHART_WINDOW = 30,
+    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview' },  { id : 'moving', title : 'Current State' } ];
+
+	result.MOVING_CHART_WINDOW = 30;
 						   
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 
