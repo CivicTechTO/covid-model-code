@@ -34,7 +34,6 @@ class ChartedReference
 	fetch ()
 	{
 		if (this.options.name === "score") return this.refState.getScore (); 
-		// this.refState.netScore / this.refState.activeConfig.startScore) * 100;
 		else return this.refState.record [this.options.name].current;
 	}
 }
@@ -67,6 +66,13 @@ class ReferenceList
 			result.push ({ x : index, y : value.fetch () });
 		return result;
 	}
+	
+	getName (i)
+	{
+		if (i >= 0 && i < this.valueList.length) 
+			return this.valueList [i].options.name;
+		else return "";
+	}
 }
 
 /* Chart definition base class: contains the basic definition for creating charts, but never adds data
@@ -77,8 +83,6 @@ class GameChart
     {
 	   this.referenceList = displayList;
        this.nextIndex = 0;
-	   // this.drawUpdated = false;
-	   // this.updateMode = "normal";
 	   
        let scaleData =  {
 		                    x : { source : 'data' },
@@ -87,7 +91,7 @@ class GameChart
 						                    display : true,
 								            type : 'linear',
 							                ticks : {
-									                    suggestedMax : 200,
+									                    // suggestedMax : 200,
 								                        steps : 10
 							                        }
 						                },
@@ -95,10 +99,10 @@ class GameChart
 							                position : 'right',
 							                display : true,
 								            type : 'linear',
+											max : 100,
+											min : 0,
 							                ticks : {
 	  						                            stepValue : 5,
-									            		max : 100,
-														suggestedMin : 0,
 										                callback : (label, index, labels) => 
 									    	            { 
 								     		                return label + '%'; 
@@ -107,7 +111,6 @@ class GameChart
 										    grid : { drawOnChartArea : false }
 					     	            }	                  
 	                    },
-		   // chartOpt = { scales : { yAxes : yAxisList } },
 	       ctx = document.getElementById(id),
            desc = {
                     type: 'line',
@@ -155,7 +158,15 @@ class OverviewChart extends GameChart
 
     addToList (index, toPush)
 	{
-		this.chart.data.datasets [index].data.push (toPush);
+		try
+		{
+		    this.chart.data.datasets [index].data.push (toPush);
+		}
+		catch (error)
+		{
+			name = this.referenceList.getName (index);
+			console.error (error + ' in ' + name);
+		}			
 	}
 
 	addLabel ()
@@ -220,5 +231,10 @@ class ChartList
 		for (let chart of this.chartList)
 			chart.destroy ();
 	}
+}
+
+function atNewDay () 
+{
+  state.chartList.updateAll ();
 }
 
