@@ -2,16 +2,51 @@ function makeConstants()
 {
 	let result = {};
 
-    result.CHART_IDS =  ['overview', 'moving' ], // [ "symptomatic", "at-home", "hospital", "hallway" ],
-	
-    result.CHART_LABELS = [ "Symptomatic People", "Sick at home", "In Hospital", "Waiting for Bed" ],
-	
-	result.CHART_COLOURS = [ { BORDER : 'rgb(20, 100, 20)', FILL : 'rgb(40, 160, 40)' },
-                             { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' },
-						     { BORDER : 'rgb(240, 150, 150)', FILL : 'rgb(240, 150, 150)' },
-						     { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(0, 0, 0)' } ],
-							 
-	result.MOVING_CHART_WINDOW = 30,
+    result.CHARTED_VALUES  =	[ { name : 'incubating', label : 'People incubating virus',
+								    colour : { BORDER : 'rgb(120, 120, 120)', FILL : 'rgb(130, 130, 130)' },
+									dashes : [5, 5] }, 
+			                      { name : 'infectious', label : 'Infectious people',
+ 								    colour : { BORDER : 'rgb(20, 100, 20)', FILL : 'rgb(40, 160, 40)' },
+									dashes : [5, 5] }, 
+								  { name : 'symptoms', label : 'Symptomatic people',
+								    colour : { BORDER : 'rgb(120, 120, 120)', FILL : 'rgb(130, 130, 130)' } }, 
+								  { name : 'homeSick', label : 'Sick at home',
+ 								    colour : { BORDER : 'rgb(20, 100, 20)', FILL : 'rgb(40, 160, 40)' } },
+	    			              { name : 'wardSick', label : 'In hospital',
+  								    colour : { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' } }, 
+								  { name : 'icuSick', label : 'In hospital intensive care',
+								    colour : { BORDER : 'rgb(240, 150, 150)', FILL : 'rgb(240, 150, 150)' } }, 
+								  { name : 'hallway', label : 'Waiting for a bed',
+								    colour : { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(0, 0, 0)' } }, 
+								  { name : 'dead', label : 'Deceased',  
+								    colour : { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(255, 255, 255)' } }, 
+								  { name : 'recovered', label : '',
+								    colour : { BORDER : 'rgb(128, 128, 128)', FILL : 'rgb(128, 128, 128)' } }, 
+		    		              { name : 'well', label : 'Currently well', 
+								    colour : { BORDER : 'rgb(64, 255, 64)', FILL : 'rgb(64, 255, 64)' } }, 
+								  { name : 'masks', label : '', 
+  								    colour : { BORDER : 'rgb(0, 0, 128)', FILL : 'rgb(0, 0, 128)' },
+									dashes : [5, 5] }, 
+								  { name : 'infector', label : 'Infectious individual',
+  								    colour : { BORDER : 'rgb(192, 32, 32)', FILL : 'rgb(192, 32, 32)' },
+									dashes : [5, 5] }, 
+								  { name : 'infectee', label : 'Recently infected',
+  								    colour : { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' },
+									dashes : [5, 5] }, 
+								  { name : 'tests', label : 'Persons tested',
+  								    colour : { BORDER : 'rgb(64, 64, 64)', FILL : 'rgb(192, 192, 192)' },
+									dashes : [8, 8] }, 
+								  { name : 'isolation', label : 'Persons isolated',
+  								    colour : { BORDER : 'rgb(0, 0, 0)', FILL : 'rgb(255, 255, 255)' },
+									dashes : [5, 5] }, 
+								  { name : 'score', label : 'Current score', 
+								    colour : { BORDER : 'rgb(255, 64, 64)', FILL : 'rgb(128, 255, 128)' },
+									dashes : [5, 5], yaxis : 'scoreAxis' } 
+							    ];
+								
+    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview' },  { id : 'moving', title : 'Current State' } ];
+
+	result.MOVING_CHART_WINDOW = 30;
 						   
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 

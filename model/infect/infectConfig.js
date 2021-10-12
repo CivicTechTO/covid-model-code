@@ -20,7 +20,8 @@ function makeConfig()
 			}
 
 		, secondsPerStep: {small: 10, large: 300}
-		, startScore: 50000000
+		, startScore: 50000000 
+		, graphedValues : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ]
 		, limit: 400
 		, randomInfected: 100
 		, startHour: 8
