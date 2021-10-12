@@ -41,7 +41,7 @@ class GameState extends TownState
 			this.notGame();
 		}
 
-		this.debugPerson = true;
+		this.debugPerson = false;
 	}
 
 	getMask()
