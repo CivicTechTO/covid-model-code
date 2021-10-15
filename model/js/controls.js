@@ -221,7 +221,7 @@ function announceLost()
 function announceWon() 
 {
 	state.announce = "announce-win";
-	setText("score-text-win", "You have " + formatScore() + " political points remaining.");
+	setText("score-text-win", "You have " + formatScore() + " of your political points remaining.");
 	showGrid("announce-outer");
 	showGrid("announce-win");
 	document.getElementById("all-controls").disabled = true;

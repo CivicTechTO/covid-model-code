@@ -385,7 +385,7 @@ function adjustIntervention(cost)
 
 function formatScore()
 {
-	return state.scoreFormat.format(Math.max(0, state.netScore));
+	return state.scoreFormat.format(state.getScore()) + "%";
 }
 
 function computeR()
