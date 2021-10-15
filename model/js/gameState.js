@@ -42,7 +42,7 @@ class GameState extends TownState
 			this.notGame();
 		}
 
-		this.debugPerson = true;
+		this.debugPerson = false;
 	}
 
 	getMask()
@@ -52,7 +52,7 @@ class GameState extends TownState
 
 	isolateSickThis()
 	{
-		return this.useIsolateValue,sick > Math.random();
+		return this.useIsolateValue.sick > Math.random();
 	}
 
 	isolateHomeSickThis()
