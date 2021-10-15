@@ -224,8 +224,7 @@ fieldset
 
 .chartx 
 {
-	display: grid;
-	gap: 10px;
+	display: inline-flex;
 }
 
 .cold-colour

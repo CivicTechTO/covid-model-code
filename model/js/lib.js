@@ -88,7 +88,7 @@ function animate(timestamp)
 
 function runGame()
 {
-	destroyCharts();
+	state.chartList.destroy();
 	startup(true);
 	startRunning();
 }
