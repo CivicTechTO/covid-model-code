@@ -368,8 +368,8 @@ class InfectablePerson extends Person
 		if (state.debugDraw)
 		{
 			const size = state.personSize + 1;
-//	result.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
-			const colours =["#FF0000", "#00FF00","#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#000000", "#FFFFFF"];
+//	result.SICKNESS = {WELL: 0, INCUBATING: 1, ASYMPTOMATIC: 2, SICK: 3, HOMESICK: 4, WARDSICK: 5, ICUSICK: 6, DEAD: 7, RECOVERED: 8}
+			const colours =["#FF0000", "#00FF00","#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", "#000000", "#FFFFFF", "#888888"];
 			context.fillStyle = colours[this.sickness()];
 			context.fillRect(this.current.x - size, this.current.y - size, size, size);
 
