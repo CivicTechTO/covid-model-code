@@ -115,7 +115,7 @@ class GameChart
            desc = {
                     type: 'line',
                     data: { labels : [], datasets: this.referenceList.fieldList (lineTension) },
-                    options : { scales: scaleData, plugins : { title : { display : true, text : title }, legend : { display : false } } }
+                    options : { scales: scaleData, maintainAspectRatio : false, plugins : { title : { display : true, text : title }, legend : { display : false } } }
                   };
         this.chart = new Chart(ctx, desc);
     }
