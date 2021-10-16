@@ -215,16 +215,21 @@ fieldset
 	background-color: #87CEEB;
 	border: solid blue 1px;
 }
-
+/*
 #charts
 {
 	display: inline-block;
 	background-color: #87CEEB;
-}
+} */
 
 .chartx 
 {
-	display: inline-flex;
+  background-color: #87CEEB;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+	
+/*	display: inline-flex; */
 }
 
 .cold-colour
