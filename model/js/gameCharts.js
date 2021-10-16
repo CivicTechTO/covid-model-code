@@ -115,7 +115,7 @@ class GameChart
            desc = {
                     type: 'line',
                     data: { labels : [], datasets: this.referenceList.fieldList (lineTension) },
-                    options : { scales: scaleData, plugins : { title : { display : true, text : title } } }
+                    options : { scales: scaleData, plugins : { title : { display : true, text : title }, legend : { display : false } } }
                   };
         this.chart = new Chart(ctx, desc);
     }
@@ -230,6 +230,8 @@ class ChartList
 			chart.destroy ();
 	}
 }
+
+// class 
 
 function atNewDay () 
 {
