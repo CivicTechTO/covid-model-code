@@ -86,8 +86,6 @@ function makeConstants()
 	
 	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
 
-	result.TRACE = {NONE: 0, FORWARD: 1, BACKWARD: 2};
-
 	result.BOOLEANIMAGES ={LEFT:"../images/left.svg" , RIGHT:"../images/right.svg"}
 
 	result.TOOLTIPS = 

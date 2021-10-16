@@ -19,7 +19,7 @@ class GameState extends TownState
 
 		this.useMasks = this.masksSpec.value;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceAction = this.traceSpec.action;
+		this.useTraceValue = this.traceSpec.value;
 		this.useIsolateValue = this.isolateSpec.value;
 
 		this.roomButtons = [];
@@ -82,7 +82,7 @@ class GameState extends TownState
 
 	getTrace()
 	{
-		return this.useTraceAction;
+		return this.useTraceValue;
 	}
 
 	notGame()
@@ -198,9 +198,12 @@ class GameState extends TownState
 
 				this.personList.forEach(person => person.resetHistory());
 				this.roomList.forEach(room => room.resetHistory());
-				
+				this.getTrace().initialize();
+
 				this.evaluatePeople();
 				this.test();
+
+				this.getTrace().followup();
 
 				this.scoreDate = today;
 				this.setInterventions();
