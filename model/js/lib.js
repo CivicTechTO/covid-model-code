@@ -181,6 +181,27 @@ function sumInfected(list)
 	return result;
 }
 
+function makeInfectedColourMap()
+{
+	let result = new Map();
+
+// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+	let workStyle = state.activeConfig.workStyle;
+
+	result.set("meatList", workStyle[C.WORKTYPE.MEAT]); 
+	result.set("officeList", workStyle[C.WORKTYPE.OFFICES]);
+	result.set("schoolList", workStyle[C.WORKTYPE.SCHOOLS]);
+	result.set("houseList", state.activeConfig.house.style);
+	result.set("bunkHouseList", state.activeConfig.bunkhouse.style);
+	result.set("churchList", state.activeConfig.church.style);
+	result.set("restaurantList", state.activeConfig.restaurant.style);
+	result.set("pubList", state.activeConfig.pub.style);
+	result.set("clubList", state.activeConfig.club.style);
+	result.set("outsideList", state.activeConfig.outside.style);
+
+	return result;
+}
+
 function startup(playGame)
 {
 	const canvas = document.getElementById('canvas');
