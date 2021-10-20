@@ -192,7 +192,7 @@ function makeInfectedColourMap()
 	result.set("officeList", workStyle[C.WORKTYPE.OFFICES]);
 	result.set("schoolList", workStyle[C.WORKTYPE.SCHOOLS]);
 	result.set("houseList", state.activeConfig.house.style);
-	result.set("bunkHouseList", state.activeConfig.bunkhouse.style);
+	result.set("bunkHouseList", state.activeConfig.bunkHouse.style);
 	result.set("churchList", state.activeConfig.church.style);
 	result.set("restaurantList", state.activeConfig.restaurant.style);
 	result.set("pubList", state.activeConfig.pub.style);
