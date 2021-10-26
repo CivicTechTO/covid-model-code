@@ -201,7 +201,7 @@ class GameState extends TownState
 				this.getTrace().initialize();
 
 				this.evaluatePeople();
-				this.test();
+				this.personList.forEach(person => person.test());
 
 				this.getTrace().followup();
 
@@ -220,14 +220,6 @@ class GameState extends TownState
 			}
 		}
 
-	}
-
-	test()
-	{
-		for (let person of this.personList)
-		{
-			person.test();
-		}
 	}
 
 	evaluatePeople()
@@ -367,7 +359,7 @@ class GameState extends TownState
 		this.useIsolateValue = this.isolateSpec.value;
 		this.useIsolateHomeSick = this.isolateSpec.homeSick;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceAction = this.traceSpec.action;
+		this.useTraceValue = this.traceSpec.value;
 
 		this.copyroomButtons();
 	}

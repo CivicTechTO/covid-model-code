@@ -100,6 +100,8 @@ class InfectablePerson extends Person
 
 	test()
 	{
+		let result = false;
+
 		if (!this.testedAt)
 		{
 			if (state.testThis())
@@ -108,15 +110,22 @@ class InfectablePerson extends Person
 
 				if (C.TESTSPOSITIVE.includes(this.sickness()))
 				{
+					result = true;
+
 					this.setPositive();
 
 					if (state.isolateTestThis(this))
 					{
 						this.isolate();
 					}
+
+console.log("should trace");
+					state.getTrace().trace(this);
 				}
 			}
 		}
+
+		return result;
 	}
 	
 	setPositive()

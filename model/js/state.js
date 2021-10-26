@@ -145,6 +145,10 @@ class State
 		}
 
 		this.activeConfig.progression = progression;
+
+		this.activeConfig.trace.none = this.savedConfig.trace.none;
+		this.activeConfig.trace.forward = this.savedConfig.trace.forward;
+		this.activeConfig.trace.backward = this.savedConfig.trace.backward;
 	}
 
 	setSecondsPerStep(stepSize)

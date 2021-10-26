@@ -105,6 +105,11 @@ class Person
 		}
 	}
 
+	dayContacts(day)
+	{
+		return this.contacts(state.dayToTick(day), state.dayToTick(day + 1));
+	}
+
 	insertArrival(room)
 	{
 		this.history[0] = new Set();

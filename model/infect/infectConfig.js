@@ -2,6 +2,10 @@
 
 function makeConfig()
 {
+	const traceNone = new Trace();
+	const traceForward = new Forward(C.FORWARD_DEFERRED);
+	const traceBackward = new Backward();
+
 	const configuration = 
 	{
 		  size: {height: 505, width:1000}
@@ -172,9 +176,9 @@ function makeConfig()
 		
 		, trace:
 			{
-				none: {label: "None", value: noTrace, colour: "#2C7BB6", cost: 0}
-				, forward: {label: "Forward", value: forwardTrace, colour: "#857AA3", cost: 400} 
-				, backward: {label: "Backward", value: backwardTrace, colour: "#D7191C", cost: 800}
+				none: {label: "None", value: new Trace(), colour: "#2C7BB6", cost: 0}
+				, forward: {label: "Forward", value: new Forward(), colour: "#857AA3", cost: 400} 
+				, backward: {label: "Backward", value: new Backward(), colour: "#D7191C", cost: 800}
 			}
 
 		, isolate: 
@@ -187,8 +191,6 @@ function makeConfig()
 
 		, history: 20
 		, longEnough: {isolation: 14, positive: 14, test: 14}
-		, forward: {search: 3, deferred: 5}
-		, backward: {search: 7}
 		
 		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
 	    , pop: {scale: 5, decay: 300}
