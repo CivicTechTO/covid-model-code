@@ -119,7 +119,6 @@ class InfectablePerson extends Person
 						this.isolate();
 					}
 
-console.log("should trace");
 					state.getTrace().trace(this);
 				}
 			}
