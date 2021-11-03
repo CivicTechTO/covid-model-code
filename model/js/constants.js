@@ -2,6 +2,34 @@ function makeConstants()
 {
 	let result = {};
 
+	let multiScale =  	{
+							x : { source : 'data' },
+							y_default : {
+											position : 'left',
+											display : true,
+											type : 'linear',
+											ticks : {
+														steps : 10
+													}
+										},
+							scoreAxis : {
+											position : 'right',
+											display : true,
+											type : 'linear',
+											max : 100,
+											min : 0,
+											ticks : {
+									  					stepValue : 5,
+														callback : (label, index, labels) => 
+														{ 
+															 return label + '%'; 
+														}
+													},
+											grid : { drawOnChartArea : false }
+					 					}	                  
+						};
+
+
     result.CHARTED_VALUES  =	[ { name : 'incubating', label : 'People incubating virus',
 								    colour : { BORDER : 'rgb(120, 120, 120)', FILL : 'rgb(130, 130, 130)' },
 									dashes : [5, 5] }, 
@@ -41,11 +69,29 @@ function makeConstants()
 									dashes : [5, 5] }, 
 								  { name : 'score', label : 'Current score', 
 								    colour : { BORDER : 'rgb(255, 64, 64)', FILL : 'rgb(128, 255, 128)' },
-									dashes : [5, 5], yaxis : 'scoreAxis' } 
+									dashes : [5, 5], yaxis : 'scoreAxis' },
+								  { name : 'meatList', label : 'Meat packing' }, 
+								  { name : 'officeList', label : 'Office' }, 
+								  { name : 'schoolList', label : 'School' }, 
+								  { name : 'houseList', label : 'House' }, 
+								  { name : 'bunkhouseList', label : 'Bunkhouse' },
+								  { name : 'churchList', label : 'Church' },
+								  { name : 'restaurantList', label : 'Restaurant' }, 
+								  { name : 'pubList', label : 'Pub' }, 
+								  { name : 'clubList', label : 'Club' }, 
+								  { name : 'outsideList', label : 'Park' }	 
 							    ];
 								
-    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview' },  { id : 'moving', title : 'Current State' } ];
-
+    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview', kind : 'line',  scale : multiScale, 
+	                                legend : { position: 'left', align : 'start' }, tension : 0.2 },  
+	 							  { id : 'moving', title : 'Current State', kind : 'line',  scale : multiScale, 
+								    legend : { display: false } },
+								  { id : 'won-chart', title : 'Your results: Infections by location',
+								    kind : 'bar', legend : { display : false } },
+								  { id : 'lost-chart', title : 'Your results: Infections by location',
+								    kind : 'bar', legend : { display: false } } 
+								];
+    result.CHART_INDEX = { OVERVIEW : 0, MOVING : 1, WON : 2, LOST : 3 };
 	result.MOVING_CHART_WINDOW = 30;
 						   
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}

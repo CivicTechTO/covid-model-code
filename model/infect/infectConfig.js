@@ -22,6 +22,9 @@ function makeConfig()
 		, secondsPerStep: {small: 10, large: 300}
 		, startScore: 50000000 
 		, graphedValues : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ]
+		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
+										'churchList','restaurantList', 'pubList', 'clubList', 'outsideList'	]
+		, chartBorderAdjust : 0.8
 		, limit: 400
 		, randomInfected: 100
 		, startHour: 8
