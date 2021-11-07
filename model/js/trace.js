@@ -1,27 +1,85 @@
-class Trace
+class NoTrace
 {
+	constructor()
+	{
+	}
+
+	initialize()
+	{
+	}
+
+
+	followup()
+	{
+	}
+
 	trace(person)
 	{
+	}
+}
 
+class Trace extends NoTrace
+{
+	constructor(start, end)
+	{
+		super();
+
+		this.start = start;
+		this.end = end;
 	}
 
 	initialize()
 	{
+		this.limit = state.getTraceLimit();
+		this.tracedToday = new Set();
 
-	}
-
-	follouup()
-	{
-
-	}
-
-	initialize()
-	{
-
+		this.today = Math.floor(state.tickToDay(state.clock + 1));
+		this.index = this.today % this.deferred;
 	}
 
 	followup()
 	{
+	}
+
+	trace(person)
+	{
+console.log("trace");
+		if (!this.tracedToday.has(person))
+		{
+			state.tracedCount++;
+
+			this.tracedToday.add(person);
+			for (let day = this.today - this.start ; day < this.today - this.end ; day++)
+			{
+				const contacts = person.dayContacts(day);
+
+				this.action(day, contacts);
+			}
+		}
+	}
+
+	action(day, contacts)
+	{
+
+	}
+
+	test(person)
+	{
+		if (!person.isTested())
+		{
+			if (person.test())
+			{
+				state.getTrace().trace(person);
+
+				state.found++;
+			}
+
+			return --(state.getTrace().limit) > 0;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }
 
@@ -29,10 +87,9 @@ class Forward extends Trace
 {
 	constructor()
 	{
-		super();
+		super(C.FORWARD.SEARCH.FROM, C.FORWARD.SEARCH.TO);
 
 		this.deferred = C.FORWARD.DEFERRED;
-		this.search = C.FORWARD.SEARCH;
 		
 		this.testOnDay = [];
 
@@ -42,55 +99,29 @@ class Forward extends Trace
 		}
 	}
 
+	action(day, contacts)
+	{
+		const index = day % this.deferred;
+console.log("action before", contacts.size, this.testOnDay[index].size);
+		this.testOnDay[index] = union(this.testOnDay[index], contacts);
+console.log("action after ", contacts.size, this.testOnDay[index].size);
+	}
+
 	initialize()
 	{
-		this.limit = state.getTraceLimit();
-
-		this.today = Math.floor(state.tickToDay(state.clock + 1));
-		this.index = this.today % this.deferred;
-
-		this.testOnDay[this.index] = new Set();
-
-		this.tracedToday = new Set();
+		super.initialize();
 	}
 	
-	trace(person)
-	{
-		if (!this.tracedToday.has(person))
-		{
-			this.tracedToday.add(person);
-			for (let day = this.today - this.search ; day < this.today ; day++)
-			{
-				const index = day % this.deferred;
-				const contacts = person.dayContacts(day);
-
-				this.testOnDay[index] = union(this.testOnDay[index], contacts);
-			}
-		}
-	}
-
 	followup()
 	{
-		let set = Array.from(this.testOnDay[this.index]);
-		set.every(this.test);
+		let contacts = Array.from(this.testOnDay[this.index]);
+
+console.log("followup", contacts.length);
+		contacts.every(person => this.test(person));
+
+		this.testOnDay[this.index] = new Set();
 	}
 
-	test(person)
-	{
-		if (!person.isTested())
-		{
-			if (person.test())
-			{
-				this.trace(person);
-			}
-
-			return --this.limit > 0;
-		}
-		else
-		{
-			return true;
-		}
-	}
 }
 
 class Backward extends Trace

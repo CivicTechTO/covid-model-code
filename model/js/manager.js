@@ -67,6 +67,8 @@ class SicknessManager
 		{
 			person.setTested();
 			person.setPositive();
+
+			state.getTrace().trace(person);
 		}
 
 		if (this.wardNotFull())

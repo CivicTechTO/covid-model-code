@@ -165,6 +165,7 @@ function gameAnimate(timestamp)
 
 function reportInfected()
 {
+console.log("Trace", state.tracedCount, state.found);
 	reportRooms("Work", state.workList);
 	reportRooms("Meat packing", state.meatList);
 	reportRooms("Office", state.officeList);

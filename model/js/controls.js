@@ -163,7 +163,7 @@ function setTests(spec)
 {
 	state.testsSpec = spec;
 
-	if (spec.value == 0.0)
+	if (spec.value.trace.test == 0.0)
 	{
 		setTrace(state.activeConfig.trace.none);
 	}
@@ -174,7 +174,7 @@ function setTests(spec)
 function drawTests() 
 {
 	drawValue("tests", state.testsSpec);
-	setDisabled("depends-on-tests", state.testsSpec.value == 0.0);
+	setDisabled("depends-on-tests", state.testsSpec.value.trace.test == 0.0);
 }
 
 function setTrace(spec)

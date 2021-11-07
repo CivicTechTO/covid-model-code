@@ -2,10 +2,6 @@
 
 function makeConfig()
 {
-	const traceNone = new Trace();
-	const traceForward = new Forward(C.FORWARD_DEFERRED);
-	const traceBackward = new Backward();
-
 	const configuration = 
 	{
 		  size: {height: 505, width:1000}
@@ -176,7 +172,7 @@ function makeConfig()
 		
 		, trace:
 			{
-				none: {label: "None", value: new Trace(), colour: "#2C7BB6", cost: 0}
+				none: {label: "None", value: new NoTrace(), colour: "#2C7BB6", cost: 0}
 				, forward: {label: "Forward", value: new Forward(), colour: "#857AA3", cost: 400} 
 				, backward: {label: "Backward", value: new Backward(), colour: "#D7191C", cost: 800}
 			}

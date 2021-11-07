@@ -42,6 +42,9 @@ class GameState extends TownState
 			this.notGame();
 		}
 
+		this.tracedCount = 0;
+		this.found = 0;
+		
 		this.debugPerson = false;
 	}
 
