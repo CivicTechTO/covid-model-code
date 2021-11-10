@@ -216,7 +216,7 @@ function announceLost()
 	setText("score-text-lose", "You survived " + state.tickToDay(state.clock) + " days.");
 	showGrid("announce-outer");
 	showGrid("announce-lose");
-	lostChart.display ();
+	// !!! lostChart.display ();
 	document.getElementById("all-controls").disabled = true;
 }
 

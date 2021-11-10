@@ -214,7 +214,18 @@ class FinalChart extends GameChart
 	constructor (source, canvasId)
     {
 		super (C.CHART_DESCRIPTIONS [canvasId]);
+		let labelMap = new Map (C.CHARTED_VALUES.map (({name, label}) => { return [name, label] })),
+			list = source.activeConfig.graphedInfectionLocations,
+			labels = [];
+
+		for (let id of list)
+			labels.push (labelMap.get (id));
+
 		this.valueSource = source;
+		this.chart.data.labels = labels;
+		this.chart.options.onResize = (inst, size) => { this.getData (); }
+		this.chart.data.datasets = [ { label : 'Infection sites', borderWidth : 1, data : [], 
+		                               color : [], BorderColor : [] } ];
     }
 
     darker (colours, factor)
@@ -225,34 +236,31 @@ class FinalChart extends GameChart
 			let r = parseInt (selected.substring (1,3), 16),
 			    g = parseInt (selected.substring (3,5), 16),
 				b = parseInt (selected.substring (5,7), 16),
-				rgb = 'rgb (' + Math.round (r * factor) + ',' + Math.round (g * factor) + ',' + Math.round (b * factor) + ')';
+				rgb = 'rgb(' + Math.round (r * factor) + ',' + Math.round (g * factor) + ',' + Math.round (b * factor) + ')';
 			result.push (rgb);
 		}
 
 		return result;
 	}
 
-	display ()
+	getData ()
 	{
 		let colourMap = makeInfectedColourMap (),
-   			labelMap = new Map (C.CHARTED_VALUES.map (({name, label}) => { return [name, label] })),
 			list = this.valueSource.activeConfig.graphedInfectionLocations,
 			adjust = this.valueSource.activeConfig.chartBorderAdjust,
 			bars = [],
-			labels = [],
 			colours = [];
 
 		for (let id of list)
 		{
 		    bars.push (sumInfected (this.valueSource [id]));
-			labels.push (labelMap.get (id));
 			colours.push (colourMap.get (id));
 		}
-
-		this.chart.data.labels = labels;
-		this.chart.data.datasets = [ { data : bars, backgroundColor : colours, borderColor : this.darker (colours, adjust),
-		                             borderWidth : 1 } ];
-		this.chart.update ();
+     
+		this.chart.data.datasets [0].data = bars; 
+		this.chart.data.datasets [0].backgroundColor = colours;
+		this.chart.data.datasets [0].borderColor = this.darker (colours, adjust);
+		// this.chart.update ();
 	}
 }
 
@@ -268,8 +276,8 @@ class ChartList
 		this.referenceList = new ReferenceList (refState, displayList);
         this.chartList = [ new OverviewChart (this.referenceList), 
 		                   new WindowChart (this.referenceList),
-						   new FinalChart (state, C.CHART_INDEX.LOST), 
-						   new FinalChart (state, C.CHART_INDEX.WON)];
+						   new FinalChart (refState, C.CHART_INDEX.LOST), 
+						   new FinalChart (refState, C.CHART_INDEX.WON) ];
     }
 
 	getChart (i) 
@@ -294,4 +302,3 @@ function atNewDay ()
 {
   state.chartList.updateAll ();
 }
-

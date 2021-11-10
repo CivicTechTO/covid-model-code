@@ -74,7 +74,7 @@ function makeConstants()
 								  { name : 'officeList', label : 'Office' }, 
 								  { name : 'schoolList', label : 'School' }, 
 								  { name : 'houseList', label : 'House' }, 
-								  { name : 'bunkhouseList', label : 'Bunkhouse' },
+								  { name : 'bunkHouseList', label : 'Bunkhouse' },
 								  { name : 'churchList', label : 'Church' },
 								  { name : 'restaurantList', label : 'Restaurant' }, 
 								  { name : 'pubList', label : 'Pub' }, 
