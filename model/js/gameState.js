@@ -7,7 +7,7 @@ class GameState extends TownState
 		this.game = false;
 		this.score = 0;
 		this.netScore = this.activeConfig.startScore;
-		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
+		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 2});
 		this.scoreDate = -1;
 
 		this.masksSpec = this.activeConfig.masks.specs.none;
@@ -42,7 +42,7 @@ class GameState extends TownState
 			this.notGame();
 		}
 
-		this.debugPerson = true;
+		this.debugPerson = false;
 	}
 
 	getMask()
@@ -355,7 +355,7 @@ class GameState extends TownState
 
     getScore ()
 	{
-        return (this.netScore / this.activeConfig.startScore) * 100;
+        return (Math.max(0, this.netScore) / this.activeConfig.startScore) * 100;
 	}
 	
 	setInterventions()

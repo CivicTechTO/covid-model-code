@@ -2,6 +2,42 @@ function makeConstants()
 {
 	let result = {};
 
+	let multiScale =  	{
+							x : { source : 'data' },
+							y_default : {
+											position : 'left',
+											display : true,
+											type : 'linear',
+											ticks : {
+														steps : 10
+													}
+										},
+							scoreAxis : {
+											position : 'right',
+											display : true,
+											type : 'linear',
+											max : 100,
+											min : 0,
+											ticks : {
+									  					stepValue : 5,
+														callback : (label, index, labels) => 
+														{ 
+															 return label + '%'; 
+														}
+													},
+											grid : { drawOnChartArea : false }
+					 					}	                  
+						},
+			
+		finalScale = 	{ y : { ticks : { autoSkip : false, color : '#FFFFFF', 
+										  font : { size : 14 } }, 
+    							grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } },
+						  x : { ticks : { color : '#FFFFFF', font : { size : 14 } }, 
+								grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } } },
+		
+		finalTitle	=	{ text : 'Your results: Infections by location', color : '#FFFFFF', 
+						  display : true, font : { size : 18 } };
+
     result.CHARTED_VALUES  =	[ { name : 'incubating', label : 'People incubating virus',
 								    colour : { BORDER : 'rgb(120, 120, 120)', FILL : 'rgb(130, 130, 130)' },
 									dashes : [5, 5] }, 
@@ -41,11 +77,33 @@ function makeConstants()
 									dashes : [5, 5] }, 
 								  { name : 'score', label : 'Current score', 
 								    colour : { BORDER : 'rgb(255, 64, 64)', FILL : 'rgb(128, 255, 128)' },
-									dashes : [5, 5], yaxis : 'scoreAxis' } 
+									dashes : [5, 5], yaxis : 'scoreAxis' },
+								  { name : 'meatList', label : 'Meat packing' }, 
+								  { name : 'officeList', label : 'Office' }, 
+								  { name : 'schoolList', label : 'School' }, 
+								  { name : 'houseList', label : 'House' }, 
+								  { name : 'bunkHouseList', label : 'Bunkhouse' },
+								  { name : 'churchList', label : 'Church' },
+								  { name : 'restaurantList', label : 'Restaurant' }, 
+								  { name : 'pubList', label : 'Pub' }, 
+								  { name : 'clubList', label : 'Club' }, 
+								  { name : 'outsideList', label : 'Park' }	 
 							    ];
 								
-    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview' },  { id : 'moving', title : 'Current State' } ];
-
+    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : { display : true, text : 'Overview' }, 
+									kind : 'line',  scale : multiScale, 
+	                                legend : { position: 'left', align : 'start' }, tension : 0.2 },  
+	 							  { id : 'moving', title : { display : true, text : 'Current State' }, 
+								   	kind : 'line',  scale : multiScale, 
+								    legend : { display: false } },
+								  { id : 'won-chart', title : finalTitle,
+								    kind : 'bar', legend : { display : false }, valueAxis : 'y', 
+									scale : finalScale },
+								  { id : 'lost-chart', title : finalTitle,
+								    kind : 'bar', legend : { display: false }, valueAxis : 'y', 
+									scale : finalScale } 
+								];
+    result.CHART_INDEX = { OVERVIEW : 0, MOVING : 1, WON : 2, LOST : 3 };
 	result.MOVING_CHART_WINDOW = 30;
 						   
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}

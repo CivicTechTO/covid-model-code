@@ -21,20 +21,31 @@ class ChartedReference
 		    			fill : false,
 	    				pointRadius : 1,
     					pointHoverRadius : 5,
-                        borderColor : this.options.colour.BORDER,
-                        backgroundColor : this.options.colour.FILL,
 						tension : lineTension,
 						yAxisID : 'y_default'
                     }
 		if (this.options.hasOwnProperty ('dashes')) entry.borderDash = this.options.dashes;
 		if (this.options.hasOwnProperty ('yaxis')) entry.yAxisID = this.options.yaxis;
+		if (this.options.hasOwnProperty ('colour'))
+		{
+			entry.borderColor = this.options.colour.BORDER;
+			entry.backgroundColor = this.options.colour.FILL;
+		}
+		else 
+		{
+			let colourMap = makeInfectedColourMap ();
+			entry.borderColor = colourMap.get (this.options.name);
+			entry.backgroundColor = colourMap.get (this.options.name);
+		}
 		return entry;
 	}
 	
 	fetch ()
 	{
 		if (this.options.name === "score") return this.refState.getScore (); 
-		else return this.refState.record [this.options.name].current;
+		else if (this.refState.record.hasOwnProperty (this.options.name)) 
+		    return this.refState.record [this.options.name].current;
+		else throw "Data point " + this.options.name + " not found";
 	}
 }
 
@@ -79,45 +90,43 @@ class ReferenceList
  */
 class GameChart
 {
-	constructor (descriptor, state, displayList, lineTension)
+	constructor (descriptor)
+	{
+		let titleValue = descriptor.hasOwnProperty ('title') ? descriptor.title : { display : false },
+		    ctx = document.getElementById (descriptor.id),
+	  	    desc = 	{
+						type : descriptor.kind,
+						data : { labels : [] },
+						options : { maintainAspectRatio : false, 
+									plugins : { title : titleValue } }
+				  	};
+	    if (descriptor.hasOwnProperty ('scale')) desc.options.scales = descriptor.scale;
+	    if (descriptor.hasOwnProperty ('legend')) desc.options.plugins.legend = descriptor.legend;
+		if (descriptor.hasOwnProperty ('valueAxis')) desc.options.indexAxis = descriptor.valueAxis;
+		if (descriptor.hasOwnProperty ('defaults')) desc.defaults = descriptor.defaults;
+	    this.chart = new Chart(ctx, desc);
+	}
+
+	update () 
+	{
+		// empty function - some children override this
+	}
+
+	destroy ()
+	{
+		this.chart.destroy ();
+	}
+}
+
+class LineChart extends GameChart
+{
+	constructor (descriptor, displayList)
     {
-	   this.referenceList = displayList;
-       this.nextIndex = 0;
-	   
-       let scaleData =  {
-		                    x : { source : 'data' },
-						    y_default : {
-						                    position : 'left',
-						                    display : true,
-								            type : 'linear',
-							                ticks : {
-								                        steps : 10
-							                        }
-						                },
-						    scoreAxis : {
-							                position : 'right',
-							                display : true,
-								            type : 'linear',
-											max : 100,
-											min : 0,
-							                ticks : {
-	  						                            stepValue : 5,
-										                callback : (label, index, labels) => 
-									    	            { 
-								     		                return label + '%'; 
-							    			            }
-						    			            },
-										    grid : { drawOnChartArea : false }
-					     	            }	                  
-	                    },
-		   title = descriptor.hasOwnProperty ('title') ? descriptor.title : '',
-	       ctx = document.getElementById (descriptor.id),
-           desc = {
-                    type: 'line',
-                    data: { labels : [], datasets: this.referenceList.fieldList (lineTension) },
-                    options : { scales: scaleData, plugins : { title : { display : true, text : title }, legend : { display : false } } }
-                  };
-        this.chart = new Chart(ctx, desc);
+		super (descriptor);
+	   	this.referenceList = displayList;
+       	this.nextIndex = 0;
+		let lineTension = descriptor.hasOwnProperty ('tension') ? descriptor.tension : 0;
+		this.chart.data.datasets = this.referenceList.fieldList (lineTension);
     }
 
     addToList (index, toPush)
@@ -138,20 +147,15 @@ class GameChart
         this.addLabel ();
 		this.chart.update ();
 	}
-
-	destroy ()
-	{
-		this.chart.destroy ();
-	}
 }
 
 // Create a chart based on GameChart, which simply creates an overview of the input
 // data as specified in the constants definition
-class OverviewChart extends GameChart
+class OverviewChart extends LineChart
 {
-	constructor (state, items)
+	constructor (items)
     {
-		super (C.CHART_DESCRIPTIONS [0], state, items, 0.2);
+		super (C.CHART_DESCRIPTIONS [C.CHART_INDEX.OVERVIEW], items);
     }
 
     addToList (index, toPush)
@@ -162,8 +166,8 @@ class OverviewChart extends GameChart
 		}
 		catch (error)
 		{
-			name = this.referenceList.getName (index);
-			console.error (error + ' in ' + name);
+			let errorId = this.referenceList.getName (index);
+			console.error (error + ' in ' + errorId);
 		}			
 	}
 
@@ -175,11 +179,11 @@ class OverviewChart extends GameChart
 
 // Create a chart based on GameChart, which creates a moving window into the 
 // data, giving a clear picture of the recent past.
-class WindowChart extends GameChart
+class WindowChart extends LineChart
 {
 	constructor (state, items)
     {
-		super (C.CHART_DESCRIPTIONS [1], state, items, 0);
+		super (C.CHART_DESCRIPTIONS [C.CHART_INDEX.MOVING], state, items);
 		this.limit = C.MOVING_CHART_WINDOW;
     }
 
@@ -204,7 +208,65 @@ class WindowChart extends GameChart
 	}
 }
 
-/* Implements the list of implemented charts, with the associated field 
+/* Implements the final chart display at the end of the game, showing how many 
+ * infections took place in each location, along with any other information desired.
+ */
+class FinalChart extends GameChart
+{
+	constructor (source, canvasId)
+    {
+		super (C.CHART_DESCRIPTIONS [canvasId]);
+		let labelMap = new Map (C.CHARTED_VALUES.map (({name, label}) => { return [name, label] })),
+			list = source.activeConfig.graphedInfectionLocations,
+			labels = [];
+
+		for (let id of list)
+			labels.push (labelMap.get (id));
+
+		this.valueSource = source;
+		this.chart.data.labels = labels;
+		this.chart.options.onResize = (inst, size) => { this.getData (); }
+		this.chart.data.datasets = [ { label : 'Infection sites', borderWidth : 1, data : [], 
+		                               color : [], BorderColor : [] } ];
+    }
+
+    darker (colours, factor)
+	{
+		let result = [];
+		for (let selected of colours)
+		{
+			let r = parseInt (selected.substring (1,3), 16),
+			    g = parseInt (selected.substring (3,5), 16),
+				b = parseInt (selected.substring (5,7), 16),
+				rgb = 'rgb(' + Math.round (r * factor) + ',' + Math.round (g * factor) + ',' + Math.round (b * factor) + ')';
+			result.push (rgb);
+		}
+
+		return result;
+	}
+
+	getData ()
+	{
+		let colourMap = makeInfectedColourMap (),
+			list = this.valueSource.activeConfig.graphedInfectionLocations,
+			adjust = this.valueSource.activeConfig.chartBorderAdjust,
+			bars = [],
+			colours = [];
+
+		for (let id of list)
+		{
+		    bars.push (sumInfected (this.valueSource [id]));
+			colours.push (colourMap.get (id));
+		}
+     
+		this.chart.data.datasets [0].data = bars; 
+		this.chart.data.datasets [0].backgroundColor = colours;
+		this.chart.data.datasets [0].borderColor = this.darker (colours, adjust);
+		// this.chart.update ();
+	}
+}
+
+/* Implements the list of game display charts, with the associated field 
  * list(s). Implements the new day update and destroys the charts when
  * the object destroy is called. NB: future more complex chart displays 
  * should be developed from this object.
@@ -214,9 +276,16 @@ class ChartList
     constructor (refState, displayList)
     {
 		this.referenceList = new ReferenceList (refState, displayList);
-        this.chartList = [ new OverviewChart (refState, this.referenceList), 
-		                   new WindowChart (refState, this.referenceList) ];
+        this.chartList = [ new OverviewChart (this.referenceList), 
+		                   new WindowChart (this.referenceList),
+						   new FinalChart (refState, C.CHART_INDEX.LOST), 
+						   new FinalChart (refState, C.CHART_INDEX.WON) ];
     }
+
+	getChart (i) 
+	{
+		return this.chartList [i];
+	}
 
     updateAll ()
 	{
@@ -237,4 +306,3 @@ function atNewDay ()
 {
   state.chartList.updateAll ();
 }
-

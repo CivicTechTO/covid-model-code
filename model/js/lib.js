@@ -88,7 +88,7 @@ function animate(timestamp)
 
 function runGame()
 {
-	destroyCharts();
+	state.chartList.destroy();
 	startup(true);
 	startRunning();
 }
@@ -177,6 +177,27 @@ function sumInfected(list)
 	{
 		result += room.infected;
 	}
+
+	return result;
+}
+
+function makeInfectedColourMap()
+{
+	let result = new Map();
+
+// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+	let workStyle = state.activeConfig.workStyle;
+
+	result.set("meatList", workStyle[C.WORKTYPE.MEAT]); 
+	result.set("officeList", workStyle[C.WORKTYPE.OFFICES]);
+	result.set("schoolList", workStyle[C.WORKTYPE.SCHOOLS]);
+	result.set("houseList", state.activeConfig.house.style);
+	result.set("bunkHouseList", state.activeConfig.bunkHouse.style);
+	result.set("churchList", state.activeConfig.church.style);
+	result.set("restaurantList", state.activeConfig.restaurant.style);
+	result.set("pubList", state.activeConfig.pub.style);
+	result.set("clubList", state.activeConfig.club.style);
+	result.set("outsideList", state.activeConfig.outside.style);
 
 	return result;
 }
@@ -385,7 +406,7 @@ function adjustIntervention(cost)
 
 function formatScore()
 {
-	return state.scoreFormat.format(Math.max(0, state.netScore));
+	return state.scoreFormat.format(state.getScore()) + "%";
 }
 
 function computeR()

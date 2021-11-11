@@ -211,19 +211,23 @@ class OpenButton extends BooleanButton
 
 function announceLost()
 {
+	let lostChart = state.chartList.getChart (C.CHART_INDEX.LOST);
 	state.announce = "announce-lose";
 	setText("score-text-lose", "You survived " + state.tickToDay(state.clock) + " days.");
 	showGrid("announce-outer");
 	showGrid("announce-lose");
+	// !!! lostChart.display ();
 	document.getElementById("all-controls").disabled = true;
 }
 
 function announceWon() 
 {
+	let wonChart = state.chartList.getChart (C.CHART_INDEX.WON);
 	state.announce = "announce-win";
-	setText("score-text-win", "You have " + formatScore() + " political points remaining.");
+	setText("score-text-win", "You have " + formatScore() + " of your political points remaining.");
 	showGrid("announce-outer");
 	showGrid("announce-win");
+	wonChart.display ();
 	document.getElementById("all-controls").disabled = true;
 }
 
