@@ -27,8 +27,16 @@ function makeConstants()
 													},
 											grid : { drawOnChartArea : false }
 					 					}	                  
-						};
-
+						},
+			
+		finalScale = 	{ y : { ticks : { autoSkip : false, color : '#FFFFFF', 
+										  font : { size : 14 } }, 
+    							grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } },
+						  x : { ticks : { color : '#FFFFFF', font : { size : 14 } }, 
+								grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } } },
+		
+		finalTitle	=	{ text : 'Your results: Infections by location', color : '#FFFFFF', 
+						  display : true, font : { size : 18 } };
 
     result.CHARTED_VALUES  =	[ { name : 'incubating', label : 'People incubating virus',
 								    colour : { BORDER : 'rgb(120, 120, 120)', FILL : 'rgb(130, 130, 130)' },
@@ -82,14 +90,18 @@ function makeConstants()
 								  { name : 'outsideList', label : 'Park' }	 
 							    ];
 								
-    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : 'Overview', kind : 'line',  scale : multiScale, 
+    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : { display : true, text : 'Overview' }, 
+									kind : 'line',  scale : multiScale, 
 	                                legend : { position: 'left', align : 'start' }, tension : 0.2 },  
-	 							  { id : 'moving', title : 'Current State', kind : 'line',  scale : multiScale, 
+	 							  { id : 'moving', title : { display : true, text : 'Current State' }, 
+								   	kind : 'line',  scale : multiScale, 
 								    legend : { display: false } },
-								  { id : 'won-chart', title : 'Your results: Infections by location',
-								    kind : 'bar', legend : { display : false } },
-								  { id : 'lost-chart', title : 'Your results: Infections by location',
-								    kind : 'bar', legend : { display: false } } 
+								  { id : 'won-chart', title : finalTitle,
+								    kind : 'bar', legend : { display : false }, valueAxis : 'y', 
+									scale : finalScale },
+								  { id : 'lost-chart', title : finalTitle,
+								    kind : 'bar', legend : { display: false }, valueAxis : 'y', 
+									scale : finalScale } 
 								];
     result.CHART_INDEX = { OVERVIEW : 0, MOVING : 1, WON : 2, LOST : 3 };
 	result.MOVING_CHART_WINDOW = 30;

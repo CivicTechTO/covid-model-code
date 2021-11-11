@@ -92,16 +92,18 @@ class GameChart
 {
 	constructor (descriptor)
 	{
-		let title = descriptor.hasOwnProperty ('title') ? descriptor.title : '',
+		let titleValue = descriptor.hasOwnProperty ('title') ? descriptor.title : { display : false },
 		    ctx = document.getElementById (descriptor.id),
 	  	    desc = 	{
 						type : descriptor.kind,
 						data : { labels : [] },
 						options : { maintainAspectRatio : false, 
-									plugins : { title : { display : true, text : title } } }
+									plugins : { title : titleValue } }
 				  	};
 	    if (descriptor.hasOwnProperty ('scale')) desc.options.scales = descriptor.scale;
 	    if (descriptor.hasOwnProperty ('legend')) desc.options.plugins.legend = descriptor.legend;
+		if (descriptor.hasOwnProperty ('valueAxis')) desc.options.indexAxis = descriptor.valueAxis;
+		if (descriptor.hasOwnProperty ('defaults')) desc.defaults = descriptor.defaults;
 	    this.chart = new Chart(ctx, desc);
 	}
 
