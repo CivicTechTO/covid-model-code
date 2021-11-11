@@ -68,7 +68,7 @@ function makeConstants()
 		};
 
 	result.FORWARD = {DEFERRED: 5, SEARCH: {FROM: 4, TO: 1}};
-	result.BACKWARD = {SEARCH: {FROM: 10, TO: 4}};
+	result.BACKWARD = {SEARCH: {FROM: 11, TO: 5}};
 
 	result.IMAGE = {WELL: 0, SICK: 1, RECOVERED: 2, CROSS: 3, CRESCENT: 4, STAR: 5, BIGCROSS: 6, BIGCRESCENT: 7, BIGSTAR: 8};
 

@@ -34,7 +34,6 @@ class Trace extends NoTrace
 		this.tracedToday = new Set();
 
 		this.today = Math.floor(state.tickToDay(state.clock + 1));
-		this.index = this.today % this.deferred;
 	}
 
 	followup()
@@ -69,7 +68,7 @@ console.log("trace");
 		{
 			if (person.test())
 			{
-				state.getTrace().trace(person);
+				state.getTrace().doTrace(person);
 
 				state.found++;
 			}
@@ -107,9 +106,16 @@ console.log("action before", contacts.size, this.testOnDay[index].size);
 console.log("action after ", contacts.size, this.testOnDay[index].size);
 	}
 
+	doTrace(person)
+	{
+		this.trace(person);
+	}
+	
 	initialize()
 	{
 		super.initialize();
+
+		this.index = this.today % this.deferred;
 	}
 	
 	followup()
@@ -128,21 +134,16 @@ class Backward extends Trace
 {
 	constructor()
 	{
-		super();
+		super(C.FORWARD.BACKWARD.FROM, C.FORWARD.BACKWARD.TO);
 	}
 
 	initialize()
 	{
-
-	}
-	
-	trace(person)
-	{
-
+		super.initialize();
 	}
 
-	follouup()
+	action(day, contacts)
 	{
-		
+		Array.from(contacts).every((person) => this.test(person))
 	}
 }
