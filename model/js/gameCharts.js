@@ -226,7 +226,7 @@ class FinalChart extends GameChart
 		this.valueSource = source;
 		this.chart.data.labels = labels;
 		this.chart.options.onResize = (inst, size) => { this.getData (); }
-		this.chart.data.datasets = [ { label : 'Infection sites', borderWidth : 1, data : [], 
+		this.chart.data.datasets = [ { label : 'Infection events', borderWidth : 1, data : [], 
 		                               color : [], BorderColor : [] } ];
     }
 

@@ -26,8 +26,11 @@ class GameState extends TownState
 		this.useRoomState = [];
 
 		this.interventionMaxScore = this.computeInterventionMaxScore();
-		// this.chartList = initializeCharts ();
-		this.chartList = new ChartList (this, this.activeConfig.graphedValues);
+		
+		let graphedValues = this.activeConfig.graphedValues.illustration;
+		if (playGame) graphedValues = this.activeConfig.graphedValues.game;
+
+		this.chartList = new ChartList (this, graphedValues);
 
 		this.run = true;
 		this.past = null;

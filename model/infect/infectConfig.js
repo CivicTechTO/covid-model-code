@@ -21,7 +21,8 @@ function makeConfig()
 
 		, secondsPerStep: {small: 10, large: 300}
 		, startScore: 50000000 
-		, graphedValues : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ]
+		, graphedValues : { illustration : [ "symptoms", "infected", "homeSick", "wardSick", "hallway" ],
+		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
 										'churchList','restaurantList', 'pubList', 'clubList', 'outsideList'	]
 		, chartBorderAdjust : 0.8
