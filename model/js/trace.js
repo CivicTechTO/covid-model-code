@@ -134,7 +134,7 @@ class Backward extends Trace
 {
 	constructor()
 	{
-		super(C.FORWARD.BACKWARD.FROM, C.FORWARD.BACKWARD.TO);
+		super(C.BACKWARD.FROM, C.BACKWARD.TO);
 	}
 
 	initialize()
