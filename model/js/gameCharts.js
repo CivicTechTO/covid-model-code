@@ -42,7 +42,8 @@ class ChartedReference
 	
 	fetch ()
 	{
-		if (this.options.name === "score") return this.refState.getScore (); 
+		if (this.options.hasOwnProperty ('callback')) 
+		    return this.options.callback (this.refState);
 		else if (this.refState.record.hasOwnProperty (this.options.name)) 
 		    return this.refState.record [this.options.name].current;
 		else throw "Data point " + this.options.name + " not found";
