@@ -267,7 +267,7 @@ class FinalChart extends GameChart
 	}
 }
 
-/* Implements the list of game display charts, with the associated field 
+/* Implements the list of display charts, with the associated field 
  * list(s). Implements the new day update and destroys the charts when
  * the object destroy is called. NB: future more complex chart displays 
  * should be developed from this object.
@@ -301,8 +301,7 @@ class ChartList
 	}
 }
 
-// class 
-
+/* Triggers recording of the currest selected state to the graph display(s). */
 function atNewDay () 
 {
   state.chartList.updateAll ();
