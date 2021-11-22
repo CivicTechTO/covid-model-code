@@ -19,7 +19,6 @@ class SicknessManager
 
 	transition(person, increment, decrement)
 	{
-// !!!! console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		if (0 !== (increment & C.RECORD.DEAD))
 		{
 			this.die(person);
@@ -68,7 +67,7 @@ class SicknessManager
 			person.setTested();
 			person.setPositive();
 
-			state.getTrace().trace(person);
+			state.getTrace().hospitalTrace(person);
 		}
 
 		if (this.wardNotFull())

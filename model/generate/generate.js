@@ -23,9 +23,10 @@ stream.write("#no-tests{background-color: " + config.tests.none.colour + ";}\n")
 stream.write("#light-tests{background-color: " + config.tests.light.colour + ";}\n");
 stream.write("#heavy-tests{background-color: " + config.tests.heavy.colour + ";}\n");
 
-stream.write("#no-trace{background-color: " + config.trace.none.colour + ";}\n");
-stream.write("#forward-trace{background-color: " + config.trace.forward.colour + ";}\n");
-stream.write("#backward-trace{background-color: " + config.trace.backward.colour + ";}\n");
+stream.write("#no-trace{background-color: " + config.trace.specs.none.colour + ";}\n");
+stream.write("#forward-trace{background-color: " + config.trace.specs.forward.colour + ";}\n");
+stream.write("#backward-trace{background-color: " + config.trace.specs.backward.colour + ";}\n");
+stream.write("#both-trace{background-color: " + config.trace.specs.both.colour + ";}\n");
 
 stream.write("#no-isolate{background-color: " + config.isolate.none.colour + ";}\n");
 stream.write("#encourage-isolate{background-color: " + config.isolate.encourage.colour + ";}\n");

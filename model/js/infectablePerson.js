@@ -108,10 +108,8 @@ class InfectablePerson extends Person
 			{
 				this.setTested();
 
-console.log("testing");
 				if (C.TESTSPOSITIVE.includes(this.sickness()))
 				{
-console.log("positive");
 					result = true;
 
 					this.setPositive();
@@ -120,10 +118,6 @@ console.log("positive");
 					{
 						this.isolate();
 					}
-
-console.log("Tracing after test");
-					state.getTrace().trace(this);
-console.log("Done tracing after test");
 				}
 			}
 		}

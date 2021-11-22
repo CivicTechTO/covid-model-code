@@ -165,7 +165,7 @@ function setTests(spec)
 
 	if (spec.value.trace.test == 0.0)
 	{
-		setTrace(state.activeConfig.trace.none);
+		setTrace(state.activeConfig.trace.specs.none);
 	}
 
 	drawControls();
@@ -179,7 +179,11 @@ function drawTests()
 
 function setTrace(spec)
 {
-	state.traceSpec = spec;
+	if (spec !== state.traceSpec)
+	{
+		state.traceSpec = spec;
+		state.trace.new = true;
+	}
 
 	drawControls();
 }

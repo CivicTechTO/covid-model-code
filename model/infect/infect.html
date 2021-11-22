@@ -121,9 +121,10 @@
                 <div id="trace" class="control-value">None</div>
                 <div class="control-buttons">
                   <fieldset id="depends-on-tests" disabled="true">
-                    <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.none);">None</button>
-                    <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.forward);">Forward</button>
-                    <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.backward);">Backward</button>
+                    <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.none);">None</button>
+                    <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.forward);">Forward</button>
+                    <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.backward);">Backward</button>
+                    <button id="both-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.both);">Both</button>
                   </fieldset>
                 </div>
 

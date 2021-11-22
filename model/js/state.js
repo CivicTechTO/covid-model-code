@@ -5,6 +5,8 @@ class State
 		this.savedConfig = configuration;
 		this.activeConfig = deepCopy(configuration);
 
+		this.refillTrace(this.activeConfig);
+
 		this.size = configuration.size;
 
 		this.background = configuration.background;
@@ -37,6 +39,15 @@ class State
 		this.maxZ = 1;
 
 		this.historyIndex = 0;
+	}
+
+	refillTrace(config)              // Complete and utter hack
+	{
+		let specs = config.trace.specs;
+		specs.none.value = noTraceTrace;
+		specs.forward.value = forwardTrace;
+		specs.backward.value = backwardTrace;
+		specs.both.value = bothTrace;
 	}
 
 	tickToSecond(tick)

@@ -33,6 +33,19 @@ function union(set1, set2)
 	return result;
 }
 
+function pop(set)
+{
+	let result = null;
+
+	if (set.size > 0)
+	{
+		result = set.values().next().value;
+		set.delete(result);
+	}
+
+	return result;
+}
+
 function rand(end)
 {
 	return Math.floor(end * Math.random());
@@ -165,7 +178,7 @@ function gameAnimate(timestamp)
 
 function reportInfected()
 {
-console.log("Trace", state.tracedCount, state.found);
+console.log("Trace", state.trace.count, state.trace.found);
 	reportRooms("Work", state.workList);
 	reportRooms("Meat packing", state.meatList);
 	reportRooms("Office", state.officeList);

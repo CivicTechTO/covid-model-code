@@ -172,9 +172,17 @@ function makeConfig()
 		
 		, trace:
 			{
-				none: {label: "None", value: new NoTrace(), colour: "#2C7BB6", cost: 0}
-				, forward: {label: "Forward", value: new Forward(), colour: "#857AA3", cost: 400} 
-				, backward: {label: "Backward", value: new Backward(), colour: "#D7191C", cost: 800}
+				  deferred: 5
+				, forward: {from: 4, to: 1}
+				, backward: {random: {from: 11, to: 5}, hospital: {from: 8, to: 6}, trace: {from: 11, to: 1}}
+				, both: {random: {from: 11, to: 1}, hospital: {from: 8, to: 1}, trace: {from: 11, to: 1}}
+				, specs:
+					{
+						none: {label: "None", value: noTraceTrace, colour: "#2C7BB6", cost: 0}
+						, forward: {label: "Forward",value: forwardTrace, colour: "#857AA3", cost: 400} 
+						, backward: {label: "Backward", value: backwardTrace, colour: "#BE5A6F", cost: 800}
+						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 1200}
+					}
 			}
 
 		, isolate: 
@@ -184,6 +192,10 @@ function makeConfig()
 				, require: {label: "Require", value: {sick: 0.4, homeSick: 0.75}, colour: "#BE5A6F", cost: 500}
 				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 1000}
 			}
+
+
+
+
 
 		, history: 20
 		, longEnough: {isolation: 14, positive: 14, test: 14}
