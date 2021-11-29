@@ -176,9 +176,17 @@ function makeConfig()
 		
 		, trace:
 			{
-				none: {label: "None", action: new Trace(), colour: "#2C7BB6", cost: 0}
-				, forward: {label: "Forward", action: new Forward(), colour: "#857AA3", cost: 400} 
-				, backward: {label: "Backward", action: new Backward(), colour: "#D7191C", cost: 800}
+				  deferred: 5
+				, forward: {from: 4, to: 1}
+				, backward: {random: {from: 11, to: 5}, hospital: {from: 8, to: 6}, trace: {from: 11, to: 1}}
+				, both: {random: {from: 11, to: 1}, hospital: {from: 8, to: 1}, trace: {from: 11, to: 1}}
+				, specs:
+					{
+						none: {label: "None", value: noTraceTrace, colour: "#2C7BB6", cost: 0}
+						, forward: {label: "Forward",value: forwardTrace, colour: "#857AA3", cost: 400} 
+						, backward: {label: "Backward", value: backwardTrace, colour: "#BE5A6F", cost: 800}
+						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 1200}
+					}
 			}
 
 		, isolate: 
@@ -189,6 +197,10 @@ function makeConfig()
 				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 1000}
 			}
 
+
+
+
+
 		, history: 20
 		, longEnough: {isolation: 14, positive: 14, test: 14}
 		
@@ -196,16 +208,16 @@ function makeConfig()
 	    , pop: {scale: 5, decay: 300}
 
 // out, ward, icu, and hallway are indexed by 
-// C.SICKNESS = {WELL: 0, ASYMPTOMATIC: 1, SICK: 2, HOMESICK: 3, WARDSICK: 4, ICUSICK: 5, DEAD: 6, RECOVERED: 7}
+//	C.SICKNESS = {WELL: 0, INCUBATING: 1, ASYMPTOMATIC: 2, SICK: 3, HOMESICK: 4, WARDSICK: 5, ICUSICK: 6, DEAD: 7, RECOVERED: 8}
 
 	    , damage:
 	    	{
 	    		scale: 0.5
 	    		, opportunity: {amount: 1000, exponent: 1.5}
-	    		, out: [0, 0, 1, 10, 100, 1000, 0, 0]
-	    		, ward: [0, 0, 0, 0, 100, 10000, 0, 0]
-	    		, icu: [0, 0, 0, 0, 0, 1000, 0, 0]
-	    		, hallway: [0, 0, 0, 0, 1000, 100000, 0, 0]
+	    		, out: [0, 0, 0, 1, 10, 100, 1000, 0, 0]
+	    		, ward: [0, 0, 0, 0, 0, 100, 10000, 0, 0]
+	    		, icu: [0, 0, 0, 0, 0, 0, 1000, 0, 0]
+	    		, hallway: [0, 0, 0, 0, 0, 1000, 100000, 0, 0]
 	    	}   
 
 	    , intervention:
@@ -271,7 +283,7 @@ function makeConfig()
 				  	index: 1000, data: 
 				  		{
 				  			  display: [{pop: true, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.WELL}], time: 96
-				  			, next: 1010, alt: {p: 0.0, next: 1010}, start: 0.0, end: 0.0, sick: C.SICKNESS.ASYMPTOMATIC
+				  			, next: 1010, alt: {p: 0.0, next: 1010}, start: 0.0, end: 0.0, sick: C.SICKNESS.INCUBATING
 				  			, increment: C.RECORD.INFECTED | C.RECORD.INCUBATING, decrement: C.RECORD.WELL
 				  			, score: 0
 				  		}

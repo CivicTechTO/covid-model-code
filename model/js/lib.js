@@ -18,6 +18,33 @@ function deepCopy(inObject)
 	return outObject
 }
 
+function intersection(set1, set2)
+{
+	return new Set(Array.from(set1).filter(element => set2.has(element)));
+}
+
+function union(set1, set2)
+{
+	let result = new Set();
+	
+	set1.forEach(element => result.add(element));
+	set2.forEach(element => result.add(element));
+
+	return result;
+}
+
+function pop(set)
+{
+	let result = null;
+
+	if (set.size > 0)
+	{
+		result = set.values().next().value;
+		set.delete(result);
+	}
+
+	return result;
+}
 
 function rand(end)
 {

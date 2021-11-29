@@ -163,9 +163,9 @@ function setTests(spec)
 {
 	state.testsSpec = spec;
 
-	if (spec.value == 0.0)
+	if (spec.value.trace.test == 0.0)
 	{
-		setTrace(state.activeConfig.trace.none);
+		setTrace(state.activeConfig.trace.specs.none);
 	}
 
 	drawControls();
@@ -174,12 +174,16 @@ function setTests(spec)
 function drawTests() 
 {
 	drawValue("tests", state.testsSpec);
-	setDisabled("depends-on-tests", state.testsSpec.value == 0.0);
+	setDisabled("depends-on-tests", state.testsSpec.value.trace.test == 0.0);
 }
 
 function setTrace(spec)
 {
-	state.traceSpec = spec;
+	if (spec !== state.traceSpec)
+	{
+		state.traceSpec = spec;
+		state.trace.new = true;
+	}
 
 	drawControls();
 }
@@ -224,7 +228,7 @@ function announceWon()
 {
 	let wonChart = state.chartList.getChart (C.CHART_INDEX.WON);
 	state.announce = "announce-win";
-	setText("score-text-win", "You have " + formatScore() + " of your political points remaining.");
+	setText("score-text-win", "You have " + formatScore() + " of your political capital remaining.");
 	showGrid("announce-outer");
 	showGrid("announce-win");
 	wonChart.display ();

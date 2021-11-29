@@ -12,14 +12,14 @@ class GameState extends TownState
 
 		this.masksSpec = this.activeConfig.masks.specs.none;
 		this.testsSpec = this.activeConfig.tests.none;
-		this.traceSpec = this.activeConfig.trace.none;
+		this.traceSpec = this.activeConfig.trace.specs.none;
 		this.isolateSpec = this.activeConfig.isolate.none;
 
 // Interventions all happen at 8AM
 
 		this.useMasks = this.masksSpec.value;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceAction = this.traceSpec.action;
+		this.useTraceValue = this.traceSpec.value;
 		this.useIsolateValue = this.isolateSpec.value;
 
 		this.roomButtons = [];
@@ -45,6 +45,30 @@ class GameState extends TownState
 			this.notGame();
 		}
 
+		this.trace = 
+			{
+				deferred: this.activeConfig.trace.deferred
+				, forward: {from: this.activeConfig.trace.forward.from, to: this.activeConfig.trace.forward.to} 
+				, backward: 
+					{
+						random: {from: this.activeConfig.trace.backward.random.from, to: this.activeConfig.trace.backward.random.to}
+						, hospital: {from: this.activeConfig.trace.backward.hospital.from, to: this.activeConfig.trace.backward.hospital.to}
+						, trace: {from: this.activeConfig.trace.backward.trace.from, to: this.activeConfig.trace.backward.trace.to}
+					}
+				, both: 
+					{
+						random: {from: this.activeConfig.trace.both.random.from, to: this.activeConfig.trace.both.random.to}
+						, hospital: {from: this.activeConfig.trace.both.hospital.from, to: this.activeConfig.trace.both.hospital.to}
+						, trace: {from: this.activeConfig.trace.both.trace.from, to: this.activeConfig.trace.both.trace.to}
+					}
+				, new: true
+				, limit: 0
+				, traceOnDay: []
+				, testOnDay: []
+				, found: 0
+				, count: 0
+			}
+		
 		this.debugPerson = false;
 	}
 
@@ -85,7 +109,7 @@ class GameState extends TownState
 
 	getTrace()
 	{
-		return this.useTraceAction;
+		return this.useTraceValue;
 	}
 
 	notGame()
@@ -182,7 +206,7 @@ class GameState extends TownState
 		this.roomButtons[C.ROOMTYPE.OUTSIDE] = new OpenButton("outside");
 		this.roomButtons[C.ROOMTYPE.PARTIES] = new OpenButton("parties");
 
-		this.copyroomButtons();
+		this.copyRoomButtons();
 	}
 
 	step()
@@ -201,9 +225,15 @@ class GameState extends TownState
 
 				this.personList.forEach(person => person.resetHistory());
 				this.roomList.forEach(room => room.resetHistory());
-				
+
+				this.getTrace().initialize();
+	
+				this.getTrace().newDay();
+
 				this.evaluatePeople();
-				this.test();
+				this.personList.forEach(person => {if (person.test()) this.getTrace().randomTrace(person)});
+
+				this.getTrace().followup();
 
 				this.scoreDate = today;
 				this.setInterventions();
@@ -220,14 +250,6 @@ class GameState extends TownState
 			}
 		}
 
-	}
-
-	test()
-	{
-		for (let person of this.personList)
-		{
-			person.test();
-		}
 	}
 
 	evaluatePeople()
@@ -322,7 +344,7 @@ class GameState extends TownState
 
 		result += this.activeConfig.masks.specs.enforce.cost;
 		result += this.activeConfig.tests.heavy.cost;
-		result += this.activeConfig.trace.backward.cost;
+		result += this.activeConfig.trace.specs.backward.cost;
 		result += this.activeConfig.isolate.enforce.cost;
 
 		return result;
@@ -367,12 +389,12 @@ class GameState extends TownState
 		this.useIsolateValue = this.isolateSpec.value;
 		this.useIsolateHomeSick = this.isolateSpec.homeSick;
 		this.useTestsValue = this.testsSpec.value;
-		this.useTraceAction = this.traceSpec.action;
+		this.useTraceValue = this.traceSpec.value;
 
-		this.copyroomButtons();
+		this.copyRoomButtons();
 	}
 
-	copyroomButtons()
+	copyRoomButtons()
 	{
 		for (var i = this.roomButtons.length - 1; i >= 0; i--) 
 		{

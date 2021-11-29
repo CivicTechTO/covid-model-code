@@ -19,7 +19,6 @@ class SicknessManager
 
 	transition(person, increment, decrement)
 	{
-// !!!! console.log("transition", state.tickToDay(state.clock), increment, decrement);
 		if (0 !== (increment & C.RECORD.DEAD))
 		{
 			this.die(person);
@@ -67,6 +66,8 @@ class SicknessManager
 		{
 			person.setTested();
 			person.setPositive();
+
+			state.getTrace().hospitalTrace(person);
 		}
 
 		if (this.wardNotFull())
@@ -119,7 +120,7 @@ class SicknessManager
 			}
 			else
 			{
-				let patient = this.firstInSet(this.intersect(this.wardAllocated, this.needsICU));
+				let patient = this.firstInSet(intersection(this.wardAllocated, this.needsICU));
 
 				if (patient)
 				{
@@ -128,7 +129,7 @@ class SicknessManager
 				}
 				else
 				{
-					patient = this.firstInSet(this.intersect(this.hallwayAllocated, this.needsICU));
+					patient = this.firstInSet(intersection(this.hallwayAllocated, this.needsICU));
 					
 					if (patient)
 					{
@@ -219,21 +220,6 @@ class SicknessManager
 	wardNotFull()
 	{
 		return this.wardAllocated.size < this.wardCount;
-	}
-
-	intersect(set1, set2)
-	{
-		let result = new Set();
-
-		for (const element of set1)
-		{
-			if (set2.has(element))
-			{
-				result.add(element);
-			}
-		}
-
-		return result;
 	}
 }
 
