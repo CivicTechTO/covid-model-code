@@ -6,7 +6,6 @@ class Trace
 		this.traceToday = new Set();
 		this.testOnlyToday = new Set();
 		this.testedToday = new Set();
-this.positiveToday = 0;
 	}
 
 	initialize()
@@ -41,31 +40,21 @@ this.positiveToday = 0;
 
 		state.trace.traceOnDay[index] = new Set();
 		state.trace.testOnDay[index] = new Set();
-this.positiveToday = 0;
 	}
 
 	followup()
 	{
-let traced = 0;
-let tested = 0;
-
-console.log("Testing", this.testOnlyToday.size, "tracing", this.traceToday.size, "already", this.testedToday.size
-	, "tested", state.record.tests.current, "positive", state.record.positive.current);
 		while(this.testOnlyToday.size > 0 && state.limit-- > 0)
 		{
-tested++;
 			let person = pop(this.testOnlyToday);
 			this.test(person);
 		}
 
 		while(this.traceToday.size > 0 && state.limit-- > 0)
 		{
-traced++;
 			let person = pop(this.traceToday);
 			this.testAndTrace(person);
 		}
-
-console.log("Tested", tested, "Traced", traced, "positiveToday", this.positiveToday);
 	}
 
 	randomTrace(person)
@@ -105,7 +94,6 @@ console.log("Tested", tested, "Traced", traced, "positiveToday", this.positiveTo
 			{
 				result = true;
 				state.trace.found++;
-this.positiveToday++;
 			}
 		}
 
