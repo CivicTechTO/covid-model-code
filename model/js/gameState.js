@@ -120,7 +120,7 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
 
-		document.getElementById("game-controls").disabled = true;
+		document.getElementById("in-game-controls").disabled = true;
 		gameHide("game-hide", false);
 		gameHide("game-show", true);
 	}
@@ -133,7 +133,7 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
 
-		document.getElementById("game-controls").disabled = false;
+		document.getElementById("in-game-controls").disabled = false;
 		gameHide("game-hide", true);
 		gameHide("game-show", false);
 
