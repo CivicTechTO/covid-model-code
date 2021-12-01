@@ -222,15 +222,27 @@ fieldset
 	background-color: #87CEEB;
 } */
 
+#overview_container
+{
+	width : 800px; height : 320px;
+	display: inline-block;
+}
+
+#moving_container
+{
+	width : 500px; height: 320px;
+	display : inline-block;
+}
+
 .chartx 
 {
   background-color: #87CEEB;
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 320px 1fr;
-  gap: 10px;
+  gap: 10px; */
 	
-  /* display: inline-flex; */
+  /* display: flex; */
 }
 
 .cold-colour
