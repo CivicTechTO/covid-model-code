@@ -95,8 +95,8 @@
                 </div>
                   <div id="starting" class="control-value">Infected</div>
                   <div class="control-buttons">
-                    <button id="start-not-infected" type="button" onclick="setStart(false);" class="cold-colour">Not&nbspInfected</button>
-                    <button id="start-infected" type="button" onclick="setStart(true);" class="hot-colour">Infected</button>
+                    <button id="start-not-infected" type="button" onclick="setStart(state.activeConfig.startState.notInfected);">Uninfected</button>
+                    <button id="start-infected" type="button" onclick="setStart(state.activeConfig.startState.infected);">Infected</button>
                   </div>
                 </div>
                 
@@ -107,8 +107,8 @@
                 </div>
                   <div id="capital" class="control-value">High</div>
                   <div class="control-buttons">
-                    <button id="capital-high" type="button" onclick="setCapital(state.activeConfig.capital.high)" class="cold-colour">High</button>
-                    <button id="capital-low" type="button" onclick="setCapital(state.activeConfig.capital.low)" class="hot-colour">Low</button>
+                    <button id="capital-high" type="button" onclick="setCapital(state.activeConfig.capital.high)">High</button>
+                    <button id="capital-low" type="button" onclick="setCapital(state.activeConfig.capital.low)">Low</button>
                   </div>
                   
                 </div>
@@ -487,19 +487,17 @@
       <div id="score-text-lose" class="announce-text">You survived 45 days.</div>
       <div><canvas id="lost-chart"></canvas></div>
       <div class="button-group">
-        <button type="button" class="announce-button" onclick="quit();">Quit</button>
-        <button type="button" class="announce-button" onclick="play();">Play again</button>
+        <button type="button" class="announce-button" onclick="ok();">OK</button>
       </div>
     </div>
 
     <div id="announce-win" class="announce">
       <div class="announce-text">GAME RESULTS</div>
       <div class="announce-text">You have survived.</div>
-      <div><canvas id="won-chart"></canvas></div>
       <div id="score-text-win" class="announce-text">You have 100% of your political capital remaining.</div>
+      <div><canvas id="won-chart"></canvas></div>
       <div class="button-group">
-        <button type="button" class="announce-button" onclick="quit();">Quit</button>
-        <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
+        <button type="button" class="announce-button" onclick="ok();">OK</button>
       </div>
     </div>    
   </div>

@@ -31,6 +31,13 @@ function gameHide(which, show)
 	}
 }
 
+function gameOn(isGame)
+{
+	document.getElementById("in-game-controls").disabled = !isGame;
+	document.getElementById("start-game").disabled = isGame;
+	document.getElementById("difficulty").disabled = isGame;
+}
+
 function hideClass(which)
 {
 	const hideList = document.getElementsByClassName(which);
@@ -79,6 +86,8 @@ function drawControls()
 	drawRun();
 	drawSpeed();
 
+	drawStart();
+	drawCapital();
 	drawMasks();
 	drawTests();
 	drawTrace();
@@ -89,7 +98,7 @@ function drawControls()
 
 function drawPlay()
 {
-	if (state.game)
+	if (persistent.gameStarted)
 	{
 		document.getElementById("start-game").disabled = true;
 	}
@@ -111,6 +120,8 @@ function drawRun()
 
 function startGame() 
 {
+	persistent.gameStarted = true;
+
 	drawControls();
 	runGame();
 }
@@ -142,10 +153,35 @@ function setSpeed(spec)
 	drawControls();
 }
 
+function setStart(spec)
+{
+	persistent.startSpec = spec;
+
+	drawControls();
+}
+
+function drawStart()
+{
+	drawValue("starting", persistent.startSpec);
+}
+
+function setCapital(spec)
+{
+	persistent.capitalSpec = spec;
+
+	drawControls();
+}
+
+function drawCapital()
+{
+	drawValue("capital", persistent.capitalSpec);
+}
+
 function drawSpeed() 
 {
 	drawValue("speed", state.speedSpec);
 }
+
 
 function setMasks(spec)
 {
@@ -235,18 +271,14 @@ function announceWon()
 	document.getElementById("all-controls").disabled = true;
 }
 
-function quit()
+function ok()
 {
+	persistent.gameStarted = false;
+	
 	hide(state.announce);
 	hide("announce-outer");
 	document.getElementById("all-controls").disabled = false;
-}
 
-function play()
-{
-	hide(state.announce);
-	hide("announce-outer");
-	document.getElementById("all-controls").disabled = false;
-	runGame();
+	gameOn(false);
 }
 

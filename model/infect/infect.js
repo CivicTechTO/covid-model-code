@@ -1,10 +1,12 @@
 
 var C = makeConstants();
+var config = makeConfig();
 var state;
+var persistent = {startSpec: config.startState.infected, capitalSpec: config.capital.high, gameStarted: false};
 
 connectRooms();
 
-startup(false);
+startup(config, false);
 
 startRunning();
 
