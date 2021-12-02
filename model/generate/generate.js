@@ -14,6 +14,12 @@ stream.write("#slow-speed{background-color: " + config.stepsPerFrame.slow.colour
 stream.write("#medium-speed{background-color: " + config.stepsPerFrame.medium.colour + ";}\n");
 stream.write("#fast-speed{background-color: " + config.stepsPerFrame.fast.colour + ";}\n");
 
+stream.write("#start-not-infected{background-color: " + config.startState.notInfected.colour + ";}\n");
+stream.write("#start-infected{background-color: " + config.startState.infected.colour + ";}\n");
+
+stream.write("#capital-high{background-color: " + config.capital.high.colour + ";}\n");
+stream.write("#capital-low{background-color: " + config.capital.low.colour + ";}\n");
+
 stream.write("#no-masks{background-color: " + config.masks.specs.none.colour + ";}\n");
 stream.write("#encourage-masks{background-color: " + config.masks.specs.encourage.colour + ";}\n");
 stream.write("#require-masks{background-color: " + config.masks.specs.require.colour + ";}\n");

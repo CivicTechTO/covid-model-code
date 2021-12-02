@@ -116,7 +116,7 @@ function animate(timestamp)
 function runGame()
 {
 	state.chartList.destroy();
-	startup(true);
+	startup(makeConfig(), true);
 	startRunning();
 }
 
@@ -161,14 +161,14 @@ function gameAnimate(timestamp)
 			
 			if (lost())
 			{
-				reportInfected();
+//				reportInfected();
 				announceLost();
 			}
 			else
 			{
 				if (won())
 				{
-					reportInfected();
+//					reportInfected();
 					announceWon();
 				}
 			}
@@ -229,11 +229,11 @@ function makeInfectedColourMap()
 	return result;
 }
 
-function startup(playGame)
+function startup(config, playGame)
 {
 	const canvas = document.getElementById('canvas');
 
-	state = new GameState(makeConfig(), playGame);
+	state = new GameState(config, playGame);
 	state.fill();
 	state.initialize();
 

@@ -20,7 +20,6 @@ function makeConfig()
 			}
 
 		, secondsPerStep: {small: 10, large: 300}
-		, startScore: 50000000 
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
@@ -155,6 +154,17 @@ function makeConfig()
 
 		, infectious: {pList: [0.7, 0,1, 0.1, 0.1], valueList: [0, 1, 10, 40]}
 
+		, startState:
+			{
+				notInfected: {label: "Uninfected", value: false, colour: "#2C7BB6"}
+				, infected: {label: "Infected", value: true, colour: "#D7191C"}
+			}
+
+		, capital:
+			{
+				high: {label: "High", value: 50000000, colour: "#2C7BB6"}
+				, low: {label: "Low", value: 10000000, colour: "#D7191C"}
+			}
 		, masks: 
 			{
 				factor: {infector: 0.35, infectee: 0.65}

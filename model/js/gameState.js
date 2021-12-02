@@ -6,7 +6,7 @@ class GameState extends TownState
 
 		this.game = false;
 		this.score = 0;
-		this.netScore = this.activeConfig.startScore;
+		this.netScore = persistent.capitalSpec.value;
 		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 2});
 		this.scoreDate = -1;
 
@@ -120,9 +120,10 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
 
-		document.getElementById("game-controls").disabled = true;
 		gameHide("game-hide", false);
 		gameHide("game-show", true);
+
+		gameOn(false);
 	}
 
 	setGame()
@@ -133,9 +134,10 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
 
-		document.getElementById("game-controls").disabled = false;
 		gameHide("game-hide", true);
 		gameHide("game-show", false);
+
+		gameOn(true);
 
 		setText("limit", "/" + state.savedConfig.limit.toString());
 		showInline("limit");
@@ -242,7 +244,7 @@ class GameState extends TownState
 				this.score += adjustDamage(this.damageScore());
 				this.score += adjustIntervention(this.interventionScore());
 				
-				this.netScore = this.activeConfig.startScore - this.score;
+				this.netScore = persistent.capitalSpec.value - this.score;
 				
 				this.showScore();
 
@@ -380,7 +382,7 @@ class GameState extends TownState
 
     getScore ()
 	{
-        return (Math.max(0, this.netScore) / this.activeConfig.startScore) * 100;
+        return (Math.max(0, this.netScore) / persistent.capitalSpec.value) * 100;
 	}
 	
 	setInterventions()
