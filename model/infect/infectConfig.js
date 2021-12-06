@@ -19,13 +19,13 @@ function makeConfig()
 				, fast: {label: "Fast", value: 120, colour: "#D7191C"}
 			}
 
-		, secondsPerStep: {small: 10, large: 300}
+		, secondsPerStep: {small: 10, large: 30}
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
 										'churchList','restaurantList', 'pubList', 'clubList', 'outsideList'	]
 		, chartBorderAdjust : 0.8
-		, limit: 400
+		, limit: 100
 		, randomInfected: 100
 		, startHour: 8
 		, shiftLength: 4
