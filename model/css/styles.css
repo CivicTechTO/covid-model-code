@@ -397,7 +397,7 @@ fieldset
 	margin-top: 2em;
 	display: grid;
 	grid-template-columns: max-content max-content;
-	justify-content: space-evenly;
+	justify-content: center;
 }
 
 .announce-button
