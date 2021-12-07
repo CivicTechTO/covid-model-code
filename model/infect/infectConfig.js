@@ -45,10 +45,10 @@ function makeConfig()
 		, depth: 80
 		, workSpeed: 0.05
 		, workBack: 0.001
-		, left:[30, 55, 30, 80, 65, 70, 80, 20, 65]
-		, right: [70, 30, 65, 75, 30, 90, 70, 65]
-		, workAllocation: [7, 15, 6, 16, 13, 14, 16, 4, 13, 14, 6, 13, 15, 6, 18, 14, 14]
-		, workType: {meat: {start: 0, end: 3}, office: {start:4, end: 11}, school: {start: 12, end:16}}
+		, left:[30, 40, 30, 25, 65, 55, 60, 65, 25, 60, 35]
+		, right: [60, 30, 55, 65, 30, 70, 50, 45, 25, 30, 35]
+		, workAllocation: [7, 12, 6, 6, 16, 13, 14, 16, 4, 13, 10, 14, 6, 13, 15, 6, 18, 14, 14, 10, 10, 10]
+		, workType: {meat: {start: 0, end: 4}, office: {start:5, end: 14}, school: {start: 15, end:21}}
 		, workScale:{maxAllocation: 20, ventilation: {min: 10, max: 20}, loudness: {min: 5, max: 10}}
 
 
@@ -71,25 +71,25 @@ function makeConfig()
 			}
 		, church: 
 			{
-				style: "#A8BAF2", count: 2, width: 80, height: 80, crowd: 24, offset: 10, speed: 0.05
+				style: "#A8BAF2", count: 4, width: 80, height: 40, crowd: 24, offset: 10, speed: 0.05
 				, halfEdge: 20, start: 10, pause: 10, millingTime: 60, sitTime: 120
 				, separation: 1
 				, ventilation: [6, 11, 14, 9, 8, 15], loudness: [40, 38, 37, 40, 37, 36]
 			}
 		, restaurant: 
 			{
-				style: "#8ABAF2", count: 1, width: 40, height: 160, crowd: 2, offset: 4, speed: 0.05
+				style: "#8ABAF2", count: 8, width: 40, height: 20, crowd: 2, offset: 4, speed: 0.05
 				, separation: 1
 				, ventilation: {low: 8, high: 12}, loudness:{low:5, high: 15}
 			}
 		, pub: 
 			{
-				style: "#6CBAF2", count: 1, width: 40, height: 160, crowd: 1, offset: 4, speed: 0.025
+				style: "#6CBAF2", count: 8, width: 40, height: 20, crowd: 1, offset: 4, speed: 0.025
 				, ventilation: {low: 20, high: 30}, loudness:{low:15, high: 30}
 			}
 		, club: 
 			{
-				style: "#40BAF2", count: 1, width: 40, height: 160, crowd: 8, offset: 4, speed: 0.075
+				style: "#40BAF2", count: 8, width: 40, height: 20, crowd: 8, offset: 4, speed: 0.075
 				, halfEdge: 5, start:1, pause: 1, ventilation: {low: 6, high: 9}, loudness:{low:30, high: 40}
 			}
 		, outside: 
