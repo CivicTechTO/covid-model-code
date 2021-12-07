@@ -165,6 +165,13 @@ function makeConfig()
 				high: {label: "High", value: 50000000, colour: "#2C7BB6"}
 				, low: {label: "Low", value: 10000000, colour: "#D7191C"}
 			}
+
+		, displaySick:
+			{
+				early: {label: "Early", value: 0, colour: "#2C7BB6"}
+				, late: {label: "Late", value: 1, colour: "#D7191C"}
+			}
+			
 		, masks: 
 			{
 				factor: {infector: 0.35, infectee: 0.65}

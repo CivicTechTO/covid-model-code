@@ -129,7 +129,7 @@ class GameState extends TownState
 	setGame()
 	{
 		this.game = true;
-		this.mode = 1;
+		this.mode = persistent.displaySickSpec.value;
 		this.animate = gameAnimate;
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);

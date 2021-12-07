@@ -48,7 +48,7 @@
       <div id="info-panel">
         <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
         <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
-        <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
+        <div id="score-block">Political capital available: <span id="score">100%</span></div>
         <div class="info-img" onclick="showTooltip('info-tooltip', 0, 1);">
           <img src="../images/info.svg">
         </div>
@@ -110,8 +110,21 @@
                     <button id="capital-high" type="button" onclick="setCapital(state.activeConfig.capital.high)">High</button>
                     <button id="capital-low" type="button" onclick="setCapital(state.activeConfig.capital.low)">Low</button>
                   </div>
+                </div>
+  
+                <div id="display-sick-group" class="controls-contents">
+                <div class="control-title">Show&nbsp;Sick</div>
+                <div class="info-img" onclick="showTooltip('display-sick-tooltip', 0, 5);">
+                  <img src="../images/info.svg">
+                </div>
+                  <div id="display-sick" class="control-value">Late</div>
+                  <div class="control-buttons">
+                    <button id="display-sick-early" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.early)">Early</button>
+                    <button id="display-sick-late" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.late)">Late</button>
+                  </div>
                   
                 </div>
+
               </fieldset>
 
 

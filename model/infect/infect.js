@@ -2,7 +2,13 @@
 var C = makeConstants();
 var config = makeConfig();
 var state;
-var persistent = {startSpec: config.startState.infected, capitalSpec: config.capital.high, gameStarted: false};
+var persistent = 
+	{
+		startSpec: config.startState.infected
+		, capitalSpec: config.capital.high
+		, displaySickSpec: config.displaySick.late
+		, gameStarted: false
+	};
 
 connectRooms();
 

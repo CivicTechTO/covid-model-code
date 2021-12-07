@@ -20,6 +20,9 @@ stream.write("#start-infected{background-color: " + config.startState.infected.c
 stream.write("#capital-high{background-color: " + config.capital.high.colour + ";}\n");
 stream.write("#capital-low{background-color: " + config.capital.low.colour + ";}\n");
 
+stream.write("#display-sick-early{background-color: " + config.displaySick.early.colour + ";}\n");
+stream.write("#display-sick-late{background-color: " + config.displaySick.late.colour + ";}\n");
+
 stream.write("#no-masks{background-color: " + config.masks.specs.none.colour + ";}\n");
 stream.write("#encourage-masks{background-color: " + config.masks.specs.encourage.colour + ";}\n");
 stream.write("#require-masks{background-color: " + config.masks.specs.require.colour + ";}\n");

@@ -88,6 +88,8 @@ function drawControls()
 
 	drawStart();
 	drawCapital();
+	drawDisplaySick();
+
 	drawMasks();
 	drawTests();
 	drawTrace();
@@ -175,6 +177,18 @@ function setCapital(spec)
 function drawCapital()
 {
 	drawValue("capital", persistent.capitalSpec);
+}
+
+function drawDisplaySick()
+{
+	drawValue("display-sick", persistent.displaySickSpec);
+}
+
+function setDisplaySick(spec)
+{
+	persistent.displaySickSpec = spec;
+
+	drawControls();
 }
 
 function drawSpeed() 
