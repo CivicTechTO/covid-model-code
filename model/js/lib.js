@@ -113,6 +113,11 @@ function animate(timestamp)
 	}
 }
 
+function isEarly()
+{
+	return 0 === persistent.displaySickSpec.value;
+}
+
 function runGame()
 {
 	state.chartList.destroy();
@@ -340,6 +345,8 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.increment();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.increment();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.increment();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.increment();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.increment();}
 
 	if (which !== 0)
 	{
@@ -369,6 +376,8 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.decrement();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.decrement();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.decrement();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.decrement();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.decrement();}
 
 	if (which !== 0)
 	{
@@ -398,6 +407,8 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.reset();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.reset();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.reset();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.reset();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.reset();}
 
 	if (which !== 0)
 	{

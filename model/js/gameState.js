@@ -65,8 +65,6 @@ class GameState extends TownState
 				, limit: 0
 				, traceOnDay: []
 				, testOnDay: []
-				, found: 0
-				, count: 0
 			}
 		
 		this.debugPerson = false;
@@ -120,8 +118,8 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
 
-		gameHide("game-hide", false);
-		gameHide("game-show", true);
+		classShow("early-show", true);
+		classShow("game-show", false);
 
 		gameOn(false);
 	}
@@ -134,8 +132,8 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
 
-		gameHide("game-hide", true);
-		gameHide("game-show", false);
+		classShow("early-show", isEarly());
+		classShow("game-show", true);
 
 		gameOn(true);
 

@@ -22,12 +22,12 @@ function hide(name)
 	element.style.display = "none";
 }
 
-function gameHide(which, show)
+function classShow(which, show)
 {
 	const hideList = document.getElementsByClassName(which);
 	for (const element of hideList)
 	{
-		element.hidden = show;
+		element.hidden = !show;
 	}
 }
 

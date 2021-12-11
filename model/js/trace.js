@@ -73,8 +73,6 @@ class Trace
 	{
 		if (!this.testedToday.has(person))
 		{
-			state.trace.count++;
-
 			this.testedToday.add(person);
 
 			for (let day = Math.max(0, this.today - start) ; day < this.today - end ; day++)
@@ -90,10 +88,12 @@ class Trace
 
 		if (!person.isTested())
 		{
+			recordIncrement(C.RECORD.TRACE_TESTS);
+
 			if (person.test())
 			{
 				result = true;
-				state.trace.found++;
+				recordIncrement(C.RECORD.TRACE_POSITIVES);
 			}
 		}
 
