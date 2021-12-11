@@ -48,7 +48,7 @@
       <div id="info-panel">
         <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
         <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
-        <div id="score-block">Political capital available: <span id="score">50,000,000</span></div>
+        <div id="score-block">Political capital available: <span id="score">100%</span></div>
         <div class="info-img" onclick="showTooltip('info-tooltip', 0, 1);">
           <img src="../images/info.svg">
         </div>
@@ -81,200 +81,247 @@
               </div>
             </div>
 
-            <fieldset id="game-controls" disabled="true">
 
-              <h2>Game Controls</h2>
+            <h2>Game Controls</h2>
 
-              <div class="info-img" onclick="showTooltip('game-tooltip', 0, 4);">
-                <img src="../images/info.svg">
-              </div>
+            <div id="game-controls">
+            <fieldset id="difficulty">
+              <h3>Difficulty Controls</h3>
 
-              <div class="controls-contents">
-             
-                <div class="control-title">Masks</div>
-                <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 5);">
+                <div id="infected-group" class="controls-contents">
+                <div class="control-title">Start</div>
+                <div class="info-img" onclick="showTooltip('start-infected-tooltip', 0, 4);">
                   <img src="../images/info.svg">
                 </div>
-                <div id="masks" class="control-value">None</div>
-                <div class="control-buttons">
-                  <button id="no-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.none);">None</button>
-                  <button id="encourage-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.encourage);">Encourage</button>
-                  <button id="require-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.require);">Require</button>
-                  <button id="enforce-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.enforce);">Enforce</button>
+                  <div id="starting" class="control-value">Infected</div>
+                  <div class="control-buttons">
+                    <button id="start-not-infected" type="button" onclick="setStart(state.activeConfig.startState.notInfected);">Uninfected</button>
+                    <button id="start-infected" type="button" onclick="setStart(state.activeConfig.startState.infected);">Infected</button>
+                  </div>
                 </div>
-            
-                <div class="control-title">Tests</div>
-                <div class="info-img" onclick="showTooltip('tests-tooltip', 0, 6);">
+                
+                <div id="capital-group" class="controls-contents">
+                <div class="control-title">Capital</div>
+                <div class="info-img" onclick="showTooltip('capital-tooltip', 0, 5);">
                   <img src="../images/info.svg">
                 </div>
-                <div id="tests" class="control-value">None</div>
-                <div class="control-buttons">
-                  <button id="no-tests" type="button" onclick="setTests(state.activeConfig.tests.none);">None</button>
-                  <button id="light-tests" type="button" onclick="setTests(state.activeConfig.tests.light);">Light</button>
-                  <button id="heavy-tests" type="button" onclick="setTests(state.activeConfig.tests.heavy);">Heavy</button>
+                  <div id="capital" class="control-value">High</div>
+                  <div class="control-buttons">
+                    <button id="capital-high" type="button" onclick="setCapital(state.activeConfig.capital.high)">High</button>
+                    <button id="capital-low" type="button" onclick="setCapital(state.activeConfig.capital.low)">Low</button>
+                  </div>
                 </div>
-
-                <div class="control-title">Tracing</div>
-                <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 7);">
+  
+                <div id="display-sick-group" class="controls-contents">
+                <div class="control-title">Show&nbsp;Sick</div>
+                <div class="info-img" onclick="showTooltip('display-sick-tooltip', 0, 5);">
                   <img src="../images/info.svg">
                 </div>
-                <div id="trace" class="control-value">None</div>
-                <div class="control-buttons">
-                  <fieldset id="depends-on-tests" disabled="true">
-                    <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.none);">None</button>
-                    <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.forward);">Forward</button>
-                    <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.backward);">Backward</button>
-                    <button id="both-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.both);">Both</button>
-                  </fieldset>
+                  <div id="display-sick" class="control-value">Late</div>
+                  <div class="control-buttons">
+                    <button id="display-sick-early" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.early)">Early</button>
+                    <button id="display-sick-late" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.late)">Late</button>
+                  </div>
+                  
                 </div>
 
-                <div class="control-title">Isolate</div>
-                <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 8);">
+              </fieldset>
+
+
+              <fieldset id="in-game-controls" disabled="true">
+                <h3>In Game Controls</h3>
+
+                <div class="info-img" onclick="showTooltip('game-tooltip', 0, 6);">
                   <img src="../images/info.svg">
                 </div>
-                <div id="isolate" class="control-value">None</div>
-                <div class="control-buttons">
-                  <button id="no-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.none);">None</button>
-                  <button id="encourage-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.encourage);">Encourage</button>
-                  <button id="require-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.require);">Require</button>
-                  <button id="enforce-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.enforce);">Enforce</button>
-                </div>
-                <div>&nbsp</div>
-              </div>
 
-                <div id="toggle-description">
-                  The following controls shut down or open up a category of rooms.
-                </div>
-
-                <div class="toggle-contents">
-                  <div class="toggle-room">
-                    <div class="toggle-title church-colour">Worship</div>
-                    <div class="info-img" onclick="showTooltip('worship-tooltip', 1, 0);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="worship-false" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="worship-toggle" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].toggleAction();">
-                        <img id="worship-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="worship-true" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].trueAction();">Open</button>
-                    </div>
+                <div class="controls-contents">
+               
+                  <div class="control-title">Masks</div>
+                  <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 7);">
+                    <img src="../images/info.svg">
+                  </div>
+                  <div id="masks" class="control-value">None</div>
+                  <div class="control-buttons">
+                    <button id="no-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.none);">None</button>
+                    <button id="encourage-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.encourage);">Encourage</button>
+                    <button id="require-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.require);">Require</button>
+                    <button id="enforce-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.enforce);">Enforce</button>
+                  </div>
+              
+                  <div class="control-title">Tests</div>
+                  <div class="info-img" onclick="showTooltip('tests-tooltip', 0, 8);">
+                    <img src="../images/info.svg">
+                  </div>
+                  <div id="tests" class="control-value">None</div>
+                  <div class="control-buttons">
+                    <button id="no-tests" type="button" onclick="setTests(state.activeConfig.tests.none);">None</button>
+                    <button id="light-tests" type="button" onclick="setTests(state.activeConfig.tests.light);">Light</button>
+                    <button id="heavy-tests" type="button" onclick="setTests(state.activeConfig.tests.heavy);">Heavy</button>
                   </div>
 
-                  <div class="toggle-room">
-                    <div class="toggle-title restaurant-colour">Restaurants</div>
-                    <div class="info-img" onclick="showTooltip('restaurants-tooltip', 1, 1);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="restaurants-false" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].falseAction();">
-                        Close
-                      </button>
-                      <button class="boolean boolean-toggle" id="restaurants-toggle" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].toggleAction();">
-                        <img id="restaurants-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="restaurants-true" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].trueAction();">Open</button>
-                    </div>
+                  <div class="control-title">Tracing</div>
+                  <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 9);">
+                    <img src="../images/info.svg">
+                  </div>
+                  <div id="trace" class="control-value">None</div>
+                  <div class="control-buttons">
+                    <fieldset id="depends-on-tests" disabled="true">
+                      <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.none);">None</button>
+                      <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.forward);">Forward</button>
+                      <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.backward);">Backward</button>
+                      <button id="both-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.both);">Both</button>
+                    </fieldset>
                   </div>
 
-                  <div class="toggle-room">
-                    <div class="toggle-title bar-colour">Bars</div>
-                    <div class="info-img" onclick="showTooltip('bars-tooltip', 1, 2);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="bars-false" onclick="state.roomButtons[C.ROOMTYPE.BARS].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="bars-toggle" onclick="state.roomButtons[C.ROOMTYPE.BARS].toggleAction();">
-                        <img id="bars-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="bars-true" onclick="state.roomButtons[C.ROOMTYPE.BARS].trueAction();">Open</button>
-                    </div>
+                  <div class="control-title">Isolate</div>
+                  <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 10);">
+                    <img src="../images/info.svg">
                   </div>
-
-                  <div class="toggle-room">
-                    <div class="toggle-title club-colour">Clubs</div>
-                    <div class="info-img" onclick="showTooltip('clubs-tooltip', 1, 3);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="clubs-false" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="clubs-toggle" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].toggleAction();">
-                        <img id="clubs-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="clubs-true" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].trueAction();">Open</button>
-                    </div>
+                  <div id="isolate" class="control-value">None</div>
+                  <div class="control-buttons">
+                    <button id="no-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.none);">None</button>
+                    <button id="encourage-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.encourage);">Encourage</button>
+                    <button id="require-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.require);">Require</button>
+                    <button id="enforce-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.enforce);">Enforce</button>
                   </div>
-
-                  <div class="toggle-room">
-                    <div class="toggle-title school-colour">Schools</div>
-                    <div class="info-img" onclick="showTooltip('schools-tooltip', 1, 4);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="schools-false" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="schools-toggle" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].toggleAction();">
-                        <img id="schools-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="schools-true" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].trueAction();">Open</button>
-                    </div>
-                  </div>
-
-                  <div class="toggle-room">
-                    <div class="toggle-title office-colour">Offices</div>
-                    <div class="info-img" onclick="showTooltip('offices-tooltip', 1, 5);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="offices-false" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="offices-toggle" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].toggleAction();">
-                        <img id="offices-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="offices-true" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].trueAction();">Open</button>
-                    </div>
-                  </div>
-
-                  <div class="toggle-room">
-                    <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                    <div class="info-img" onclick="showTooltip('meat-tooltip', 1, 6);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="meat-false" onclick="state.roomButtons[C.ROOMTYPE.MEAT].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="meat-toggle" onclick="state.roomButtons[C.ROOMTYPE.MEAT].toggleAction();">
-                        <img id="meat-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="meat-true" onclick="state.roomButtons[C.ROOMTYPE.MEAT].trueAction();">Open</button>
-                    </div>
-                  </div>
-
-                  <div class="toggle-room">
-                    <div class="toggle-title outside-colour">Parks</div>
-                    <div class="info-img" onclick="showTooltip('outside-tooltip', 1, 7);">
-                      <img src="../images/info.svg">
-                    </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="outside-false" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="outside-toggle" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].toggleAction();">
-                        <img id="outside-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="outside-true" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].trueAction();">Open</button>
-                    </div>
+                  <div>&nbsp</div>
                 </div>
 
-                  <div class="toggle-room">
-                  <div class="toggle-title house-colour">House&nbsp;parties</div>
-                    <div class="info-img" onclick="showTooltip('house-tooltip', 1, 8);">
-                      <img src="../images/info.svg">
+                  <div id="toggle-description">
+                    The following controls shut down or open up a category of rooms.
+                  </div>
+
+                  <div class="toggle-contents">
+                    <div class="toggle-room">
+                      <div class="toggle-title church-colour">Worship</div>
+                      <div class="info-img" onclick="showTooltip('worship-tooltip', 1, 0);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="worship-false" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="worship-toggle" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].toggleAction();">
+                          <img id="worship-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="worship-true" onclick="state.roomButtons[C.ROOMTYPE.WORSHIP].trueAction();">Open</button>
+                      </div>
                     </div>
-                    <div class="boolean-button">
-                      <button class="boolean boolean-false" id="parties-false" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].falseAction();">Close</button>
-                      <button class="boolean boolean-toggle" id="parties-toggle" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].toggleAction();">
-                        <img id="parties-image" src="../images/left.svg" />
-                      </button> 
-                      <button class="boolean boolean-true" id="parties-true" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].trueAction();">Open</button>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title restaurant-colour">Restaurants</div>
+                      <div class="info-img" onclick="showTooltip('restaurants-tooltip', 1, 1);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="restaurants-false" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].falseAction();">
+                          Close
+                        </button>
+                        <button class="boolean boolean-toggle" id="restaurants-toggle" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].toggleAction();">
+                          <img id="restaurants-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="restaurants-true" onclick="state.roomButtons[C.ROOMTYPE.RESTAURANTS].trueAction();">Open</button>
+                      </div>
                     </div>
-                </div>
-            </fieldset>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title bar-colour">Bars</div>
+                      <div class="info-img" onclick="showTooltip('bars-tooltip', 1, 2);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="bars-false" onclick="state.roomButtons[C.ROOMTYPE.BARS].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="bars-toggle" onclick="state.roomButtons[C.ROOMTYPE.BARS].toggleAction();">
+                          <img id="bars-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="bars-true" onclick="state.roomButtons[C.ROOMTYPE.BARS].trueAction();">Open</button>
+                      </div>
+                    </div>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title club-colour">Clubs</div>
+                      <div class="info-img" onclick="showTooltip('clubs-tooltip', 1, 3);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="clubs-false" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="clubs-toggle" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].toggleAction();">
+                          <img id="clubs-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="clubs-true" onclick="state.roomButtons[C.ROOMTYPE.CLUBS].trueAction();">Open</button>
+                      </div>
+                    </div>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title school-colour">Schools</div>
+                      <div class="info-img" onclick="showTooltip('schools-tooltip', 1, 4);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="schools-false" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="schools-toggle" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].toggleAction();">
+                          <img id="schools-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="schools-true" onclick="state.roomButtons[C.ROOMTYPE.SCHOOLS].trueAction();">Open</button>
+                      </div>
+                    </div>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title office-colour">Offices</div>
+                      <div class="info-img" onclick="showTooltip('offices-tooltip', 1, 5);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="offices-false" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="offices-toggle" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].toggleAction();">
+                          <img id="offices-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="offices-true" onclick="state.roomButtons[C.ROOMTYPE.OFFICES].trueAction();">Open</button>
+                      </div>
+                    </div>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
+                      <div class="info-img" onclick="showTooltip('meat-tooltip', 1, 6);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="meat-false" onclick="state.roomButtons[C.ROOMTYPE.MEAT].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="meat-toggle" onclick="state.roomButtons[C.ROOMTYPE.MEAT].toggleAction();">
+                          <img id="meat-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="meat-true" onclick="state.roomButtons[C.ROOMTYPE.MEAT].trueAction();">Open</button>
+                      </div>
+                    </div>
+
+                    <div class="toggle-room">
+                      <div class="toggle-title outside-colour">Parks</div>
+                      <div class="info-img" onclick="showTooltip('outside-tooltip', 1, 7);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="outside-false" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="outside-toggle" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].toggleAction();">
+                          <img id="outside-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="outside-true" onclick="state.roomButtons[C.ROOMTYPE.OUTSIDE].trueAction();">Open</button>
+                      </div>
+                  </div>
+
+                    <div class="toggle-room">
+                    <div class="toggle-title house-colour">House&nbsp;parties</div>
+                      <div class="info-img" onclick="showTooltip('house-tooltip', 1, 8);">
+                        <img src="../images/info.svg">
+                      </div>
+                      <div class="boolean-button">
+                        <button class="boolean boolean-false" id="parties-false" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].falseAction();">Close</button>
+                        <button class="boolean boolean-toggle" id="parties-toggle" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].toggleAction();">
+                          <img id="parties-image" src="../images/left.svg" />
+                        </button> 
+                        <button class="boolean boolean-true" id="parties-true" onclick="state.roomButtons[C.ROOMTYPE.PARTIES].trueAction();">Open</button>
+                      </div>
+                  </div>
+              </fieldset>
+            </div>
           </fieldset>
 
           <div id="other-group">
@@ -453,19 +500,17 @@
       <div id="score-text-lose" class="announce-text">You survived 45 days.</div>
       <div><canvas id="lost-chart"></canvas></div>
       <div class="button-group">
-        <button type="button" class="announce-button" onclick="quit();">Quit</button>
-        <button type="button" class="announce-button" onclick="play();">Play again</button>
+        <button type="button" class="announce-button" onclick="ok();">OK</button>
       </div>
     </div>
 
     <div id="announce-win" class="announce">
       <div class="announce-text">GAME RESULTS</div>
       <div class="announce-text">You have survived.</div>
-      <div><canvas id="won-chart"></canvas></div>
       <div id="score-text-win" class="announce-text">You have 100% of your political capital remaining.</div>
+      <div><canvas id="won-chart"></canvas></div>
       <div class="button-group">
-        <button type="button" class="announce-button" onclick="quit();">Quit</button>
-        <button type="button" class="announce-button" onclick="play();">Play&nbsp;again</button>
+        <button type="button" class="announce-button" onclick="ok();">OK</button>
       </div>
     </div>    
   </div>
@@ -565,10 +610,34 @@
     </div>
   </div>
 
-  <div id="game-tooltip" class="tooltip" onclick="restack(this);">
-    <h3>Game Controls</h3>
+  <div id="start-infected-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Start</h3>
     <p>
-      Game interventions wait to take effect at 8AM.
+      The start selection determines if the game starts with an infected person (like the illustration) or not.  The game is easier if no one is infected at the start.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('start-infected-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="capital-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Capital</h3>
+    <p>
+      The capital selection determines how much political capital you have to start the game (it is always displayed at 100%).  The game is easier to play if the amount of capital is high.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('capital-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="game-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>In Game Controls</h3>
+    <p>
+      In game interventions wait to take effect at 8AM.
     </p>
 
     <div class="tooltip-buttons">
