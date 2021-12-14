@@ -231,7 +231,7 @@ class GameState extends TownState
 				this.getTrace().newDay();
 
 				this.evaluatePeople();
-				this.personList.forEach(person => {if (person.test()) this.getTrace().randomTrace(person)});
+				this.personList.forEach(person => {if (person.randomTest()) this.getTrace().randomTrace(person)});
 
 				this.getTrace().followup();
 
@@ -409,7 +409,7 @@ class GameState extends TownState
 
 	setMasks()
 	{
-		recordReset(C.RECORD.MASKS | C.RECORD.INFECTOR | C.RECORD.INFECTEE);
+		recordReset(C.RECORD.MASKS);
 
 		for (const person of this.personList)
 		{

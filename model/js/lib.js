@@ -337,8 +337,6 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.increment();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.increment();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.increment();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.increment();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.increment();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.increment();}
@@ -347,6 +345,9 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.increment();}
 	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.increment();}
 	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.increment();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.increment();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.increment();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.increment();}
 
 	if (which !== 0)
 	{
@@ -368,8 +369,6 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.decrement();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.decrement();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.decrement();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.decrement();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.decrement();}
@@ -378,6 +377,9 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.decrement();}
 	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.decrement();}
 	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.decrement();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.decrement();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.decrement();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.decrement();}
 
 	if (which !== 0)
 	{
@@ -399,8 +401,6 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.reset();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.reset();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.reset();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.reset();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.reset();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.reset();}
@@ -409,6 +409,9 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.reset();}
 	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.reset();}
 	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.reset();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.reset();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.reset();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.reset();}
 
 	if (which !== 0)
 	{

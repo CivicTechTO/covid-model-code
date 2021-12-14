@@ -98,7 +98,7 @@ class InfectablePerson extends Person
 		return this.isolateAt != false;
 	}
 
-	test()
+	randomTest()
 	{
 		let result = false;
 
@@ -106,18 +106,12 @@ class InfectablePerson extends Person
 		{
 			if (state.testThis())
 			{
-				this.setTested();
+				recordIncrement(C.RECORD.RANDOM_TESTS);
+				result = this.test();
 
-				if (C.TESTSPOSITIVE.includes(this.sickness()))
+				if (result)
 				{
-					result = true;
-
-					this.setPositive();
-
-					if (state.isolateTestThis(this))
-					{
-						this.isolate();
-					}
+					recordIncrement(C.RECORD.RANDOM_POSITIVES);
 				}
 			}
 		}
@@ -125,6 +119,27 @@ class InfectablePerson extends Person
 		return result;
 	}
 	
+	test()
+	{
+		let result = false;
+
+		this.setTested();
+
+		if (C.TESTSPOSITIVE.includes(this.sickness()))
+		{
+			result = true;
+
+			this.setPositive();
+
+			if (state.isolateTestThis(this))
+			{
+				this.isolate();
+			}
+		}
+
+		return result;
+	}
+
 	setPositive()
 	{
 		if (!this.isPositive())
