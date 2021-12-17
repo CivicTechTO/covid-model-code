@@ -506,8 +506,13 @@ class TownState extends InfectState
 	{
 		super.step();
 
-// !!! validate();
+		this.drawTime();
 
+// !!! validate();
+	}
+
+	drawTime()
+	{
 		let nextDay = Math.floor(Math.floor(this.tickToHour(this.clock) + this.startHour) / 24);
 
 		if (nextDay !== this.currentDay)

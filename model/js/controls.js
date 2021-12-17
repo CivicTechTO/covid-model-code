@@ -124,8 +124,9 @@ function startGame()
 {
 	persistent.gameStarted = true;
 
+	newGame();
 	drawControls();
-	runGame();
+	startRunning();
 }
 
 function startRunning()

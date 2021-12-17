@@ -221,6 +221,8 @@ class GameState extends TownState
 
 			if (this.activeConfig.game.update > now % 24)
 			{
+				this.wearMasks();
+
 				this.setHistoryIndex();
 
 				this.personList.forEach(person => person.resetHistory());
@@ -407,7 +409,7 @@ class GameState extends TownState
 		return this.useRoomState[roomType];
 	}
 
-	setMasks()
+	wearMasks()
 	{
 		recordReset(C.RECORD.MASKS);
 

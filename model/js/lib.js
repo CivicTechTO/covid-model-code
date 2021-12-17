@@ -104,7 +104,8 @@ function animate(timestamp)
 
 		if (state.game)
 		{
-			runGame();
+			newGame();
+			startRunning();
 		}
 		else
 		{
@@ -118,11 +119,10 @@ function isEarly()
 	return 0 === persistent.displaySickSpec.value;
 }
 
-function runGame()
+function newGame()
 {
 	state.chartList.destroy();
 	startup(makeConfig(), true);
-	startRunning();
 }
 
 function runModel(timestamp)
@@ -166,14 +166,12 @@ function gameAnimate(timestamp)
 			
 			if (lost())
 			{
-//				reportInfected();
 				announceLost();
 			}
 			else
 			{
 				if (won())
 				{
-//					reportInfected();
 					announceWon();
 				}
 			}
@@ -241,6 +239,8 @@ function startup(config, playGame)
 	state = new GameState(config, playGame);
 	state.fill();
 	state.initialize();
+
+	initialTime();
 
 	state.debugDraw = false;
 	state.countDraw = false;
@@ -348,6 +348,7 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.increment();}
 	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.increment();}
 	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.increment();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.increment();}
 
 	if (which !== 0)
 	{
@@ -380,6 +381,7 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.decrement();}
 	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.decrement();}
 	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.decrement();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.decrement();}
 
 	if (which !== 0)
 	{
@@ -412,6 +414,7 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.reset();}
 	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.reset();}
 	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.reset();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.reset();}
 
 	if (which !== 0)
 	{
@@ -460,11 +463,53 @@ function computeR()
 	return {r0: r0, rt: r0 * factor};
 }
 
+function initialTime()
+{
+	const dayElement = document.getElementById('day');
+	dayElement.textContent = "1";
+
+	const nameElement = document.getElementById('name');
+	nameElement.textContent = state.days[0];
+
+	const hourElement = document.getElementById('hour');
+	hourElement.textContent = state.startHour.toString().padStart(2, "0");
+
+	const minuteElement = document.getElementById('minutes');
+	minuteElement.textContent = "00";
+}
+
+
 function debug(argument) 
 {
 	if (state.debug) 
 	{
 		console.log(argument);
+	}
+}
+
+function balanceTests()
+{
+	let total = state.record.tests.total;
+	let random = state.record.randomTests.total;
+	let hospital = state.record.hospitalTests.total;
+	let trace = state.record.traceTests.total;
+
+	if (random + hospital + trace !== total)
+	{
+		console.log("Tests out of balance", total, random, hospital, trace);
+	}
+}
+
+function balancePositives()
+{
+	let total = state.record.positive.total;
+	let random = state.record.randomPositives.total;
+	let hospital = state.record.hospitalPositives.total;
+	let trace = state.record.tracePositives.total;
+
+	if (random + hospital + trace !== total)
+	{
+		console.log("Positives out of balance", total, random, hospital, trace);
 	}
 }
 
