@@ -300,12 +300,12 @@ class Room
 
 		if (source.mask)
 		{
-			delta *= state.activeConfig.mask.factor.infector;
+			delta *= state.activeConfig.masks.factor.infector;
 		}
 
 		if (person.mask)
 		{
-			delta *= state.activeConfig.mask.factor.infectee;
+			delta *= state.activeConfig.masks.factor.infectee;
 		}
 
 		if (state.tuneFlag)

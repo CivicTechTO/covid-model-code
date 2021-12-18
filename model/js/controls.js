@@ -22,12 +22,12 @@ function hide(name)
 	element.style.display = "none";
 }
 
-function gameHide(which, show)
+function classShow(which, show)
 {
 	const hideList = document.getElementsByClassName(which);
 	for (const element of hideList)
 	{
-		element.hidden = show;
+		element.hidden = !show;
 	}
 }
 
@@ -124,8 +124,9 @@ function startGame()
 {
 	persistent.gameStarted = true;
 
+	newGame();
 	drawControls();
-	runGame();
+	startRunning();
 }
 
 function startRunning()

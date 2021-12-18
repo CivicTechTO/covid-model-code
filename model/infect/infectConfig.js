@@ -317,7 +317,7 @@ function makeConfig()
 				, {
 				  	index: 1020, data: 
 				  		{
-				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: false, image: C.IMAGE.SICK}], time: 12
+				  			  display: [{pop: false, image: C.IMAGE.SICK}, {pop: true, image: C.IMAGE.SICK}], time: 12
 				  			, next: 1030, alt: {p: 0.3, next: 2000}, start: 1.0, end: 1.0, sick: C.SICKNESS.SICK
 				  			, increment: C.RECORD.SICK, decrement: 0
 				  			, score: 0

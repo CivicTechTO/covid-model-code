@@ -64,8 +64,12 @@ class SicknessManager
 
 		if (state.isTesting())
 		{
-			person.setTested();
-			person.setPositive();
+			if (!person.isTested())
+			{
+				person.setTested();
+				person.setPositive();
+				recordIncrement(C.RECORD.HOSPITAL_TESTS | C.RECORD.HOSPITAL_POSITIVES);
+			}
 
 			state.getTrace().hospitalTrace(person);
 		}

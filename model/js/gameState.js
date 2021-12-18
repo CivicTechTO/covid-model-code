@@ -65,8 +65,6 @@ class GameState extends TownState
 				, limit: 0
 				, traceOnDay: []
 				, testOnDay: []
-				, found: 0
-				, count: 0
 			}
 		
 		this.debugPerson = false;
@@ -120,8 +118,8 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
 
-		gameHide("game-hide", false);
-		gameHide("game-show", true);
+		classShow("early-show", true);
+		classShow("game-show", false);
 
 		gameOn(false);
 	}
@@ -134,8 +132,8 @@ class GameState extends TownState
 
 		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
 
-		gameHide("game-hide", true);
-		gameHide("game-show", false);
+		classShow("early-show", isEarly());
+		classShow("game-show", true);
 
 		gameOn(true);
 
@@ -223,6 +221,8 @@ class GameState extends TownState
 
 			if (this.activeConfig.game.update > now % 24)
 			{
+				this.wearMasks();
+
 				this.setHistoryIndex();
 
 				this.personList.forEach(person => person.resetHistory());
@@ -233,7 +233,7 @@ class GameState extends TownState
 				this.getTrace().newDay();
 
 				this.evaluatePeople();
-				this.personList.forEach(person => {if (person.test()) this.getTrace().randomTrace(person)});
+				this.personList.forEach(person => {if (person.randomTest()) this.getTrace().randomTrace(person)});
 
 				this.getTrace().followup();
 
@@ -409,9 +409,9 @@ class GameState extends TownState
 		return this.useRoomState[roomType];
 	}
 
-	setMasks()
+	wearMasks()
 	{
-		recordReset(C.RECORD.MASKS | C.RECORD.INFECTOR | C.RECORD.INFECTEE);
+		recordReset(C.RECORD.MASKS);
 
 		for (const person of this.personList)
 		{

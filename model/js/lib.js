@@ -104,7 +104,8 @@ function animate(timestamp)
 
 		if (state.game)
 		{
-			runGame();
+			newGame();
+			startRunning();
 		}
 		else
 		{
@@ -113,11 +114,15 @@ function animate(timestamp)
 	}
 }
 
-function runGame()
+function isEarly()
+{
+	return 0 === persistent.displaySickSpec.value;
+}
+
+function newGame()
 {
 	state.chartList.destroy();
 	startup(makeConfig(), true);
-	startRunning();
 }
 
 function runModel(timestamp)
@@ -161,14 +166,12 @@ function gameAnimate(timestamp)
 			
 			if (lost())
 			{
-//				reportInfected();
 				announceLost();
 			}
 			else
 			{
 				if (won())
 				{
-//					reportInfected();
 					announceWon();
 				}
 			}
@@ -236,6 +239,8 @@ function startup(config, playGame)
 	state = new GameState(config, playGame);
 	state.fill();
 	state.initialize();
+
+	initialTime();
 
 	state.debugDraw = false;
 	state.countDraw = false;
@@ -332,14 +337,18 @@ function recordIncrement(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.increment();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.increment();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.increment();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.increment();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.increment();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.increment();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.increment();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.increment();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.increment();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.increment();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.increment();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.increment();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.increment();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.increment();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.increment();}
 
 	if (which !== 0)
 	{
@@ -361,14 +370,18 @@ function recordDecrement(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.decrement();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.decrement();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.decrement();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.decrement();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.decrement();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.decrement();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.decrement();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.decrement();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.decrement();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.decrement();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.decrement();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.decrement();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.decrement();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.decrement();}
 
 	if (which !== 0)
 	{
@@ -390,14 +403,18 @@ function recordReset(which)
 	if (0 !== (which & C.RECORD.WELL)) {state.record.well.reset();}
 	if (0 !== (which & C.RECORD.INCUBATING)) {state.record.incubating.reset();}
 	if (0 !== (which & C.RECORD.MASKS)) {state.record.masks.reset();}
-	if (0 !== (which & C.RECORD.INFECTOR)) {state.record.infector.reset();}
-	if (0 !== (which & C.RECORD.INFECTEE)) {state.record.infectee.reset();}
 	if (0 !== (which & C.RECORD.ISOLATED)) {state.record.isolated.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONROOM)) {state.record.isolationRoom.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONHOME)) {state.record.isolationHome.reset();}
 	if (0 !== (which & C.RECORD.ISOLATIONOVERFLOW)) {state.record.isolationOverflow.reset();}
 	if (0 !== (which & C.RECORD.POSITIVE)) {state.record.positive.reset();}
 	if (0 !== (which & C.RECORD.TESTS)) {state.record.tests.reset();}
+	if (0 !== (which & C.RECORD.TRACE_TESTS)) {state.record.traceTests.reset();}
+	if (0 !== (which & C.RECORD.TRACE_POSITIVES)) {state.record.tracePositives.reset();}
+	if (0 !== (which & C.RECORD.RANDOM_TESTS)) {state.record.randomTests.reset();}
+	if (0 !== (which & C.RECORD.RANDOM_POSITIVES)) {state.record.randomPositives.reset();}
+	if (0 !== (which & C.RECORD.HOSPITAL_POSITIVES)) {state.record.hospitalPositives.reset();}
+	if (0 !== (which & C.RECORD.HOSPITAL_TESTS)) {state.record.hospitalTests.reset();}
 
 	if (which !== 0)
 	{
@@ -446,11 +463,53 @@ function computeR()
 	return {r0: r0, rt: r0 * factor};
 }
 
+function initialTime()
+{
+	const dayElement = document.getElementById('day');
+	dayElement.textContent = "1";
+
+	const nameElement = document.getElementById('name');
+	nameElement.textContent = state.days[0];
+
+	const hourElement = document.getElementById('hour');
+	hourElement.textContent = state.startHour.toString().padStart(2, "0");
+
+	const minuteElement = document.getElementById('minutes');
+	minuteElement.textContent = "00";
+}
+
+
 function debug(argument) 
 {
 	if (state.debug) 
 	{
 		console.log(argument);
+	}
+}
+
+function balanceTests()
+{
+	let total = state.record.tests.total;
+	let random = state.record.randomTests.total;
+	let hospital = state.record.hospitalTests.total;
+	let trace = state.record.traceTests.total;
+
+	if (random + hospital + trace !== total)
+	{
+		console.log("Tests out of balance", total, random, hospital, trace);
+	}
+}
+
+function balancePositives()
+{
+	let total = state.record.positive.total;
+	let random = state.record.randomPositives.total;
+	let hospital = state.record.hospitalPositives.total;
+	let trace = state.record.tracePositives.total;
+
+	if (random + hospital + trace !== total)
+	{
+		console.log("Positives out of balance", total, random, hospital, trace);
 	}
 }
 
