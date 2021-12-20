@@ -1,0 +1,1 @@
+python3 -m http.server --cgi 3000 --bind 127.0.0.1

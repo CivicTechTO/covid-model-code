@@ -26,7 +26,16 @@
  			<li><a href="infect/">Infect</a></li>
 			<li><a href="tune/tune.html">Tune</a></li>
 			<li><a href="testHistory/index.html">Test History</a></li>
-		</ul>		
+		</ul>	
+
+		<form action="/cgi-bin/hello.py" method="post">
+			<div>
+				<label for="fname">First name:</label>
+				<input type="text" id="fname" name="fname">
+			</div>
+
+			<button type="submit">Hello</button>
+		</form>	
 	</div>
 </body>
 </html>
