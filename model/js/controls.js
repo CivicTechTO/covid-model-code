@@ -266,7 +266,7 @@ class OpenButton extends BooleanButton
 
 function announceLost()
 {
-	let lostChart = state.chartList.getChart (C.CHART_INDEX.LOST);
+	let lostChart = state.chartList.getLostChart ();
 	state.announce = "announce-lose";
 	setText("score-text-lose", "You survived " + state.tickToDay(state.clock) + " days.");
 	showGrid("announce-outer");
@@ -277,7 +277,7 @@ function announceLost()
 
 function announceWon() 
 {
-	let wonChart = state.chartList.getChart (C.CHART_INDEX.WON);
+	let wonChart = state.chartList.getWonChart ();
 	state.announce = "announce-win";
 	setText("score-text-win", "You have " + formatScore() + " of your political capital remaining.");
 	showGrid("announce-outer");

@@ -156,7 +156,7 @@ class OverviewChart extends LineChart
 {
 	constructor (items)
     {
-		super (C.CHART_DESCRIPTIONS [C.CHART_INDEX.OVERVIEW], items);
+		super (C.CHART_DESCRIPTIONS.OVERVIEW, items);
     }
 
     addToList (index, toPush)
@@ -182,9 +182,10 @@ class OverviewChart extends LineChart
 // data, giving a clear picture of the recent past.
 class WindowChart extends LineChart
 {
-	constructor (state, items)
+	constructor (items)
     {
-		super (C.CHART_DESCRIPTIONS [C.CHART_INDEX.MOVING], state, items);
+		super (C.CHART_DESCRIPTIONS.MOVING, items);
+
 		this.limit = C.MOVING_CHART_WINDOW;
     }
 
@@ -209,14 +210,94 @@ class WindowChart extends LineChart
 	}
 }
 
+/**
+ * Implements a line chart displayed in a time window controlled by a slider, 
+ * which sets the time base, the index at which the time display starts. 
+ */
+class FlexWindowChart extends LineChart
+{
+	constructor (items, widget)
+    {
+		super (C.CHART_DESCRIPTIONS.FLEX, items);
+		this.base = 0;
+		this.dataHistory = [];
+		this.labelHistory = [];
+		this.controller = widget;
+		this.controller.max = 0;
+		this.controller.value = 0;
+		this.controller.min = 0;
+	}
+
+    pushToHistory (index, toPush)
+	{
+		for (let i = this.dataHistory.length; i <= index; i++)
+		   this.dataHistory.push ([]);
+		this.dataHistory [index].push (toPush);
+	}
+
+	baseMatches (index)
+	{
+		if (this.dataHistory.length < index)
+		{
+		    let total = this.dataHistory [index].length,
+		        visible = this.chart.data.datasets [index].length;
+			return this.base + visible == total;
+		}
+		else return this.base == 0;
+	}
+
+	copyFromBase (source)
+	{
+		let result = [];
+		for (let i = this.base; i < source.length; i++)
+			result.push (source [i]);
+		return result;
+	}
+
+    addToList (index, toPush)
+	{
+		if (this.baseMatches (index))
+		{
+		   this.pushToHistory (index, toPush);
+		   this.chart.data.datasets [index].data.push (toPush); 
+		}
+		else
+		{
+			this.pushToHistory (index, toPush);
+			this.chart.data.datasets [index].data = this.copyFromBase (this.dataHistory [index]);			
+		}
+
+		if (this.dataHistory [index].length > 10) 
+		{
+			let maxBase = this.dataHistory [index].length - 5;
+			this.controller.disabled = false;
+			if (maxBase > this.controller.max)
+            	this.controller.max = maxBase;
+		}
+	}
+
+	addLabel ()
+	{
+		this.labelHistory.push (this.nextIndex);
+		if (this.baseMatches [0])
+            this.chart.data.labels.push (this.nextIndex);
+		else this.chart.data.labels = this.copyFromBase (this.labelHistory);
+	}
+
+	setBase (value)
+	{
+		this.base = parseInt (value);    
+	}
+}
+
 /* Implements the final chart display at the end of the game, showing how many 
  * infections took place in each location, along with any other information desired.
  */
 class FinalChart extends GameChart
 {
-	constructor (source, canvasId)
+	constructor (source, description)
     {
-		super (C.CHART_DESCRIPTIONS [canvasId]);
+		super (description);
 		let labelMap = new Map (C.CHARTED_VALUES.map (({name, label}) => { return [name, label] })),
 			list = source.activeConfig.graphedInfectionLocations,
 			labels = [];
@@ -274,18 +355,36 @@ class FinalChart extends GameChart
  */
 class ChartList
 {
-    constructor (refState, displayList)
+    constructor (refState, displayList, widget)
     {
 		this.referenceList = new ReferenceList (refState, displayList);
-        this.chartList = [ new OverviewChart (this.referenceList), 
-		                   new WindowChart (this.referenceList),
-						   new FinalChart (refState, C.CHART_INDEX.LOST), 
-						   new FinalChart (refState, C.CHART_INDEX.WON) ];
+
+		if (widget) 
+		{
+			let control = document.getElementById (widget);
+		    this.rangeSink = new FlexWindowChart (this.referenceList, control);
+            this.chartList = [ this.rangeSink ];
+        }
+		else
+		{
+			this.rangeSink = null;
+            this.chartList = [ new OverviewChart (this.referenceList), 
+		                       new WindowChart (this.referenceList) ];
+		}
+		this.loser = new FinalChart (refState, C.CHART_DESCRIPTIONS.LOST);
+		this.winner = new FinalChart (refState, C.CHART_DESCRIPTIONS.WON);
     }
 
-	getChart (i) 
+	getWonChart ()
 	{
-		return this.chartList [i];
+		this.winner.update ();
+		return this.winner;
+	}
+
+	getLostChart ()
+	{
+		this.loser.update ();
+		return this.loser;
 	}
 
     updateAll ()
@@ -293,12 +392,25 @@ class ChartList
 		for (let toUpdate of this.chartList)
 			toUpdate.update ();
 	}
+
+	outputRange (value)
+	{
+		if (this.timer)
+			clearTimeout (this.timer);
+		this.timer = setTimeout ((value) => { this.rangeSink.setBase (value); }, 500, value);
+	}
 	
 	destroy ()
 	{
 		for (let chart of this.chartList)
 			chart.destroy ();
 	}
+}
+
+/* handles change events from the graph range slider */
+function outputRange (value)
+{
+	state.chartList.outputRange (value);
 }
 
 /* Triggers recording of the currest selected state to the graph display(s). */

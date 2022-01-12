@@ -66,12 +66,14 @@ function makeConstants()
 								  { name : 'masks', label : '', 
   								    colour : { BORDER : 'rgb(0, 0, 128)', FILL : 'rgb(0, 0, 128)' },
 									dashes : [5, 5] }, 
+								  /*	old recorded data no longer kept
 								  { name : 'infector', label : 'Infectious individual',
   								    colour : { BORDER : 'rgb(192, 32, 32)', FILL : 'rgb(192, 32, 32)' },
-									dashes : [5, 5] }, 
+									dashes : [5, 5] },  
 								  { name : 'infectee', label : 'Recently infected',
   								    colour : { BORDER : 'rgb(0, 0, 240)', FILL : 'rgb(0, 0, 240)' },
-									dashes : [5, 5] }, 
+									dashes : [5, 5] },
+								  */ 
 								  { name : 'tests', label : 'Persons tested',
   								    colour : { BORDER : 'rgb(64, 64, 64)', FILL : 'rgb(192, 192, 192)' },
 									dashes : [8, 8] }, 
@@ -98,21 +100,24 @@ function makeConstants()
 								  { name : 'outsideList', label : 'Park' }	 
 							    ];
 								
-    result.CHART_DESCRIPTIONS = [ { id : 'overview', title : { display : true, text : 'Overview' }, 
-									kind : 'line',  scale : multiScale, 
-	                                legend : { position: 'left', align : 'start' }, tension : 0.2 },  
-	 							  { id : 'moving', title : { display : true, text : 'Current State' }, 
-								   	kind : 'line',  scale : multiScale, 
-								    legend : { display: false } },
-								  { id : 'won-chart', title : finalTitle,
-								    kind : 'bar', legend : { display : false }, valueAxis : 'y', 
-									scale : finalScale },
-								  { id : 'lost-chart', title : finalTitle,
-								    kind : 'bar', legend : { display: false }, valueAxis : 'y', 
-									scale : finalScale } 
-								];
-    result.CHART_INDEX = { OVERVIEW : 0, MOVING : 1, WON : 2, LOST : 3 };
+    result.CHART_DESCRIPTIONS = { OVERVIEW :  { id : 'overview', title : { display : true, text : 'Overview' }, 
+												kind : 'line',  scale : multiScale, 
+	                                			legend : { position: 'left', align : 'start' }, tension : 0.2 },  
+								  FLEX :  	  { id : 'flex-chart', title : { display : false }, 
+												kind : 'line',  scale : multiScale, 
+	                                			legend : { position: 'left', align : 'start' }, tension : 0.2 },  
+	 							  MOVING: 	  { id : 'moving', title : { display : true, text : 'Current State' }, 
+								   				kind : 'line',  scale : multiScale, 
+								    			legend : { display: false } },
+								  WON:		  { id : 'won-chart', title : finalTitle,
+								    			kind : 'bar', legend : { display : false }, valueAxis : 'y', 
+												scale : finalScale },
+								  LOST:		  { id : 'lost-chart', title : finalTitle,
+								    			kind : 'bar', legend : { display: false }, valueAxis : 'y', 
+												scale : finalScale } 
+								};
 	result.MOVING_CHART_WINDOW = 30;
+	result.SLIDER = 'graphRange';
 						   
 	result.INFECTIOUS ={NOT: 0, SLIGHTLY: 1, VERY: 2, EXCEEDINGLY: 3}
 

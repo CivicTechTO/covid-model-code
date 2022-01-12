@@ -30,7 +30,9 @@ class GameState extends TownState
 		let graphedValues = this.activeConfig.graphedValues.illustration;
 		if (playGame) graphedValues = this.activeConfig.graphedValues.game;
 
-		this.chartList = new ChartList (this, graphedValues);
+		let widget = null;
+		if (document.getElementById (C.SLIDER)) widget = C.SLIDER;
+		this.chartList = new ChartList (this, graphedValues, widget);
 
 		this.run = true;
 		this.past = null;

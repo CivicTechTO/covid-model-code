@@ -260,6 +260,16 @@ fieldset
 	display : inline-block;
 }
 
+.rangeSlider
+{
+	width: 80%;
+}
+
+.slider
+{
+  width: 100%;
+}
+
 .chartx 
 {
   background-color: #87CEEB;

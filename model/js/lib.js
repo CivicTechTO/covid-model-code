@@ -513,6 +513,36 @@ function balancePositives()
 	}
 }
 
+/* 
+class reactTest
+{
+	constructor ()
+	{
+		this.timer = null;
+	}
+
+	setvalue (value)
+	{
+		document.getElementById ('rvalue').innerHTML = value;    
+	}
+
+	outputRange (value)
+	{
+		if (this.timer)
+			clearTimeout (this.timer);
+		this.timer = setTimeout ((value) => { this.setvalue (value); }, 500, value);
+	}
+}
+
+var rt = new reactTest ();
+
+function outputRange (value)
+{
+	rt.outputRange (value);
+}
+
+document.getElementById ('rproc').innerHTML = Object.getOwnPropertyNames (document.getElementById ('rvalue'));
+ */
 // function validate() 
 // {
 // 	let hallway = state.hallway;
