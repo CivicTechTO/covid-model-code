@@ -404,6 +404,9 @@ class ChartList
 	{
 		for (let chart of this.chartList)
 			chart.destroy ();
+		this.winner.destroy ();
+		this.loser.destroy ();
+
 	}
 }
 
