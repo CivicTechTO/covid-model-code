@@ -219,13 +219,14 @@ class FlexWindowChart extends LineChart
 	constructor (items, widget)
     {
 		super (C.CHART_DESCRIPTIONS.FLEX, items);
-		this.base = 0;
+		this.selection = 1;
 		this.dataHistory = [];
 		this.labelHistory = [];
 		this.controller = widget;
-		this.controller.max = 0;
-		this.controller.value = 0;
-		this.controller.min = 0;
+		if (this.controller.max <= 0) this.controller.max = 10;
+		this.steps = parseInt (this.controller.max);		
+		this.controller.value = 1;
+		this.controller.min = 1;
 	}
 
     pushToHistory (index, toPush)
@@ -237,19 +238,21 @@ class FlexWindowChart extends LineChart
 
 	baseMatches (index)
 	{
-		if (this.dataHistory.length < index)
+		if (this.dataHistory.length > index)
 		{
 		    let total = this.dataHistory [index].length,
-		        visible = this.chart.data.datasets [index].length;
-			return this.base + visible == total;
+		        visible = this.chart.data.datasets [index].data.length,
+				base = Math.trunc (total / this.steps) * (this.selection - 1);
+			return base + visible == total;
 		}
-		else return this.base == 0;
+		else return this.selection == 0;
 	}
 
 	copyFromBase (source)
 	{
 		let result = [];
-		for (let i = this.base; i < source.length; i++)
+		let base = Math.trunc (source.length / this.steps) * (this.selection - 1);
+        for (let i = base; i < source.length; i++)
 			result.push (source [i]);
 		return result;
 	}
@@ -266,14 +269,6 @@ class FlexWindowChart extends LineChart
 			this.pushToHistory (index, toPush);
 			this.chart.data.datasets [index].data = this.copyFromBase (this.dataHistory [index]);			
 		}
-
-		if (this.dataHistory [index].length > 10) 
-		{
-			let maxBase = this.dataHistory [index].length - 5;
-			this.controller.disabled = false;
-			if (maxBase > this.controller.max)
-            	this.controller.max = maxBase;
-		}
 	}
 
 	addLabel ()
@@ -286,7 +281,7 @@ class FlexWindowChart extends LineChart
 
 	setBase (value)
 	{
-		this.base = parseInt (value);    
+		this.selection = parseInt (value);    
 	}
 }
 

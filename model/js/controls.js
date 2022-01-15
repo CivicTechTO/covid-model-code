@@ -282,7 +282,7 @@ function announceWon()
 	setText("score-text-win", "You have " + formatScore() + " of your political capital remaining.");
 	showGrid("announce-outer");
 	showGrid("announce-win");
-	wonChart.display ();
+	// !!! wonChart.display ();
 	document.getElementById("all-controls").disabled = true;
 }
 
