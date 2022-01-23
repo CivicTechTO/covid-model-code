@@ -14,6 +14,7 @@ class InfectablePerson extends Person
 		this.isolation = false;
 		this.positiveAt = false;
 		this.testedAt = false;
+		this.stats = false;
 	}
 	
 	isolate()
