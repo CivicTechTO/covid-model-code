@@ -32,9 +32,9 @@ class GameState extends TownState
 
 		if (document.getElementById (C.SLIDER))
   			this.chartList = new SliderCharts (this, graphedValues, C.SLIDER);
-		else if (document.getElementById (C.CHART_DESCRIPTIONS.MOVING))
+		else if (document.getElementById (C.CHART_DESCRIPTIONS.MOVING.id))
 			this.chartList = new TwinCharts (this, graphedValues);
-		else this.chartList = new SingleChart (his, graphedValues);
+		else this.chartList = new SingleChart (this, graphedValues);
 
 		this.run = true;
 		this.past = null;
