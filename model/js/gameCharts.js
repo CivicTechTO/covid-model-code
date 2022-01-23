@@ -267,7 +267,7 @@ class FlexWindowChart extends LineChart
 		else
 		{
 			this.pushToHistory (index, toPush);
-			this.chart.data.datasets [index].data = this.copyFromBase (this.dataHistory [index]);			
+			this.chart.data.datasets [index].data = this.copyFromBase (this.dataHistory [index]);
 		}
 	}
 
@@ -353,19 +353,6 @@ class ChartList
     constructor (refState, displayList, widget)
     {
 		this.referenceList = new ReferenceList (refState, displayList);
-
-		if (widget) 
-		{
-			let control = document.getElementById (widget);
-		    this.rangeSink = new FlexWindowChart (this.referenceList, control);
-            this.chartList = [ this.rangeSink ];
-        }
-		else
-		{
-			this.rangeSink = null;
-            this.chartList = [ new OverviewChart (this.referenceList), 
-		                       new WindowChart (this.referenceList) ];
-		}
 		this.loser = new FinalChart (refState, C.CHART_DESCRIPTIONS.LOST);
 		this.winner = new FinalChart (refState, C.CHART_DESCRIPTIONS.WON);
     }
@@ -403,6 +390,41 @@ class ChartList
 		this.loser.destroy ();
 
 	}
+}
+
+class SliderCharts extends ChartList
+{
+    constructor (refState, displayList, widget)
+    {
+		super (refState, displayList);
+
+		let control = document.getElementById (widget);
+	    this.rangeSink = new FlexWindowChart (this.referenceList, control);
+        this.chartList = [ this.rangeSink ];
+    }
+}
+
+class TwinCharts extends ChartList
+{
+    constructor (refState, displayList)
+    {
+		super (refState, displayList);
+
+		this.rangeSink = null;
+        this.chartList = [ new OverviewChart (this.referenceList), 
+                           new WindowChart (this.referenceList) ];
+    }
+}
+
+class SingleChart extends ChartList
+{
+    constructor (refState, displayList)
+    {
+		super (refState, displayList);
+
+		this.rangeSink = null;
+        this.chartList = [ new OverviewChart (this.referenceList) ];
+    }
 }
 
 /* handles change events from the graph range slider */
