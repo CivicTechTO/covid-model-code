@@ -251,13 +251,20 @@ function startup(config, playGame)
 	draw();
 }
 
+const canvas_buffer = document.createElement("canvas");
+canvas_buffer.setAttribute("id", "buf");
+const ctx_buffer = canvas_buffer.getContext('2d')
+function draw() {
+    const canvas_real = document.getElementById('canvas')
+    const context = canvas_real.getContext('2d');
+    const { width, height } = canvas_real.getBoundingClientRect();
+    canvas_buffer.width = width;
+    canvas_buffer.height = height;
 
-function draw() 
-{
-	const context = document.getElementById('canvas').getContext('2d');
-	context.save();
-	state.draw(context);
-	context.restore();
+    context.save();
+    state.draw(ctx_buffer);
+    context.drawImage(canvas_buffer, 0, 0);
+    context.restore();
 }
 
 class Point
