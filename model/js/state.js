@@ -10,7 +10,7 @@ class State
 		this.size = configuration.size;
 
 		this.background = configuration.background;
-		
+
 		this.speedSpec = configuration.stepsPerFrame.medium;
 		
 		this.setSecondsPerStep(configuration.secondsPerStep.small);
@@ -293,7 +293,7 @@ class State
 		}
 	}
 
-	draw(context)
+	drawBackground(context)
 	{
 		context.fillStyle = this.background;
 		context.fillRect(0, 0, this.size.width, this.size.height);
@@ -331,6 +331,12 @@ class State
 		}
 
 		context.stroke();
+	}
+
+	draw(context)
+	{
+		context.fillStyle = this.activeConfig.activeBackground;
+		context.fillRect(0, 0, this.size.width, this.size.height);
 
 		for (const person of this.personList)
 		{

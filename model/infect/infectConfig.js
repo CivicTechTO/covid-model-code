@@ -16,10 +16,10 @@ function makeConfig()
 			{
 				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
 				, medium: {label: "Medium", value: 12, colour: "#857AA3"}
-				, fast: {label: "Fast", value: 120, colour: "#D7191C"}
+				, fast: {label: "Fast", value: 60, colour: "#D7191C"}
 			}
 
-		, secondsPerStep: {small: 10, large: 30}
+		, secondsPerStep: {small: 10, large: 60}
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',

@@ -53,6 +53,13 @@ fieldset
 	vertical-align: top;
 }
 
+#background
+{
+	position: absolute;
+	top: -10000px;
+	left: -10000px;
+}
+
 .info
 {
 	font-weight: bold;
@@ -92,7 +99,7 @@ fieldset
 .info-img
 {
 	display: inline-block;
-	width: 1em;
+	width: 23px;
 	object-fit: scale-down;
 }
 
@@ -382,7 +389,7 @@ fieldset
 #announce-outer
 {
 	display: none;
-	background-color: rgba(0, 0, 0, 0,0);
+	background-color: rgba(0, 0, 0, 0);
 
 	position: absolute;
 	top: 0px;
