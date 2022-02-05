@@ -294,12 +294,15 @@ class State
 	createBackground()
 	{
 		this.background = document.createElement("canvas");
+		this.background.width = this.size.width;
+		this.background.height = this.size.height;
+
 		this.drawBackground(this.background.getContext('2d'));
 	}
 
 	drawBackground(context)
 	{
-		context.fillStyle = this.activeConfig.activeBackground;
+		context.fillStyle = this.activeConfig.background;
 		context.fillRect(0, 0, this.size.width, this.size.height);
 
 		for (const room of this.roomList)
