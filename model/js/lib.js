@@ -239,6 +239,7 @@ function startup(config, playGame)
 	state = new GameState(config, playGame);
 	state.fill();
 	state.initialize();
+	state.createBackground();
 
 	initialTime();
 
