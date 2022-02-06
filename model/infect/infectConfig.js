@@ -16,10 +16,10 @@ function makeConfig()
 			{
 				slow: {label: "Slow", value: 1, colour: "#2C7BB6"}
 				, medium: {label: "Medium", value: 12, colour: "#857AA3"}
-				, fast: {label: "Fast", value: 60, colour: "#D7191C"}
+				, fast: {label: "Fast", value: 120, colour: "#D7191C"}
 			}
 
-		, secondsPerStep: {small: 10, large: 60}
+		, secondsPerStep: {small: 10, large: 30}
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
@@ -180,7 +180,7 @@ function makeConfig()
 					none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
 					, encourage: {label: "Encourage", value: 0.5, colour: "#857AA3", cost:250}
 					, require: {label: "Require", value: 0.8, colour: "#BE5A6F", cost: 500}
-					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 1000}
+					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 4000}
 				}
 			}
 
@@ -188,7 +188,7 @@ function makeConfig()
 			{
 				none: {label: "None", value: {sample: 0.0, trace: {test: 0.0, limit: 0}}, colour: "#2C7BB6", cost: 0} 
 				, light: {label: "Light", value: {sample: 0.001, trace: {test: 0.5, limit: 10}}, colour: "#857AA3", cost: 100} 
-				, heavy: {label: "Heavy", value: {sample: 0.01, trace: {test: 0.9, limit: 100}}, colour: "#D7191C", cost: 200}
+				, heavy: {label: "Heavy", value: {sample: 0.01, trace: {test: 0.9, limit: 100}}, colour: "#D7191C", cost: 400}
 			}
 		
 		, trace:
@@ -202,7 +202,7 @@ function makeConfig()
 						none: {label: "None", value: noTraceTrace, colour: "#2C7BB6", cost: 0}
 						, forward: {label: "Forward",value: forwardTrace, colour: "#857AA3", cost: 400} 
 						, backward: {label: "Backward", value: backwardTrace, colour: "#BE5A6F", cost: 800}
-						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 1200}
+						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 3000}
 					}
 			}
 
@@ -211,7 +211,7 @@ function makeConfig()
 				none: {label: "None", value: {sick: 0.0, homeSick: 0.0}, colour: "#2C7BB6", cost: 0}
 				, encourage: {label: "Encourage", value: {sick: 0.25, homeSick: 0.5},  colour: "#857AA3", cost:250}
 				, require: {label: "Require", value: {sick: 0.4, homeSick: 0.75}, colour: "#BE5A6F", cost: 500}
-				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 1000}
+				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 4000}
 			}
 
 
