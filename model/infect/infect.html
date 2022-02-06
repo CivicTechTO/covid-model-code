@@ -114,7 +114,7 @@
   
                 <div id="display-sick-group" class="controls-contents">
                 <div class="control-title">Show&nbsp;Sick</div>
-                <div class="info-img" onclick="showTooltip('display-sick-tooltip', 0, 5);">
+                <div class="info-img" onclick="showTooltip('display-sick-tooltip', 0, 6);">
                   <img src="../images/info.svg">
                 </div>
                   <div id="display-sick" class="control-value">Late</div>
@@ -131,14 +131,14 @@
               <fieldset id="in-game-controls" disabled="true">
                 <h3>In Game Controls</h3>
 
-                <div class="info-img" onclick="showTooltip('game-tooltip', 0, 6);">
+                <div class="info-img" onclick="showTooltip('game-tooltip', 0, 7);">
                   <img src="../images/info.svg">
                 </div>
 
                 <div class="controls-contents">
                
                   <div class="control-title">Masks</div>
-                  <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 7);">
+                  <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 8);">
                     <img src="../images/info.svg">
                   </div>
                   <div id="masks" class="control-value">None</div>
@@ -161,7 +161,7 @@
                   </div>
 
                   <div class="control-title">Tracing</div>
-                  <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 9);">
+                  <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 10);">
                     <img src="../images/info.svg">
                   </div>
                   <div id="trace" class="control-value">None</div>
@@ -175,7 +175,7 @@
                   </div>
 
                   <div class="control-title">Isolate</div>
-                  <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 10);">
+                  <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 11);">
                     <img src="../images/info.svg">
                   </div>
                   <div id="isolate" class="control-value">None</div>
@@ -680,6 +680,18 @@
     <h3>Capital</h3>
     <p>
       The capital selection determines how much political capital you have to start the game (it is always displayed at 100%).  The game is easier to play if the amount of capital is high.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('capital-tooltip');">Close</button>
+    </div>
+  </div>
+
+  <div id="display-sick-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Show Sick</h3>
+    <p>
+      Show Sick late means that people turn red when symptoms appear.  Show Sick early means that people turn red when they become infected.  This is also true in the illustration mode.  This makes knowing when to intervene easier.  Note: it is not realistic.
     </p>
 
     <div class="tooltip-buttons">
