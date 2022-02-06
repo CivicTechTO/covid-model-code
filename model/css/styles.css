@@ -10,27 +10,34 @@ h1
 
 h2
 {
-	font-size: 1.1em;
+	font-size: 22px;
 	margin: 0;
 }
 
 h3
 {
-	margin-block-start: 0.25em;
-	margin-block-end: 0.75em;
-	padding-left: 0.5em;
+	margin-block-start: 5px;
+	margin-block-end: 15px;
+	padding-left: 10px;
 }
 
 #intro h2
 {
-	font-size: 1.1em;
+	font-size: 22px;
 	margin: 0;
 	padding-top: 5px;
 }
 
+#infect-container
+{
+	width: 1004px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #game-controls h3
 {
-	font-size: 1em;
+	font-size: 20px;
 	margin: 0;
 }
 
@@ -43,8 +50,9 @@ fieldset
 #container
 {
 	position: relative;
-	margin-left: 1em;
 	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #animation-block
@@ -57,15 +65,15 @@ fieldset
 {
 	font-weight: bold;
 	font-size: large;
-	padding-bottom: 0.2em;
+	padding-bottom: 4px;
 }
 
 .tooltip
 {
 	display: none;
 	position: absolute;
-	width: 30em;
-	padding: 0.5em;
+	width: 600px;
+	padding: 10px;
 	border: solid blue 1px;
 	background-color: antiquewhite;
 	font-size: large;
@@ -92,7 +100,7 @@ fieldset
 .info-img
 {
 	display: inline-block;
-	width: 23px;
+	width: 20px;
 	object-fit: scale-down;
 }
 
@@ -105,7 +113,7 @@ fieldset
 
 #animation-right
 {
-	margin-left: 1em;
+	margin-left: 20px;
 }
 
 #images
@@ -125,30 +133,30 @@ fieldset
 #day-block
 {
 	display: inline-block;
-	width: 20em;
-	margin-left: 1em;
+	width: 380px;
 }
 
 #time-block
 {
 	display: inline-block;
+	width: 170px;
 }
 
 #score-block
 {
 	display: none;
-	margin-left: 1em;
-	width: 20em;
+	margin-left: 20px;
+	width: 400px;
 }
 
 #records
 {
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 0.5em;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	padding-bottom: 0.5em;
+	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
 	background-color: #77BED8;
 }
 
@@ -171,30 +179,30 @@ fieldset
 {
 	display: inline-block;
 	background-color: #87CEEB;
-	padding-top: 0.1em;
+	padding-top: 10px;
 }
 
 .controls-contents
 {
     display: grid;
-    grid-template-columns: 5em 1.2em 5.5em auto;
+    grid-template-columns: 100px 24px 110px auto;
 }
 
 #speed-group
 {
-	padding-top: 0.2em;
+	padding-top: 4px;
 }
 
 #game-controls
 {
-	padding-top: 0.25em;
+	padding-top: 5px;
 	padding-inline-start: 0;
 }
 
 #toggle-description
 {
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
+	padding-top: 4px;
+	padding-bottom: 4px;
 }
 
 .toggle-contents
@@ -212,28 +220,28 @@ fieldset
 .toggle-title
 {
 	display: inline-block;
-	padding-left: 0.1em;
-	width: 8em;
+	padding-left: 2px;
+	width: 160px;
 }
 
 #other-group
 {
-	margin: 0.3em;
+	margin: 5px;
 }
 
 #other-names
 {
 	display: inline-block;
-	width: 22em;
+	width: 440px;
 }
 
 .other-title
 {
 	display: inline-block;
 	vertical-align: top;
-	width: 6em;
-	margin-right: 0.5em;
-	padding: 0.1em;
+	width: 120px;
+	margin-right: 10px;
+	padding: 2px;
 }
 
 #display
@@ -314,7 +322,7 @@ fieldset
 	padding-bottom: 0;
 	padding-left: 0;
 	background-color: inherit;
-	width: 2.5em;
+	width: 50px;
 }
 
 .open-state
@@ -329,9 +337,9 @@ fieldset
 
 .control-value
 {
-	padding-top: 0.1em;
-	padding-left: 0.3em;
-	width: 5em;
+	padding-top: 2px;
+	padding-left: 6px;
+	width: 100px;
 	margin-right: 10px;
 	background-color: #2C7BB6;
 }
@@ -349,35 +357,35 @@ fieldset
 {
 	border: none;
 	padding: 0;
-	margin-left: 0em;
+	margin-left: 0;
 	padding-inline: 0;
 }
 
 .swatch
 {
 	display: inline-block;
-	height: 0.8em;
-	width: 1em;
-	margin-top: 0.2em;
-	margin-left: 0.3em;
+	height: 16px;
+	width: 20px;
+	margin-top: 4px;
+	margin-left: 6px;
 }
 
 .spaced
 {
 	display: inline-block;
-	margin-left: 0.3em;
+	margin-left: 6px;
 }
 
 .indented
 {
-	margin-left: 2em;
+	margin-left: 40px;
 }
 
 .para
 {
-	margin-top: 0.2em;
-	margin-left: 0.2em;
-	margin-bottom: 0.3em;
+	margin-top: 4px;
+	margin-left: 4px;
+	margin-bottom: 6px;
 }
 
 #announce-outer
@@ -397,7 +405,7 @@ fieldset
 
 .announce
 {
-	border: .2em solid black;
+	border: 4px solid black;
 
 	align-content: center;
 	justify-content: center;
@@ -426,7 +434,7 @@ fieldset
 
 .button-group
 {
-	margin-top: 2em;
+	margin-top: 40px;
 	display: grid;
 	grid-template-columns: max-content max-content;
 	justify-content: center;
@@ -445,8 +453,8 @@ fieldset
 
 .face-name
 {
-	margin-left: 1em;
-	margin-right: 0.5em;
+	margin-left: 20px;
+	margin-right: 10px;
 }
 
 .face
@@ -458,8 +466,8 @@ fieldset
 {
 	display: none;
 	position: absolute;
-	width: 30em;
-	padding: 0.5em;
+	width: 600px;
+	padding: 10px;
 	border: solid blue 1px;
 	background-color: antiquewhite;
 	font-size: large;
