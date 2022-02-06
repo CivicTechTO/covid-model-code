@@ -180,7 +180,7 @@ function makeConfig()
 					none: {label: "None", value: 0.0, colour: "#2C7BB6", cost: 0}
 					, encourage: {label: "Encourage", value: 0.5, colour: "#857AA3", cost:250}
 					, require: {label: "Require", value: 0.8, colour: "#BE5A6F", cost: 500}
-					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 4000}
+					, enforce: {label: "Enforce", value: 0.9, colour: "#D7191C", cost: 6000}
 				}
 			}
 
@@ -202,7 +202,7 @@ function makeConfig()
 						none: {label: "None", value: noTraceTrace, colour: "#2C7BB6", cost: 0}
 						, forward: {label: "Forward",value: forwardTrace, colour: "#857AA3", cost: 400} 
 						, backward: {label: "Backward", value: backwardTrace, colour: "#BE5A6F", cost: 800}
-						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 3000}
+						, both: {label: "Both", value: bothTrace, colour: "#D7191C", cost: 5000}
 					}
 			}
 
@@ -211,7 +211,7 @@ function makeConfig()
 				none: {label: "None", value: {sick: 0.0, homeSick: 0.0}, colour: "#2C7BB6", cost: 0}
 				, encourage: {label: "Encourage", value: {sick: 0.25, homeSick: 0.5},  colour: "#857AA3", cost:250}
 				, require: {label: "Require", value: {sick: 0.4, homeSick: 0.75}, colour: "#BE5A6F", cost: 500}
-				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 4000}
+				, enforce: {label: "Enforce", value: {sick: 0.6, homeSick: 0.9}, colour: "#D7191C", cost: 8000}
 			}
 
 
@@ -242,7 +242,7 @@ function makeConfig()
 	        	scale: 0.5
 // arrays are indexed by the constants in the preceeding comment
 // C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
-	            , room: [0, 5000, 1000, 1000, 1000, 7000, 6000, 8000, 0, 5000, 5000]
+	            , room: [0, 9000, 2000, 1000, 500, 7000, 6000, 8000, 0, 5000, 8000]
 
 	            , isolate: 3000
 	        }
