@@ -221,7 +221,7 @@ function makeConfig()
 		, history: 20
 		, longEnough: {isolation: 14, positive: 14, test: 14}
 		
-		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star", "bigcross", "bigcrescent", "bigstar"]
+		, imageList: ["covid-uninfected", "covid-infected", "covid-recovered", "cross", "crescent", "star"]
 	    , pop: {scale: 5, decay: 300}
 
 // out, ward, icu, and hallway are indexed by 
