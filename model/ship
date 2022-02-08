@@ -1,32 +1,13 @@
 #!/bin/bash
 
 REMOTE=jrootham@jrootham.ca
-BASE=/var/www/vhosts/jrootham.ca/infect.jrootham.ca
+BASE=/var/www/vhosts/jrootham.ca/covid.jrootham.ca
 LOCAL=/home/jrootham/dev/civictech/covid-model-code/model
 INFECT=$LOCAL/infect
-IMAGES=$INFECT/images
 
-ssh $REMOTE "mkdir -p $BASE/css"
-ssh $REMOTE "mkdir -p $BASE/images"
-ssh $REMOTE "mkdir -p $BASE/js"
-ssh $REMOTE "mkdir -p $BASE/package/chart.js"
+cp $LOCAL/imageSource/*.png $INFECT/images
+cp $LOCAL/imageSource/*.svg $INFECT/images
 
-$INFECT/generate/generate
+$LOCAL/generate/generate
 
-scp $INFECT/index.html $REMOTE:$BASE
-scp $INFECT/infect.html $REMOTE:$BASE
-scp $INFECT/infect.js $REMOTE:$BASE
-scp $INFECT/infectConfig.js $REMOTE:$BASE
-
-scp $IMAGES/covid-uninfected.png $REMOTE:$BASE/images
-scp $IMAGES/covid-infected.png $REMOTE:$BASE/images
-scp $IMAGES/covid-recovered.png $REMOTE:$BASE/images
-scp $IMAGES/cross.png $REMOTE:$BASE/images
-scp $IMAGES/crescent.png $REMOTE:$BASE/images
-scp $IMAGES/star.png $REMOTE:$BASE/images
-scp $IMAGES/info.svg $REMOTE:$BASE/images
-scp $IMAGES/left.svg $REMOTE:$BASE/images
-
-scp $INFECT/css/* $REMOTE:$BASE/css
-scp $INFECT/js/* $REMOTE:$BASE/js
-scp -r $INFECT/package/chart.js/* $REMOTE:$BASE/package/chart.js
+rsync -r $INFECT/* $REMOTE:$BASE
