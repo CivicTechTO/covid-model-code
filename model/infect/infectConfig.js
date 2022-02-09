@@ -162,7 +162,7 @@ function makeConfig()
 
 		, capital:
 			{
-				high: {label: "High", value: 50000000, colour: "#2C7BB6"}
+				high: {label: "High", value: 20000000, colour: "#2C7BB6"}
 				, low: {label: "Low", value: 5000000, colour: "#D7191C"}
 			}
 
