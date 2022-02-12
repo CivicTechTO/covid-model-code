@@ -4,6 +4,6 @@ on:
 
 jobs:
   upload-to-dev:
-    uses: ./.github/workflows/upload.yml@main
+    uses: ./.github/workflows/upload.yml
     with:
       target: devcovid

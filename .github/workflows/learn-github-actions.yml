@@ -2,6 +2,7 @@ name: learn-github-actions
 env: 
   FIRST: 1
   SECOND: 2
+  THIRD: $FIRST$SECOND
 on: [push]
 jobs:
   check-bats-version:
@@ -13,5 +14,4 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-      - run: echo $FIRST
-      - run: echo $SECOND
+      - run: echo $THIRD

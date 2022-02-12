@@ -15,23 +15,23 @@ on:
         type: string
 
 jobs:
-  name: upload
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with: 
+          node-version: '14'
 
-  steps:
-    - uses: actions/setup-node@v2
-      with: 
-        node-version: '14'
+      - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+      - run: |
+          mkdir -p ~/.ssh/
+          echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
+          chmod 600 ~/.ssh/id_ecdsa.key
 
-    - run: |
-        mkdir -p ~/.ssh/
-        echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
-        chmod 600 ~/.ssh/id_ecdsa.key
+      - run: $LOCAL/generate/generate $HOME
 
-    - run: $LOCAL/generate/generate $HOME
+      - run: cp $LOCAL/imageSource/*.png $INFECT/images
 
-    - run: cp $LOCAL/imageSource/*.png $INFECT/images
-
-    - run: rsync -r $INFECT $REMOTE:$BASE
+      - run: rsync -r $INFECT $REMOTE:$BASE
       
