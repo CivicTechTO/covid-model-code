@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./generate $HOME/dev/civictech/covid-model-code

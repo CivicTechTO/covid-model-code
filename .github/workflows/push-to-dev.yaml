@@ -1,0 +1,7 @@
+name: push-to-dev
+on: workflow_dispatch
+jobs:
+  push:
+    uses: ./.github/workflows/push.yml
+    with:
+      target: devcovid
