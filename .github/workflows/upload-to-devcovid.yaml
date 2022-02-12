@@ -1,0 +1,11 @@
+name: upload-to-dev
+on: 
+  push:
+    branches:
+      'main'
+
+jobs:
+  upload-to-dev:
+    uses: ./.github/workflows/upload.yaml
+    with:
+      target: devcovid

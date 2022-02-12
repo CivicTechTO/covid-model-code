@@ -1,9 +1,9 @@
-name: upload-to-dev
+name: upload-to-covid
 on: 
   workflow_dispatch:
 
 jobs:
-  upload-to-dev:
+  upload-to-covid:
     uses: ./.github/workflows/upload.yaml
     with:
-      target: devcovid
+      target: covid

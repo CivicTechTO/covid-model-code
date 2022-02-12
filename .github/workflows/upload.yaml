@@ -26,21 +26,11 @@ jobs:
           echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
           chmod 600 ~/.ssh/id_ecdsa.key
 
-      - run: |
-          echo $GITHUB_WORKSPACE
-          ls $GITHUB_WORKSPACE
-          echo ""
-          ls $GITHUB_WORKSPACE/model
-          echo ""
-          ls $GITHUB_WORKSPACE/model/generate
-
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
 
       - run: cp $GITHUB_WORKSPACE/model/imageSource/*.png $GITHUB_WORKSPACE/model/infect/images
-
-      - run: cat $GITHUB_WORKSPACE/model/infect/css/generated.css
       
-#      - run: rsync -r $GITHUB_WORKSPACE/infect $REMOTE:$BASE
+      - run: rsync -r $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
 
       
