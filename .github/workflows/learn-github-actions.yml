@@ -6,7 +6,6 @@ on: [push]
 jobs:
   check-bats-version:
     env:
-      THIRD: ${{ env.FIRST }} ${{ env.SECOND }}
       FOURTH: $FIRST$SECOND
     runs-on: ubuntu-latest
     steps:
@@ -16,4 +15,4 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-      - run: echo $THIRD$FOURTH
+      - run: echo $FOURTH
