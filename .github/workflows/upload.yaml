@@ -32,7 +32,7 @@ jobs:
       
       - run: echo -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
-      - run: rsync -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
+      - run: scp -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
 
 
