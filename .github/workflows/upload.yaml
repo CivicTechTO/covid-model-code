@@ -27,6 +27,7 @@ jobs:
           chmod 600 ~/.ssh/id_ecdsa
           ls -d ~/.ssh
           ls -l ~/.ssh
+          cat /etc/ssh/ssh_config
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
 
