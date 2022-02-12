@@ -5,6 +5,6 @@ on:
       push:
         -branches:
           -main
-            uses: ./.github/workflows/upload.yml
-              with:
-                target: devcovid
+          -uses: ./.github/workflows/upload.yml
+            with:
+              target: devcovid
