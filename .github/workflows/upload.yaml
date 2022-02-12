@@ -25,6 +25,8 @@ jobs:
           mkdir -p ~/.ssh/
           echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa
           chmod 600 ~/.ssh/id_ecdsa
+          ls -d ~/.ssh
+          ls -l ~/.ssh
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
 
