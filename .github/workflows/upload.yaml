@@ -33,5 +33,9 @@ jobs:
 
       - run: cp $LOCAL/imageSource/*.png $INFECT/images
 
-      - run: rsync -r $INFECT $REMOTE:$BASE
+      - run: echo $INFECT $REMOTE:$BASE
+
+#      - run: rsync -r $INFECT $REMOTE:$BASE
+
+
       
