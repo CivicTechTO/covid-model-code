@@ -1,0 +1,12 @@
+name: test-local
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  test-local:
+    steps:
+      - run:
+
+        echo ${{ secrets.FAKE_SSH_KEY }} > foo.txt
+        cat foo.txt
