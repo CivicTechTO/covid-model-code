@@ -3,7 +3,7 @@ name: upload
 env:
   TARGET: ${{ inputs.target }}
   REMOTE: jrootham@jrootham.ca
-  BASE: /var/www/vhosts/jrootham.ca/$TARGET.jrootham.ca
+  BASE: /var/www/vhosts/jrootham.ca/${{ inputs.target }}.jrootham.ca
   LOCAL: $HOME/model
   INFECT: $LOCAL/infect
 
