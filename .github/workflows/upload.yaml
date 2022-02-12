@@ -30,7 +30,10 @@ jobs:
 
       - run: cp $GITHUB_WORKSPACE/model/imageSource/*.png $GITHUB_WORKSPACE/model/infect/images
       
+      - run: echo -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
+
       - run: rsync -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
+
 
 
       
