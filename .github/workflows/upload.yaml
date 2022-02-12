@@ -25,7 +25,7 @@ jobs:
       - run: |
           mkdir -p ~/.ssh/
           echo echo the string "$COVID_KEY"
-          echo "$COVID_KEY" > ~/.ssh/id_ecdsa
+          echo padding "$COVID_KEY" > ~/.ssh/id_ecdsa
           chmod 600 ~/.ssh/id_ecdsa
           ls -l ~/.ssh
           cat ~/.ssh/id_ecdsa
