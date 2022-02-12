@@ -23,6 +23,7 @@ jobs:
 
       - run: |
           echo $HOME/model/infect $REMOTE:$BASE
+          pwd
           echo ls
           ls
           echo ls $HOME
