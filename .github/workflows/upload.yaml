@@ -1,11 +1,8 @@
 name: upload
 
 env:
-  TARGET: ${{ inputs.target }}
   REMOTE: jrootham@jrootham.ca
   BASE: /var/www/vhosts/jrootham.ca/${{ inputs.target }}.jrootham.ca
-  LOCAL: $HOME/model
-  INFECT: $LOCAL/infect
 
 on: 
   workflow_call:
@@ -18,6 +15,8 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
+      - run: echo $HOME/model/infect $REMOTE:$BASE
+
       - uses: actions/setup-node@v2
         with: 
           node-version: '14'
@@ -29,11 +28,9 @@ jobs:
           echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
           chmod 600 ~/.ssh/id_ecdsa.key
 
-      - run: $LOCAL/generate/generate $HOME
+      - run: $HOME/model/generate/generate $HOME
 
-      - run: cp $LOCAL/imageSource/*.png $INFECT/images
-
-      - run: echo $INFECT $REMOTE:$BASE
+      - run: cp $HOME/model/imageSource/*.png $HOME/model/infect/images
 
 #      - run: rsync -r $INFECT $REMOTE:$BASE
 
