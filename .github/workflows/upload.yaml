@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        echo $HOME/model/infect $REMOTE:$BASE
-        ls
-        ls $HOME
-        ls $HOME/model
-        ls $HOME/model/generate
+          echo $HOME/model/infect $REMOTE:$BASE
+          ls
+          ls $HOME
+          ls $HOME/model
+          ls $HOME/model/generate
 
       - uses: actions/setup-node@v2
         with: 
