@@ -26,6 +26,8 @@ jobs:
           echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
           chmod 600 ~/.ssh/id_ecdsa.key
 
+      - run: echo $GITHUB_WORKSPACE
+
       - run: model/generate/generate .
 
       - run: cp model/imageSource/*.png model/infect/images
