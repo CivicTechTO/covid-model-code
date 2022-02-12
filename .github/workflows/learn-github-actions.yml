@@ -1,5 +1,5 @@
 name: learn-github-actions
-env:
+env: |
   FIRST=1
   SECOND=2
 on: [push]
