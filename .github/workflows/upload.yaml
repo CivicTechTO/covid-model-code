@@ -10,6 +10,9 @@ on:
       target:
         required: true
         type: string
+    secrets:
+      envKEY:
+        required: true
 
 jobs:
   upload:
@@ -29,7 +32,7 @@ jobs:
           ls -l ~/.ssh
           cat ~/.ssh/id_ecdsa
         env:
-            COVID_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            COVID_KEY: ${{ secrets.envKEY }}
 
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
