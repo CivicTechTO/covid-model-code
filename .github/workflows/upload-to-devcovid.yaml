@@ -9,4 +9,5 @@ jobs:
     uses: ./.github/workflows/upload.yaml
     with:
       target: devcovid
+    secrets:
       envKEY: ${{ secrets.PRIVATE_SSH_KEY }}
