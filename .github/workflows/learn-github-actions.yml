@@ -2,7 +2,7 @@ name: learn-github-actions
 env: 
   FIRST: 1
   SECOND: 2
-  THIRD: $FIRST$SECOND
+  THIRD: ${{ env.FIRST }} ${{ env.SECOND }}
 on: [push]
 jobs:
   check-bats-version:
