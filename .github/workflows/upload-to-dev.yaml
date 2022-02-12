@@ -1,9 +1,9 @@
 name: upload-to-dev
 on: 
   workflow_dispatch:
-    jobs:
-      name:
-        upload-to-dev:
-          uses: ./.github/workflows/upload.yml@main
-          with:
-            target: devcovid
+
+jobs:
+  upload-to-dev:
+    uses: ./.github/workflows/upload.yml@main
+    with:
+      target: devcovid

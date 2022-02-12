@@ -1,11 +1,11 @@
 name: upload
 
-env: |
-  TARGET=${{ inputs.target }}
-  REMOTE=jrootham@jrootham.ca
-  BASE=/var/www/vhosts/jrootham.ca/$TARGET.jrootham.ca
-  LOCAL=$HOME/model
-  INFECT=$LOCAL/infect
+env:
+  TARGET: ${{ inputs.target }}
+  REMOTE: jrootham@jrootham.ca
+  BASE: /var/www/vhosts/jrootham.ca/$TARGET.jrootham.ca
+  LOCAL: $HOME/model
+  INFECT: $LOCAL/infect
 
 on: 
   workflow_call:
