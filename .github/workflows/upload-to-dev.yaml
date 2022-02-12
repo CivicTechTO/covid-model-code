@@ -2,9 +2,7 @@ name: upload-to-dev
 on: 
   workflow_dispatch:
     jobs:
-      push:
-        -branches:
-          -main
-          -uses: ./.github/workflows/upload.yml
-            with:
-              target: devcovid
+      upload-to-dev:
+        -uses: ./.github/workflows/upload.yml
+          with:
+            target: devcovid
