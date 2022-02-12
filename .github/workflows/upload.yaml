@@ -15,9 +15,6 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-      env:
-          COVID_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - uses: actions/setup-node@v2
         with: 
           node-version: '14'
@@ -31,6 +28,9 @@ jobs:
           chmod 600 ~/.ssh/id_ecdsa
           ls -l ~/.ssh
           cat ~/.ssh/id_ecdsa
+        env:
+            COVID_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
 
