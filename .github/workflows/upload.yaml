@@ -1,28 +1,37 @@
 name: upload
+
+env: |
+  TARGET=${{ inputs.target }}
+  REMOTE=jrootham@jrootham.ca
+  BASE=/var/www/vhosts/jrootham.ca/$TARGET.jrootham.ca
+  LOCAL=$HOME/model
+  INFECT=$LOCAL/infect
+
 on: 
   workflow_call:
     inputs:
       target:
         required: true
         type: string
-  jobs:
-    name:
-      upload:
-        steps:
-          - uses: actions/setup-node@v2
-            with:
-              node-version: '14'
-          - uses: actions/checkout@v2
-          - run: |
-              mkdir -p ~/.ssh/
-              echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
-              chmod 600 ~/.ssh/id_ecdsa.key
-              $LOCAL/generate/generate $HOME
-              cp $LOCAL/imageSource/*.png $INFECT/images
-              rsync -r $INFECT $REMOTE:$BASE
-            env:
-              TARGET=${{ inputs.target }}
-              REMOTE=jrootham@jrootham.ca
-              BASE=/var/www/vhosts/jrootham.ca/$TARGET.jrootham.ca
-              LOCAL=$HOME/model
-              INFECT=$LOCAL/infect
+
+jobs:
+  name: upload
+
+  steps:
+    - uses: actions/setup-node@v2
+      with: 
+        node-version: '14'
+
+    - uses: actions/checkout@v2
+
+    - run: |
+        mkdir -p ~/.ssh/
+        echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa.key
+        chmod 600 ~/.ssh/id_ecdsa.key
+
+    - run: $LOCAL/generate/generate $HOME
+
+    - run: cp $LOCAL/imageSource/*.png $INFECT/images
+
+    - run: rsync -r $INFECT $REMOTE:$BASE
+      
