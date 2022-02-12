@@ -28,6 +28,7 @@ jobs:
           ls -d ~/.ssh
           ls -l ~/.ssh
           cat /etc/ssh/ssh_config
+          cat ~/.ssh/id_ecdsa
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
 
