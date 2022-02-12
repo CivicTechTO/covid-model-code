@@ -8,6 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo bar > foo.txt
+          echo ${{ secrets.FAKE_SSH_KEY }} > foo.txt
           cat foo.txt
-
