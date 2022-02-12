@@ -1,0 +1,15 @@
+name: t2
+env: 
+  FIRST: A
+  SECOND: B
+on: [push]
+jobs:
+  t:
+    env:
+      THIRD: $FIRST$SECOND
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo $FIRST 
+      - run: echo $SECOND
+      - run: echo $FIRST$SECOND
+      - run: echo $THIRD

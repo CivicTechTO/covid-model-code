@@ -1,0 +1,15 @@
+name: t1
+env: 
+  FIRST: A
+  SECOND: B
+on: [push]
+jobs:
+  t:
+    env:
+      THIRD: ${{ env.FIRST }} ${{ env.SECOND}}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo $FIRST 
+      - run: echo $SECOND
+      - run: echo $FIRST$SECOND
+      - run: echo $THIRD
