@@ -2,10 +2,12 @@ name: learn-github-actions
 env: 
   FIRST: 1
   SECOND: 2
-  THIRD: ${{ env.FIRST }} ${{ env.SECOND }}
 on: [push]
 jobs:
   check-bats-version:
+    env:
+      THIRD: ${{ env.FIRST }} ${{ env.SECOND }}
+      FOURTH: $FIRST$SECOND
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,4 +16,4 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-      - run: echo $THIRD
+      - run: echo $THIRD$FOURTH
