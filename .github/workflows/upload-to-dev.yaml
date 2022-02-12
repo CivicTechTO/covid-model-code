@@ -3,6 +3,6 @@ on:
   workflow_dispatch:
     jobs:
       upload-to-dev:
-        -uses: ./.github/workflows/upload.yml
+        uses: ./.github/workflows/upload.yml
           with:
             target: devcovid
