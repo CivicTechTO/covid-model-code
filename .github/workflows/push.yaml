@@ -1,9 +1,10 @@
 name: push
-on: workflow_call
-  inputs:
-    target:
-      required: true
-      type: string
+on: 
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
 jobs:
   push:
     runs-on: ubuntu-latest
