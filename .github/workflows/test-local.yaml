@@ -5,6 +5,7 @@ on:
 
 jobs:
   test-local:
+    runs-on: ubuntu-latest
     steps:
       - run: |
         echo ${{ secrets.FAKE_SSH_KEY }} > foo.txt
