@@ -3,6 +3,7 @@ name: upload
 env:
   REMOTE: jrootham@jrootham.ca
   BASE: /var/www/vhosts/jrootham.ca/${{ inputs.target }}.jrootham.ca
+  KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 on: 
   workflow_call:
@@ -23,8 +24,8 @@ jobs:
 
       - run: |
           mkdir -p ~/.ssh/
-          echo ${{ secrets.SSH_PRIVATE_KEY }}
-          echo ${{ secrets.SSH_PRIVATE_KEY }} > ~/.ssh/id_ecdsa
+          echo $KEY
+          echo $kEY > ~/.ssh/id_ecdsa
           chmod 600 ~/.ssh/id_ecdsa
           ls -l ~/.ssh
           cat ~/.ssh/id_ecdsa
