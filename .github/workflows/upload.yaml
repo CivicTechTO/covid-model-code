@@ -29,7 +29,9 @@ jobs:
       - run: |
           echo $GITHUB_WORKSPACE
           ls $GITHUB_WORKSPACE
+          echo ""
           ls $GITHUB_WORKSPACE/model
+          echo ""
           ls $GITHUB_WORKSPACE/model/generate
 
       - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
