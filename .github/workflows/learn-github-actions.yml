@@ -1,6 +1,7 @@
 name: learn-github-actions
-env: FIRST=1
-env: SECOND=2
+env: 
+  FIRST: 1
+  SECOND: 2
 on: [push]
 jobs:
   check-bats-version:
