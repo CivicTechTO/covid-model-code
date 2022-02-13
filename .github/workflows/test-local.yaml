@@ -8,5 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ secrets.FAKE_SSH_KEY }} > foo.txt
+          echo $KEY > foo.txt
           cat foo.txt
+
+        env: 
+          KEY: ${{ secrets.FAKE_SSH_KEY }}
