@@ -6,6 +6,8 @@ on:
 
 jobs:
   upload-to-dev:
+    environment: basic
+    
     uses: ./.github/workflows/upload.yaml
     with:
       target: devcovid
