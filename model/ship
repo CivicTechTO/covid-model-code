@@ -1,13 +1,17 @@
 #!/bin/bash
 
+#  Either:
+#    ship covid
+#    ship devcovid
+
 REMOTE=jrootham@jrootham.ca
-BASE=/var/www/vhosts/jrootham.ca/covid.jrootham.ca
-LOCAL=/home/jrootham/dev/civictech/covid-model-code/model
-INFECT=$LOCAL/infect
+BASE=/var/www/vhosts/jrootham.ca/$1.jrootham.ca
+LOCAL=/home/jrootham/dev/civictech/covid-model-code
+MODEL=$LOCAL/model
+INFECT=$MODEL/infect
 
-cp $LOCAL/imageSource/*.png $INFECT/images
-cp $LOCAL/imageSource/*.svg $INFECT/images
+cp $MODEL/imageSource/*.png $INFECT/images
 
-$LOCAL/generate/generate
+$MODEL/generate/generate $LOCAL
 
 rsync -r $INFECT/* $REMOTE:$BASE

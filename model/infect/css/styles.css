@@ -21,6 +21,11 @@ h3
 	padding-left: 10px;
 }
 
+#version
+{
+	text-align: center;
+}
+
 #intro h2
 {
 	font-size: 22px;
