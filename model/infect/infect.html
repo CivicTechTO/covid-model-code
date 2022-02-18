@@ -31,7 +31,7 @@
     
     <div id="animation-block">
       <div class="info">Click for description. 
-        <div class="info-img" onclick="showTooltip('person-tooltip', 0, 0);">
+        <div class="info-img" id="person-tooltip-button">
           <img src="images/info.svg">
         </div>
       </div>
@@ -46,7 +46,7 @@
         <div id="day-block">Day number: <span id="day">1</span> <span id="limit"></span> &nbsp; <span id="name">Sunday</span></div>
         <div id="time-block">Time: <span id="hour">08</span>:<span id="minutes">00</span> &nbsp;</div>
         <div id="score-block">Political capital available: <span id="score">100%</span></div>
-        <div class="info-img" onclick="showTooltip('info-tooltip', 0, 1);">
+        <div class="info-img" id="info-tooltip-button">
           <img src="images/info.svg">
         </div>
       </div>
@@ -61,12 +61,12 @@
 
               <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
               
-              <div class="info-img" onclick="showTooltip('general-tooltip', 0, 2);">
+              <div class="info-img" id="general-tooltip-button">
                 <img src="images/info.svg">
               </div>
               <div id="speed-group" class="controls-contents">
                 <div class="control-title">Speed</div>
-                <div class="info-img" onclick="showTooltip('speed-tooltip', 0, 3);">
+                <div class="info-img" id="speed-tooltip-button">
                   <img src="images/info.svg">
                 </div>
                 <div id="speed" class="control-value">Slow</div>
@@ -87,7 +87,7 @@
 
                 <div id="infected-group" class="controls-contents">
                 <div class="control-title">Start</div>
-                <div class="info-img" onclick="showTooltip('start-infected-tooltip', 0, 4);">
+                <div class="info-img" id="start-infected-tooltip-button">
                   <img src="images/info.svg">
                 </div>
                   <div id="starting" class="control-value">Infected</div>
@@ -99,7 +99,7 @@
                 
                 <div id="capital-group" class="controls-contents">
                 <div class="control-title">Capital</div>
-                <div class="info-img" onclick="showTooltip('capital-tooltip', 0, 5);">
+                <div class="info-img" id="capital-tooltip-button">
                   <img src="images/info.svg">
                 </div>
                   <div id="capital" class="control-value">High</div>
@@ -111,7 +111,7 @@
   
                 <div id="display-sick-group" class="controls-contents">
                 <div class="control-title">Show&nbsp;Sick</div>
-                <div class="info-img" onclick="showTooltip('display-sick-tooltip', 0, 6);">
+                <div class="info-img" id="display-sick-tooltip-button">
                   <img src="images/info.svg">
                 </div>
                   <div id="display-sick" class="control-value">Late</div>
@@ -128,14 +128,14 @@
               <fieldset id="in-game-controls" disabled="true">
                 <h3>In Game Controls</h3>
 
-                <div class="info-img" onclick="showTooltip('game-tooltip', 0, 7);">
+                <div class="info-img" id="game-tooltip-button">
                   <img src="images/info.svg">
                 </div>
 
                 <div class="controls-contents">
                
                   <div class="control-title">Masks</div>
-                  <div class="info-img" onclick="showTooltip('masks-tooltip', 0, 8);">
+                  <div class="info-img" id="masks-tooltip-button">
                     <img src="images/info.svg">
                   </div>
                   <div id="masks" class="control-value">None</div>
@@ -147,7 +147,7 @@
                   </div>
               
                   <div class="control-title">Tests</div>
-                  <div class="info-img" onclick="showTooltip('tests-tooltip', 0, 8);">
+                  <div class="info-img" id="tests-tooltip-button">
                     <img src="images/info.svg">
                   </div>
                   <div id="tests" class="control-value">None</div>
@@ -158,7 +158,7 @@
                   </div>
 
                   <div class="control-title">Tracing</div>
-                  <div class="info-img" onclick="showTooltip('trace-tooltip', 0, 10);">
+                  <div class="info-img" id="trace-tooltip-button">
                     <img src="images/info.svg">
                   </div>
                   <div id="trace" class="control-value">None</div>
@@ -172,7 +172,7 @@
                   </div>
 
                   <div class="control-title">Isolate</div>
-                  <div class="info-img" onclick="showTooltip('isolate-tooltip', 0, 11);">
+                  <div class="info-img" id="isolate-tooltip-button">
                     <img src="images/info.svg">
                   </div>
                   <div id="isolate" class="control-value">None</div>
@@ -192,7 +192,7 @@
                   <div class="toggle-contents">
                     <div class="toggle-room">
                       <div class="toggle-title church-colour">Worship</div>
-                      <div class="info-img" onclick="showTooltip('worship-tooltip', 1, 0);">
+                      <div class="info-img" id="worship-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -206,7 +206,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title restaurant-colour">Restaurants</div>
-                      <div class="info-img" onclick="showTooltip('restaurants-tooltip', 1, 1);">
+                      <div class="info-img" id="restaurants-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -222,7 +222,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title bar-colour">Bars</div>
-                      <div class="info-img" onclick="showTooltip('bars-tooltip', 1, 2);">
+                      <div class="info-img" id="bars-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -236,7 +236,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title club-colour">Clubs</div>
-                      <div class="info-img" onclick="showTooltip('clubs-tooltip', 1, 3);">
+                      <div class="info-img" id="clubs-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -250,7 +250,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title school-colour">Schools</div>
-                      <div class="info-img" onclick="showTooltip('schools-tooltip', 1, 4);">
+                      <div class="info-img" id="schools-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -264,7 +264,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title office-colour">Offices</div>
-                      <div class="info-img" onclick="showTooltip('offices-tooltip', 1, 5);">
+                      <div class="info-img" id="offices-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -278,7 +278,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title meat-colour">Meat&nbsp;packing</div>
-                      <div class="info-img" onclick="showTooltip('meat-tooltip', 1, 6);">
+                      <div class="info-img" id="meat-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -292,7 +292,7 @@
 
                     <div class="toggle-room">
                       <div class="toggle-title outside-colour">Parks</div>
-                      <div class="info-img" onclick="showTooltip('outside-tooltip', 1, 7);">
+                      <div class="info-img" id="outside-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -306,7 +306,7 @@
 
                     <div class="toggle-room">
                     <div class="toggle-title house-colour">House&nbsp;parties</div>
-                      <div class="info-img" onclick="showTooltip('house-tooltip', 1, 8);">
+                      <div class="info-img" id="house-tooltip-button">
                         <img src="images/info.svg">
                       </div>
                       <div class="boolean-button">
@@ -325,27 +325,27 @@
             <div class="other-title">Other rooms</div>
             <div id="other-names">
               <div class="other-title bunkhouse-colour">Bunkhouse</div>
-                <div class="info-img" onclick="showTooltip('bunkhouse-tooltip', 1, 9);">
+                <div class="info-img" id="bunkhouse-tooltip-button">
                   <img src="images/info.svg">
                 </div>
               <div class="other-title isolation-colour">Isolation</div>
-                <div class="info-img" onclick="showTooltip('isolation-tooltip', 1, 10);">
+                <div class="info-img" id="isolation-tooltip-button">
                   <img src="images/info.svg">
                 </div>
               <div class="other-title icu-colour">ICU</div>
-                <div class="info-img" onclick="showTooltip('icu-tooltip', 1, 11);">
+                <div class="info-img" id="icu-tooltip-button">
                   <img src="images/info.svg">
                 </div>
               <div class="other-title ward-colour">Ward</div>
-                <div class="info-img" onclick="showTooltip('ward-tooltip', 1, 12);">
+                <div class="info-img" id="ward-tooltip-button">
                   <img src="images/info.svg">
                 </div>
               <div class="other-title hallway-colour">Waiting</div>
-                <div class="info-img" onclick="showTooltip('waiting-tooltip', 1, 13);">
+                <div class="info-img" id="waiting-tooltip-button">
                   <img src="images/info.svg">
                 </div>
               <div class="other-title cemetary-colour">Cemetary</div>
-                <div class="info-img" onclick="showTooltip('cemetary-tooltip', 1, 14);">
+                <div class="info-img" id="cemetary-tooltip-button">
                   <img src="images/info.svg">
                 </div>
             </div>

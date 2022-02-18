@@ -1,16 +1,81 @@
-function showTooltip(name, stream, place)
+function connectTooltips()
 {
-	restack(placeTooltip(show(name, "block"), stream, place));
+	connect("person-tooltip", "person-tooltip-button");
+	connect("info-tooltip", "info-tooltip-button");
+	connect("general-tooltip", "general-tooltip-button");
+	connect("speed-tooltip", "speed-tooltip-button");
+	connect("start-infected-tooltip", "start-infected-tooltip-button");
+	connect("capital-tooltip", "capital-tooltip-button");
+	connect("display-sick-tooltip", "display-sick-tooltip-button");
+	connect("game-tooltip", "game-tooltip-button");
+	connect("masks-tooltip", "masks-tooltip-button");
+	connect("tests-tooltip", "tests-tooltip-button");
+	connect("trace-tooltip", "trace-tooltip-button");
+	connect("isolate-tooltip", "isolate-tooltip-button");
+	connect("worship-tooltip", "worship-tooltip-button");
+	connect("restaurants-tooltip", "restaurants-tooltip-button");
+	connect("bars-tooltip", "bars-tooltip-button");
+	connect("clubs-tooltip", "clubs-tooltip-button");
+	connect("schools-tooltip", "schools-tooltip-button");
+	connect("offices-tooltip", "offices-tooltip-button");
+	connect("meat-tooltip", "meat-tooltip-button");
+	connect("outside-tooltip", "outside-tooltip-button");
+	connect("house-tooltip", "house-tooltip-button");
+	connect("bunkhouse-tooltip", "bunkhouse-tooltip-button");
+	connect("isolation-tooltip", "isolation-tooltip-button");
+	connect("icu-tooltip", "icu-tooltip-button");
+	connect("ward-tooltip", "ward-tooltip-button");
+	connect("waiting-tooltip", "waiting-tooltip-button");
+	connect("cemetary-tooltip", "cemetary-tooltip-button");
 }
 
-function placeTooltip(element, stream, place)
+function connect(name, button)
 {
-	const spec = state.activeConfig.tooltips;
-	const left = spec.base + stream * spec.streamXDelta + place * spec.placeDelta;
-	const top = spec.base + stream * spec.streamYDelta + place * spec.placeDelta;
-	
-	element.style.left = left.toString() + "em";
-	element.style.top = top.toString() + "em";
+	document.getElementById(button).addEventListener("click", setTooltip(name));
+}
+
+function setTooltip(name)
+{
+	return function(mouse)
+	{
+		showTooltip(mouse, name);
+	}
+}
+
+
+function showTooltip(mouse, name)
+{
+	restack(placeTooltip(mouse, show(name, "block")));
+}
+
+function placeTooltip(mouse, element)
+{
+	const x = mouse.pageX;
+	const y = mouse.pageY;
+
+	element.style.left = x.toString() + "px";
+	element.style.top = y.toString() + "px";
+
+	const root = document.documentElement;
+
+	const rootRight = root.clientWidth;
+	const rootBottom = root.clientHeight;
+
+	const bounds = element.getBoundingClientRect();
+
+	let deltaX = 0;
+	let deltaY = 0;
+
+	deltaX = Math.min(0, rootRight - bounds.right);
+	let newX = x + deltaX;
+	newX = Math.max(0, newX);
+
+	deltaY = Math.min(0, rootBottom - bounds.bottom);
+	let newY = y + deltaY;
+	newY = Math.max(0, newY);
+
+	element.style.left = newX.toString() + "px";
+	element.style.top = newY.toString() + "px";
 
 	return element;
 }
@@ -53,9 +118,7 @@ function showRoom(mouse)
 		}
 	}
 
-	let element = restack(show(tooltip, "block"));
-	element.style.top = mouse.clientY.toString() + "px";
-	element.style.left = mouse.clientX.toString() + "px";
+	restack(placeTooltip(mouse, tooltip));
 }
 
 function resetContents()

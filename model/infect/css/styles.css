@@ -1,6 +1,6 @@
 body
 {
-	background-color: #87CEEB;
+	background-color: #97DEFB;
 }
 
 h1
@@ -178,7 +178,7 @@ fieldset
 #controls
 {
 	display: inline-block;
-	background-color: #87CEEB;
+	background-color: #97DEFB;
 	padding-top: 10px;
 }
 
@@ -246,7 +246,7 @@ fieldset
 
 #display
 {
-	background-color: #87CEEB;
+	background-color: #97DEFB;
 	border: solid blue 1px;
 	width: 1000px;
 }
@@ -254,7 +254,7 @@ fieldset
 #charts
 {
 	display: inline-block;
-	background-color: #87CEEB;
+	background-color: #97DEFB;
 } */
 
 #overview_container
@@ -281,7 +281,7 @@ fieldset
 
 .chartx 
 {
-  background-color: #87CEEB;
+  background-color: #97DEFB;
   /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 320px 1fr;

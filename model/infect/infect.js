@@ -10,6 +10,7 @@ var persistent =
 		, gameStarted: false
 	};
 
+connectTooltips();
 connectRooms();
 
 startup(config, false);
