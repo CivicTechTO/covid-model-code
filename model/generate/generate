@@ -1,9 +1,5 @@
 #!/bin/bash
 
-BASE=$1/model
-INFECT=$BASE/infect
-TMP=/tmp
-
-cat $INFECT/js/constants.js $INFECT/js/trace.js $INFECT/infectConfig.js $BASE/generate/generate.js > $TMP/combine.js
-node $TMP/combine.js $INFECT/
-rm $TMP/combine.js
+cat ../infect/js/constants.js ../infect/js/trace.js ../infect/infectConfig.js generate.js > /tmp/combine.js
+node /tmp/combine.js ../infect/css
+rm /tmp/combine.js

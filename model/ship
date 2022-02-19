@@ -10,8 +10,6 @@ LOCAL=/home/jrootham/dev/civictech/covid-model-code
 MODEL=$LOCAL/model
 INFECT=$MODEL/infect
 
-cp $MODEL/imageSource/*.png $INFECT/images
-
-$MODEL/generate/generate $LOCAL
+./build
 
 rsync -r $INFECT/* $REMOTE:$BASE

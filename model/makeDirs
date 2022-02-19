@@ -1,9 +1,0 @@
-#!/bin/bash
-
-REMOTE=jrootham@jrootham.ca
-BASE=/var/www/vhosts/jrootham.ca/covid.jrootham.ca
-
-ssh $REMOTE "mkdir -p $BASE/css"
-ssh $REMOTE "mkdir -p $BASE/images"
-ssh $REMOTE "mkdir -p $BASE/js"
-ssh $REMOTE "mkdir -p $BASE/package/chart.js"

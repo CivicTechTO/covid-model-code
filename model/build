@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cp imageSource/*.png infect/images
+
+cd generate
+./generate 
+cd ..
+
+cd htmlSource
+./build
+cd ..

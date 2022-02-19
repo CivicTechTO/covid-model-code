@@ -208,7 +208,7 @@ class GameState extends TownState
 		this.roomButtons[C.ROOMTYPE.MEAT] = new OpenButton("meat");
 		this.roomButtons[C.ROOMTYPE.GROCERIES] = new OpenButton("groceries");
 		this.roomButtons[C.ROOMTYPE.OUTSIDE] = new OpenButton("outside");
-		this.roomButtons[C.ROOMTYPE.PARTIES] = new OpenButton("parties");
+		this.roomButtons[C.ROOMTYPE.PARTIES] = new OpenButton("house");
 
 		this.copyRoomButtons();
 	}
