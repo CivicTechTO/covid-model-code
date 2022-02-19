@@ -1,0 +1,31 @@
+  <div id="trace-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Trace</h3>
+    <p>
+      The trace issue may be the most significant part of this animation.  
+      The assumption in the underlying model is that most people infected with Covid are not infectious at all, 
+      while a small minority is incredibly infectious.  
+      Whether this is actually true or not is expected to make a large difference in the effectiveness of tracing choices.
+    </p>
+
+    <p>
+      Tracing means to look at travel patterns of an infected person and test people they have been in contact with.
+    </p>
+    <p>
+      Forward tracing means to try to find people that this case has infected by looking at recent travel patterns.
+    </p>
+
+    <p>
+      Backward tracing means to try to find the person that infected this person by looking at less recent travel patterns,
+      and then forward trace from the people found to be infected there.
+    </p>
+
+    <p>
+      Tracing is only available if testing is active.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('trace-tooltip');">Close</button>
+    </div>
+  </div>
+

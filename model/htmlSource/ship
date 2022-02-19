@@ -1,0 +1,4 @@
+#!/bin/bash
+
+m4 -P index.html >../infect/index.html
+m4 -P infect.html >../infect/infect.html

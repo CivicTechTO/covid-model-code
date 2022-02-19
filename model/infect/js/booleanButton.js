@@ -9,7 +9,6 @@ class BooleanButton
 		this.trueColour = trueColour;
 
 		this.falseId = name + "-false";
-		this.toggleId = name + "-toggle";
 		this.imageId = name + "-image";
 		this.trueId = name + "-true";
 	}

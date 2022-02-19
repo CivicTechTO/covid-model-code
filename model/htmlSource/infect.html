@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+
+  <title>Covid Game</title>
+  <meta name="description" content="infect">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/generated.css">
+
+</head>
+
+<body>
+m4_include(images.html)
+  <div id="page-title">
+    <a href="index.html"><h1>Animated Covid Game</h1></a>
+  </div>
+  
+  <div id="infect-container">
+m4_include(animation.html)
+    <div id="static-block">
+m4_include(infoPanel.html)
+m4_include(controls.html)
+m4_include(records.html)
+    </div>
+
+m4_include(charts.html)
+m4_include(feedback.html)
+  </div>
+
+m4_include(announce.html)
+m4_include(tooltips.html)
+
+
+m4_include(debug.html)
+m4_include(scripts.html)
+</body>
+</html>

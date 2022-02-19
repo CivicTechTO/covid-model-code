@@ -45,17 +45,17 @@ stream.write("#enforce-isolate{background-color: " + config.isolate.enforce.colo
 stream.write(".road-colour{background-color: " + config.road.style + ";}\n");
 
 stream.write(".school-colour{background-color: " + config.workStyle[C.WORKTYPE.SCHOOLS] + ";}\n");
-stream.write(".office-colour{background-color: " + config.workStyle[C.WORKTYPE.OFFICES] + ";}\n");
+stream.write(".offices-colour{background-color: " + config.workStyle[C.WORKTYPE.OFFICES] + ";}\n");
 stream.write(".meat-colour{background-color: " + config.workStyle[C.WORKTYPE.MEAT] + ";}\n");
 
 stream.write(".bunkhouse-colour{background-color: " + config.bunkHouse.style + ";}\n");
 stream.write(".house-colour{background-color: " + config.house.style + ";}\n");
 stream.write(".isolation-colour{background-color: " + config.isolation.style + ";}\n");
 
-stream.write(".church-colour{background-color: " + config.church.style + ";}\n");
-stream.write(".bar-colour{background-color: " + config.pub.style + ";}\n");
-stream.write(".restaurant-colour{background-color: " + config.restaurant.style + ";}\n");
-stream.write(".club-colour{background-color: " + config.club.style + ";}\n");
+stream.write(".worship-colour{background-color: " + config.church.style + ";}\n");
+stream.write(".bars-colour{background-color: " + config.pub.style + ";}\n");
+stream.write(".restaurants-colour{background-color: " + config.restaurant.style + ";}\n");
+stream.write(".clubs-colour{background-color: " + config.club.style + ";}\n");
 
 stream.write(".outside-colour{background-color: " + config.outside.style + ";}\n");
 stream.write(".cemetary-colour{background-color: " + config.cemetary.style + ";}\n");

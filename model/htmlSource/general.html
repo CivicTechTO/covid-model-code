@@ -1,0 +1,23 @@
+<h2>General Controls</h2>
+
+<div>
+  <button type="button" id="start-game" class="cold-colour" onclick="startGame();">Start game</button>
+
+  <button type="button" id="run" class="hot-colour" onclick="toggleRun();">Pause</button>
+  
+  <div class="info-img" id="general-tooltip-button">
+    <img src="images/info.svg">
+  </div>
+  <div id="speed-group" class="controls-contents">
+    <div class="control-title">Speed</div>
+    <div class="info-img" id="speed-tooltip-button">
+      <img src="images/info.svg">
+    </div>
+    <div id="speed" class="control-value">Slow</div>
+    <div class="control-buttons">
+      <button id="slow-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.slow);">Slow</button>
+      <button id="medium-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.medium);">Medium</button>
+      <button id="fast-speed" type="button" onclick="setSpeed(state.activeConfig.stepsPerFrame.fast);">Fast</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+m4_define(m4_row, <tr class="$1"><td class="row-label">$2 </td><td id="current$3">0</td><td id="max$3">0</td><td id="total$3">0</td></tr>)
+
+
+<div id="records">
+  <table>
+    <tr> 
+      <th class="row-label">Condition</th> 
+      <th>Current</th> 
+      <th>Maximum</th> 
+      <th>Total</th> 
+    </tr>
+
+m4_row(early-show, Never&nbsp;infected, Well)
+m4_row(early-show, Infected, Infected)
+m4_row(early-show, Incubating, Incubating)
+m4_row(early-show, Infectious, Infectious)
+m4_row(always-show, Symptomatic, Symptomatic)
+m4_row(always-show, Recovered, Recovered)
+m4_row(always-show, Sick&nbsp;at&nbsp;home, HomeSick)
+m4_row(always-show, Needs&nbsp;hospital, WardSick)
+m4_row(always-show, Waiting&nbsp;for&nbsp;bed, Hallway)
+m4_row(always-show, Needs&nbsp;ICU, ICUSick)
+m4_row(always-show, Dead, Dead)
+m4_row(game-show, Masks, Masks)
+m4_row(game-show, Total&nbsp;Tests, Tests)
+m4_row(game-show, Random&nbsp;tests, RandomTests)
+m4_row(game-show, Hospital&nbsp;tests, HospitalTests)
+m4_row(game-show, Trace&nbsp;tests, TraceTests)
+m4_row(game-show, Total&nbsp;positives, Positive)
+m4_row(game-show, Random&nbsp;positives, RandomPositives)
+m4_row(game-show, Hospital&nbsp;positives, HospitalPositives)
+m4_row(game-show, Trace&nbsp;positives, TracePositives)
+m4_row(game-show, Isolated, Isolated)
+m4_row(game-show, Isolation&nbsp;rooms, IsolationRoom)
+m4_row(game-show, Isolation&nbsp;home, IsolationHome)
+m4_row(game-show, Isolation&nbsp;overflow, IsolationOverflow)
+    
+  </table>  
+</div>

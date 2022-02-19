@@ -1,0 +1,51 @@
+  <div id="person-tooltip" class="tooltip" onclick="restack(this);">
+    <h3>Illustration</h3>
+    <p>
+      The model starts with a running illustration of what happens if there are no interventions.  
+      More details of what is going on are displayed here than during the game.
+      The initial conditions are carefully set up to guarantee a virulent outbreak.
+    </p>
+
+    <h3>Room Effects</h3>
+    <p>
+      People behave differently in different kinds of rooms.
+    </p>
+    <p>
+      There are some characteristics of rooms that influence disease transmission.  
+      Notably the ventilation level and loudness (people talking and singing).
+      The blue bar on the left of the room indicates the ventilation level (higher is worse).
+      The red bar on the right indicates the loudness level.
+    </p>
+    
+    <h3>Displaying People</h3>
+    <p>
+      People are displayed as faces.  The colour and whether or not they are smiling indicate their status.
+    </p>
+    <div>
+      During the illustration:
+      <div class="face-list">
+        <div class="face-name">Never been infectious</div> <div class="face"><img src="images/covid-uninfected.png"></div>
+        <div class="face-name">Currently infectious </div> <div class="face"><img src="images/covid-infected.png"></div>
+        <div class="face-name">No longer infectious </div> <div class="face"><img src="images/covid-recovered.png"></div>
+      </div>
+    </div>
+    <div>
+      During the game:
+      <div class="face-list">
+        <div class="face-name">Never been symptomatic</div> <div class="face"><img src="images/covid-uninfected.png"></div>
+        <div class="face-name">Currently symptomatic</div> <div class="face"><img src="images/covid-infected.png"></div>
+        <div class="face-name">No longer symptomatic</div> <div class="face"><img src="images/covid-recovered.png"></div>
+      </div>
+    </div>
+
+    <h3>Other</h3>
+    <p>
+      Clicking on the animation shows information about the room you clicked on.
+    </p>
+
+    <div class="tooltip-buttons">
+      <button onclick="hideTooltips();">Close&nbsp;all</button>
+      <button onclick="hide('person-tooltip');">Close</button>
+    </div>
+  </div>
+

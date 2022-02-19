@@ -1,0 +1,49 @@
+      <div class="control-title">Masks</div>
+      <div class="info-img" id="masks-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="masks" class="control-value">None</div>
+      <div class="control-buttons">
+        <button id="no-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.none);">None</button>
+        <button id="encourage-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.encourage);">Encourage</button>
+        <button id="require-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.require);">Require</button>
+        <button id="enforce-masks" type="button" onclick="setMasks(state.activeConfig.masks.specs.enforce);">Enforce</button>
+      </div>
+  
+      <div class="control-title">Tests</div>
+      <div class="info-img" id="tests-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="tests" class="control-value">None</div>
+      <div class="control-buttons">
+        <button id="no-tests" type="button" onclick="setTests(state.activeConfig.tests.none);">None</button>
+        <button id="light-tests" type="button" onclick="setTests(state.activeConfig.tests.light);">Light</button>
+        <button id="heavy-tests" type="button" onclick="setTests(state.activeConfig.tests.heavy);">Heavy</button>
+      </div>
+
+      <div class="control-title">Tracing</div>
+      <div class="info-img" id="trace-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="trace" class="control-value">None</div>
+      <div class="control-buttons">
+        <fieldset id="depends-on-tests" disabled="true">
+          <button id="no-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.none);">None</button>
+          <button id="forward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.forward);">Forward</button>
+          <button id="backward-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.backward);">Backward</button>
+          <button id="both-trace" type="button" onclick="setTrace(state.activeConfig.trace.specs.both);">Both</button>
+        </fieldset>
+      </div>
+
+      <div class="control-title">Isolate</div>
+      <div class="info-img" id="isolate-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="isolate" class="control-value">None</div>
+      <div class="control-buttons">
+        <button id="no-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.none);">None</button>
+        <button id="encourage-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.encourage);">Encourage</button>
+        <button id="require-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.require);">Require</button>
+        <button id="enforce-isolate" type="button" onclick="setIsolate(state.activeConfig.isolate.enforce);">Enforce</button>
+      </div>
+      <div>&nbsp</div>
