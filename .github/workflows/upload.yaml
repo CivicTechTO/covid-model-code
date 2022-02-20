@@ -41,7 +41,9 @@ jobs:
       
       - run: echo -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
-      - run: scp -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
+      - run: |
+        wc ~/.ssh/id_ecdsa
+        scp -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
 
 
