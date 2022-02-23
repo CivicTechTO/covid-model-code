@@ -1,8 +1,7 @@
 name: upload
 
 env:
-  REMOTE: jrootham@jrootham.ca
-  BASE: /var/www/vhosts/jrootham.ca/${{ inputs.target }}.jrootham.ca
+  TARGET: ${{ inputs.target }}
 
 on: 
   workflow_call:
@@ -26,25 +25,13 @@ jobs:
 
       - run: |
           mkdir -p ~/.ssh/
-          echo echo the string "$COVID_KEY"
-          echo padding "$COVID_KEY" > ~/.ssh/id_ecdsa
+          echo "$COVID_KEY" > ~/.ssh/id_ecdsa
           chmod 600 ~/.ssh/id_ecdsa
-          ls -l ~/.ssh
-          cat ~/.ssh/id_ecdsa
         env:
-            COVID_KEY: ${{ secrets.envKEY }}
+            COVID_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
 
-
-      - run: $GITHUB_WORKSPACE/model/generate/generate $GITHUB_WORKSPACE
-
-      - run: cp $GITHUB_WORKSPACE/model/imageSource/*.png $GITHUB_WORKSPACE/model/infect/images
-      
-      - run: echo -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
 
       - run: |
-        wc ~/.ssh/id_ecdsa
-        scp -rv $GITHUB_WORKSPACE/infect $REMOTE:$BASE
-
-
-
-      
+        cd $GITHUB_WORKSPACE/model
+        ./ship $TARGET
+        
