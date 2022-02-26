@@ -88,7 +88,7 @@ function makeConstants()
 									colour : { BORDER : 'rgb(240, 0, 0)', FILL : 'rgb(120, 0, 0)' },
 								    dashes : [8, 3], yaxis : 'scoreAxis', 
 									callback : (s) => { return s.record.infected.current / s.activeConfig.count * 100; } },
-								  { name : 'meatList', label : 'Meat packing' }, 
+								  { name : 'factoryList', label : 'Factory' }, 
 								  { name : 'officeList', label : 'Office' }, 
 								  { name : 'schoolList', label : 'School' }, 
 								  { name : 'houseList', label : 'House' }, 
@@ -149,21 +149,21 @@ function makeConstants()
 
 	result.HALLWAY = [result.SICKNESS.WARDSICK, result.SICKNESS.ICUSICK];
 
-	result.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
+	result.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, FACTORY: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 
-	result.ROOMID = ["", "worship", "restaurants", "bars", "clubs", "schools", "offices", "meat", "groceries", "parks", "parties"]
+	result.ROOMID = ["", "worship", "restaurants", "bars", "clubs", "schools", "offices", "factory", "groceries", "parks", "parties"]
 
 	const rt = result.ROOMTYPE;
-	result.USEDROOMS =[rt.WORSHIP, rt.RESTAURANTS, rt.BARS, rt.CLUBS, rt.SCHOOLS, rt.OFFICES, rt.MEAT, rt.OUTSIDE, rt.PARTIES];
+	result.USEDROOMS =[rt.WORSHIP, rt.RESTAURANTS, rt.BARS, rt.CLUBS, rt.SCHOOLS, rt.OFFICES, rt.FACTORY, rt.OUTSIDE, rt.PARTIES];
 	
-	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+	result.WORKTYPE = {SCHOOLS:0, OFFICES: 1, FACTORY: 2};
 
 	result.BOOLEANIMAGES ={LEFT:"../images/left.svg" , RIGHT:"../images/right.svg"}
 
 	result.TOOLTIPS = 
 	{
 		BUNKHOUSES: "bunkhouse-tooltip", HOUSES: "house-tooltip", WORSHIP: "worship-tooltip", RESTAURANTS: "restaurants-tooltip"
-		, BARS: "bars-tooltip", CLUBS: "clubs-tooltip", SCHOOLS: "schools-tooltip", OFFICES: "offices-tooltip", MEAT: "factory-tooltip"
+		, BARS: "bars-tooltip", CLUBS: "clubs-tooltip", SCHOOLS: "schools-tooltip", OFFICES: "offices-tooltip", FACTORY: "factory-tooltip"
 		, OUTSIDE: "outside-tooltip", ICU: "icu-tooltip", WARD: "ward-tooltip", WAITING: "waiting-tooltip", CEMETARY: "cemetary-tooltip"
 		, ISOLATION: "isolation-tooltip", ROAD: "road-tooltip"
 	}

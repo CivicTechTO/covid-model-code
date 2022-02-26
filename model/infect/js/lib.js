@@ -182,7 +182,7 @@ function gameAnimate(timestamp)
 function reportInfected()
 {
 	reportRooms("Work", state.workList);
-	reportRooms("Meat packing", state.meatList);
+	reportRooms("Factory", state.factoryList);
 	reportRooms("Office", state.officeList);
 	reportRooms("School", state.schoolList);
 	reportRooms("House", state.houseList);
@@ -215,10 +215,10 @@ function makeInfectedColourMap()
 {
 	let result = new Map();
 
-// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, FACTORY: 2};
 	let workStyle = state.activeConfig.workStyle;
 
-	result.set("meatList", workStyle[C.WORKTYPE.MEAT]); 
+	result.set("factoryList", workStyle[C.WORKTYPE.FACTORY]); 
 	result.set("officeList", workStyle[C.WORKTYPE.OFFICES]);
 	result.set("schoolList", workStyle[C.WORKTYPE.SCHOOLS]);
 	result.set("houseList", state.activeConfig.house.style);

@@ -169,7 +169,7 @@ class GameState extends TownState
 
 	fillWorkListType()
 	{
-		this.fillWorkType(this.activeConfig.workType.meat, C.ROOMTYPE.MEAT, C.WORKTYPE.MEAT, C.TOOLTIPS.MEAT, this.meatList);
+		this.fillWorkType(this.activeConfig.workType.factory, C.ROOMTYPE.FACTORY, C.WORKTYPE.FACTORY, C.TOOLTIPS.FACTORY, this.factoryList);
 		this.fillWorkType(this.activeConfig.workType.office, C.ROOMTYPE.OFFICES, C.WORKTYPE.OFFICES, C.TOOLTIPS.OFFICES, this.officeList);
 		this.fillWorkType(this.activeConfig.workType.school, C.ROOMTYPE.SCHOOLS, C.WORKTYPE.SCHOOLS, C.TOOLTIPS.SCHOOLS, this.schoolList);
 	}
@@ -205,7 +205,7 @@ class GameState extends TownState
 		this.roomButtons[C.ROOMTYPE.CLUBS] = new OpenButton("clubs");
 		this.roomButtons[C.ROOMTYPE.SCHOOLS] = new OpenButton("schools");
 		this.roomButtons[C.ROOMTYPE.OFFICES] = new OpenButton("offices");
-		this.roomButtons[C.ROOMTYPE.MEAT] = new OpenButton("meat");
+		this.roomButtons[C.ROOMTYPE.FACTORY] = new OpenButton("factory");
 		this.roomButtons[C.ROOMTYPE.GROCERIES] = new OpenButton("groceries");
 		this.roomButtons[C.ROOMTYPE.OUTSIDE] = new OpenButton("outside");
 		this.roomButtons[C.ROOMTYPE.PARTIES] = new OpenButton("house");
@@ -368,7 +368,7 @@ class GameState extends TownState
 		result += !this.roomButtons[C.ROOMTYPE.CLUBS].get() ? scoreArray[C.ROOMTYPE.CLUBS] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.SCHOOLS].get() ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.OFFICES].get() ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.MEAT].get() ? scoreArray[C.ROOMTYPE.MEAT] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.FACTORY].get() ? scoreArray[C.ROOMTYPE.FACTORY] : 0;
 //		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.OUTSIDE].get() ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
 		result += !this.roomButtons[C.ROOMTYPE.PARTIES].get() ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
@@ -436,7 +436,7 @@ class GameState extends TownState
 		this.roomButtons[C.ROOMTYPE.CLUBS].draw();
 		this.roomButtons[C.ROOMTYPE.SCHOOLS].draw();
 		this.roomButtons[C.ROOMTYPE.OFFICES].draw();
-		this.roomButtons[C.ROOMTYPE.MEAT].draw();
+		this.roomButtons[C.ROOMTYPE.FACTORY].draw();
 //		this.roomButtons[C.ROOMTYPE.GROCERIES].draw();
 		this.roomButtons[C.ROOMTYPE.OUTSIDE].draw();
 		this.roomButtons[C.ROOMTYPE.PARTIES].draw();

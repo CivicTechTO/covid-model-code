@@ -22,7 +22,7 @@ function makeConfig()
 		, secondsPerStep: {small: 10, large: 30}
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
-		, graphedInfectionLocations : [ 'meatList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
+		, graphedInfectionLocations : [ 'factoryList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
 										'churchList','restaurantList', 'pubList', 'clubList', 'outsideList'	]
 		, chartBorderAdjust : 0.8
 		, limit: 100
@@ -48,11 +48,11 @@ function makeConfig()
 		, left:[30, 40, 30, 25, 65, 55, 60, 65, 25, 60, 35]
 		, right: [60, 30, 55, 65, 30, 70, 50, 45, 25, 30, 35]
 		, workAllocation: [7, 12, 6, 6, 16, 13, 14, 16, 4, 13, 10, 14, 6, 13, 15, 6, 18, 14, 14, 10, 10, 10]
-		, workType: {meat: {start: 0, end: 4}, office: {start:5, end: 14}, school: {start: 15, end:21}}
+		, workType: {factory: {start: 0, end: 4}, office: {start:5, end: 14}, school: {start: 15, end:21}}
 		, workScale:{maxAllocation: 20, ventilation: {min: 10, max: 20}, loudness: {min: 5, max: 10}}
 
 
-// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, MEAT: 2};
+// workStyle is indexed by C.WORKTYPE = {SCHOOLS:0, OFFICES: 1, FACTORY: 2};
 
 		, workStyle: ["#FFC2FF", "#A0C2A0", "#80C280"]
 
@@ -241,7 +241,7 @@ function makeConfig()
 	        {
 	        	scale: 0.5
 // arrays are indexed by the constants in the preceeding comment
-// C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, MEAT: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
+// C.ROOMTYPE = {OPEN: 0, WORSHIP: 1, RESTAURANTS: 2, BARS: 3, CLUBS: 4, SCHOOLS: 5, OFFICES: 6, FACTORY: 7, GROCERIES: 8, OUTSIDE: 9, PARTIES: 10};
 	            , room: [0, 9000, 2000, 1000, 500, 7000, 6000, 8000, 0, 5000, 8000]
 
 	            , isolate: 3000

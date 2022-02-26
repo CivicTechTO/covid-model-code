@@ -46,7 +46,7 @@ stream.write(".road-colour{background-color: " + config.road.style + ";}\n");
 
 stream.write(".school-colour{background-color: " + config.workStyle[C.WORKTYPE.SCHOOLS] + ";}\n");
 stream.write(".offices-colour{background-color: " + config.workStyle[C.WORKTYPE.OFFICES] + ";}\n");
-stream.write(".meat-colour{background-color: " + config.workStyle[C.WORKTYPE.MEAT] + ";}\n");
+stream.write(".factory-colour{background-color: " + config.workStyle[C.WORKTYPE.FACTORY] + ";}\n");
 
 stream.write(".bunkhouse-colour{background-color: " + config.bunkHouse.style + ";}\n");
 stream.write(".house-colour{background-color: " + config.house.style + ";}\n");
