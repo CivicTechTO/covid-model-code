@@ -18,7 +18,7 @@ function connectTooltips()
 	connect("clubs-tooltip", "clubs-tooltip-button");
 	connect("schools-tooltip", "schools-tooltip-button");
 	connect("offices-tooltip", "offices-tooltip-button");
-	connect("meat-tooltip", "meat-tooltip-button");
+	connect("factory-tooltip", "factory-tooltip-button");
 	connect("outside-tooltip", "outside-tooltip-button");
 	connect("house-tooltip", "house-tooltip-button");
 	connect("bunkhouse-tooltip", "bunkhouse-tooltip-button");
