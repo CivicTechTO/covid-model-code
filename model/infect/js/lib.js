@@ -104,7 +104,7 @@ function animate(timestamp)
 
 		if (state.game)
 		{
-			newGame();
+			newGame(state.game);
 			startRunning();
 		}
 		else
@@ -112,6 +112,17 @@ function animate(timestamp)
 			window.requestAnimationFrame(animate);
 		}
 	}
+	else
+	{
+		runNothing();
+	}
+}
+
+function runNothing()
+{
+
+	setText("what-is-running", "Nothing");
+	show("run-box", "block");
 }
 
 function isEarly()
@@ -119,10 +130,10 @@ function isEarly()
 	return 0 === persistent.displaySickSpec.value;
 }
 
-function newGame()
+function newGame(game)
 {
 	state.chartList.destroy();
-	startup(makeConfig(), true);
+	setup(makeConfig(), game);
 }
 
 function runModel(timestamp)
@@ -163,7 +174,7 @@ function gameAnimate(timestamp)
 		else
 		{
 			draw();
-			
+
 			if (lost())
 			{
 				announceLost();
@@ -176,6 +187,10 @@ function gameAnimate(timestamp)
 				}
 			}
 		}
+	}
+	else
+	{
+		runNothing();
 	}
 }
 
@@ -232,7 +247,7 @@ function makeInfectedColourMap()
 	return result;
 }
 
-function startup(config, playGame)
+function setup(config, playGame)
 {
 	const canvas = document.getElementById('canvas');
 
@@ -249,6 +264,7 @@ function startup(config, playGame)
 
 	state.week[0].startShift();
 
+	drawControls();
 	draw();
 }
 

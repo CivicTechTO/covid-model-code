@@ -9,7 +9,7 @@ class State
 
 		this.size = configuration.size;
 
-		this.speedSpec = configuration.stepsPerFrame.medium;
+		this.speedSpec = configuration.stepsPerFrame.slow;
 		
 		this.setSecondsPerStep(configuration.secondsPerStep.small);
 

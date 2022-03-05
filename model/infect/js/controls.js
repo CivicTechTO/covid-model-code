@@ -34,8 +34,6 @@ function classShow(which, show)
 function gameOn(isGame)
 {
 	document.getElementById("in-game-controls").disabled = !isGame;
-	document.getElementById("start-game").disabled = isGame;
-	document.getElementById("difficulty").disabled = isGame;
 }
 
 function hideClass(which)
@@ -82,8 +80,8 @@ function restack(element)
 
 function drawControls()
 {
-	drawPlay();
-	drawRun();
+//	drawPlay();
+//	drawRun();
 	drawSpeed();
 
 	drawStart();
@@ -96,14 +94,6 @@ function drawControls()
 	drawIsolate();
 
 	state.drawRoomButtons();
-}
-
-function drawPlay()
-{
-	if (persistent.gameStarted)
-	{
-		document.getElementById("start-game").disabled = true;
-	}
 }
 
 function drawRun()
@@ -120,11 +110,13 @@ function drawRun()
 	}
 }
 
-function startGame() 
+function launch(game) 
 {
-	persistent.gameStarted = true;
+	hide("run-box");
+	setText("what-is-running", game ? "The game" : "The simulation")
+	persistent.gameStarted = game;
 
-	newGame();
+	newGame(game);
 	drawControls();
 	startRunning();
 }
@@ -137,16 +129,9 @@ function startRunning()
 	window.requestAnimationFrame(state.animate);
 }
 
-function toggleRun() 
+function stop() 
 {
-	state.run = !state.run;
-
-	if (state.run)
-	{
-		startRunning();
-	}
-
-	drawControls();
+	state.run = false;
 }
 
 function setSpeed(spec)
@@ -272,7 +257,7 @@ function announceLost()
 	showGrid("announce-outer");
 	showGrid("announce-lose");
 	// !!! lostChart.display ();
-	document.getElementById("all-controls").disabled = true;
+	disableControls(true);
 }
 
 function announceWon() 
@@ -283,7 +268,7 @@ function announceWon()
 	showGrid("announce-outer");
 	showGrid("announce-win");
 	// !!! wonChart.display ();
-	document.getElementById("all-controls").disabled = true;
+	disableControls(true)
 }
 
 function ok()
@@ -292,8 +277,12 @@ function ok()
 	
 	hide(state.announce);
 	hide("announce-outer");
-	document.getElementById("all-controls").disabled = false;
-
+	disableControls(false);
 	gameOn(false);
+	runNothing();
 }
 
+function disableControls(disable) 
+{
+	document.getElementById("lower-controls").disabled = disable;
+}
