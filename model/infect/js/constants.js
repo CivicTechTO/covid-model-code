@@ -2,6 +2,8 @@ function makeConstants()
 {
 	let result = {};
 
+	const finalColour = "#000000"
+
 	let multiScale =  	{
 							x : { source : 'data' },
 							y_default : {
@@ -29,13 +31,13 @@ function makeConstants()
 					 					}	                  
 						},
 			
-		finalScale = 	{ y : { ticks : { autoSkip : false, color : '#FFFFFF', 
+		finalScale = 	{ y : { ticks : { autoSkip : false, color : 'finalColour', 
 										  font : { size : 14 } }, 
-    							grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } },
-						  x : { ticks : { color : '#FFFFFF', font : { size : 14 } }, 
-								grid : { color : '#FFFFFF', borderColor : '#FFFFFF' } } },
+    							grid : { color : 'finalColour', borderColor : 'finalColour' } },
+						  x : { ticks : { color : 'finalColour', font : { size : 14 } }, 
+								grid : { color : 'finalColour', borderColor : 'finalColour' } } },
 		
-		finalTitle	=	{ text : 'Your results: Infections by location', color : '#FFFFFF', 
+		finalTitle	=	{ text : 'Your results: Infections by location', color : 'finalColour', 
 						  display : true, font : { size : 18 } };
 
     result.CHARTED_VALUES  =	[ { name : 'incubating', label : 'People incubating virus',

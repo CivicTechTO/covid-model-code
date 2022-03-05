@@ -166,26 +166,23 @@
 
 .announce
 {
-	border: 4px solid black;
 	align-content: center;
 	justify-content: center;
+	background-color: var(--background);
 }
 
 #announce-win
 {
 	display: none;
 
-/*	border: 10px solid green; */
-	background-color: #3030FF;
+	border: 10px solid green;
 }
 
 #announce-lose
 {
 	display: none;
 
-/*	border: 10px solid black; */
-
-	background-color: gray;
+	border: 10px solid black;
 }
 
 .announce-text
