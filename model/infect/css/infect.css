@@ -154,7 +154,6 @@
 
 	background-color: rgba(0, 0, 0, 0);
 
-	position: fixed;
 	top: 0px;
 	left: 0px;
 	height: 100%;
@@ -166,7 +165,13 @@
 
 .announce
 {
-	align-content: center;
+	position: fixed;
+	width: 750px;
+	height: 750px;
+	top: 50%;
+	left: 50%;
+	margin-top: -350px; /* Negative half of height. */
+	margin-left: -350px; /* Negative half of width. */	align-content: center;
 	justify-content: center;
 	background-color: var(--background);
 }

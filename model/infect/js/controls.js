@@ -254,7 +254,6 @@ function announceLost()
 	let lostChart = state.chartList.getLostChart ();
 	state.announce = "announce-lose";
 	setText("score-text-lose", "You survived " + state.tickToDay(state.clock) + " days.");
-	showGrid("announce-outer");
 	showGrid("announce-lose");
 	// !!! lostChart.display ();
 	disableControls(true);
@@ -265,7 +264,6 @@ function announceWon()
 	let wonChart = state.chartList.getWonChart ();
 	state.announce = "announce-win";
 	setText("score-text-win", "You have " + formatScore() + " of your political capital remaining.");
-	showGrid("announce-outer");
 	showGrid("announce-win");
 	// !!! wonChart.display ();
 	disableControls(true)
@@ -276,7 +274,8 @@ function ok()
 	persistent.gameStarted = false;
 	
 	hide(state.announce);
-	hide("announce-outer");
+	hide("announce-win");
+	hide("announce-lose");
 	disableControls(false);
 	gameOn(false);
 	runNothing();

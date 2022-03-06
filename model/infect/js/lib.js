@@ -173,6 +173,7 @@ function gameAnimate(timestamp)
 		}
 		else
 		{
+console.log("later break");
 			draw();
 
 			if (lost())
@@ -190,6 +191,7 @@ function gameAnimate(timestamp)
 	}
 	else
 	{
+console.log("early break");
 		runNothing();
 	}
 }
