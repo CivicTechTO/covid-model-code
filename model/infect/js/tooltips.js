@@ -118,7 +118,7 @@ function showRoom(mouse)
 		}
 	}
 
-	restack(placeTooltip(mouse, tooltip));
+	showTooltip(mouse, tooltip);
 }
 
 function resetContents()
