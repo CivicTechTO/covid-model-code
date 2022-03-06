@@ -9,7 +9,7 @@ class TownState extends InfectState
 
 		this.workList = [];
 		this.schoolList = [];
-		this.meatList = [];
+		this.factoryList = [];
 		this.officeList = [];
 
 		this.houseList = [];
