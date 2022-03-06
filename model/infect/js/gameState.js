@@ -7,7 +7,7 @@ class GameState extends TownState
 		this.game = false;
 		this.score = 0;
 		this.netScore = persistent.capitalSpec.value;
-		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 2});
+		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
 
 		this.masksSpec = this.activeConfig.masks.specs.none;
