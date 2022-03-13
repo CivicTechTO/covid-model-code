@@ -1,3 +1,24 @@
+m4_define(m4_tooltip_room, 
+  <div id="$1" class="tooltip">
+    <h3 class="$2">$3</h3>
+	  $4
+    <div class="tooltip-buttons">
+      <button onclick="hide('$1');">Close</button>
+    </div>
+  </div>
+)
+
+m4_define(m4_tooltip, 
+  <div id="$1" class="tooltip">
+    <h3>$2</h3>
+    $3
+    <div class="tooltip-buttons">
+      <button onclick="hide('$1');">Close</button>
+    </div>
+  </div>
+)
+
+
 m4_include(tooltips/person.html)
 m4_include(tooltips/info.html)
 m4_include(tooltips/general.html)
