@@ -44,7 +44,7 @@ stream.write("#enforce-isolate{background-color: " + config.isolate.enforce.colo
 
 stream.write(".road-colour{background-color: " + config.road.style + ";}\n");
 
-stream.write(".school-colour{background-color: " + config.workStyle[C.WORKTYPE.SCHOOLS] + ";}\n");
+stream.write(".schools-colour{background-color: " + config.workStyle[C.WORKTYPE.SCHOOLS] + ";}\n");
 stream.write(".offices-colour{background-color: " + config.workStyle[C.WORKTYPE.OFFICES] + ";}\n");
 stream.write(".factory-colour{background-color: " + config.workStyle[C.WORKTYPE.FACTORY] + ";}\n");
 

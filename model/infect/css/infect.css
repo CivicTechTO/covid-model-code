@@ -36,6 +36,11 @@
 	font-size: large;
 }
 
+.tooltip-button
+{
+	color: black;
+}
+
 .light-text
 {
 	color: white;
@@ -207,6 +212,7 @@
 .announce-button
 {
 	font-size: large;
+	color: black;
 }
 
 .face-list
