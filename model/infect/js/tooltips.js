@@ -45,7 +45,8 @@ function setTooltip(name)
 
 function showTooltip(mouse, name)
 {
-	restack(placeTooltip(mouse, show(name, "block")));
+	hideTooltips();
+	placeTooltip(mouse, show(name, "block"));
 }
 
 function placeTooltip(mouse, element)

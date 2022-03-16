@@ -1,5 +1,5 @@
-  <div id="ward-tooltip" class="tooltip" onclick="restack(this);">
-    <h3 class="ward-colour">Ward</h3>
+m4_tooltip_room(ward-tooltip,
+    ward-colour,Ward,
     <p>
       The ward is where people go if they are sufficiently sick.
       Everyone either recovers or goes to the intensive care unit (if there is room), we do not model long covid.
@@ -7,10 +7,9 @@
     <p>
       This model assumes that protective equipment in hospitals is effective, there is no transmission in hospitals.
     </p>
+)
 
-    <div class="tooltip-buttons">
-      <button onclick="hideTooltips();">Close&nbsp;all</button>
-      <button onclick="hide('ward-tooltip');">Close</button>
-    </div>
-  </div>
+
+    
+  
 

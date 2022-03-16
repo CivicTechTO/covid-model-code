@@ -71,13 +71,6 @@ function drawValue(name, spec)
 	setColour(name, spec.colour);
 }
 
-function restack(element)
-{
-	element.style.zIndex = state.maxZ++;
-
-	return element;
-}
-
 function drawControls()
 {
 //	drawPlay();
