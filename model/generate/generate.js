@@ -17,6 +17,7 @@ stream.write("#fast-speed{background-color: " + config.stepsPerFrame.fast.colour
 stream.write("#start-not-infected{background-color: " + config.startState.notInfected.colour + ";}\n");
 stream.write("#start-infected{background-color: " + config.startState.infected.colour + ";}\n");
 
+stream.write("#capital-very-high{background-color: " + config.capital.veryHigh.colour + ";}\n");
 stream.write("#capital-high{background-color: " + config.capital.high.colour + ";}\n");
 stream.write("#capital-low{background-color: " + config.capital.low.colour + ";}\n");
 

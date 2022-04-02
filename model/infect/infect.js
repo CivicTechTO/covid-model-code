@@ -6,6 +6,7 @@ var persistent =
 	{
 		startSpec: config.startState.infected
 		, capitalSpec: config.capital.high
+		, secondsPerStepSpec: config.secondsPerStep.slow
 		, displaySickSpec: config.displaySick.late
 		, gameStarted: false
 	};

@@ -1,0 +1,58 @@
+
+<h2>Game Options</h2>
+
+<div id="options-box">
+  <fieldset id="options">
+
+    <div id="capital-group" class="options-contents">
+      <div class="control-title">Difficulty</div>
+      <div class="info-img" id="capital-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="capital" class="control-value">Cannot&nbsp;Lose</div>
+      <div class="control-buttons">
+        <button id="capital-very-high" type="button" onclick="setCapital(state.activeConfig.capital.veryHigh)">Cannot&nbsp;Lose</button>
+        <button id="capital-high" type="button" onclick="setCapital(state.activeConfig.capital.high)">Easy</button>
+        <button id="capital-low" type="button" onclick="setCapital(state.activeConfig.capital.low)">Hard</button>
+      </div>
+    </div>
+
+    <div id="infected-group" class="options-contents">
+      <div class="control-title">Infection&nbsp;at&nbsp;Start</div>
+      <div class="info-img" id="start-infected-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+        <div id="starting" class="control-value">Infected</div>
+      <div class="control-buttons">
+        <button id="start-not-infected" type="button" onclick="setStart(state.activeConfig.startState.notInfected);">Uninfected</button>
+        <button id="start-infected" type="button" onclick="setStart(state.activeConfig.startState.infected);">Infected</button>
+      </div>
+    </div>
+    
+    <div id="game-speed-group" class="options-contents">
+      <div class="control-title">Game&nbsp;Speed</div>
+      <div class="info-img" id="game-speed-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+        <div id="game-speed" class="control-value">Slow</div>
+      <div class="control-buttons">
+        <button id="start-not-infected" type="button" onclick="setGameSpeed(state.activeConfig.secondsPerStep.slow);">Slow</button>
+        <button id="start-infected" type="button" onclick="setGameSpeed(state.activeConfig.secondsPerStep.fast);">Fast</button>
+      </div>
+    </div>
+    
+    <div id="display-sick-group" class="options-contents">
+      <div class="control-title">Show&nbsp;Sick</div>
+      <div class="info-img" id="display-sick-tooltip-button">
+        <img src="images/info.svg">
+      </div>
+      <div id="display-sick" class="control-value">Late</div>
+      <div class="control-buttons">
+        <button id="display-sick-early" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.early)">Early</button>
+        <button id="display-sick-late" type="button" onclick="setDisplaySick(state.activeConfig.displaySick.late)">Late</button>
+      </div> 
+    </div>
+
+  </fieldset>
+  
+</div>

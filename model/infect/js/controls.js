@@ -75,11 +75,13 @@ function drawControls()
 {
 //	drawPlay();
 //	drawRun();
-	drawSpeed();
 
-	drawStart();
 	drawCapital();
+	drawStart();
+	drawGameSpeed();
 	drawDisplaySick();
+
+	drawSpeed();
 
 	drawMasks();
 	drawTests();
@@ -132,6 +134,18 @@ function setSpeed(spec)
 	state.speedSpec = spec;
 
 	drawControls();
+}
+
+function setGameSpeed(spec)
+{
+	persistent.secondsPerStepSpec = spec;
+
+	drawControls();
+}
+
+function drawGameSpeed()
+{
+	drawValue("game-speed", persistent.secondsPerStepSpec);
 }
 
 function setStart(spec)

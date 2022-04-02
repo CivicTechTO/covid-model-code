@@ -40,14 +40,7 @@ class GameState extends TownState
 		this.past = null;
 		this.animate = animate;
 
-		if (playGame)
-		{
-			this.setGame();
-		}
-		else
-		{
-			this.notGame();
-		}
+		this.setGame();
 
 		this.trace = 
 			{
@@ -114,34 +107,20 @@ class GameState extends TownState
 		return this.useTraceValue;
 	}
 
-	notGame()
-	{
-		this.game = false;
-		this.mode = 0;
-		this.animate = animate;
-
-		this.setSecondsPerStep(this.activeConfig.secondsPerStep.small);
-
-		classShow("early-show", true);
-		classShow("game-show", false);
-
-		gameOn(false);
-	}
-
 	setGame()
 	{
 		this.game = true;
 		this.mode = persistent.displaySickSpec.value;
 		this.animate = gameAnimate;
 
-		this.setSecondsPerStep(this.activeConfig.secondsPerStep.large);
+		this.setSecondsPerStep(persistent.secondsPerStepSpec.value);
 
 		classShow("early-show", isEarly());
 		classShow("game-show", true);
 
 		gameOn(true);
 
-		setText("limit", "/" + state.savedConfig.limit.toString());
+		setText("limit", "/" + this.savedConfig.limit.toString());
 		showInline("limit");
 		showInline("score-block");		
 	}

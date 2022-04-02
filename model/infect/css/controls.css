@@ -28,15 +28,15 @@ fieldset
 	padding: 3px;
 }
 
-#difficulty-box
+#options-box
 {
 	padding: 3px;
 }
 
-.difficulty-contents
+.options-contents
 {
     display: grid;
-    grid-template-columns: 150px 24px 110px auto;
+    grid-template-columns: 150px 24px 120px auto;
 }
 
 #records
@@ -75,7 +75,7 @@ fieldset
 .controls-contents
 {
     display: grid;
-    grid-template-columns: 100px 24px 110px auto;
+    grid-template-columns: 100px 24px 120px auto;
 }
 
 #speed-group
@@ -193,6 +193,7 @@ button:disabled
 {
 	padding-top: 2px;
 	padding-left: 6px;
+	padding-right: 6px;
 	width: 100px;
 	margin-right: 10px;
 	background-color: #2C7BB6;

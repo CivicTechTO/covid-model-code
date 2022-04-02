@@ -19,7 +19,11 @@ function makeConfig()
 				, fast: {label: "Fast", value: 120, colour: "#D7191C"}
 			}
 
-		, secondsPerStep: {small: 10, large: 30}
+		, secondsPerStep: 
+			{
+				slow: {label: "Slow", value: 10, colour: "#2C7BB6"}
+				, fast: {label: "Fast", value: 30, colour: "#D7191C"}
+			}
 		, graphedValues : { illustration : [ "symptoms", "infectedpct", "homeSick", "wardSick", "hallway" ],
 		                    game : [ "symptoms", "homeSick", "wardSick", "hallway", "score" ] }
 		, graphedInfectionLocations : [ 'factoryList', 'officeList', 'schoolList', 'houseList', 'bunkHouseList',
@@ -162,8 +166,9 @@ function makeConfig()
 
 		, capital:
 			{
-				high: {label: "High", value: 20000000, colour: "#2C7BB6"}
-				, low: {label: "Low", value: 5000000, colour: "#D7191C"}
+				veryHigh: {label: "Cannot Lose", value: 20000000000, colour: "#2C7BB6"}
+				, high: {label: "Easy", value: 20000000, colour: "#857AA3"}
+				, low: {label: "Hard", value: 5000000, colour: "#D7191C"}
 			}
 
 		, displaySick:
