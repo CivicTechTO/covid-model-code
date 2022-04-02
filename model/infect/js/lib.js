@@ -120,8 +120,8 @@ function animate(timestamp)
 
 function runNothing()
 {
+	setRunning(false);
 
-	setText("what-is-running", "Nothing");
 	show("run-box", "block");
 }
 

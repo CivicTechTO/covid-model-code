@@ -108,12 +108,34 @@ function drawRun()
 function launch(game) 
 {
 	hide("run-box");
-	setText("what-is-running", game ? "The game" : "The simulation")
+
+	setRunning(true);
+
 	persistent.gameStarted = game;
 
 	newGame(game);
 	drawControls();
 	startRunning();
+}
+
+function setRunning(running) 
+{
+	if (running)
+	{
+		setText("what-is-running", "The game");
+		setText("capital-option", persistent.capitalSpec.label + ", ");
+		setText("infected-option", persistent.startSpec.label + ", ");
+		setText("game-speed-option", persistent.secondsPerStepSpec.label + ", ");
+		setText("display-sick-option", persistent.displaySickSpec.label + ".");
+	}
+	else
+	{
+		setText("what-is-running", "Nothing");
+		setText("capital-option", "");
+		setText("infected-option", "");
+		setText("game-speed-option", "");
+		setText("display-sick-option", "");
+	}
 }
 
 function startRunning()
