@@ -6,7 +6,7 @@ class GameState extends TownState
 
 		this.game = false;
 		this.score = 0;
-		this.netScore = persistent.capitalSpec.value;
+		this.netScore = persistent.capitalSpec.value.capital.capital;
 		this.scoreFormat = new Intl.NumberFormat(navigator.language, {maximumFractionDigits: 0});
 		this.scoreDate = -1;
 
@@ -227,7 +227,7 @@ class GameState extends TownState
 				this.score += adjustDamage(this.damageScore());
 				this.score += adjustIntervention(this.interventionScore());
 				
-				this.netScore = persistent.capitalSpec.value - this.score;
+				this.netScore = persistent.capitalSpec.value.capital - this.score;
 				
 				this.showScore();
 
@@ -338,19 +338,21 @@ class GameState extends TownState
 	scoreroomButtons()
 	{
 		let result = 0;
+		const factor = persistent.capitalSpec.value.closedFactor;
+
 		const scoreArray = this.activeConfig.intervention.room;
 
-		result += !this.roomButtons[C.ROOMTYPE.OPEN].get() ? scoreArray[C.ROOMTYPE.OPEN] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.WORSHIP].get() ? scoreArray[C.ROOMTYPE.WORSHIP] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.RESTAURANTS].get() ? scoreArray[C.ROOMTYPE.RESTAURANTS] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.BARS].get() ? scoreArray[C.ROOMTYPE.BARS] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.CLUBS].get() ? scoreArray[C.ROOMTYPE.CLUBS] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.SCHOOLS].get() ? scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.OFFICES].get() ? scoreArray[C.ROOMTYPE.OFFICES] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.FACTORY].get() ? scoreArray[C.ROOMTYPE.FACTORY] : 0;
-//		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? scoreArray[C.ROOMTYPE.GROCERIES] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.OUTSIDE].get() ? scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
-		result += !this.roomButtons[C.ROOMTYPE.PARTIES].get() ? scoreArray[C.ROOMTYPE.PARTIES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OPEN].get() ? factor * scoreArray[C.ROOMTYPE.OPEN] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.WORSHIP].get() ? factor * scoreArray[C.ROOMTYPE.WORSHIP] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.RESTAURANTS].get() ? factor * scoreArray[C.ROOMTYPE.RESTAURANTS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.BARS].get() ? factor * scoreArray[C.ROOMTYPE.BARS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.CLUBS].get() ? factor * scoreArray[C.ROOMTYPE.CLUBS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.SCHOOLS].get() ? factor * scoreArray[C.ROOMTYPE.SCHOOLS] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OFFICES].get() ? factor * scoreArray[C.ROOMTYPE.OFFICES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.FACTORY].get() ? factor * scoreArray[C.ROOMTYPE.FACTORY] : 0;
+//		result += !this.roomButtons[C.ROOMTYPE.GROCERIES].get() ? factor * scoreArray[C.ROOMTYPE.GROCERIES] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.OUTSIDE].get() ? factor * scoreArray[C.ROOMTYPE.OUTSIDE] : 0;
+		result += !this.roomButtons[C.ROOMTYPE.PARTIES].get() ? factor * scoreArray[C.ROOMTYPE.PARTIES] : 0;
 
 		return result;
 	}
@@ -358,14 +360,16 @@ class GameState extends TownState
 	maxScoreroomButtons()
 	{
 		const scoreArray = this.activeConfig.intervention.room;
+		const factor = persistent.capitalSpec.value.closedFactor;
+
 		const sum = (accumulator, currentValue) => accumulator + currentValue;
 
-		return scoreArray.reduce(sum);
+		return factor * scoreArray.reduce(sum);
 	}
 
     getScore ()
 	{
-        return (Math.max(0, this.netScore) / persistent.capitalSpec.value) * 100;
+        return (Math.max(0, this.netScore) / persistent.capitalSpec.value.capital) * 100;
 	}
 	
 	setInterventions()
