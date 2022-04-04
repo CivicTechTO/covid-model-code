@@ -5,6 +5,7 @@ function connectTooltips()
 	connect("general-tooltip", "general-tooltip-button");
 	connect("speed-tooltip", "speed-tooltip-button");
 	connect("start-infected-tooltip", "start-infected-tooltip-button");
+	connect("game-speed-tooltip", "game-speed-tooltip-button");
 	connect("capital-tooltip", "capital-tooltip-button");
 	connect("display-sick-tooltip", "display-sick-tooltip-button");
 	connect("game-tooltip", "game-tooltip-button");
