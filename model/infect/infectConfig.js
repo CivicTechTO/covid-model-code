@@ -166,9 +166,10 @@ function makeConfig()
 
 		, capital:
 			{
-				veryHigh: {label: "Cannot Lose", value: 20000000000, colour: "#2C7BB6"}
-				, high: {label: "Easy", value: 20000000, colour: "#857AA3"}
-				, low: {label: "Hard", value: 5000000, colour: "#D7191C"}
+				veryHigh: {label: "Cannot Lose", value: {capital: 20000000000, closedFactor: 1}, colour: "#2C7BB6"}
+				, high: {label: "Easy", value: {capital: 20000000, closedFactor: 1}, colour: "#857AA3"}
+				, low: {label: "Hard", value: {capital: 5000000, closedFactor: 1}, colour: "#BE5A6F"}
+				, veryLow: {label: "Very Hard", value: {capital: 5000000, closedFactor: 3}, colour: "#D7191C"}
 			}
 
 		, displaySick:
