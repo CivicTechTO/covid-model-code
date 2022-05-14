@@ -4,8 +4,8 @@
 #    ship covid
 #    ship devcovid
 
-REMOTE=jrootham@jrootham.ca
-BASE=/var/www/vhosts/jrootham.ca/$1.jrootham.ca
+REMOTE=website@jrootham.ca
+BASE=$1
 LOCAL=/home/jrootham/dev/civictech/covid-model-code
 MODEL=$LOCAL/model
 INFECT=$MODEL/infect
