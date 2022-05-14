@@ -228,8 +228,6 @@ class Room
 	draw(context)
 	{
 		this.background(context);
-		this.drawVentilation(context);
-		this.drawLoudness(context);
 	}
 
 	background(context)
