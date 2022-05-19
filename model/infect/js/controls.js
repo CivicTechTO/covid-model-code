@@ -16,6 +16,11 @@ function showGrid(name)
 	show(name, "grid");
 }
 
+function showBlock(name) 
+{
+	show(name, "block");
+}
+
 function hide(name) 
 {
 	const element = document.getElementById(name);
@@ -313,4 +318,57 @@ function ok()
 function disableControls(disable) 
 {
 	document.getElementById("lower-controls").disabled = disable;
+}
+
+function animationTabAction() 
+{
+	pickTab(animationData, staticData, chartsData);
+}
+
+function staticTabAction() 
+{
+	pickTab(staticData, animationData, chartsData);
+}
+
+function chartsTabAction() 
+{
+	pickTab(chartsData, staticData, animationData);
+}
+
+const animationData =
+{
+	  tab: "animation-tab-button"
+	, block: "animation-block"
+}
+
+const staticData =
+{
+	  tab: "static-tab-button"
+	, block: "static-block"
+}
+
+const chartsData =
+{
+	  tab: "charts-tab-button"
+	, block: "charts"
+}
+
+
+function pickTab(onTab, off1Tab, off2Tab)
+{
+	tabOn(onTab);
+	tabOff(off1Tab);
+	tabOff(off2Tab);
+}
+
+function tabOn(tabData)
+{
+	setColour(tabData.tab, state.activeConfig.pickedTabColour);
+	showBlock(tabData.block);
+}
+
+function tabOff(tabData)
+{
+	setColour(tabData.tab, state.activeConfig.tabColour);
+	hide(tabData.block);
 }

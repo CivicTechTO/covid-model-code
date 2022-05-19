@@ -12,10 +12,75 @@
 	margin-right: auto;
 }
 
+#tab-container
+{
+	position: relative;
+}
+
+#tabs-box
+{
+	margin-bottom: 20px;
+}
+
+.tab-button
+{
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.tab
+{
+	display: inline-block;
+	margin-right: 20px;
+	font-size: large;
+	color: white;
+}
+
+#animation-tab-button
+{
+	background-color: blue;
+}
+
+#static-tab-button
+{
+	background-color: #7070FF;
+}
+
+#charts-tab-button
+{
+	background-color: #7070FF;
+}
+
+.block 
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1000px;
+}
+
 #animation-block
 {
 	display: block;
 	vertical-align: top;
+}
+
+#static-block
+{
+	display: none;
+	vertical-align: top;
+}
+
+#charts
+{
+	display: none;
+}
+
+.feedback-button-box
+{
+	margin-top: 10px;
 }
 
 .info
@@ -28,6 +93,7 @@
 .tooltip
 {
 	display: none;
+	z-index: 20;
 	position: absolute;
 	width: 600px;
 	padding: 10px;
@@ -51,13 +117,6 @@
 	display: inline-block;
 	width: 20px;
 	object-fit: scale-down;
-}
-
-#static-block
-{
-	display: inline-block;
-	vertical-align: top;
-	width: 1000px;
 }
 
 #animation-right
@@ -104,12 +163,6 @@
 	border: solid blue 1px;
 	width: 1000px;
 }
-/*
-#charts
-{
-	display: inline-block;
-	background-color: #97DEFB;
-} */
 
 #overview_container
 {

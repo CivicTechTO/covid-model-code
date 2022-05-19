@@ -10,6 +10,8 @@ function makeConfig()
 		, hotColour: "#D7191C"
 		, openColour: "#D01C8B"
 		, closedColour: "#4DAC26"
+		, tabColour: "#7070FF"
+		, pickedTabColour: "#0000FF"
 
 		, tooltips: {base: 6, streamXDelta: 1, streamYDelta: 1.5, placeDelta: 1}
 		, stepsPerFrame: 
