@@ -1,9 +1,26 @@
 m4_tooltip(display-sick-tooltip,
     Show Sick,
 `
-    <p>
+    <div>
       Show Sick late means that people turn red when symptoms appear.  Show Sick early means that people turn red when they become infected. This makes knowing when to intervene easier.  Note: it is not realistic.
-    </p>
+    </div>
+
+    <div>
+      During Show Sick early:
+      <div class="face-list">
+        <div class="face-name">Never been infectious</div> <div class="face"><img src="images/covid-uninfected.png"></div>
+        <div class="face-name">Currently infectious </div> <div class="face"><img src="images/covid-infected.png"></div>
+        <div class="face-name">No longer infectious </div> <div class="face"><img src="images/covid-recovered.png"></div>
+      </div>
+    </div>
+    <div>
+      During Show Sick late:
+      <div class="face-list">
+        <div class="face-name">Never been symptomatic</div> <div class="face"><img src="images/covid-uninfected.png"></div>
+        <div class="face-name">Currently symptomatic</div> <div class="face"><img src="images/covid-infected.png"></div>
+        <div class="face-name">No longer symptomatic</div> <div class="face"><img src="images/covid-recovered.png"></div>
+      </div>
+    </div>
 '
 )
 
