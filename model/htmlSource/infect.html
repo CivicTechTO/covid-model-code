@@ -19,23 +19,26 @@
   m4_include(images.html)
   
   <div id="page-title">
-    <a href="index.html"><h1>Animated Covid Game</h1></a>
+    <a href="index.html"><h1>Animated Covid Game/Simulation</h1></a>
   </div>
   
   m4_include(run.html)
 
   <div id="infect-container">
+
+    m4_include(runLine.html)
+    m4_include(infoPanel.html)
+  
     <div id="tabs-box">
-      <div class="tab" id="animation-tab"><button class="tab-button" id="animation-tab-button" onclick="animationTabAction();">Animation</button></div>
-      <div class="tab" id="static-tab"><button class="tab-button" id="static-tab-button" onclick="staticTabAction();">Controls</button></div>
-      <div class="tab" id="chart-tab"><button class="tab-button" id="charts-tab-button" onclick="chartsTabAction();">Charts</button></div>
+      <div class="tab picked" id="animation-tab"><button class="tab-button picked" id="animation-tab-button" onclick="animationTabAction();">Animation</button></div>
+      <div class="tab not-picked" id="static-tab"><button class="tab-button tab" id="static-tab-button" onclick="staticTabAction();">Controls</button></div>
+      <div class="tab not-picked" id="charts-tab"><button class="tab-button tab" id="charts-tab-button" onclick="chartsTabAction();">Charts</button></div>
     </div>
 
     <div id="tab-container">
       m4_include(animation.html)
 
-      <div id="static-block" class="block">
-        m4_include(infoPanel.html)
+      <div id="static-block" class="block picked">
         m4_include(controls.html)
         m4_include(records.html)
 

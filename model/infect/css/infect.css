@@ -5,6 +5,14 @@
     transform: translate(-50%, -50%);
 }
 
+.describe-box
+{
+	font-size: large;
+	font-weight: bold;
+
+	margin-bottom: 10px;
+}
+
 #infect-container
 {
 	width: 1004px;
@@ -19,38 +27,28 @@
 
 #tabs-box
 {
-	margin-bottom: 20px;
 }
+
 
 .tab-button
 {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	background-color: inherit;
+	border: none;
+	color: black;
+	font: inherit;
+	font-size: large;
+	font-weight: bold;
 }
 
 .tab
 {
 	display: inline-block;
 	margin-right: 20px;
-	font-size: large;
-	color: white;
-}
-
-#animation-tab-button
-{
-	background-color: blue;
-}
-
-#static-tab-button
-{
-	background-color: #7070FF;
-}
-
-#charts-tab-button
-{
-	background-color: #7070FF;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 
 .block 
@@ -58,13 +56,14 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 1000px;
+	width: 1006px;
 }
 
 #animation-block
 {
 	display: block;
 	vertical-align: top;
+	background-color: ;
 }
 
 #static-block
@@ -133,9 +132,6 @@
 {
 	display: flex;
 	flex-flow: row;
-
-	font-size: large;
-	font-weight: bold;
 }
 
 #day-block
@@ -188,7 +184,6 @@
 
 .chartx 
 {
-  background-color: var(--background);
   /* display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 320px 1fr;

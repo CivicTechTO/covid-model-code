@@ -302,7 +302,7 @@ class State
 
 	drawBackground(context)
 	{
-		context.fillStyle = this.activeConfig.background;
+		context.fillStyle = this.activeConfig.pickedTabColour;
 		context.fillRect(0, 0, this.size.width, this.size.height);
 
 		for (const room of this.roomList)

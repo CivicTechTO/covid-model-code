@@ -69,7 +69,6 @@ fieldset
 #controls
 {
 	display: inline-block;
-	background-color: var(--background);
 	padding-top: 10px;
 }
 

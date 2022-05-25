@@ -337,19 +337,19 @@ function chartsTabAction()
 
 const animationData =
 {
-	  tab: "animation-tab-button"
+	  tab: "animation-tab"
 	, block: "animation-block"
 }
 
 const staticData =
 {
-	  tab: "static-tab-button"
+	  tab: "static-tab"
 	, block: "static-block"
 }
 
 const chartsData =
 {
-	  tab: "charts-tab-button"
+	  tab: "charts-tab"
 	, block: "charts"
 }
 
@@ -364,11 +364,13 @@ function pickTab(onTab, off1Tab, off2Tab)
 function tabOn(tabData)
 {
 	setColour(tabData.tab, state.activeConfig.pickedTabColour);
+	setColour(tabData.tab + "-button", state.activeConfig.pickedTabColour);
 	showBlock(tabData.block);
 }
 
 function tabOff(tabData)
 {
 	setColour(tabData.tab, state.activeConfig.tabColour);
+	setColour(tabData.tab + "-button", state.activeConfig.tabColour);
 	hide(tabData.block);
 }
