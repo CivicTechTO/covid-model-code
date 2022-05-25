@@ -99,7 +99,9 @@ class GameChart
 						type : descriptor.kind,
 						data : { labels : [] },
 						options : { maintainAspectRatio : false, 
-									plugins : { title : titleValue } }
+									plugins : { title : titleValue },
+									animation: { duration: 0 }
+								  }
 				  	};
 	    if (descriptor.hasOwnProperty ('scale')) desc.options.scales = descriptor.scale;
 	    if (descriptor.hasOwnProperty ('legend')) desc.options.plugins.legend = descriptor.legend;
@@ -392,7 +394,7 @@ class ChartList
 	}
 }
 
-class SliderCharts extends ChartList
+/* class SliderCharts extends ChartList
 {
     constructor (refState, displayList, widget)
     {
@@ -414,7 +416,7 @@ class TwinCharts extends ChartList
         this.chartList = [ new OverviewChart (this.referenceList), 
                            new WindowChart (this.referenceList) ];
     }
-}
+} */
 
 class SingleChart extends ChartList
 {
