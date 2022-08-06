@@ -1,0 +1,30 @@
+Dear Editor:
+
+We have created an interactive visualization of a small town dealing with Covid, inspired by the description of spreader events described in the Atlantic article by Zeynep Tufekci. (Tufekci, Zeynep, This Overlooked Variable Is the Key to the Pandemic, Atlantic Monthly).
+
+The web page simulates the spread of covid over 100 days, and in particular the explosive speed with which it propagates.
+
+It shows the number of infected people in a graph and as individuals going about work, education, and recreation.The page presents a simulation/game, allowing users to experiment with mask mandates, isolation, testing, and complete or partial lockdowns as a way of combating the spread of the virus.
+
+The simulation also takes public distress at the disease itself and the cost and difficulty of the measures to mitigate COVID into account. The object of the game is to retain enough public support, or political capital, before a combination of resentment at the restrictions, hospital overcrowding, and the COVID death toll reduces the player’s position to zero, which ends the game.
+
+We have reviewed some of the academic literature on the subject, in particular papers describing the evidence for aerosol propagation and the effects of singing.
+
+To try out the web presentation:
+
+https://covid.jrootham.ca
+
+User: user
+
+Password: Test*123
+
+For accessd to the source code, please provide a Github id so we can give you permission to view the repository.
+
+We are assuming you will make a decision within one week. If you have a longer decision time than this, please let us know. 
+
+Thank you.
+
+Jim Rootham
+
+John Spragge
+
